@@ -1,0 +1,1 @@
+F:\Git\git-bash.exe ./weather.sh
