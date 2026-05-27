@@ -1,0 +1,7 @@
+Phase Training Results
+seq_len=24 pred_len=12 d_model=128
+
+rise: MAE=0.79 RMSE=0.95 val_loss=1.0960
+peak: MAE=0.70 RMSE=0.84 val_loss=0.6443
+decline: MAE=0.67 RMSE=0.84 val_loss=1.1478
+trough: MAE=0.70 RMSE=0.85 val_loss=0.5314
