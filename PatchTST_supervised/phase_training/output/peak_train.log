@@ -1,0 +1,22 @@
+Namespace(random_seed=2021, is_training=1, model_id='sunspot_phase_peak', model='PatchTST', data='phase_peak', root_path='./dataset_phase/', data_path='', features='M', target='ssn', freq='m', checkpoints='./checkpoints_phase/', seq_len=96, label_len=48, pred_len=24, fc_dropout=0.05, head_dropout=0.0, patch_len=16, stride=8, padding_patch='end', revin=1, affine=0, subtract_last=0, decomposition=0, kernel_size=25, individual=0, embed_type=0, enc_in=3, dec_in=3, c_out=1, d_model=512, n_heads=8, e_layers=2, d_layers=1, d_ff=2048, moving_avg=25, factor=1, distil=True, dropout=0.05, embed='timeF', activation='gelu', output_attention=False, do_predict=False, num_workers=0, itr=1, train_epochs=10, batch_size=16, patience=5, learning_rate=0.0001, des='test', loss='mse', lradj='type3', pct_start=0.3, use_amp=False, use_gpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', test_flop=False)
+>>>>>>>start training : sunspot_phase_peak_PatchTST_phase_peak_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+Epoch: 1 cost time: 5.862687587738037
+Epoch: 1, Steps: 14 | Train Loss: 1.2600420 Vali Loss: 0.9189034 Test Loss: 0.8822049
+Epoch: 2 cost time: 4.754984378814697
+Epoch: 2, Steps: 14 | Train Loss: 0.9760715 Vali Loss: 1.2175758 Test Loss: 1.3911278
+Epoch: 3 cost time: 4.63130259513855
+Epoch: 3, Steps: 14 | Train Loss: 0.8837365 Vali Loss: 0.8069817 Test Loss: 1.3258867
+Epoch: 4 cost time: 4.662312746047974
+Epoch: 4, Steps: 14 | Train Loss: 0.7610900 Vali Loss: 0.7009114 Test Loss: 1.1873401
+Epoch: 5 cost time: 5.3186280727386475
+Epoch: 5, Steps: 14 | Train Loss: 0.7064948 Vali Loss: 0.8215159 Test Loss: 1.1899736
+Epoch: 6 cost time: 4.8422791957855225
+Epoch: 6, Steps: 14 | Train Loss: 0.6646420 Vali Loss: 0.8067253 Test Loss: 1.1723106
+Epoch: 7 cost time: 4.761178970336914
+Epoch: 7, Steps: 14 | Train Loss: 0.6330011 Vali Loss: 0.7623444 Test Loss: 1.1935730
+Epoch: 8 cost time: 4.726300239562988
+Epoch: 8, Steps: 14 | Train Loss: 0.6063421 Vali Loss: 0.7734321 Test Loss: 1.2056563
+Epoch: 9 cost time: 4.747873544692993
+Epoch: 9, Steps: 14 | Train Loss: 0.5791918 Vali Loss: 0.7577289 Test Loss: 1.2234385
+>>>>>>>testing : sunspot_phase_peak_PatchTST_phase_peak_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+mse:1.2261253595352173, mae:0.9361411929130554, rse:1.240757703781128

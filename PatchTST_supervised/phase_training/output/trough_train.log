@@ -1,0 +1,16 @@
+Namespace(random_seed=2021, is_training=1, model_id='sunspot_phase_trough', model='PatchTST', data='phase_trough', root_path='./dataset_phase/', data_path='', features='M', target='ssn', freq='m', checkpoints='./checkpoints_phase/', seq_len=96, label_len=48, pred_len=24, fc_dropout=0.05, head_dropout=0.0, patch_len=16, stride=8, padding_patch='end', revin=1, affine=0, subtract_last=0, decomposition=0, kernel_size=25, individual=0, embed_type=0, enc_in=3, dec_in=3, c_out=1, d_model=512, n_heads=8, e_layers=2, d_layers=1, d_ff=2048, moving_avg=25, factor=1, distil=True, dropout=0.05, embed='timeF', activation='gelu', output_attention=False, do_predict=False, num_workers=0, itr=1, train_epochs=10, batch_size=16, patience=5, learning_rate=0.0001, des='test', loss='mse', lradj='type3', pct_start=0.3, use_amp=False, use_gpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', test_flop=False)
+>>>>>>>start training : sunspot_phase_trough_PatchTST_phase_trough_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+Epoch: 1 cost time: 5.595794677734375
+Epoch: 1, Steps: 13 | Train Loss: 1.2784640 Vali Loss: 1.0314302 Test Loss: 0.9671819
+Epoch: 2 cost time: 5.410587549209595
+Epoch: 2, Steps: 13 | Train Loss: 0.9472306 Vali Loss: 1.4035776 Test Loss: 1.0509892
+Epoch: 3 cost time: 5.299602746963501
+Epoch: 3, Steps: 13 | Train Loss: 0.8047488 Vali Loss: 2.1832628 Test Loss: 0.8782821
+Epoch: 4 cost time: 5.350499629974365
+Epoch: 4, Steps: 13 | Train Loss: 0.6644858 Vali Loss: 1.3117917 Test Loss: 0.6746042
+Epoch: 5 cost time: 5.813482284545898
+Epoch: 5, Steps: 13 | Train Loss: 0.5792055 Vali Loss: 1.1358835 Test Loss: 0.6446462
+Epoch: 6 cost time: 5.5485522747039795
+Epoch: 6, Steps: 13 | Train Loss: 0.5444455 Vali Loss: 1.1418301 Test Loss: 0.6189436
+>>>>>>>testing : sunspot_phase_trough_PatchTST_phase_trough_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+mse:0.6062066555023193, mae:0.6306236982345581, rse:0.8594117164611816

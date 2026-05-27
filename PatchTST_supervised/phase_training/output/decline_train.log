@@ -1,0 +1,24 @@
+Namespace(random_seed=2021, is_training=1, model_id='sunspot_phase_decline', model='PatchTST', data='phase_decline', root_path='./dataset_phase/', data_path='', features='M', target='ssn', freq='m', checkpoints='./checkpoints_phase/', seq_len=96, label_len=48, pred_len=24, fc_dropout=0.05, head_dropout=0.0, patch_len=16, stride=8, padding_patch='end', revin=1, affine=0, subtract_last=0, decomposition=0, kernel_size=25, individual=0, embed_type=0, enc_in=3, dec_in=3, c_out=1, d_model=512, n_heads=8, e_layers=2, d_layers=1, d_ff=2048, moving_avg=25, factor=1, distil=True, dropout=0.05, embed='timeF', activation='gelu', output_attention=False, do_predict=False, num_workers=0, itr=1, train_epochs=10, batch_size=16, patience=5, learning_rate=0.0001, des='test', loss='mse', lradj='type3', pct_start=0.3, use_amp=False, use_gpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', test_flop=False)
+>>>>>>>start training : sunspot_phase_decline_PatchTST_phase_decline_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+Epoch: 1 cost time: 7.0489113330841064
+Epoch: 1, Steps: 18 | Train Loss: 1.2824023 Vali Loss: 1.3551636 Test Loss: 1.2263879
+Epoch: 2 cost time: 7.83445405960083
+Epoch: 2, Steps: 18 | Train Loss: 0.9800390 Vali Loss: 1.5372195 Test Loss: 1.1577557
+Epoch: 3 cost time: 7.853579044342041
+Epoch: 3, Steps: 18 | Train Loss: 0.8450503 Vali Loss: 1.3775176 Test Loss: 1.1775616
+Epoch: 4 cost time: 6.713954210281372
+Epoch: 4, Steps: 18 | Train Loss: 0.7314961 Vali Loss: 1.2762367 Test Loss: 0.9823650
+Epoch: 5 cost time: 6.160461664199829
+Epoch: 5, Steps: 18 | Train Loss: 0.6660979 Vali Loss: 1.2056962 Test Loss: 0.9359884
+Epoch: 6 cost time: 6.934493064880371
+Epoch: 6, Steps: 18 | Train Loss: 0.6267244 Vali Loss: 1.1694670 Test Loss: 1.0316311
+Epoch: 7 cost time: 6.943129539489746
+Epoch: 7, Steps: 18 | Train Loss: 0.5897059 Vali Loss: 1.2768937 Test Loss: 1.1053195
+Epoch: 8 cost time: 7.654608726501465
+Epoch: 8, Steps: 18 | Train Loss: 0.5584983 Vali Loss: 1.2857183 Test Loss: 1.1383421
+Epoch: 9 cost time: 7.173127889633179
+Epoch: 9, Steps: 18 | Train Loss: 0.5190484 Vali Loss: 1.3410126 Test Loss: 1.1686920
+Epoch: 10 cost time: 6.7817089557647705
+Epoch: 10, Steps: 18 | Train Loss: 0.4977298 Vali Loss: 1.3705145 Test Loss: 1.2409598
+>>>>>>>testing : sunspot_phase_decline_PatchTST_phase_decline_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+mse:1.327716588973999, mae:0.9637712240219116, rse:1.2326185703277588
