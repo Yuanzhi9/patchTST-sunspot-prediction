@@ -1,0 +1,9 @@
+﻿step,name,purpose,expected_gain
+1,Cycle 24/25 strict leave-out validation,用两个真实留出周期判断方法是否稳定，而不是只看 Cycle 25,发现弱周/强周下的失效模式
+2,Predecessor-successor analog baseline,检验上一活动周是否能预测下一活动周,建立最低基线，通常会低估突增强周期
+3,Early-shape update,加入目标周期前 36/48/60 个月观测,改善上升段后的剩余趋势和峰值位置
+4,Waldmeier calibrated analog,用早期上升率校正峰值幅度和峰值时间,缓解峰值低估，是当前单变量 SSN 下最关键优化
+5,Parametric Waldmeier/Hathaway curve,用带物理形态的偏斜周期曲线约束长期下降段,避免相似模板在下降段长期偏高，改善 Cycle 24 弱周期验证
+6,Cycle 24 vs Cycle 25 error diagnosis,比较弱 Cycle 24 和偏强 Cycle 25 的峰值误差,明确模型是否系统性低估强周
+7,Cycle 26 scenario forecast,不做武断单点预测，输出弱/中/强情景,结果更稳，更适合报告和论文
+8,Add precursor variables,加入 F10.7、极区磁场、太阳黑子面积、aa/Ap 等,真正提高下一周峰值强度预报上限

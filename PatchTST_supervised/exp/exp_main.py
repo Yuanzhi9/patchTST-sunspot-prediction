@@ -187,12 +187,6 @@ class Exp_Main(Exp_Basic):
                     batch_y = batch_y[:, -self.args.pred_len:, f_dim:].to(self.device)
                     loss = criterion(outputs, batch_y)
                     train_loss.append(loss.item())
-                    # 打印训练集上的预测对比（每100个batch打印一次，只打印第一个样本）04.03添加
-                    if i % 100 == 0:
-                        print(f"\n[DEBUG] Batch {i}, 训练集预测 vs 真实（前10个预测点）:")
-                        print(f"  预测值: {outputs[0, :10, 0].detach().cpu().numpy()}")
-                        print(f"  真实值: {batch_y[0, :10, 0].detach().cpu().numpy()}")
-
                 if (i + 1) % 100 == 0:
                     print("\titers: {0}, epoch: {1} | loss: {2:.7f}".format(i + 1, epoch + 1, loss.item()))
                     speed = (time.time() - time_now) / iter_count
@@ -261,10 +255,7 @@ class Exp_Main(Exp_Basic):
 
         self.model.eval()
         with torch.no_grad():
-            print(f"[DEBUG] test_loader length = {len(test_loader)}")
-            print(f"[DEBUG] test_loader.batch_size = {test_loader.batch_size}") #04.03添加
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(test_loader):
-                print(f"[DEBUG] Entering batch {i}")
                 batch_x = batch_x.float().to(self.device)
                 batch_y = batch_y.float().to(self.device)
 
@@ -304,8 +295,6 @@ class Exp_Main(Exp_Basic):
                 pred = outputs  # outputs.detach().cpu().numpy()  # .squeeze()
                 true = batch_y  # batch_y.detach().cpu().numpy()  # .squeeze()
 
-                print(f"[DEBUG] batch {i}: true.shape = {true.shape}, pred.shape = {pred.shape}")  #04.03加的打印
-
                 preds.append(pred)
                 trues.append(true)
                 inputx.append(batch_x.detach().cpu().numpy())
@@ -325,9 +314,6 @@ class Exp_Main(Exp_Basic):
         inputx = np.concatenate(inputx, axis=0)
         #inputx = np.array(inputx)
 
-        print(f"[DEBUG] After np.array: preds.shape = {preds.shape}, trues.shape = {trues.shape}")
-        print(f"[DEBUG] preds.ndim = {preds.ndim}, trues.ndim = {trues.ndim}") #04.03加的
-
         #preds = preds.reshape(-1, preds.shape[-2], preds.shape[-1])
         #preds = preds.reshape(-1, preds.shape[-1])下面六行是04.03新添的
         if preds.ndim >= 3:
@@ -337,7 +323,6 @@ class Exp_Main(Exp_Basic):
         else:
             preds = preds.reshape(1, -1, 1)
 
-        print(f"[DEBUG] Before reshape: trues.shape = {trues.shape}, len(trues.shape) = {len(trues.shape)}")  #04.03加的
         trues = trues.reshape(-1, trues.shape[-2], trues.shape[-1])
         inputx = inputx.reshape(-1, inputx.shape[-2], inputx.shape[-1])
 

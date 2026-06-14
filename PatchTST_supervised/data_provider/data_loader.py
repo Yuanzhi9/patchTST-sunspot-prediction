@@ -82,17 +82,9 @@ class Dataset_ETT_hour(Dataset):
 
 
 
-        print(f"[DEBUG] {self.set_type}: border1={border1}, border2={border2}")
-        print(f"[DEBUG] data shape after slicing = {data[border1:border2].shape}")
-        print(f"[DEBUG] seq_len={self.seq_len}, pred_len={self.pred_len}")
-        print(f"[DEBUG] Calculated __len__ = {len(data[border1:border2]) - self.seq_len - self.pred_len + 1}")
         self.data_x = data[border1:border2]
         self.data_y = data[border1:border2]
         self.data_stamp = data_stamp
-        print(f"[DEBUG] {self.set_type}: border1={border1}, border2={border2}")
-        print(f"[DEBUG] data_x shape = {self.data_x.shape}")
-        print(f"[DEBUG] seq_len={self.seq_len}, pred_len={self.pred_len}")
-        print(f"[DEBUG] __len__ would be: {len(self.data_x) - self.seq_len - self.pred_len + 1}")  #04.03添加打印
 
     def __getitem__(self, index):
         s_begin = index
@@ -299,10 +291,6 @@ class Dataset_Custom(Dataset):
             data_stamp = time_features(pd.to_datetime(df_stamp['date'].values), freq=self.freq)
             data_stamp = data_stamp.transpose(1, 0)
 
-        print(f"[DEBUG] Dataset_Custom {self.set_type}: border1={border1}, border2={border2}")
-        print(f"[DEBUG] data shape = {data.shape}, data[border1:border2].shape = {data[border1:border2].shape}")
-        print(f"[DEBUG] seq_len={self.seq_len}, pred_len={self.pred_len}")
-        print(f"[DEBUG] Calculated length = {data[border1:border2].shape[0] - self.seq_len - self.pred_len + 1}")   #04.03添加
         self.data_x = data[border1:border2]
         self.data_y = data[border1:border2]
         self.data_stamp = data_stamp
@@ -315,22 +303,14 @@ class Dataset_Custom(Dataset):
 
         seq_x = self.data_x[s_begin:s_end]
         seq_y = self.data_y[r_begin:r_end]
-        #if index == 0:         20226.05.06基线实验寻找为什么只有32个样本时注释
-            #print(f"[DEBUG] Dataset_Custom __getitem__: seq_y shape={seq_y.shape}, seq_y[:10,0]={seq_y[:10,0]}")
-        if index % 10 == 0:  # 每 10 个样本打印一次，避免刷屏
-            print(f"[DEBUG] __getitem__ index={index}, s_end={s_end}, r_end={r_end}")
 
         seq_x_mark = self.data_stamp[s_begin:s_end]
         seq_y_mark = self.data_stamp[r_begin:r_end]
 
         return seq_x, seq_y, seq_x_mark, seq_y_mark
 
-    #def __len__(self):0403注释掉
-        #print(f"[DEBUG] __len__ returning {length}") #04.03添加
-        #return len(self.data_x) - self.seq_len - self.pred_len + 1
     def __len__(self):
         length = len(self.data_x) - self.seq_len - self.pred_len + 1
-        print(f"[DEBUG] __len__ returning {length}")
         return max(0, length)
 
     def inverse_transform(self, data):
@@ -418,11 +398,7 @@ class Dataset_Pred(Dataset):
             self.data_y = df_data.values[border1:border2]
         else:
             self.data_y = data[border1:border2]
-        self.data_stamp = data_stamp  #04.03加了打印
-        print(f"[DEBUG] {self.set_type}: border1={border1}, border2={border2}")
-        print(f"[DEBUG] data_x shape = {self.data_x.shape}")
-        print(f"[DEBUG] seq_len={self.seq_len}, pred_len={self.pred_len}")
-        print(f"[DEBUG] __len__ would be: {len(self.data_x) - self.seq_len - self.pred_len + 1}")   
+        self.data_stamp = data_stamp
 
     def __getitem__(self, index):
         s_begin = index

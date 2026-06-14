@@ -61,3 +61,9 @@ mse:0.10670650750398636, mae:0.2494337111711502, rse:0.5236213207244873
 Baseline_1867plus_D128_RevIN1_Linear_PatchTST_custom_ftMS_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_Baseline_1867plus_D128_RevIN1_Linear_0  
 mse:0.2151445597410202, mae:0.33683571219444275, rse:0.6430548429489136
 
+sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm512_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0  
+mse:0.08509543538093567, mae:0.14118161797523499, rse:0.3156743049621582
+
+sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0  
+mse:0.07907412946224213, mae:0.12536537647247314, rse:0.3043009340763092
+

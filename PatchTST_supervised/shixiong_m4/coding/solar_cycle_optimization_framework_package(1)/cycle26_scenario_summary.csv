@@ -1,0 +1,13 @@
+﻿item,value
+cycle25_start,2019-12
+latest_observation,2025-10
+estimated_cycle26_start,2034-12
+estimated_cycle26_medium_peak_date,2040-05
+cycle26_weak_peak_ssn,114.70
+cycle26_medium_peak_ssn,167.91
+cycle26_strong_peak_ssn,215.35
+cycle26_weighted_median_peak_month,48
+cycle26_weighted_median_length_months,126
+cycle25_waldmeier_pred_peak_amp,159.22
+cycle25_waldmeier_pred_peak_month,58.0
+cycle25_waldmeier_pred_length,135.5
