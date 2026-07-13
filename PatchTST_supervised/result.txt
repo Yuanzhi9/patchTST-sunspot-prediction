@@ -1,3 +1,23 @@
 sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df256_fc1_ebtimeF_dtTrue_dryrun_0  
 mse:0.5648206472396851, mae:0.5625796914100647, rse:0.8132824301719666
 
+
+=== Level 3 Residual Evaluation (sunspot_residual_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_residual_fullfit_0) ===
+M4 alone: MAE=3.53, RMSE=5.16, R2=0.9873
+PatchTST residual: MAE=4.25, RMSE=5.85, R2=-0.3203
+M4+PatchTST: MAE=4.25, RMSE=5.85, R2=0.9837
+Improvement over M4 alone: -20.4%
+  0-50: M4=2.02, Comb=3.77, N=253
+  50-100: M4=1.16, Comb=2.02, N=287
+  100-150: M4=5.39, Comb=4.34, N=490
+  >150: M4=5.08, Comb=11.54, N=98
+
+
+=== Level 3 Residual v2 (sunspot_residual_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_residual_fullfit_0) ===
+M4 forecast: MAE=3.32, RMSE=4.93, R2=0.9884
+M4+PatchTST:  MAE=4.48, RMSE=6.80, R2=0.9779
+Improvement: -34.9%
+  0-50: N=253, M4=1.87, Comb=3.44, Impr=-83.9%
+  50-100: N=287, M4=0.87, Comb=1.68, Impr=-93.0%
+  100-150: N=490, M4=3.75, Comb=3.87, Impr=-3.3%
+  >150: N=98, M4=12.12, Comb=18.43, Impr=-52.1%

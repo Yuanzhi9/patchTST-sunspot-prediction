@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pth
+checkpoints/
+checkpoints_residual/
+.ipynb_checkpoints/
+results/
+test_results/
