@@ -210,72 +210,183 @@ print()
 print("【交叉判断】")
 print("  1. 纯数据驱动方法的 MAE 下限约在 19-21 SSN（DLinear-I + 有限历史）")
 print("  2. 物理方法 M4 只用 36 个月观测达到 MAE=3.32，差 6 倍")
-print("  3. 这个 6 倍差距不太可能被"更多数据"或"更大模型"缩小")
+print("  3. 这个 6 倍差距不太可能被'更多数据'或'更大模型'缩小")
 print("  4. 结论: 纯数据驱动方法在该问题上存在硬天花板，物理先验是关键瓶颈")
 print()
 print("【对下一步的指导】")
 print("  路线A: 放弃纯数据驱动，转 M4 物理+数据混合 (M4包络作为输入特征)")
 print("  路线B: 保留 PatchTST/DLinear 作为 M4 的残差修正组件")
 print("  路线C: 转向其他大模型 (iTransformer/TimesNet) 做对比，验证结论的普适性")
-    else:
-        print(">> PatchTST 明显优于 DLinear-I，Transformer 结构有真实贡献")
 
 # ============================================================
-# Plot comparison
+# Load all predictions for plotting
 # ============================================================
-fig, axes = plt.subplots(2, 1, figsize=(14, 10), sharex=True)
-
-# Top: time series comparison
-ax1 = axes[0]
-colors = {'A (PatchTST sl96)': 'r', 'D1 (DLinear ind0)': 'g', 'D2 (DLinear-I ind1)': 'b'}
-
-# Plot true values once
-if available:
-    sample_name = list(available.keys())[0]
-    folder = available[sample_name]
+all_preds = {}
+all_trues = {}
+for name, setting in EXPERIMENTS.items():
+    if setting is None:
+        continue
+    folder = os.path.join(RESULTS_DIR, setting)
+    if not os.path.exists(folder):
+        continue
+    pred_z = np.load(os.path.join(folder, 'pred.npy'))
     true_z = np.load(os.path.join(folder, 'true.npy'))
-    _, true_phys = denorm(true_z, true_z)
-    x = np.arange(len(true_phys))
-    ax1.plot(x, true_phys, 'k-', label='True SSN', alpha=0.8, linewidth=1.5)
+    pred_phys, true_phys = denorm(pred_z, true_z)
+    all_preds[name] = pred_phys
+    all_trues[name] = true_phys
 
-    for name, folder in available.items():
-        if name in colors:
-            pred_z = np.load(os.path.join(folder, 'pred.npy'))
-            true_z = np.load(os.path.join(folder, 'true.npy'))
-            pred_phys, _ = denorm(pred_z, true_z)
-            ax1.plot(x, pred_phys, color=colors[name], label=name, alpha=0.7, linewidth=1)
+# Use first available experiment's true values as reference
+if all_trues:
+    ref_name = list(all_trues.keys())[0]
+    true_ref = all_trues[ref_name]
+    x_month = np.arange(len(true_ref))
 
-ax1.axhline(150, color='gray', linestyle='--', alpha=0.4)
-ax1.set_title('Ceiling Probe: True vs All Predictions')
-ax1.set_ylabel('Sunspot Number')
-ax1.legend(loc='upper right', fontsize=8)
-ax1.grid(True, alpha=0.3)
+# ============================================================
+# Color scheme
+# ============================================================
+COLORS = {
+    'A (PatchTST sl96)':   '#E74C3C',   # red
+    'B (PatchTST sl192)':  '#E67E22',   # orange
+    'C (PatchTST sl336)':  '#F1C40F',   # yellow
+    'D1 (DLinear ind0)':   '#3498DB',   # blue
+    'D2 (DLinear-I ind1)': '#2ECC71',   # green
+    'True':                '#000000',
+    'M4':                  '#9B59B6',   # purple
+}
+PLOT_MODELS = ['C (PatchTST sl336)', 'D1 (DLinear ind0)', 'D2 (DLinear-I ind1)']
 
-# Bottom: MAE bar chart
-ax2 = axes[1]
-completed_present = []
-for row in rows:
-    if row[1] not in ('待完成', 'NOT FOUND'):
-        try:
-            mae_val = float(row[1])
-            completed_present.append((row[0], mae_val))
-        except ValueError:
-            pass
+# ============================================================
+# 4-panel figure
+# ============================================================
+fig = plt.figure(figsize=(18, 12))
 
-names_bar = [n for n, _ in completed_present]
-maes_bar = [v for _, v in completed_present]
+# ---- Panel 1: Time Series (top-left, spans full width top) ----
+ax1 = fig.add_subplot(2, 3, (1, 3))
+ax1.plot(x_month, true_ref, 'k-', label='True SSN', linewidth=2, alpha=0.85)
+for name in PLOT_MODELS:
+    if name in all_preds:
+        ax1.plot(x_month, all_preds[name], color=COLORS[name], label=name,
+                 linewidth=1.2, alpha=0.8)
+ax1.axhline(150, color='gray', linestyle=':', alpha=0.5, linewidth=1)
+ax1.fill_between(x_month, 150, 280, color='gray', alpha=0.08)
+ax1.set_ylabel('Sunspot Number (SSN)', fontsize=11)
+ax1.set_title('Panel A: True vs Predicted SSN (Test Set: 2020-01 ~ 2025-10)', fontsize=13, fontweight='bold')
+ax1.legend(loc='upper right', fontsize=9, framealpha=0.9)
+ax1.grid(True, alpha=0.25)
+ax1.set_ylim(bottom=-10)
 
-bars = ax2.barh(range(len(names_bar)), maes_bar, color=[colors.get(n, 'orange') for n in names_bar])
-ax2.set_yticks(range(len(names_bar)))
-ax2.set_yticklabels(names_bar, fontsize=10)
-ax2.set_xlabel('MAE (SSN physical units)')
-ax2.set_title('Physical MAE Comparison')
-ax2.invert_yaxis()
+# ---- Panel 2: Error Stratification (bottom-left) ----
+ax2 = fig.add_subplot(2, 3, 4)
+range_names = ['0-50', '50-100', '100-150', '>150']
+# Collect stratified MAE from compute_metrics / stratified_mae calls
+# Recompute properly
+strat_data = {}
+for name, setting in EXPERIMENTS.items():
+    if setting is None:
+        continue
+    folder = os.path.join(RESULTS_DIR, setting)
+    if not os.path.exists(folder):
+        continue
+    if name not in all_preds:
+        continue
+    strat = stratified_mae(all_preds[name], all_trues[name])
+    strat_data[name] = [strat.get(r, 0) for r in ['0-50', '50-100', '100-150', '150-999']]
 
-for i, (bar, v) in enumerate(zip(bars, maes_bar)):
-    ax2.text(v + 0.3, i, f'{v:.2f}', va='center', fontsize=9)
+x_pos = np.arange(len(range_names))
+bar_width = 0.15
+plot_order = ['A (PatchTST sl96)', 'C (PatchTST sl336)', 'D1 (DLinear ind0)', 'D2 (DLinear-I ind1)']
+for ii, name in enumerate(plot_order):
+    if name in strat_data:
+        offset = (ii - 1.5) * bar_width
+        ax2.bar(x_pos + offset, strat_data[name], bar_width, label=name,
+                color=COLORS[name], edgecolor='white', linewidth=0.5)
+ax2.set_xticks(x_pos)
+ax2.set_xticklabels(range_names, fontsize=10)
+ax2.set_ylabel('MAE (SSN)', fontsize=11)
+ax2.set_title('Panel B: MAE by SSN Range', fontsize=13, fontweight='bold')
+ax2.legend(fontsize=7.5, loc='upper left', framealpha=0.9)
+ax2.grid(True, alpha=0.25, axis='y')
 
+# ---- Panel 3: Seq_len Saturation Curve (bottom-center) ----
+ax3 = fig.add_subplot(2, 3, 5)
+seq_data = {}
+for name in ['A (PatchTST sl96)', 'B (PatchTST sl192)', 'C (PatchTST sl336)']:
+    if name in all_preds:
+        seq_len = int(name.split('sl')[1].split(')')[0])
+        mae, _, _ = compute_metrics(all_preds[name], all_trues[name])
+        seq_data[seq_len] = mae
+
+seq_lens = sorted(seq_data.keys())
+maes_seq = [seq_data[s] for s in seq_lens]
+ax3.plot(seq_lens, maes_seq, 'o-', color='#E74C3C', linewidth=2, markersize=10,
+         markerfacecolor='white', markeredgewidth=2, label='PatchTST')
+# DLinear-I reference line
+if 'D2 (DLinear-I ind1)' in all_preds:
+    mae_d2, _, _ = compute_metrics(all_preds['D2 (DLinear-I ind1)'], all_trues['D2 (DLinear-I ind1)'])
+    ax3.axhline(mae_d2, color=COLORS['D2 (DLinear-I ind1)'], linestyle='--', linewidth=1.5,
+                label=f'DLinear-I (sl96) = {mae_d2:.1f}')
+# M4 reference
+ax3.axhline(3.32, color=COLORS['M4'], linestyle=':', linewidth=1.5, label='M4 Phys (sl36) = 3.32')
+for i, (s, m) in enumerate(zip(seq_lens, maes_seq)):
+    ax3.annotate(f'{m:.2f}', (s, m), textcoords="offset points", xytext=(0, 14),
+                 ha='center', fontsize=10, color='#E74C3C', fontweight='bold')
+ax3.set_xlabel('Input Sequence Length (months)', fontsize=11)
+ax3.set_ylabel('MAE (SSN)', fontsize=11)
+ax3.set_title('Panel C: Diminishing Returns of Longer History', fontsize=13, fontweight='bold')
+ax3.legend(fontsize=8.5, framealpha=0.9)
+ax3.grid(True, alpha=0.25)
+
+# ---- Panel 4: Peak Bias + Parameter Efficiency (bottom-right) ----
+ax4 = fig.add_subplot(2, 3, 6)
+
+all_names = ['A (PatchTST sl96)', 'B (PatchTST sl192)', 'C (PatchTST sl336)',
+             'D1 (DLinear ind0)', 'D2 (DLinear-I ind1)']
+peak_biases = []
+param_counts = []
+model_labels = []
+bar_colors_peak = []
+
+for name in all_names:
+    if name not in all_preds:
+        continue
+    peak_bias = all_preds[name].max() - all_trues[name].max()
+    peak_biases.append(peak_bias)
+    model_labels.append(name.split('(')[0].strip())
+    bar_colors_peak.append(COLORS[name])
+    # Approx params
+    if 'Patch' in name:
+        param_counts.append(245000)
+    elif 'D1' in name:
+        param_counts.append(700)
+    elif 'D2' in name:
+        param_counts.append(3000)
+
+x_idx = np.arange(len(model_labels))
+bars = ax4.bar(x_idx, peak_biases, color=bar_colors_peak, edgecolor='white', linewidth=0.8)
+ax4.set_xticks(x_idx)
+ax4.set_xticklabels(model_labels, fontsize=8.5, rotation=15)
+ax4.set_ylabel('Peak Prediction Bias (SSN)', fontsize=11)
+ax4.set_title('Panel D: Peak Underestimation', fontsize=13, fontweight='bold')
+
+# Annotate bars
+for i, (bar_obj, v) in enumerate(zip(bars, peak_biases)):
+    ax4.text(bar_obj.get_x() + bar_obj.get_width() / 2, v - 3,
+             f'{v:.0f}', ha='center', va='top', fontsize=10,
+             fontweight='bold', color='white')
+    # Add param count below bar
+    if i < len(param_counts):
+        p_str = f'~{param_counts[i]//1000}K' if param_counts[i] >= 1000 else str(param_counts[i])
+        ax4.text(bar_obj.get_x() + bar_obj.get_width() / 2, -3,
+                 p_str, ha='center', va='top', fontsize=7.5, color='gray')
+
+ax4.axhline(0, color='black', linewidth=0.8)
+ax4.axhline(-15.9, color=COLORS['M4'], linestyle=':', linewidth=1.2, alpha=0.8)
+ax4.text(len(model_labels) - 0.5, -15.9, 'M4: -15.9', fontsize=8, color=COLORS['M4'], va='bottom')
+ax4.grid(True, alpha=0.25, axis='y')
+
+plt.suptitle('Ceiling Probe: Pure Data-Driven Method Limits on Sunspot Prediction',
+             fontsize=15, fontweight='bold', y=1.01)
 plt.tight_layout()
-plt.savefig('ceiling_probe_comparison.png', dpi=150)
+plt.savefig('ceiling_probe_report.png', dpi=180, bbox_inches='tight')
 print()
-print("图表已保存: ceiling_probe_comparison.png")
+print("Charts saved: ceiling_probe_report.png")
