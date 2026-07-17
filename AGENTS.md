@@ -61,4 +61,46 @@
 - 两条潜在路线：
   1. Level 2：将 M4 包络值作为 PatchTST 额外输入特征（enc_in=4），不改变预测目标（仍为 SSN）
   2. 直接用 M4 + ±18% 不确定度带，不做 PatchTST 修正
-- 分阶段训练的六个问题（L44-51）均未解决，优先级低于 M4 路线
+ - 分阶段训练的六个问题（L44-51）均未解决，优先级低于 M4 路线
+
+## 天花板探测实验（2026-07-17，worktree: `ceiling-probe-v1`）
+
+### 目的
+探测纯数据驱动方法在太阳黑子预测中的性能上限：
+1. 信息量饱和测试：seq_len 96→192→336（数据里的有用信号是否已耗尽？）
+2. 模型复杂度测试：DLinear vs DLinear-I vs PatchTST（Transformer 架构是否有真实贡献？）
+
+### 实验矩阵
+全部统一: seed=2021, bs=16, epoch=30, patience=5, MSE loss, 同一份数据/切分
+
+| 实验 | 模型 | seq_len | 特殊参数 | 
+|------|------|---------|----------|
+| A | PatchTST | 96 | dm128, patch16 (EXP-14 基线, 复用结果) |
+| B | PatchTST | 192 | 同 A |
+| C | PatchTST | 336 | 同 A |
+| D1 | DLinear | 96 | individual=0, lr=0.005 |
+| D2 | DLinear-I | 96 | individual=1, lr=0.005 |
+
+### 已完成结果 (2026-07-17)
+| 实验 | MAE(物理) | R² | >150 MAE | 峰值 bias | 判断 |
+|------|----------|-----|----------|-----------|------|
+| A (PatchTST sl96) | 23.87 | 0.568 | 68.4 | -75.8 | 基线 |
+| B (PatchTST sl192) | 22.02 | 0.625 | 64.7 | -85.2 | 历史有微量帮助 |
+| C (PatchTST sl336) | 20.54 | 0.692 | 55.7 | -66.9 | 历史边际递减 |
+| D1 (DLinear ind0) | 20.31 | 0.722 | 47.2 | -56.5 | 纯线性>Transformer |
+| D2 (DLinear-I ind1) | **19.30** | **0.751** | **42.5** | **-50.3** | **当前最优** |
+
+### 核心结论
+1. **信息量未完全饱和**: seq96→192→336, MAE 持续下降 (23.87→22.02→20.54), 但边际递减 (7.7%→6.7%)
+2. **Transformer 架构在此问题上没有增益**: DLinear-I (纯线性, MAE=19.30) 全面超过 PatchTST sl336 (MAE=20.54)。注意力机制+128 维嵌入+a 打不过一层线性映射。
+3. **纯数据驱动的硬天花板**: 最优数据驱动方法 MAE=19.30。物理方法 M4 (MAE=3.32) 好 6 倍。这个差距不太可能靠加数据或加模型弥合——物理先验才是关键瓶颈。
+4. **峰值压制是系统性偏置**: 所有模型（包括 DLinear）都对峰值预测偏低 50+ SSN。这是 MSE loss + 数据分布的固有性质，不是模型选择问题。
+
+### 运行命令
+```bash
+cd /root/code/patchTST-sunspot-prediction-ceiling-probe
+python3 -u run_dlinear.py      # DLinear (individual=0)
+python3 -u run_dlinear_i.py    # DLinear-I (individual=1)
+python3 -u run_seq192.py       # PatchTST seq_len=192
+python3 -u run_seq336.py       # PatchTST seq_len=336
+python3 -u compare_all.py      # 出对比图表
