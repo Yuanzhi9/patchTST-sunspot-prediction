@@ -390,3 +390,70 @@ plt.tight_layout()
 plt.savefig('ceiling_probe_report.png', dpi=180, bbox_inches='tight')
 print()
 print("Charts saved: ceiling_probe_report.png")
+
+# ============================================================
+# Bonus: Clean summary chart for meetings
+# ============================================================
+fig2, ax = plt.subplots(figsize=(14, 5))
+
+# True SSN
+ax.plot(x_month, true_ref, 'k-', label='True SSN (SILSO)', linewidth=2.5, alpha=0.9)
+
+# DLinear-I (best)
+if 'D2 (DLinear-I ind1)' in all_preds:
+    ax.plot(x_month, all_preds['D2 (DLinear-I ind1)'], color=COLORS['D2 (DLinear-I ind1)'],
+            label=f'DLinear-I (best, MAE={compute_metrics(all_preds["D2 (DLinear-I ind1)"], all_trues["D2 (DLinear-I ind1)"])[0]:.1f})',
+            linewidth=2, alpha=0.85)
+
+# PatchTST sl96 (baseline)
+if 'A (PatchTST sl96)' in all_preds:
+    ax.plot(x_month, all_preds['A (PatchTST sl96)'], color=COLORS['A (PatchTST sl96)'],
+            label=f'PatchTST sl96 (baseline, MAE={compute_metrics(all_preds["A (PatchTST sl96)"], all_trues["A (PatchTST sl96)"])[0]:.1f})',
+            linewidth=1.8, alpha=0.7, linestyle='--')
+
+# Peak zone
+ax.axhline(150, color='gray', linestyle=':', alpha=0.4, linewidth=0.8)
+ax.fill_between(x_month, 150, 280, color='gray', alpha=0.06)
+ax.text(len(x_month) - 5, 153, 'Peak zone (>150)', fontsize=8, color='gray', ha='right')
+
+# Annotate peak gaps
+peak_true = true_ref.max()
+peak_x = np.argmax(true_ref)
+ax.annotate(f'True peak = {peak_true:.0f}', xy=(peak_x, peak_true),
+            xytext=(peak_x - 8, peak_true + 15),
+            arrowprops=dict(arrowstyle='->', color='black', lw=1.2),
+            fontsize=10, fontweight='bold', color='black')
+
+if 'D2 (DLinear-I ind1)' in all_preds:
+    pred_d2 = all_preds['D2 (DLinear-I ind1)']
+    peak_d2 = pred_d2.max()
+    ax.annotate(f'DLinear-I: {peak_d2:.0f}', xy=(np.argmax(pred_d2), peak_d2),
+                xytext=(np.argmax(pred_d2) - 8, peak_d2 - 22),
+                arrowprops=dict(arrowstyle='->', color=COLORS['D2 (DLinear-I ind1)'], lw=1),
+                fontsize=9, color=COLORS['D2 (DLinear-I ind1)'])
+
+if 'A (PatchTST sl96)' in all_preds:
+    pred_a = all_preds['A (PatchTST sl96)']
+    peak_a = pred_a.max()
+    ax.annotate(f'PatchTST: {peak_a:.0f}', xy=(np.argmax(pred_a), peak_a),
+                xytext=(np.argmax(pred_a) - 8, peak_a - 22),
+                arrowprops=dict(arrowstyle='->', color=COLORS['A (PatchTST sl96)'], lw=1),
+                fontsize=9, color=COLORS['A (PatchTST sl96)'])
+
+# M4 annotation box
+m4_text = 'M4 Waldmeier (physics model)\nMAE = 3.32 on Cycle 25\n(6x better than DLinear-I)'
+ax.text(0.02, 0.97, m4_text, transform=ax.transAxes, fontsize=9,
+        verticalalignment='top', bbox=dict(boxstyle='round,pad=0.5', facecolor=COLORS['M4'],
+                                            alpha=0.15, edgecolor=COLORS['M4'], linewidth=1))
+
+ax.set_ylabel('Sunspot Number (SSN)', fontsize=12)
+ax.set_xlabel('Test set month index (2020-01 ~ 2025-10)', fontsize=10)
+ax.set_title('Pure Data-Driven Methods vs Physics: The 6x Gap\n(Simplest linear model beats our Transformer, yet both are far from physics)',
+             fontsize=13, fontweight='bold')
+ax.legend(fontsize=10, loc='upper right', framealpha=0.9)
+ax.grid(True, alpha=0.2)
+ax.set_ylim(bottom=-10)
+
+plt.tight_layout()
+plt.savefig('ceiling_probe_summary.png', dpi=180, bbox_inches='tight')
+print("Charts saved: ceiling_probe_summary.png")
