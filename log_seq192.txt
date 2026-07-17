@@ -1,0 +1,58 @@
+Args in experiment:
+Namespace(random_seed=2021, is_training=1, model_id='ceiling_seq192', model='PatchTST', checkpoints='./PatchTST_supervised/checkpoints/', data='custom', root_path='./PatchTST_supervised/dataset/', data_path='sunspot_with_cycle.csv', features='M', target='ssn', freq='m', seq_len=192, label_len=48, pred_len=24, fc_dropout=0.05, head_dropout=0.0, patch_len=16, stride=8, padding_patch='end', revin=1, affine=0, subtract_last=0, decomposition=0, kernel_size=25, individual=0, embed_type=0, enc_in=3, dec_in=3, c_out=1, d_model=128, n_heads=8, e_layers=2, d_layers=1, d_ff=2048, moving_avg=25, factor=1, distil=True, dropout=0.05, embed='timeF', activation='gelu', output_attention=False, do_predict=False, num_workers=0, itr=1, train_epochs=30, batch_size=16, patience=5, learning_rate=0.0001, des='ceiling_seq192', loss='mse', lradj='type3', pct_start=0.3, use_amp=False, use_gpu=False, gpu=0, use_multi_gpu=False, devices='0,1,2,3', test_flop=False)
+Use CPU
+>>>>>>>start training : ceiling_seq192_PatchTST_custom_ftM_sl192_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_ceiling_seq192_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 2904
+val 109
+test 47
+	iters: 100, epoch: 1 | loss: 0.4200967
+	speed: 0.3735s/iter; left time: 1991.2887s
+Epoch: 1 cost time: 74.7463002204895
+Epoch: 1, Steps: 181 | Train Loss: 0.5648692 Vali Loss: 0.1322475 Test Loss: 0.2162858
+Validation loss decreased (inf --> 0.132248).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 2 | loss: 0.1209141
+	speed: 0.8342s/iter; left time: 4296.0398s
+Epoch: 2 cost time: 75.7305760383606
+Epoch: 2, Steps: 181 | Train Loss: 0.1533388 Vali Loss: 0.0502683 Test Loss: 0.0772310
+Validation loss decreased (0.132248 --> 0.050268).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 3 | loss: 0.0989643
+	speed: 0.6508s/iter; left time: 3233.9917s
+Epoch: 3 cost time: 58.650572299957275
+Epoch: 3, Steps: 181 | Train Loss: 0.1156029 Vali Loss: 0.0467806 Test Loss: 0.0760475
+Validation loss decreased (0.050268 --> 0.046781).  Saving model ...
+Updating learning rate to 0.0001
+	iters: 100, epoch: 4 | loss: 0.1079364
+	speed: 0.6039s/iter; left time: 2891.3563s
+Epoch: 4 cost time: 61.638713121414185
+Epoch: 4, Steps: 181 | Train Loss: 0.1106328 Vali Loss: 0.0542898 Test Loss: 0.0725586
+EarlyStopping counter: 1 out of 5
+Updating learning rate to 9e-05
+	iters: 100, epoch: 5 | loss: 0.0763109
+	speed: 0.6486s/iter; left time: 2987.9509s
+Epoch: 5 cost time: 68.66064143180847
+Epoch: 5, Steps: 181 | Train Loss: 0.1057798 Vali Loss: 0.0514193 Test Loss: 0.0781114
+EarlyStopping counter: 2 out of 5
+Updating learning rate to 8.1e-05
+	iters: 100, epoch: 6 | loss: 0.1033862
+	speed: 0.7026s/iter; left time: 3109.6123s
+Epoch: 6 cost time: 65.85873985290527
+Epoch: 6, Steps: 181 | Train Loss: 0.1031870 Vali Loss: 0.0513755 Test Loss: 0.0735471
+EarlyStopping counter: 3 out of 5
+Updating learning rate to 7.290000000000001e-05
+	iters: 100, epoch: 7 | loss: 0.1172289
+	speed: 0.6456s/iter; left time: 2740.6166s
+Epoch: 7 cost time: 65.29175925254822
+Epoch: 7, Steps: 181 | Train Loss: 0.1006120 Vali Loss: 0.0561225 Test Loss: 0.0689154
+EarlyStopping counter: 4 out of 5
+Updating learning rate to 6.561e-05
+	iters: 100, epoch: 8 | loss: 0.1213427
+	speed: 0.6722s/iter; left time: 2732.0179s
+Epoch: 8 cost time: 66.0333411693573
+Epoch: 8, Steps: 181 | Train Loss: 0.0993135 Vali Loss: 0.0544060 Test Loss: 0.0706574
+EarlyStopping counter: 5 out of 5
+Early stopping
+>>>>>>>testing : ceiling_seq192_PatchTST_custom_ftM_sl192_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_ceiling_seq192_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 47
+mse:0.068894162774086, mae:0.12034222483634949, rse:0.28403857350349426

@@ -67,3 +67,15 @@ mse:0.08509543538093567, mae:0.14118161797523499, rse:0.3156743049621582
 sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0  
 mse:0.07907412946224213, mae:0.12536537647247314, rse:0.3043009340763092
 
+ceiling_dlinear_DLinear_custom_ftM_sl96_ll48_pl24_ceiling_dlinear_0  
+mse:0.050843629986047745, mae:0.10553612560033798, rse:0.2440081685781479
+
+ceiling_dlinear_i_DLinear_custom_ftM_sl96_ll48_pl24_ceiling_dlinear_i_0  
+mse:0.04556186869740486, mae:0.09403368830680847, rse:0.23098663985729218
+
+ceiling_seq192_PatchTST_custom_ftM_sl192_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_ceiling_seq192_0  
+mse:0.068894162774086, mae:0.12034222483634949, rse:0.28403857350349426
+
+ceiling_seq336_PatchTST_custom_ftM_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_ceiling_seq336_0  
+mse:0.05657738819718361, mae:0.11202879995107651, rse:0.25739941000938416
+
