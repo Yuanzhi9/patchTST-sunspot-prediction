@@ -1,7 +1,13 @@
-# PatchTST 太阳黑子预测 项目 — AGENTS.md v1
+# PatchTST 太阳黑子预测 项目 — AGENTS.md v2
 
-## 项目目标
-使用 PatchTST 模型预测太阳黑子数（SSN），核心目标是预测第 25、26 太阳活动周的完整变化曲线。当前路线：M4 Waldmeier 参数化曲线（shixiong_m4/coding/）做周期包络预测，PatchTST 辅助修正。Level 3 残差预测方案已验证不可行（见「Level 3 实验结论」），下一步考虑 Level 2（M4 作为 PatchTST 输入特征）。
+## 项目主控文档
+**`project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
+
+## 当前阶段：Phase 0 — 文献奠基
+正在系统性阅读太阳黑子周期物理基础和 DL+sunspot 预测文献。完成后再进入 Phase 1（项目自审）和 Phase 2（实验设计）。详见 `project_roadmap.md`。
+
+## 项目目标（当前定位）
+使用深度学习模型探索太阳黑子数（SSN）预测的可行性边界，核心关注第 25、26 太阳活动周的完整曲线预测。M4 Waldmeier 参数化曲线（师兄代码）做物理方法对照基线。当前定位偏向"可行性边界研究"——系统刻画纯数据驱动方法在该问题上的能力上限和失效模式。待文献读完 + 导师确认后再定最终定位。
 
 ## 项目路径
 - 代码根目录：`PatchTST_supervised/`
@@ -45,7 +51,7 @@
 1. d_model=512 对每阶段 ~200 样本严重过拟合 → 下次降低模型参数
 2. train/val/test 切分有数据泄漏 → 需修 `Dataset_Phase._read_data()`
 3. 四阶段 Scaler 不一致导致预测不可用 → 统一 Scaler，存为文件
-4. MSE loss 压制峰值 → 改用 HuberLoss
+4. MSE loss 压制峰值 → 改用 HuberLoss（EXP-9 验证：Huber 无效，瓶颈在任务定义而非 loss 形式）
 5. EarlyStopping 在验证集太小（13 样本）时不可靠 → 关掉 patience
 6. `enc_in` 参数需与数据列数一致（固定 3：month_sin, month_cos, ssn）
 7. d_model=128 下峰值误差分层确认：SSN 0-50 误差 6.6、50-100 误差 12.4、100-150 误差 27.1、>150 误差 68.8。降参不解决峰值压制，需改任务定义（预测残差）
@@ -56,9 +62,11 @@
 - 根本原因：best-fit 残差 ≠ 预报残差。训练用 best-fit 残差（零均值小噪声），测试用预报残差（含 M4 的系统性预测偏差），两者分布和结构不同
 - M4 包络生成与残差管道代码位于 worktree 分支 `level3-residual-prediction`，文件：`PatchTST_supervised/prepare_level3_residual.py`（M4 校准+预报+残差计算）、`PatchTST_supervised/eval_level3_residual.py`（评估）
 
-## 下一步（2026-07-13 更新）
-- M4 预报表现已确认优秀，可作为 Cycle 25/26 预测的直接方案
-- 两条潜在路线：
-  1. Level 2：将 M4 包络值作为 PatchTST 额外输入特征（enc_in=4），不改变预测目标（仍为 SSN）
-  2. 直接用 M4 + ±18% 不确定度带，不做 PatchTST 修正
-- 分阶段训练的六个问题（L44-51）均未解决，优先级低于 M4 路线
+## 天花板探测实验（2026-07-17，worktree: `ceiling-probe-v1`）
+- DLinear-I (纯线性) MAE=19.30, R²=0.751 → **当前最优纯数据驱动结果**
+- PatchTST sl336 MAE=20.54 < DLinear-I → Transformer 架构在此问题上无增益
+- 所有模型 peak 区域误差 50+ SSN → 峰值压制是系统性偏置，非模型选择问题
+- 硬天花板 MAE≈19.30，M4 物理方法好 6 倍
+
+## 下一步（2026-07-23 更新）
+当前处于 Phase 0（文献阅读）。先读文献 → 自审项目 → 定义科学问题 → 找导师 → 再定实验路线。**不跑新实验。** 路线图见 `project_roadmap.md`。

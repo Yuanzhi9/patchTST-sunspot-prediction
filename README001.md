@@ -1,44 +1,44 @@
-# 太阳黑子预测 — PatchTST 代码说明
+# 太阳黑子预测 — 项目说明
+
+> **当前阶段：Phase 0 — 文献奠基。** 不跑新实验。详见 `project_roadmap.md`。
 
 ## 环境要求
 - Python 3.10+
 - PyTorch 1.11
 - pandas, numpy, matplotlib, scikit-learn, scipy
 
-## 文件说明
-- `run_sunspot_fixed.py`：**完整训练入口**（根目录，train_epochs=10，基线参数已内置）
-- `PatchTST_supervised/run_sunspot_fixed.py`：快速测试版（train_epochs=1，适合验证代码能跑通）
+## 关键文件
+- `project_roadmap.md`：主控文档（阶段规划、任务看板）
+- `AGENTS.md`：项目规范、基线参数、实验结论速查
+- `project_summary_2026-07-17.md`：7 月 17 日完整阶段总结
+- `PatchTST_supervised/report_2026-06-14.md`：6 月 14 日详细汇报
+
+## 运行入口
+- `run_sunspot_fixed.py`：完整训练（根目录，train_epochs=10）
+- `PatchTST_supervised/run_sunspot_fixed.py`：快速测试（train_epochs=1）
 - `PatchTST_supervised/run_longExp.py`：命令行参数完整版
-- `PatchTST_supervised/exp/exp_main.py`：训练/测试逻辑
-- `PatchTST_supervised/data_provider/data_loader.py`：数据加载
-- `PatchTST_supervised/dataset/sunspot_with_cycle.csv`：特征数据（month_sin, month_cos, ssn）
 
 ## 运行命令
 
 ```bash
-# 完整训练（推荐，10 epochs）
+# 完整训练（10 epochs）
 python3 run_sunspot_fixed.py
 
 # 快速测试（1 epoch）
 cd PatchTST_supervised && python3 run_sunspot_fixed.py
-
-# 命令行版本
-cd PatchTST_supervised && python3 run_longExp.py \
-  --is_training 1 --model_id sunspot --model PatchTST \
-  --data custom --root_path ./dataset/ --data_path sunspot_with_cycle.csv \
-  --features M --target ssn --freq m \
-  --seq_len 96 --pred_len 24 --enc_in 3 --dec_in 3 --c_out 1 \
-  --batch_size 16 --train_epochs 10 --num_workers 0 --use_gpu False
 ```
 
-## 完整训练结果对比（2026-06-14）
-- 数据：全量 sunspot_with_cycle.csv（3321 月，1867-2025）
-- 参数：seq_len=96, pred_len=24, batch_size=16, 其他全同
+## 核心结果
 
-| Model | MSE(z) | MAE(z) | RSE | MAE(物理) | RMSE(物理) | R² |
-|---|---|---|---|---|---|---|
-| d_model=512 | 0.085 | 0.141 | 0.316 | 25.27 | 34.41 | 0.539 |
-| d_model=128 | 0.079 | 0.125 | 0.304 | 23.87 | 33.29 | 0.568 |
+### 完整训练（2026-06-14）
+- 数据：全量 3321 月，参数：seq_len=96, pred_len=24
 
-- d_model=128 全面优于 512
-- 误差集中在 SSN>150 峰值区域，需改任务定义为残差预测
+| Model | MAE(物理) | R² |
+|---|---|---|
+| PatchTST d_model=512 | 25.27 | 0.539 |
+| PatchTST d_model=128 | 23.87 | 0.568 |
+
+### 天花板探测（2026-07-17）
+- DLinear-I (纯线性) MAE=19.30, R²=0.751 → **当前最优纯数据驱动**
+- PatchTST sl336 MAE=20.54 → Transformer 无增益
+- M4 Waldmeier 物理方法 Cycle 25 MAE=3.32 → 好 6 倍
