@@ -1,8 +1,9 @@
 # PatchTST 太阳黑子预测项目 — 项目路线图
 
-> 创建日期：2026-07-23 | 版本 v1.0
+> 创建日期：2026-07-23 | 版本 v1.1 (2026-08-09 修正)
 > 定位：项目主控文档。所有任务、阶段、决策记录在此。
 > 旧版研究计划备份：`research-plan_2026-07-17.backup.md`
+> **完整实验时间线**：`experiment_history.md`
 
 ---
 
@@ -10,13 +11,15 @@
 
 | 维度 | 状态 | 备注 |
 |------|------|------|
-| 实验完成 | 15 次主实验 + 5 次天花板探测 + Level 3 残差预测 | 已产出核心数据 |
-| 最优纯数据驱动结果 | DLinear-I MAE=19.30, R²=0.751 | 天花板探测确认 |
-| 物理方法对照 | M4 Waldmeier MAE=3.32（7 倍优于 DL） | 师兄代码已可用 |
-| 确认死路 | 5 条（详见 project_summary_2026-07-17.md §四） | 分阶段训练 / MS mode / Huber loss / 截断 / Level 3 |
-| 文献阅读 | 在读 Hathaway (2015) §1-4 | 尚未完成系统性文献调研 |
+| 实验完成 | Stage 0-2 (Apr-May) + 15 次主实验 (Jun) + 5 次天花板探测 (Jul) + Level 3 残差预测 | 详见 `experiment_history.md` |
+| 五月基线 B | PatchTST seq=132, 1867+ 数据, step 0 物理 MAE=13.02 | ⚠️ 代码/checkpoint 在用户本机，不在服务器 |
+| 当前主基线 (EXP-14) | PatchTST dm128, seq=96, 1749+ 数据, 全步 MAE=23.87, step 0 MAE=9.08, R²=0.568 | 全步平均口径 |
+| 天花板探测 | 五组实验中 PatchTST sl96 step 0 MAE=9.08 最优（单次预测）；DLinear-I 全步 MAE=19.30 最稳定（多窗口） | ⚠️ PatchTST 组与 DLinear 组归一化/lr 不同，不可跨组直接比数值 |
+| 物理方法对照 | M4 Waldmeier MAE=3.32 | 师兄代码已可用 |
+| 确认死路 | 5 条（MS mode / Huber loss / 截断数据 / Level 3 残差 / 分阶段训练） | 详见 project_summary_2026-07-17.md §四 |
+| 文献阅读 | **14 篇精读完成**（2026-08-09） | 笔记见 `literature/` |
 | 科学问题 | 未正式定义 | — |
-| 导师沟通 | 未进行 | 等文献读完+自审完成后进行 |
+| 导师沟通 | 准备明日（08.10）汇报 | — |
 | 能力背景 | 气象学大二升大三，有 Python 基础，非 DL 专业 | DL 概念需在实践中学习 |
 
 ---
@@ -49,20 +52,21 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3
 
 | # | 文献 | 类别 | 深度 | 核心产出 | 状态 |
 |---|------|------|------|---------|------|
-| 0.1 | Hathaway (2015) "The Solar Cycle" §1-4 | 🟢 太阳周期基础 | 精读 | ① 周期统计特征（Waldmeier 效应、周期不对称性、Gnevyshev gap）② 数据源不确定性（18 世纪数据的可靠性争议）③ sqrt/对数变换的使用方式与零值处理 ④ 长期记忆的证据与结论 | 🟡 进行中 |
-| 0.2 | Petrovay (2020) "Solar cycle prediction" §1-3 + 方法对比表 | 🟢 预测方法综述 | 精读方法分类 | ① 三类方法的定义与精度范围 ② DL/ML 方法在综述中的定位与评价 ③ Cycle 25 各方法预测结果对照 ④ Extrapolation 类方法的整体评价 | ⬜ |
-| 0.3 | Forecasting Sunspot Time Series Using Deep Learning（LSTM vs NNAR） | 🟡 DL 预测 | 精读 | ① 实验设计（train/test split, horizon）② 评估指标 ③ 精度结果 ④ 与我的实验的关键差异 | ⬜ |
-| 0.4 | Forecasting Solar Cycle 25 Using Deep Neural Network（WaveNet+LSTM） | 🟡 DL 预测 | 精读 | ① 输入特征设计 ② 是否使用了物理先验 ③ 第 25 周期预测结果 | ⬜ |
-| 0.5 | 其余本地文献（ARIMA 预测、半球黑子预测、LSTM with F10.7、Wang 2021 LSTM、统计预报方法、stab1159） | 🔵/🟣 补充 | 浏览 | 各填一张自评表卡。不要求全精读。重点提取：实验设计、特征选择、精度指标 | ⬜ |
-| 0.6 | DLinear 原文 (Zeng et al., AAAI 2023) | 方法论 | 重读 | 理解线性模型在小样本周期性数据上为什么赢 Transformer | ⬜ |
-| 0.7 | PatchTST 原文 (Nie et al., ICLR 2023) | 方法论 | 重读 | 理解 Patching 和通道独立的假设在稀疏低频数据下是否成立 | ⬜ |
+| 0.1 | Hathaway (2015) "The Solar Cycle" §1-4 | 🟢 太阳周期基础 | 精读 | ① 周期统计特征 ② 数据源不确定性 ③ sqrt/对数变换与零值处理 ④ 长期记忆的证据与结论 | ✅ 完成（08.09） |
+| 0.2 | Petrovay (2020) "Solar cycle prediction" §1-3 + 方法对比表 | 🟢 预测方法综述 | 精读方法分类 | ① 三类方法的定义与精度范围 ② DL/ML 方法的定位与评价 ③ Cycle 25 各方法预测结果 ④ Extrapolation 类方法的整体评价 | ✅ 完成（08.09） |
+| 0.3 | Forecasting Sunspot Time Series Using Deep Learning（LSTM vs NNAR） | 🟡 DL 预测 | 精读 | ① 实验设计 ② 评估指标 ③ 精度结果 ④ 与我的实验的关键差异 | ✅ 完成（08.09） |
+| 0.4 | Forecasting Solar Cycle 25 Using Deep Neural Network（WaveNet+LSTM） | 🟡 DL 预测 | 精读 | ① 输入特征设计 ② 是否使用了物理先验 ③ 第 25 周期预测结果 | ✅ 完成（08.09） |
+| 0.5 | 其余本地文献 | 🔵/🟣 补充 | 浏览 | 各文献已填写自评表卡。重点提取实验设计、特征选择、精度指标 | ✅ 完成（08.09） |
+| 0.6 | DLinear 原文 (Zeng et al., AAAI 2023) | 方法论 | 重读 | 理解线性模型在小样本周期性数据上为什么赢 Transformer | ✅ 完成（08.09） |
+| 0.7 | PatchTST 原文 (Nie et al., ICLR 2023) | 方法论 | 重读 | 理解 Patching 和通道独立的假设在稀疏低频数据下是否成立 | ✅ 完成（08.09） |
 
 ### Phase 0 结束判定
 
 - [ ] 能清晰写出太阳黑子预测三类方法的分类、精度范围和 DL 的定位
-- [ ] 有一张 ≥3 篇 DL+sunspot 论文的方法-特征-精度对比表
-- [ ] 理解 Petrovay 对 Extrapolation 方法的整体评价，并知道它对我的项目意味着什么
-- [ ] 理解 Hathaway 中的非线性变换（sqrt/log）的做法与零值处理方案
+- [ ] 有一张 ≥3 篇 DL+sunspot 论文的方法-特征-精度对比表 ← 已完成，见 `literature/literature_reading_notes.md`
+- [ ] 理解 Petrovay 对 Extrapolation 方法的整体评价，并知道它对我的项目意味着什么 ← 已完成
+- [ ] 理解 Hathaway 中的非线性变换（sqrt/log）的做法与零值处理方案 ← 已完成
+- [ ] **14 篇文献精读完成（2026-08-09）**，笔记见 `literature/literature_reading_notes.md` 和 `literature_reading_notes_detailed.md`
 
 ---
 
@@ -156,22 +160,24 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3
 
 ## 七、待办看板
 
-### 🔴 当前（Phase 0）
+### 🔴 当前（Phase 0 → Phase 1 过渡）
 
 | # | 任务 | 状态 |
 |---|------|------|
-| 1 | 精读 Hathaway (2015) §1-4 | 🟡 进行中（P19） |
-| 2 | 精读 Petrovay (2020) §1-3 | ⬜ |
-| 3 | 精读 LSTM vs NNAR 论文 | ⬜ |
-| 4 | 精读 WaveNet+LSTM 论文 | ⬜ |
+| 1 | 精读 Hathaway (2015) §1-4 | ✅ 完成（08.09） |
+| 2 | 精读 Petrovay (2020) §1-3 | ✅ 完成（08.09） |
+| 3 | 精读 LSTM vs NNAR 论文 | ✅ 完成（08.09） |
+| 4 | 精读 WaveNet+LSTM 论文 | ✅ 完成（08.09） |
+| 5 | 浏览其余 4-5 篇本地文献（填自评表） | ✅ 完成（08.09） |
+| 6 | 重读 DLinear 原文 | ✅ 完成（08.09） |
+| 7 | 重读 PatchTST 原文 | ✅ 完成（08.09） |
+| 8 | 整理实验历史 → `experiment_history.md` | ✅ 完成（08.09） |
 
-### 🟡 下一批（Phase 0 后半段）
+### 🟡 下一批
 
 | # | 任务 | 状态 |
 |---|------|------|
-| 5 | 浏览其余 4-5 篇本地文献（填自评表） | ⬜ |
-| 6 | 重读 DLinear 原文 | ⬜ |
-| 7 | 重读 PatchTST 原文 | ⬜ |
+| 9 | **明日（08.10）与导师沟通** | 🔜 |
 
 ### 🟢 Phase 1（文献完成后）
 
