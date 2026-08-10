@@ -11,6 +11,7 @@
 
 | 维度 | 状态 | 备注 |
 |------|------|------|
+| **当前阶段** | **Phase 0 完成 → 实验准备** | **2026-08-10 完成审计+SOP+工具。下一步实验待定（见 §二-0）** |
 | 实验完成 | Stage 0-2 (Apr-May) + 15 次主实验 (Jun) + 5 次天花板探测 (Jul) + Level 3 残差预测 | 详见 `experiment_history.md` |
 | 五月基线 B | PatchTST seq=132, 1867+ 数据, step 0 物理 MAE=13.02 | ⚠️ 代码/checkpoint 在用户本机，不在服务器。⚠️ 与当前基线 EXP-14 不可直接比较（数据/sl/nh/el/df/pl/stride/drop/epochs 共 9 项不同），step0 的 13.02 vs 9.08 不能直接做"进步"叙事 |
 | 当前主基线 (EXP-14) | PatchTST dm128, seq=96, 1749+ 数据, 全步 MAE=23.87, step 0 MAE=9.08, R²=0.568 | 全步平均口径 |
@@ -60,7 +61,36 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3
 | 0.6 | DLinear 原文 (Zeng et al., AAAI 2023) | 方法论 | 重读 | 理解线性模型在小样本周期性数据上为什么赢 Transformer | ✅ 完成（08.09） |
 | 0.7 | PatchTST 原文 (Nie et al., ICLR 2023) | 方法论 | 重读 | 理解 Patching 和通道独立的假设在稀疏低频数据下是否成立 | ✅ 完成（08.09） |
 
-### Phase 0 结束判定
+### Phase 0 结束判定（2026-08-10 更新）
+
+- [x] 文献读完（14 篇精读 + 笔记）
+- [x] 实验历史梳理（experiment_history.md）
+- [x] 文档交叉审计（四次文档冲突已解决）
+- [x] 实验基础设施建立（SOP + 索引表 + 记录模板 + eval_metrics.py + save_config.py）
+
+---
+
+## 二-0：下一个实验（待填写）
+
+> ⚠️ 本节由你填写。每跑一次实验前更新。
+
+| 字段 | 内容 |
+|------|------|
+| 实验 ID | ___（如 EXP-16） |
+| 目的（一句话） | ___ |
+| 改动（只能一个变量） | ___ |
+| 对照基线 | ___ |
+| 可证伪假设 | 如果有效，step0 ≤ ___；如果无效，step0 ≈ ___ |
+| 配置快照 | ___（save_config.py 输出的 JSON 路径） |
+
+**候选实验方向**（讨论中，未定优先级）：
+1. Baseline B 配置复现（1749+ 数据 + seq132/el3/df256/epochs50）
+2. 参数认知实验（seq_len/pred_len 扫描）
+3. M mode 下重跑 Huber / ReLU head（之前只在 MS mode 下验证过）
+4. Log/sqrt 变换（A-H 清单 E1）
+5. 相位编码特征
+
+---
 
 - [ ] 能清晰写出太阳黑子预测三类方法的分类、精度范围和 DL 的定位
 - [ ] 有一张 ≥3 篇 DL+sunspot 论文的方法-特征-精度对比表 ← 已完成，见 `literature/literature_reading_notes.md`

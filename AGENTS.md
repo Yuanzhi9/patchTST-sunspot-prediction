@@ -4,6 +4,7 @@
 **`project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
 
 ## 实验记录约定（2026-08-10 新增）
+- **操作规程**：`experiment_SOP.md`，跑任何实验前对照检查（全流程版 / 批量版）
 - **快速索引**：`experiment_history.md` 顶部索引表，Ctrl+F 查找实验
 - **记录模板**：`experiment_template.md`，每次跑新实验前复制、填写
 - **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送

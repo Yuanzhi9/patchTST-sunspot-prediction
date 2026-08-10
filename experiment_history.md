@@ -31,38 +31,38 @@
 > 新增实验后，在本表中追加一行 + 在 Stage 末尾追加一节记录。
 > 记录模板：`experiment_template.md`
 
-| ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 |
-|----|------|------|-----------|----------|--------------|-------|-----|------|------|
-| **S0 基线** | 04.08-16 | Stage 0 | MinMax基线 | 1749+,512,sl132 | — | 25.80 | — | 上限144<<216，极值压缩 | L27 |
-| S0 ReLU | 04.09 | Stage 0 | Linear→ReLU | 同上 | — | ≈25.8 | — | 负值率5.56%→0% | L27 |
-| S0 Huber | 04.09 | Stage 0 | MSE→Huber | 同上 | — | 27.36 | — | 无贡献（MinMax配置下） | L27 |
-| S0 Softplus | 04.xx | Stage 0 | ReLU→Softplus | 同上 | — | 28.12 | — | 更差，系统性高估 | L27 |
-| **实验A** | 05.06 | Stage 1 | buggy基线(drop_last) | 1867+,dm128,sl132,n16,e3 | — | 11.15 | — | 32样本，不可用 | L155 |
-| **Baseline B** | 05.07 | Stage 1 | bug修复后基线 | 1867+,dm128,sl132,n16,e3,50ep | — | 13.02 | — | 峰值低估18% | L166 |
-| H2 多步长 | 05.07 | Stage 2 | step 0/6/12/18/23 | 同Baseline B checkpoint | 23.91 | — | — | 渐进退化 ⚠️ 口径待确认 | L224 |
-| H1 滚动 | 05.07 | Stage 2 | 逐月H1滚动预测 | 同Baseline B checkpoint | — | — | — | MAE=33.13，峰顶≈54 | L232 |
-| EXP-01 | 04.xx-05.13 | Stage 3 | Weather基准验证 | Weather数据集 | — | — | — | 代码环境OK | L349 |
-| 分阶段 | 04.xx-05.13 | Stage 3 | 四模型阶段训练 | dm512,~200样本/阶段 | — | — | — | 过拟合，已暂停 | L355 |
-| EXP-02 | 04.xx-05.13 | Stage 3 | Cycle23留出 | M mode,3特征 | — | — | — | RSE=0.196(z-score) | L359 |
-| EXP-03 | 04.xx-05.13 | Stage 3 | 特征4→3 | M mode | — | — | — | year_norm无贡献 | L359 |
-| EXP-04 | 04.xx-05.13 | Stage 3 | pred_len 96→132 | M mode | — | — | — | RSE=0.166-0.193 | L359 |
-| **EXP-05** | 04.xx-05.13 | Stage 3 | M→MS+sl96→132+RevIN1→0 | MS mode,sl132 | — | — | — | ❌ 3变量同改，退化 | L367 |
-| EXP-06 | 04.xx-05.13 | Stage 3 | 关EarlyStopping | MS mode | — | — | — | RSE=0.521，无改善 | L367 |
-| EXP-07 | 04.xx-05.13 | Stage 3 | StandardScaler→MinMax | MS mode | — | — | — | RSE=0.397 | L367 |
-| EXP-08 | 04.xx-05.13 | Stage 3 | GELU→ReLU | MS mode | — | — | — | RSE=0.389 ⚠️ MS下 | L367 |
-| EXP-09 | 04.xx-05.13 | Stage 3 | MSE→Huber | MS mode | — | — | — | RSE=0.389=MSE ⚠️ M下未测 | L367 |
-| EXP-10 | 04.xx-05.13 | Stage 3 | 回到MSE基线 | MS mode | — | — | — | RSE=0.389 | L367 |
-| EXP-11 | 04.xx-05.13 | Stage 3 | Softplus+Huber | MS mode | — | — | — | RSE=0.474，更差 | L367 |
-| EXP-12 | 04.xx-05.13 | Stage 3 | 1867+截断+4参数 | dm128,n16,e3,df256 | — | — | — | ❌ 5变量同改 | L386 |
-| EXP-13 | 06.14 | Stage 3 | dm512基线 | 1749+,sl96,dm512,e2,n8 | 25.27 | — | 0.539 | 与EXP-14成对对照 | L392 |
-| **EXP-14** | 06.14 | Stage 3 | **dm512→128（唯一干净对照）** | 1749+,sl96,dm128,e2,n8,10ep | **23.87** | **9.08** | **0.568** | 降参有泛化提升；峰值仍68.8 | L392 |
-| EXP-15 | 06.14 | Stage 3 | dm128 dry run | df? ⚠️ 待确认 | — | — | — | RSE=0.813，无效 | L392 |
-| **Level 3** | 07.13 | Stage 4 | M4+PatchTST残差预测 | dm128,sl96 | — | — | — | 退化（3.32→4.48），不可行 | L450 |
-| **A-sl96** | 07.17 | Stage 5 | PatchTST sl96基线 | RevIN=1,lr=0.0001,10ep | 23.87 | 9.08 | 0.568 | 复用EXP-14 | L498 |
-| B-sl192 | 07.17 | Stage 5 | seq_len 96→192 | RevIN=1,lr=0.0001,30ep | 22.02 | 12.30 | 0.625 | 更多上下文有边际帮助 | L498 |
-| C-sl336 | 07.17 | Stage 5 | seq_len 192→336 | RevIN=1,lr=0.0001,30ep | 20.54 | 10.87 | 0.692 | 信息量边际递减 | L498 |
-| D1-DLinear | 07.17 | Stage 5 | DLinear(ind=0) | RevIN=0,lr=0.005,30ep | 20.31 | 19.04 | 0.722 | ⚠️ 与PatchTST不可跨组比 | L498 |
-| D2-DLinear-I | 07.17 | Stage 5 | DLinear(ind=1) | RevIN=0,lr=0.005,30ep | **19.30** | 19.36 | **0.751** | 组内最优 ⚠️ 不可跨组比 | L498 |
+| ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
+|----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **S0 基线** | 04.08-16 | Stage 0 | MinMax基线 | 1749+,512,sl132 | — | 25.80 | — | 上限144<<216，极值压缩 | L27 | ❌ 无 |
+| S0 ReLU | 04.09 | Stage 0 | Linear→ReLU | 同上 | — | ≈25.8 | — | 负值率5.56%→0% | L27 | ❌ 无 |
+| S0 Huber | 04.09 | Stage 0 | MSE→Huber | 同上 | — | 27.36 | — | 无贡献（MinMax配置下） | L27 | ❌ 无 |
+| S0 Softplus | 04.xx | Stage 0 | ReLU→Softplus | 同上 | — | 28.12 | — | 更差，系统性高估 | L27 | ❌ 无 |
+| **实验A** | 05.06 | Stage 1 | buggy基线(drop_last) | 1867+,dm128,sl132,n16,e3 | — | 11.15 | — | 32样本，不可用 | L155 | ❌ 无 |
+| **Baseline B** | 05.07 | Stage 1 | bug修复后基线 | 1867+,dm128,sl132,n16,e3,50ep | — | 13.02 | — | 峰值低估18% | L166 | ❌ 无 |
+| H2 多步长 | 05.07 | Stage 2 | step 0/6/12/18/23 | 同Baseline B checkpoint | 23.91 | — | — | 渐进退化 ⚠️ 口径待确认 | L224 | ❌ 无 |
+| H1 滚动 | 05.07 | Stage 2 | 逐月H1滚动预测 | 同Baseline B checkpoint | — | — | — | MAE=33.13，峰顶≈54 | L232 | ❌ 无 |
+| EXP-01 | 04.xx-05.13 | Stage 3 | Weather基准验证 | Weather数据集 | — | — | — | 代码环境OK | L349 | ❌ 无 |
+| 分阶段 | 04.xx-05.13 | Stage 3 | 四模型阶段训练 | dm512,~200样本/阶段 | — | — | — | 过拟合，已暂停 | L355 | ❌ 无 |
+| EXP-02 | 04.xx-05.13 | Stage 3 | Cycle23留出 | M mode,3特征 | — | — | — | RSE=0.196(z-score) | L359 | ❌ 无 |
+| EXP-03 | 04.xx-05.13 | Stage 3 | 特征4→3 | M mode | — | — | — | year_norm无贡献 | L359 | ❌ 无 |
+| EXP-04 | 04.xx-05.13 | Stage 3 | pred_len 96→132 | M mode | — | — | — | RSE=0.166-0.193 | L359 | ❌ 无 |
+| **EXP-05** | 04.xx-05.13 | Stage 3 | M→MS+sl96→132+RevIN1→0 | MS mode,sl132 | — | — | — | ❌ 3变量同改，退化 | L367 | ❌ 无 |
+| EXP-06 | 04.xx-05.13 | Stage 3 | 关EarlyStopping | MS mode | — | — | — | RSE=0.521，无改善 | L367 | ❌ 无 |
+| EXP-07 | 04.xx-05.13 | Stage 3 | StandardScaler→MinMax | MS mode | — | — | — | RSE=0.397 | L367 | ❌ 无 |
+| EXP-08 | 04.xx-05.13 | Stage 3 | GELU→ReLU | MS mode | — | — | — | RSE=0.389 ⚠️ MS下 | L367 | ❌ 无 |
+| EXP-09 | 04.xx-05.13 | Stage 3 | MSE→Huber | MS mode | — | — | — | RSE=0.389=MSE ⚠️ M下未测 | L367 | ❌ 无 |
+| EXP-10 | 04.xx-05.13 | Stage 3 | 回到MSE基线 | MS mode | — | — | — | RSE=0.389 | L367 | ❌ 无 |
+| EXP-11 | 04.xx-05.13 | Stage 3 | Softplus+Huber | MS mode | — | — | — | RSE=0.474，更差 | L367 | ❌ 无 |
+| EXP-12 | 04.xx-05.13 | Stage 3 | 1867+截断+4参数 | dm128,n16,e3,df256 | — | — | — | ❌ 5变量同改 | L386 | ❌ 无 |
+| EXP-13 | 06.14 | Stage 3 | dm512基线 | 1749+,sl96,dm512,e2,n8 | 25.27 | — | 0.539 | 与EXP-14成对对照 | L392 | ❌ 无 |
+| **EXP-14** | 06.14 | Stage 3 | **dm512→128（唯一干净对照）** | 1749+,sl96,dm128,e2,n8,10ep | **23.87** | **9.08** | **0.568** | 降参有泛化提升；峰值仍68.8 | L392 | ❌ 无 |
+| EXP-15 | 06.14 | Stage 3 | dm128 dry run | df? ⚠️ 待确认 | — | — | — | RSE=0.813，无效 | L392 | ❌ 无 |
+| **Level 3** | 07.13 | Stage 4 | M4+PatchTST残差预测 | dm128,sl96 | — | — | — | 退化（3.32→4.48），不可行 | L450 | ❌ 无 |
+| **A-sl96** | 07.17 | Stage 5 | PatchTST sl96基线 | RevIN=1,lr=0.0001,10ep | 23.87 | 9.08 | 0.568 | 复用EXP-14 | L498 | ❌ 无 |
+| B-sl192 | 07.17 | Stage 5 | seq_len 96→192 | RevIN=1,lr=0.0001,30ep | 22.02 | 12.30 | 0.625 | 更多上下文有边际帮助 | L498 | ❌ 无 |
+| C-sl336 | 07.17 | Stage 5 | seq_len 192→336 | RevIN=1,lr=0.0001,30ep | 20.54 | 10.87 | 0.692 | 信息量边际递减 | L498 | ❌ 无 |
+| D1-DLinear | 07.17 | Stage 5 | DLinear(ind=0) | RevIN=0,lr=0.005,30ep | 20.31 | 19.04 | 0.722 | ⚠️ 与PatchTST不可跨组比 | L498 | ❌ 无 |
+| D2-DLinear-I | 07.17 | Stage 5 | DLinear(ind=1) | RevIN=0,lr=0.005,30ep | **19.30** | 19.36 | **0.751** | 组内最优 ⚠️ 不可跨组比 | L498 | ❌ 无 |
 
 > ⚠️ **必须了解的坑**：
 > - Baseline B (13.02) 和 EXP-14 (9.08) 的 step0 不可直接比——配置差 9 项
