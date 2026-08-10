@@ -67,3 +67,13 @@ mse:0.08509543538093567, mae:0.14118161797523499, rse:0.3156743049621582
 sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0  
 mse:0.07907412946224213, mae:0.12536537647247314, rse:0.3043009340763092
 
+sunspot_PatchTST_custom_ftM_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_test_0  
+mse:0.08198367804288864, mae:0.12678617238998413, rse:0.3098487854003906
+
+
+EXP-16 sunspot_PatchTST_custom_ftM_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_test_0
+z-score: mse=0.082, mae=0.127, rse=0.310
+物理: step0=18.07, full=24.02, RMSE=33.88, R2=0.553, Er=-85.2, Em=-12
+滚动: 33.18 (前期21.39 后期54.30 2.5x)
+config: configs/EXP-16_2026-08-10.json
+
