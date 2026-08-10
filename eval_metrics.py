@@ -8,7 +8,15 @@ eval_metrics.py — 从 pred.npy / true.npy 反算物理口径评估指标
   手动指定（历史实验，没有 config JSON）:
     python eval_metrics.py results/EXP-XX/ --scaler standard --data_csv sunspot_with_cycle.csv --num_train 3119
 
-固定输出四个指标 + 误差分层 + R²，不依赖外部文件猜测 scaler。
+数据流说明：
+  原始 SSN → StandardScaler（本脚本反算的位置）→ z-score 空间
+  → 模型（含 RevIN 内部 normalize + denormalize）→ z-score 输出
+  → 写入 pred.npy / true.npy → 本脚本 inverse_transform → 物理 SSN
+  RevIN 层在模型 EXP-14 的 test() 内部已还原，输出处于 scaler 空间，本脚本只 inverse scaler。
+
+固定输出四个指标 + 误差分层 + R²。
+⚠️ 滚动 MAE 本脚本不计算。需要时手动跑 H1 方式（取 step0、推进1月、循环70月），
+   或待流程固化后写 roll_eval.py 统一支持 --rolling 参数。
 """
 
 import argparse
