@@ -198,7 +198,7 @@ F:\Downloads\patchTST_main\PatchTST-main\PatchTST_supervised\results\Baseline_18
 
 | 结果 | 数值 | 出处 |
 |------|------|------|
-| 物理 MAE=13.02 | 全 47 窗口平均物理 MAE | 用户 05.06/05.07 文档，npy 在 F:\Downloads |
+| 物理 MAE=13.02 | step 0 物理 MAE（用户 5 月原始记录确认） | 用户 05.06/05.07 文档，npy 在 F:\Downloads |
 | 物理 RMSE=16.66 | 全 47 窗口物理 RMSE | 同上 |
 | 峰值低估 18% | 真实 160.5 → 131.3 | 同上 |
 | z-score MAE | ? 待查证 | — |
@@ -227,7 +227,7 @@ F:\Downloads\patchTST_main\PatchTST-main\PatchTST_supervised\results\Baseline_18
 
 - step 越大 → 曲线越平坦，退化是渐进式的
 - 没有任何一条线能完整覆盖 2020-2025
-- 全步平均 MAE = 23.91（来源：用户 05.07 文档）
+- 全步平均 MAE = 23.91 ⚠️ 待确认计算口径：全部 47×24=1128 个预测点，还是仅取了 step 0/6/12/18/23 五个位置的 47×5=235 个点？这决定了能否与 EXP-14 的全步 23.87 直接比较。（来源：用户 05.07 文档）
 
 ### 2.2 H1 逐月滚动预测
 
@@ -324,6 +324,21 @@ M4 方案引入后，PatchTST 侧的实验配置发生了系统性变更：
 
 变更原因：? 无文档记录
 
+#### ⚠️ 目录命名规则的已知坑
+
+PatchTST 实验目录名中：
+- `sl` = seq_len（序列长度）
+- `pl` = pred_len（预测长度）
+- `ll` = label_len（标签长度）
+- `dm` = d_model
+- `nh` = n_heads
+- `el` = e_layers
+- `df` = d_ff
+
+**patch_len 和 stride 不在目录名中。** 唯一确认方式是从 checkpoint `.pth` 文件中读取 `PatchTST_backbone.patch_len` 和 `PatchTST_backbone.stride`。历史文档中凡标注了 patch_len 却未注明"checkpoint 读取"的，均为推测，不可靠。
+
+例如 Baseline B（Stage 1）的目录名不含 patch_len，但 05.07 从 checkpoint 确认实际值为 patch_len=12, stride=6（目录名中有 `pl24`，那是 pred_len=24，不是 patch_len）。
+
 ### 3.3 15 次实验记录
 
 数据来源：`/root/code/patchTST-sunspot-prediction/result.txt`（69 行）
@@ -351,7 +366,7 @@ Recorded in project_summary_2026-07-17.md as "Phase Training" — three cycle di
 
 #### 阶段 4：MS mode 消融（死路）
 
-全部 MS mode (ftMS)，sl=132，patch24：
+全部 MS mode (ftMS)，sl=132。⚠️ patch_len 未在目录名中记录，不能确认；Baseline B 同期 sl=132 时 checkpoint 读出的 patch_len=12。
 
 | 实验 | 名称 | result.txt 行 | MSE(z) | MAE(z) | RSE | 说明 |
 |------|------|--------------|--------|--------|-----|------|
@@ -380,7 +395,7 @@ EXP-9 的关键发现：Huber loss 的 RSE 和 MSE 完全一样（0.389），瓶
 |------|------|--------------|--------|--------|-----|----------|-----------|-----|------|
 | EXP-13 | dm512 基线 | 64-65 | 0.085 | 0.141 | 0.316 | 25.27 | 34.41 | 0.539 | result.txt + AGENTS.md |
 | **EXP-14** ✓ | **dm128 基线（当前）** | **67-68** | **0.079** | **0.125** | **0.304** | **23.87** | **33.29** | **0.568** | result.txt + npy 反算 |
-| EXP-15 | dm128 dry run | PatchTST_supervised/result.txt:1-2 | 0.565 | 0.563 | 0.813 | — | — | — | — |
+| EXP-15 | dm128 dry run | PatchTST_supervised/result.txt:1-2 | 0.565 | 0.563 | 0.813 | — | — | — | ⚠️ 待确认 d_ff（2048 还是 256？如为 256 则与 EXP-14 同时改变了 dm+df 两个变量） |
 
 **EXP-14 误差分层（来源：AGENTS.md）：**
 - SSN 0-50: MAE=6.6
@@ -648,7 +663,7 @@ npy 文件路径（✓ 服务器可查）：
 | Apr MinMax 基线 | ? | — | 25.80 | — | 用户 04.16 文档 |
 | Apr MSE+ReLU | ? | — | — | — | 用户 04.16 文档 |
 | May 实验 B | step 0 | ? | 13.02 | — | 用户 05.06 文档 |
-| May H2 全步平均 | 全 47 步 | — | 23.91 | — | 用户 05.07 文档 |
+| May H2 全步平均 | 全 47 步 ⚠️ 待确认计算口径 | — | 23.91 | — | 用户 05.07 文档 |
 | May H1 滚动 | 全 70 个月 | — | 33.13 | — | 用户 05.07 文档 |
 | Jun dm512 (EXP-13) | 全 47 步 | 0.141 | 25.27 | 0.539 | result.txt + AGENTS |
 | Jun dm128 (EXP-14) | 全 47 步 | 0.125 | 23.87 | 0.568 | result.txt + npy 反算 |

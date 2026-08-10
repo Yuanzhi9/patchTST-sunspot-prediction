@@ -38,6 +38,7 @@
   - patch_len=16, stride=8, RevIN=1, StandardScaler, MSE loss
   - batch_size=16, train_epochs=10
   - （旧基线 d_model=512，2026-06-14 验证 d_model=128 泛化更好，全面优于 512）
+- ⚠️ **五月 Baseline B（1867+ 数据，step0 MAE=13.02）与当前基线 EXP-14（1749+ 数据，step0 MAE=9.08）不可直接比较：** 两者数据范围（1867+ vs 1749+）、seq_len（132 vs 96）、n_heads（16 vs 8）、e_layers（3 vs 2）、d_ff（256 vs 2048）、patch_len（12 vs 16）、stride（6 vs 8）、dropout（0.05 vs 0.2）、epochs（50 vs 10）共 9 项参数不同。step0 的 13.02→9.08 说明 EXP-14 在自身配置下单步更优，但不可归因到任何一个具体参数变更，也不是严格意义上的"进步"。
 - 分阶段训练允许缩小模型（d_model 128~256）以适应阶段数据量
 - 所有修改需在独立 worktree 上进行，主分支只保留稳定版
 
@@ -54,7 +55,7 @@
 1. d_model=512 对每阶段 ~200 样本严重过拟合 → 下次降低模型参数
 2. train/val/test 切分有数据泄漏 → 需修 `Dataset_Phase._read_data()`
 3. 四阶段 Scaler 不一致导致预测不可用 → 统一 Scaler，存为文件
-4. MSE loss 压制峰值 → 改用 HuberLoss（EXP-9 验证：Huber 无效，瓶颈在任务定义而非 loss 形式）
+4. MSE loss 压制峰值 → 改用 HuberLoss（EXP-9 验证：⚠️ 该实验在 MS mode 下进行，Huber 在 M mode 下尚未验证；此结论暂限 MS mode）
 5. EarlyStopping 在验证集太小（13 样本）时不可靠 → 关掉 patience
 6. `enc_in` 参数需与数据列数一致（固定 3：month_sin, month_cos, ssn）
 7. d_model=128 下峰值误差分层确认：SSN 0-50 误差 6.6、50-100 误差 12.4、100-150 误差 27.1、>150 误差 68.8。降参不解决峰值压制，需改任务定义（预测残差）

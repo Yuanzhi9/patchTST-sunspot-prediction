@@ -12,9 +12,9 @@
 | 维度 | 状态 | 备注 |
 |------|------|------|
 | 实验完成 | Stage 0-2 (Apr-May) + 15 次主实验 (Jun) + 5 次天花板探测 (Jul) + Level 3 残差预测 | 详见 `experiment_history.md` |
-| 五月基线 B | PatchTST seq=132, 1867+ 数据, step 0 物理 MAE=13.02 | ⚠️ 代码/checkpoint 在用户本机，不在服务器 |
+| 五月基线 B | PatchTST seq=132, 1867+ 数据, step 0 物理 MAE=13.02 | ⚠️ 代码/checkpoint 在用户本机，不在服务器。⚠️ 与当前基线 EXP-14 不可直接比较（数据/sl/nh/el/df/pl/stride/drop/epochs 共 9 项不同），step0 的 13.02 vs 9.08 不能直接做"进步"叙事 |
 | 当前主基线 (EXP-14) | PatchTST dm128, seq=96, 1749+ 数据, 全步 MAE=23.87, step 0 MAE=9.08, R²=0.568 | 全步平均口径 |
-| 天花板探测 | 五组实验中 PatchTST sl96 step 0 MAE=9.08 最优（单次预测）；DLinear-I 全步 MAE=19.30 最稳定（多窗口） | ⚠️ PatchTST 组与 DLinear 组归一化/lr 不同，不可跨组直接比数值 |
+| 天花板探测 | 五组实验中 PatchTST sl96 step 0 MAE=9.08 最优（单次预测）；DLinear-I 全步 MAE=19.30 组内最优（多窗口） | ⚠️ PatchTST 组与 DLinear 组归一化/lr 不同，不可跨组直接比数值；各自可做组内最优 |
 | 物理方法对照 | M4 Waldmeier MAE=3.32 | 师兄代码已可用 |
 | 确认死路 | 5 条（MS mode / Huber loss / 截断数据 / Level 3 残差 / 分阶段训练） | 详见 project_summary_2026-07-17.md §四 |
 | 文献阅读 | **14 篇精读完成**（2026-08-09） | 笔记见 `literature/` |
