@@ -68,11 +68,11 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 - [ ] E_m（峰值时间误差）：______
 - [ ] 误差分层：0-50 / 50-100 / 100-150 / >150
 - [ ] 滚动 MAE（每一步推进1月，滚动70月）：
-    ⚠️ 当前未自动化（eval_metrics.py 不支持）。
+    ⚠️ 已自动化：`python roll_eval.py --config configs/EXP-XX.json`。
     正式对照实验需根据实验目的决定是否跑：
-    - 基线实验（如 Baseline B 复现）→ 必须跑，将手动流程固化为 roll_eval.py
+    - 基线实验（如 Baseline B 复现）→ 必须跑
     - 参数消融（如改 loss/激活）→ 可不跑（全步已覆盖）
-    如需跑，手动取 step0 → 推进1月 → 循环70月。跑完后把计算方式固化为 roll_eval.py。
+    结果解读：前期 MAE 和后期 MAE 的比值反映误差累积速度。
 
 ### 6. 记录（先结论，后细节）
 
