@@ -111,8 +111,11 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
     ⚠️ 已自动化：`python ../roll_eval.py --config configs/EXP-XX.json`。
     正式对照实验需根据实验目的决定是否跑：
     - 基线实验（如 Baseline B 复现）→ 必须跑
-    - 参数消融（如改 loss/激活）→ 可不跑（全步已覆盖）
+     - 参数消融（如改 loss/激活）→ 可不跑（全步已覆盖）
     结果解读：前期 MAE 和后期 MAE 的比值反映误差累积速度。
+
+[ ] **改过评估脚本？** → `python scripts/test_eval.py` 确认回归正常
+    （用 EXP-14 已知结果验证 eval_metrics.py 没被改坏）
 
 ### 6. 记录（先结论，后细节）
 
@@ -242,5 +245,6 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 |------|------|
 | `project_docs/experiment_template.md` | 单次实验记录模板 |
 | `project_docs/experiment_history.md` | 全量实验索引 + 详情 |
+| `project_docs/data_pipeline.md` | 归一化方法、数据流、硬编码约束 |
 | `AGENTS.md` | 项目架构、基线参数、红线 |
 | `project_docs/project_roadmap.md` | 路线图、下一步任务 |

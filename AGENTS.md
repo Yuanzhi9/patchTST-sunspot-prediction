@@ -7,6 +7,8 @@
 - **操作规程**：`project_docs/experiment_SOP.md`，跑任何实验前对照检查（全流程版 / 批量版）
 - **快速索引**：`project_docs/experiment_history.md` 顶部索引表，Ctrl+F 查找实验
 - **记录模板**：`project_docs/experiment_template.md`，每次跑新实验前复制、填写
+- **数据管线**：`project_docs/data_pipeline.md`（归一化方法/数据流/硬编码约束）
+- **工具回归测试**：`scripts/test_eval.py`（改 eval/roll_eval 后跑一次确认没坏）
 - **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
 - **硬规则**：一次只改一个变量，每次标明对照基线是谁
 
