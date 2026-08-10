@@ -158,8 +158,8 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | Python | 3.10.12 |
 | PyTorch | 1.11.0 |
 | GPU | 无（纯 CPU 训练） |
-| 训练耗时 | 待实验记录（d_model=128/10ep/CPU，首次训练后补充） |
-| 评估耗时 | 待实验记录（npy 反算 + 4 指标，首次评估后补充） |
+| 训练耗时 | seq=132/bs=32/50ep：约 22s/epoch（CPU），50 ep≈18 分钟。seq=96/bs=16/10ep：约 2-3 分钟 |
+| 评估耗时 | npy 反算 + 4 指标：< 5 秒。滚动评估（70 次推理）：约 2-3 分钟 |
 
 ---
 

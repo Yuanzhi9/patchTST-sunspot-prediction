@@ -10,8 +10,9 @@
 - **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
 - **硬规则**：一次只改一个变量，每次标明对照基线是谁
 
-## 当前阶段：Phase 0 — 文献奠基
-正在系统性阅读太阳黑子周期物理基础和 DL+sunspot 预测文献。完成后再进入 Phase 1（项目自审）和 Phase 2（实验设计）。详见 `project_roadmap.md`。
+## 当前阶段：审计与基础设施建设完成（2026-08-10），待与导师对齐
+
+文献奠基完成（14 篇精读）、实验历史梳理完成、SOP 建立、EXP-16c 基线复现完成。下一步方向待导师讨论后确定。详见 `project_roadmap.md`。
 
 ## 环境维护
 
@@ -25,12 +26,12 @@
 
 ## 项目路径
 - 代码根目录：`PatchTST_supervised/`
-- 主训练入口：
-  - **完整训练**：根目录 `run_sunspot_fixed.py`（train_epochs=10，完整基线参数）
-  - 快速测试：`PatchTST_supervised/run_sunspot_fixed.py`（train_epochs=1）
-  - 命令行版：`PatchTST_supervised/run_longExp.py`
+- **主训练入口（新实验必须用）**：`run_longExp.py`（原管线，运行时需 `PYTHONPATH=PatchTST_supervised`）
+- 快速校准工具（仅 EXP-13/14/15）：根目录 `run_sunspot_fixed.py`
+- 命令行版：`PatchTST_supervised/run_longExp.py`
 - 数据：`PatchTST_supervised/dataset/`
 - 实验分支：`level3-residual-prediction`（M4 + PatchTST 残差预测，已完成，结论：不可行）
+- EXP-16 分支：`EXP-16` worktree（`cd ../patchTST-sunspot-prediction-EXP16`）
 - 日记：`diary/`
 - M4 Waldmeier 师兄代码：`PatchTST_supervised/shixiong_m4/coding/solar_cycle_optimization_framework_package(1)/`
 
@@ -107,5 +108,5 @@
 
 **之前 AGENTS.md 和 project_summary 中记录的「硬天花板 MAE≈19.30」是基于跨组比较得出的，可比性前提不成立，已废弃。**
 
-## 下一步（2026-07-23 更新 → 2026-08-09 修正）
-当前处于 Phase 0（文献阅读）。先读文献 → 自审项目 → 定义科学问题 → 找导师 → 再定实验路线。**不跑新实验。** 路线图见 `project_roadmap.md`。完整实验时间线见 `experiment_history.md`。
+## 下一步（2026-08-10 更新）
+审计与基础设施建设完成。**当前步骤：与导师讨论定位和方向。之后按 `experiment_SOP.md` 执行实验。** 路线图见 `project_roadmap.md`。完整实验时间线见 `experiment_history.md`。
