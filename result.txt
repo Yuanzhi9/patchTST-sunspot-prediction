@@ -77,3 +77,14 @@ z-score: mse=0.082, mae=0.127, rse=0.310
 滚动: 33.18 (前期21.39 后期54.30 2.5x)
 config: configs/EXP-16_2026-08-10.json
 
+sunspot_PatchTST_custom_ftM_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_EXP-16b_0  
+mse:0.08697441220283508, mae:0.12429092079401016, rse:0.3191404342651367
+
+
+EXP-16b sunspot_PatchTST_custom_ftM_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_EXP-16b_0
+z-score: mse=0.087 mae=0.124 rse=0.319
+物理: step0=13.90 full=24.85 RMSE=34.95 R2=0.524 Er=-81.5 Em=-12
+滚动: 30.78 (前期21.80 后期44.48 2.0x) epochs=48
+config: configs/EXP-16b_2026-08-10.json
+对照: vs EXP-16 (patience=3): step0 18.07→13.90 全步 24.02→24.85 滚动 33.18→30.78
+
