@@ -14,9 +14,10 @@
 
 ```
 2026.04.08 ─── 04.16   Stage 0: MinMax + 1749+ 时代
+2026.04.xx ─── 05.13   (EXP-01 ~ EXP-12, 各方向初步探索，穿插于 Stage 0-2)
 2026.05.06 ─── 05.07   Stage 1: 1867+ Baseline B 确立
 2026.05.07 ─── 05.15   Stage 2: H1/H2 诊断 + A-H 清单
-2026.05.18 ─── 06.14   Stage 3: M4 路线 + PatchTST 配置变更 + 15 次实验
+2026.05.18 ─── 06.14   Stage 3: 配置变更 + M4引入 + 单变量对照（EXP-13~15）
 2026.07.13              Stage 4: Level 3 残差预测
 2026.07.17              Stage 5: 天花板探测
 2026.07.23 ─── 08.09   Stage 6: Phase 0 文献奠基
@@ -40,19 +41,19 @@
 | **Baseline B** | 05.07 | Stage 1 | bug修复后基线 | 1867+,dm128,sl132,n16,e3,50ep | — | 13.02 | — | 峰值低估18% | L166 |
 | H2 多步长 | 05.07 | Stage 2 | step 0/6/12/18/23 | 同Baseline B checkpoint | 23.91 | — | — | 渐进退化 ⚠️ 口径待确认 | L224 |
 | H1 滚动 | 05.07 | Stage 2 | 逐月H1滚动预测 | 同Baseline B checkpoint | — | — | — | MAE=33.13，峰顶≈54 | L232 |
-| EXP-01 | 05.18-06.14 | Stage 3 | Weather基准验证 | Weather数据集 | — | — | — | 代码环境OK | L349 |
-| 分阶段 | 05.18-06.14 | Stage 3 | 四模型阶段训练 | dm512,~200样本/阶段 | — | — | — | 过拟合，已暂停 | L355 |
-| EXP-02 | 05.18-06.14 | Stage 3 | Cycle23留出 | M mode,3特征 | — | — | — | RSE=0.196(z-score) | L359 |
-| EXP-03 | 05.18-06.14 | Stage 3 | 特征4→3 | M mode | — | — | — | year_norm无贡献 | L359 |
-| EXP-04 | 05.18-06.14 | Stage 3 | pred_len 96→132 | M mode | — | — | — | RSE=0.166-0.193 | L359 |
-| **EXP-05** | 05.18-06.14 | Stage 3 | M→MS+sl96→132+RevIN1→0 | MS mode,sl132 | — | — | — | ❌ 3变量同改，退化 | L367 |
-| EXP-06 | 05.18-06.14 | Stage 3 | 关EarlyStopping | MS mode | — | — | — | RSE=0.521，无改善 | L367 |
-| EXP-07 | 05.18-06.14 | Stage 3 | StandardScaler→MinMax | MS mode | — | — | — | RSE=0.397 | L367 |
-| EXP-08 | 05.18-06.14 | Stage 3 | GELU→ReLU | MS mode | — | — | — | RSE=0.389 ⚠️ MS下 | L367 |
-| EXP-09 | 05.18-06.14 | Stage 3 | MSE→Huber | MS mode | — | — | — | RSE=0.389=MSE ⚠️ M下未测 | L367 |
-| EXP-10 | 05.18-06.14 | Stage 3 | 回到MSE基线 | MS mode | — | — | — | RSE=0.389 | L367 |
-| EXP-11 | 05.18-06.14 | Stage 3 | Softplus+Huber | MS mode | — | — | — | RSE=0.474，更差 | L367 |
-| EXP-12 | 05.18-06.14 | Stage 3 | 1867+截断+4参数 | dm128,n16,e3,df256 | — | — | — | ❌ 5变量同改 | L386 |
+| EXP-01 | 04.xx-05.13 | Stage 3 | Weather基准验证 | Weather数据集 | — | — | — | 代码环境OK | L349 |
+| 分阶段 | 04.xx-05.13 | Stage 3 | 四模型阶段训练 | dm512,~200样本/阶段 | — | — | — | 过拟合，已暂停 | L355 |
+| EXP-02 | 04.xx-05.13 | Stage 3 | Cycle23留出 | M mode,3特征 | — | — | — | RSE=0.196(z-score) | L359 |
+| EXP-03 | 04.xx-05.13 | Stage 3 | 特征4→3 | M mode | — | — | — | year_norm无贡献 | L359 |
+| EXP-04 | 04.xx-05.13 | Stage 3 | pred_len 96→132 | M mode | — | — | — | RSE=0.166-0.193 | L359 |
+| **EXP-05** | 04.xx-05.13 | Stage 3 | M→MS+sl96→132+RevIN1→0 | MS mode,sl132 | — | — | — | ❌ 3变量同改，退化 | L367 |
+| EXP-06 | 04.xx-05.13 | Stage 3 | 关EarlyStopping | MS mode | — | — | — | RSE=0.521，无改善 | L367 |
+| EXP-07 | 04.xx-05.13 | Stage 3 | StandardScaler→MinMax | MS mode | — | — | — | RSE=0.397 | L367 |
+| EXP-08 | 04.xx-05.13 | Stage 3 | GELU→ReLU | MS mode | — | — | — | RSE=0.389 ⚠️ MS下 | L367 |
+| EXP-09 | 04.xx-05.13 | Stage 3 | MSE→Huber | MS mode | — | — | — | RSE=0.389=MSE ⚠️ M下未测 | L367 |
+| EXP-10 | 04.xx-05.13 | Stage 3 | 回到MSE基线 | MS mode | — | — | — | RSE=0.389 | L367 |
+| EXP-11 | 04.xx-05.13 | Stage 3 | Softplus+Huber | MS mode | — | — | — | RSE=0.474，更差 | L367 |
+| EXP-12 | 04.xx-05.13 | Stage 3 | 1867+截断+4参数 | dm128,n16,e3,df256 | — | — | — | ❌ 5变量同改 | L386 |
 | EXP-13 | 06.14 | Stage 3 | dm512基线 | 1749+,sl96,dm512,e2,n8 | 25.27 | — | 0.539 | 与EXP-14成对对照 | L392 |
 | **EXP-14** | 06.14 | Stage 3 | **dm512→128（唯一干净对照）** | 1749+,sl96,dm128,e2,n8,10ep | **23.87** | **9.08** | **0.568** | 降参有泛化提升；峰值仍68.8 | L392 |
 | EXP-15 | 06.14 | Stage 3 | dm128 dry run | df? ⚠️ 待确认 | — | — | — | RSE=0.813，无效 | L392 |
@@ -331,7 +332,10 @@ F:\Downloads\patchTST_main\PatchTST-main\PatchTST_supervised\results\Baseline_18
 
 ---
 
-## Stage 3: M4 路线 + PatchTST 配置变更 + 15 次实验（2026.05.18 — 06.14）
+## Stage 3: 15 次实验（2026.04.xx — 06.14）
+
+> ⚠️ 时间线澄清：EXP-01~12 在 04.xx-05.13 期间完成（穿插于 Stage 0-2）；EXP-13~15 在 05.18-06.14 完成（配置变更后 + M4 路线引入）。<br>
+> 05.18 同时发生两件事：用户转向 M4 路线（§3.1）+ PatchTST 配置系统性变更（§3.2）。但 EXP-01~12 在此变更之前，配置属于前一期。仅 EXP-13~15 使用了新配置。
 
 ### 3.1 学长 M4 Waldmeier 方案引入
 
