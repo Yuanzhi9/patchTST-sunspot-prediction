@@ -112,6 +112,23 @@ if __name__ == '__main__':
     print('Args in experiment:')
     print(args)
 
+    # auto-dump 实际参数快照（防御性副本，与 save_config.py 互为验证）
+    try:
+        import json
+        from datetime import datetime
+        os.makedirs('configs', exist_ok=True)
+        ts = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+        auto_path = os.path.join('configs', f'auto_{ts}.json')
+        args_dict = vars(args).copy()
+        # numpy/pandas types → native Python for JSON
+        for k, v in args_dict.items():
+            if hasattr(v, 'item'):
+                args_dict[k] = v.item()
+        with open(auto_path, 'w') as f:
+            json.dump(args_dict, f, indent=2, ensure_ascii=False, default=str)
+    except Exception:
+        pass  # 存档失败不影响训练
+
     Exp = Exp_Main
 
     if args.is_training:

@@ -43,6 +43,23 @@
 
 [ ] 对照基线：___（索引表里的实验 ID）
 
+[ ] **参数对照表**（逐项核对完才跑）：
+    对照基线的每项参数，本次实验值必须与之一致（除改动变量外）。
+
+| 参数 | 对照基线值 | 本次实验值 | 一致？ |
+|------|----------|----------|--------|
+| 训练入口 | run_longExp.py | | [ ] |
+| features | __ | | [ ] |
+| seq_len | __ | | [ ] |
+| batch_size | __ | | | [ ] |
+| num_workers | __ | | [ ] |
+| enc_in | __ | | [ ] |
+| 其余... | __ | | [ ] |
+
+> ⚠️ **两个训练脚本的说明：**
+> `run_longExp.py`：**原管线。所有新实验必须用这个。**
+> `run_sunspot_fixed.py`：仅 EXP-13/14/15 的快速校准工具。用它跑新实验 = EXP-16/16b 教训（两次作废）。不要踩同一个坑。
+
 [ ] 这个结论只能用在什么前提条件下？
     （mode: M/MS？数据: 1749+/1867+？epochs: 10/50？）
 
@@ -102,6 +119,11 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 [ ] 一句话结论（跑完立刻写，别拖）：
     "___：step0 ___→___，全步 ___→___，有效/无效"
 
+[ ] **实验收尾判定**（写结论时同时标注，写进索引表）：
+    ✅ 通过：假设成立，结论可进入知识库
+    ⚠️ 存疑：数据不足以判定，需要对照实验
+    ❌ 无效：方法论错误（如用错脚本），结论不采用
+
 [ ] 填 `project_docs/experiment_template.md`
 
 [ ] 追加索引表一行（`project_docs/experiment_history.md` 顶部）
@@ -121,6 +143,8 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 - 跑完说不出"它告诉了我什么" → 必须说出来再开下一个
 - 说不出来"什么样算无效" → 假设不完整，不跑
 - 直接修改 run_longExp.py 源码来适配实验 → 不跑（用 CLI 传参，或复制文件标注差异）
+- 对照基线参数没逐项核对过 → 不跑（先填参数对照表）
+- 不确定归一化方法和逆操作是否匹配 → 不跑（先跑验证命令对拍已知结果）
 
 ### 8. 失败处理
 
@@ -170,6 +194,7 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | GPU | 无（纯 CPU 训练） |
 | 训练耗时 | seq=132/bs=32/50ep：约 22s/epoch（CPU），50 ep≈18 分钟。seq=96/bs=16/10ep：约 2-3 分钟 |
 | 评估耗时 | npy 反算 + 4 指标：< 5 秒。滚动评估（70 次推理）：约 2-3 分钟 |
+| Git token | 有效期至 **2026-10-10**。push 失败先检查 token 是否过期 |
 
 ---
 
@@ -207,7 +232,7 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 
 - `sl`=seq_len / `pl`=pred_len / `ll`=label_len
 - `dm`=d_model / `nh`=n_heads / `el`=e_layers / `df`=d_ff
-- **patch_len 和 stride 不在目录名中**——只能在 config JSON 或 checkpoint 里确认
+- ⚠️ **`pl` 是 pred_len，不是 patch_len！** patch_len 和 stride 不在目录名中——只能在 config JSON 或 checkpoint 里确认。AI 写文档时曾将 `pl24` 误读为 `patch=24`，这是错的。
 
 ---
 
