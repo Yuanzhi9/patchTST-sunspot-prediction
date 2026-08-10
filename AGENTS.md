@@ -3,6 +3,12 @@
 ## 项目主控文档
 **`project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
 
+## 实验记录约定（2026-08-10 新增）
+- **快速索引**：`experiment_history.md` 顶部索引表，Ctrl+F 查找实验
+- **记录模板**：`experiment_template.md`，每次跑新实验前复制、填写
+- **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
+- **硬规则**：一次只改一个变量，每次标明对照基线是谁
+
 ## 当前阶段：Phase 0 — 文献奠基
 正在系统性阅读太阳黑子周期物理基础和 DL+sunspot 预测文献。完成后再进入 Phase 1（项目自审）和 Phase 2（实验设计）。详见 `project_roadmap.md`。
 
