@@ -18,6 +18,19 @@
 
 ### 1. 实验前（5 分钟，不写完不跑）
 
+[ ] **训练入口脚本**：必须是 `run_longExp.py`（原管线）
+    → `run_sunspot_fixed.py` 仅为 EXP-13/14/15 快速校准，不做新实验
+    → 运行时：`PYTHONPATH=PatchTST_supervised python3 run_longExp.py ...`
+    → run_longExp.py 的 checkpoint 存 `./checkpoints/`（不是 `PatchTST_supervised/checkpoints/`）
+
+[ ] **features 确认**：MS（单目标预测SSN）还是 M（多变量全通道预测）？
+    → 对照基线用什么就跟着用什么。当前约定：MS
+
+[ ] **batch_size / num_workers / enc_in**：与对照基线一致
+    → Baseline B 为 bs=32, num_workers=0, enc_in=3
+
+[ ] **数据路径**：`--root_path` 显式传 `./PatchTST_supervised/dataset/`（run_longExp.py 默认是 `./data/ETT/` 会错）
+
 [ ] **可证伪假设**（三行填完）：
     如果有效，step0 ≤ ___ 且 E_r ≤ ___
     如果无效，step0 ≈ ___

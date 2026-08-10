@@ -1,6 +1,6 @@
 # EXP-16 — Baseline B参数×1749+数据复现
 
-> 记录时间：2026-08-10 | SOP 全程对照
+> ❌ **2026-08-10：此实验已宣告无效。** 误用 run_sunspot_fixed.py 而非原管线 run_longExp.py。由 EXP-16c 取代。
 
 ## 基本字段
 
