@@ -13,6 +13,13 @@
 ## 当前阶段：Phase 0 — 文献奠基
 正在系统性阅读太阳黑子周期物理基础和 DL+sunspot 预测文献。完成后再进入 Phase 1（项目自审）和 Phase 2（实验设计）。详见 `project_roadmap.md`。
 
+## 环境维护
+
+| 项目 | 状态 |
+|------|------|
+| Git credential | `~/.git-credentials` 已配置，有效期至 **2026-10-10**。过期后需重新生成 GitHub token 并更新 |
+| Token 获取 | https://github.com/settings/tokens → Generate new token (classic) → 勾选 `repo`
+
 ## 项目目标（当前定位）
 使用深度学习模型探索太阳黑子数（SSN）预测的可行性边界，核心关注第 25、26 太阳活动周的完整曲线预测。M4 Waldmeier 参数化曲线（师兄代码）做物理方法对照基线。当前定位偏向"可行性边界研究"——系统刻画纯数据驱动方法在该问题上的能力上限和失效模式。待文献读完 + 导师确认后再定最终定位。
 
