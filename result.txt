@@ -88,3 +88,13 @@ z-score: mse=0.087 mae=0.124 rse=0.319
 config: configs/EXP-16b_2026-08-10.json
 对照: vs EXP-16 (patience=3): step0 18.07→13.90 全步 24.02→24.85 滚动 33.18→30.78
 
+sunspot_PatchTST_custom_ftMS_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_EXP-16c_0  
+mse:0.25651904940605164, mae:0.3585735857486725, rse:0.6839896440505981
+
+
+EXP-16c sunspot_PatchTST_custom_ftMS_sl132_ll48_pl24_dm128_nh16_el3_dl1_df256_fc1_ebtimeF_dtTrue_EXP-16c_0
+训练: run_longExp.py(原管线) PYTHONPATH=PatchTST_supervised
+z-score: mse=0.257 mae=0.359 rse=0.684
+物理: step0=11.21 full=24.54 RMSE=34.66 R2=0.532 Er=-85.5 Em=-12
+滚动: 36.37 (前期26.90 后期53.24 2.0x) epochs=38
+
