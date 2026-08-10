@@ -3,6 +3,8 @@
 ## 项目主控文档
 **`project_docs/project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
 
+> **新来的 AI？** 先读 `project_docs/ONBOARDING.md`。3 分钟了解她是谁、项目做什么、今天踩了什么坑、怎么跟她沟通。
+
 ## 实验记录约定（2026-08-10 新增）
 - **操作规程**：`project_docs/experiment_SOP.md`，跑任何实验前对照检查（全流程版 / 批量版）
 - **快速索引**：`project_docs/experiment_history.md` 顶部索引表，Ctrl+F 查找实验
@@ -11,6 +13,16 @@
 - **工具回归测试**：`scripts/test_eval.py`（改 eval/roll_eval 后跑一次确认没坏）
 - **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
 - **硬规则**：一次只改一个变量，每次标明对照基线是谁
+
+## 文献笔记
+
+14 篇精读结构化笔记，位于 `literature/`：
+- **总览表 + 横向对比**：`literature/literature_reading_notes.md`（473 行）
+  — 每篇一句话结论 + 与你项目的关系
+- **每篇完整详注**：`literature/literature_reading_notes_detailed.md`（1214 行）
+  — 三句话笔记、实验设计细节、关键数值、方法论判断
+- 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
+- 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
 ## 当前阶段：审计与基础设施建设完成（2026-08-10），待与导师对齐
 

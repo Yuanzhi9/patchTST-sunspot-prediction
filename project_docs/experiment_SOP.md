@@ -39,6 +39,11 @@
 [ ] **预尸检**：如果两周后证明这实验是废物，最可能因为什么？
     → 回答后检查：前提条件对吗（mode/数据范围/归一化）？
 
+[ ] **文献先例**：这个方向是否已有文献做过？
+    → 查 `literature/literature_reading_notes.md` 总览表（Ctrl+F 关键词）
+    → 有 → 读对应详注（`literature_reading_notes_detailed.md`），记录"别人做到什么精度、踩了什么坑"
+    → 无 → 标注"无文献先例"，写入实验文档作为背景
+
 [ ] 只改了一个变量？是 ___（≥2 → 不跑）
 
 [ ] 对照基线：___（索引表里的实验 ID）
@@ -93,7 +98,37 @@ PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
   # 所有参数显式 CLI 传入，不修改 run_longExp.py 源码
   # ⚠️ 上例是 EXP-14 默认配置，实验时替换为实际参数
 ```
-⚠️ 所有参数通过 CLI 传入 run_longExp.py，不修改源码。如 CLI 不支持所需功能 → 复制 run_longExp.py 为新文件（如 `run_longExp_EXP-XX.py`），文件头注释与原始版的差异。
+⚠️ 所有参数通过 CLI 传入 run_longExp.py，不修改源码。以下是代码改变的决策树：
+
+### 4-B. 如果 CLI 参数不够——代码改变处置规则
+
+```
+实验需要改代码？
+  ├─ 只是改参数 → CLI 传参（已覆盖，OK）
+  │
+  ├─ 改 1-5 行模型代码（如 PatchTST.py 加 ReLU head）
+  │     → 在 run_longExp.py 加一个 CLI 开关参数（如 --head_activation relu）
+  │     → 模型初始化时读此参数，决定是否执行该分支
+  │     → 不复制文件，不改源码结构。一个 commit 包含：CLI 参数 + 模型内条件分支
+  │     → 对照基线用同一个脚本，不破坏可比性
+  │
+  └─ 改大量代码（如新增 GRC 残差校正模块、换模型架构）
+        → 🛑 STOP。停下来跟我（用户）讨论：
+          a. 需要新建哪些文件，放哪个目录
+          b. 如何跟现有 eval/roll_eval 管线对接
+          c. 验证标准是什么
+          d. 是否保留旧版本脚本做对照
+        → 我拍板后再动工。
+```
+
+### 4-C. 需要讨论的待议项（2026-08-10 标记，等用户回复）
+
+| # | 问题 | 为什么必须讨论 |
+|---|------|--------------|
+| 1 | A1（ReLU head）预期效果怎么定？ | Stage 0 在 MinMax 下做过 ReLU，但 MS+StandardScaler 下没试过——成功标准是"负值率下降"还是"step0 改善"？ |
+| 2 | GRC 重度代码改动的具体方案 | 需要用户描述完整 pipeline（残差收集→梯度计算→AdaBoost→叠加），才知道要建什么文件 |
+| 3 | GRC 在多步预测下取哪个残差 | 模型输出是 (47, 24) 矩阵——GRC 用 step0 残差还是全 24 步？ |
+| 4 | 实验前没有跟导师对齐过定位 | 当前阶段标注"待与导师对齐"——GRC/A1 等方向是否要先搁置等导师反馈？ |
 
 ### 5. 评估（门禁——缺一个不算完成）
 
@@ -246,5 +281,6 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | `project_docs/experiment_template.md` | 单次实验记录模板 |
 | `project_docs/experiment_history.md` | 全量实验索引 + 详情 |
 | `project_docs/data_pipeline.md` | 归一化方法、数据流、硬编码约束 |
+| `project_docs/ONBOARDING.md` | 给新来 AI 的说明——她是谁、怎么沟通、今天踩了什么坑 |
 | `AGENTS.md` | 项目架构、基线参数、红线 |
 | `project_docs/project_roadmap.md` | 路线图、下一步任务 |
