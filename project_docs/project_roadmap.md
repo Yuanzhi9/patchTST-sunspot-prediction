@@ -3,7 +3,7 @@
 > 创建日期：2026-07-23 | 版本 v1.1 (2026-08-09 修正)
 > 定位：项目主控文档。所有任务、阶段、决策记录在此。
 > 旧版研究计划备份：`research-plan_2026-07-17.backup.md`
-> **完整实验时间线**：`experiment_history.md`
+> **完整实验时间线**：`project_docs/experiment_history.md`
 
 ---
 
@@ -12,12 +12,12 @@
 | 维度 | 状态 | 备注 |
 |------|------|------|
 | **当前阶段** | **Phase 0 完成 → 实验准备** | **2026-08-10 完成审计+SOP+工具。下一步实验待定（见 §二-0）** |
-| 实验完成 | Stage 0-2 (Apr-May) + 15 次主实验 (Jun) + 5 次天花板探测 (Jul) + Level 3 残差预测 | 详见 `experiment_history.md` |
+| 实验完成 | Stage 0-2 (Apr-May) + 15 次主实验 (Jun) + 5 次天花板探测 (Jul) + Level 3 残差预测 | 详见 `project_docs/experiment_history.md` |
 | 五月基线 B | PatchTST seq=132, 1867+ 数据, step 0 物理 MAE=13.02 | ⚠️ 代码/checkpoint 在用户本机，不在服务器。⚠️ 与当前基线 EXP-14 不可直接比较（数据/sl/nh/el/df/pl/stride/drop/epochs 共 9 项不同），step0 的 13.02 vs 9.08 不能直接做"进步"叙事 |
 | 当前主基线 (EXP-14) | PatchTST dm128, seq=96, 1749+ 数据, 全步 MAE=23.87, step 0 MAE=9.08, R²=0.568 | 全步平均口径 |
 | 天花板探测 | 五组实验中 PatchTST sl96 step 0 MAE=9.08 最优（单次预测）；DLinear-I 全步 MAE=19.30 组内最优（多窗口） | ⚠️ PatchTST 组与 DLinear 组归一化/lr 不同，不可跨组直接比数值；各自可做组内最优 |
 | 物理方法对照 | M4 Waldmeier MAE=3.32 | 师兄代码已可用 |
-| 确认死路 | 5 条（MS mode / Huber loss / 截断数据 / Level 3 残差 / 分阶段训练） | 详见 project_summary_2026-07-17.md §四 |
+| 确认死路 | 5 条（MS mode / Huber loss / 截断数据 / Level 3 残差 / 分阶段训练） | 详见 project_docs/project_summary_2026-07-17.md §四 |
 | 文献阅读 | **14 篇精读完成**（2026-08-09） | 笔记见 `literature/` |
 | 科学问题 | 未正式定义 | — |
 | 导师沟通 | 准备明日（08.10）汇报 | — |
@@ -64,7 +64,7 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3
 ### Phase 0 结束判定（2026-08-10 更新）
 
 - [x] 文献读完（14 篇精读 + 笔记）
-- [x] 实验历史梳理（experiment_history.md）
+- [x] 实验历史梳理（project_docs/experiment_history.md）
 - [x] 文档交叉审计（四次文档冲突已解决）
 - [x] **roll_eval.py** — 滚动评估自动化（EXP-14 验证通过：滚动MAE=149.92，前期31→后期249，误差爆炸）
 
@@ -72,7 +72,7 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3
 
 ## 二-A：实验纪律
 
-**在本项目跑任何实验，必须遵照 `experiment_SOP.md`。**
+**在本项目跑任何实验，必须遵照 `project_docs/experiment_SOP.md`。**
 
 AI 和人在跑实验前共同对照 SOP §1（可证伪假设/预尸检/单变量/前提条件），评估时对照 SOP §5（四个固定指标），记录时对照 SOP §6（先结论后细节）。
 
@@ -91,7 +91,7 @@ AI 和人在跑实验前共同对照 SOP §1（可证伪假设/预尸检/单变�
 | 改动（只能一个变量） | ___ |
 | 对照基线 | ___ |
 | 可证伪假设 | 如果有效，step0 ≤ ___；如果无效，step0 ≈ ___ |
-| 配置快照 | ___（save_config.py 输出的 JSON 路径） |
+| 配置快照 | ___（`../save_config.py` 输出的 JSON 路径） |
 
 **候选实验方向**（讨论中，未定优先级）：
 1. Baseline B 配置复现（1749+ 数据 + seq132/el3/df256/epochs50）

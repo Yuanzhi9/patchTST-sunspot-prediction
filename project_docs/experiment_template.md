@@ -3,7 +3,7 @@
 > 用法：每次跑新实验前，复制此文件，重命名为 `EXPERIMENT_<ID>.md`，填写后存到项目根目录。
 > 跑完实验后补充结果和结论段，然后：
 > 1. 在 `result.txt` 里追加一行标准化记录
-> 2. 在 `experiment_history.md` 快速索引表里追加一行 + 在末尾追加一节详情
+> 2. 在 `project_docs/experiment_history.md` 快速索引表里追加一行 + 在末尾追加一节详情
 > 3. `git add` 所有新增/修改文件，commit
 
 ---
@@ -116,7 +116,7 @@ R²:
 - [ ] 训练入口确认是 run_longExp.py（PYTHONPATH=PatchTST_supervised）？
 - [ ] 指标用物理口径报告（MAE/RMSE/R²），不只报 z-score？
 - [ ] result.txt 追加了一行？
-- [ ] experiment_history.md 索引表追加了一行？
+- [ ] project_docs/experiment_history.md 索引表追加了一行？
 
 ---
 

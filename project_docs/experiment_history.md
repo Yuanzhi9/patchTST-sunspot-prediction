@@ -29,7 +29,7 @@
 
 > 用法：Ctrl+F 搜实验 ID，跳转到对应行号看详情。
 > 新增实验后，在本表中追加一行 + 在 Stage 末尾追加一节记录。
-> 记录模板：`experiment_template.md`
+> 记录模板：`project_docs/experiment_template.md`
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
@@ -408,7 +408,7 @@ PatchTST 实验目录名中：
 
 #### 阶段 2：分阶段训练探索
 
-Recorded in project_summary_2026-07-17.md as "Phase Training" — three cycle division methods with four-stage independent training + rolling concatenation. Results and models were on a worktree branch, not on this main branch. See project_summary for details: rise MAE=40.4, peak MAE=51.8, decline MAE=36.7, trough MAE=6.3.
+Recorded in project_summary_2026-07-17.md as "Phase Training" — three cycle division methods with four-stage independent training + rolling concatenation. Results and models were on a worktree branch, not on this main branch. See project_docs/project_summary for details: rise MAE=40.4, peak MAE=51.8, decline MAE=36.7, trough MAE=6.3.
 
 #### 阶段 3：全量数据 + M mode 早期尝试
 
@@ -732,7 +732,7 @@ npy 文件路径（✓ 服务器可查）：
 
 **run_longExp.py 原管线复现成功。** step0=11.21 优于原始 Baseline B（13.02，1867+ 数据），说明 seq=132 + nh16 + el3 的架构在更宽数据上也有效。但滚动=36.37 差于原始 B（33.13）——1749+ 的宽 range（0-398）拉大 scaler std，在自回归累积时放大了误差。峰值-85.5 与 EXP-14（-75.8）同量级，是 StandardScaler + 宽数据范围的系统性压制，非训练轮数可解。
 
-**配置文件**：见 EXP-16c_experiment.md。checkpoint 在 `checkpoints/sunspot_...EXP-16c_0/`（run_longExp.py 路径，非 PatchTST_supervised/checkpoints/）。
+**配置文件**：见 project_docs/EXP-16c_experiment.md。checkpoint 在 `checkpoints/sunspot_...EXP-16c_0/`（run_longExp.py 路径，非 PatchTST_supervised/checkpoints/）。
 
 ---
 

@@ -57,7 +57,7 @@
 ### 3. 配置冻结
 
 ```bash
-python save_config.py EXP-XX --reason "一句话目的"
+python ../save_config.py EXP-XX --reason "一句话目的"
 ```
 → 输出 `configs/EXP-XX_YYYY-MM-DD.json`
 
@@ -81,7 +81,7 @@ PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
 ### 5. 评估（门禁——缺一个不算完成）
 
 ```bash
-python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
+python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 ```
 
 固定输出：
@@ -91,7 +91,7 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 - [ ] E_m（峰值时间误差）：______
 - [ ] 误差分层：0-50 / 50-100 / 100-150 / >150
 - [ ] 滚动 MAE（每一步推进1月，滚动70月）：
-    ⚠️ 已自动化：`python roll_eval.py --config configs/EXP-XX.json`。
+    ⚠️ 已自动化：`python ../roll_eval.py --config configs/EXP-XX.json`。
     正式对照实验需根据实验目的决定是否跑：
     - 基线实验（如 Baseline B 复现）→ 必须跑
     - 参数消融（如改 loss/激活）→ 可不跑（全步已覆盖）
@@ -102,9 +102,9 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 [ ] 一句话结论（跑完立刻写，别拖）：
     "___：step0 ___→___，全步 ___→___，有效/无效"
 
-[ ] 填 `experiment_template.md`
+[ ] 填 `project_docs/experiment_template.md`
 
-[ ] 追加索引表一行（`experiment_history.md` 顶部）
+[ ] 追加索引表一行（`project_docs/experiment_history.md` 顶部）
 
 [ ] 追加 `result.txt` 一行
 
@@ -141,7 +141,7 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 [ ] 预期趋势：参数往哪个方向，指标应该往哪个方向
 [ ] 跑
 [ ] 每行四个固定指标 + 一句话结论
-[ ] 汇总成一张表，追加到 `experiment_history.md` 末尾
+[ ] 汇总成一张表，追加到 `project_docs/experiment_history.md` 末尾
 [ ] 每个子实验的 config JSON 存 `configs/scan_ID_N.json`
 [ ] commit 时：scan_config.json + 汇总表 + 所有 config JSON
 
@@ -183,12 +183,12 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 |------|------|
 | 数据 | `PatchTST_supervised/dataset/sunspot_with_cycle.csv` |
 | 训练入口 | `run_longExp.py`（原管线，`PYTHONPATH=PatchTST_supervised`） |
-| 配置快照 | `save_config.py` |
-| 配置输出 | `configs/` |
-| 评估脚本 | `eval_metrics.py` |
-| 索引表 | `experiment_history.md` 顶部 |
-| 结果记录 | `result.txt` |
-| 单次记录模板 | `experiment_template.md` |
+| 配置快照 | `../save_config.py` |
+| 配置输出 | `../configs/` |
+| 评估脚本 | `../scripts/eval_metrics.py` |
+| 索引表 | `project_docs/experiment_history.md` 顶部 |
+| 结果记录 | `../result.txt` |
+| 单次记录模板 | `project_docs/experiment_template.md` |
 
 ### 四指标定义
 
@@ -215,7 +215,7 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 
 | 文档 | 用途 |
 |------|------|
-| `experiment_template.md` | 单次实验记录模板 |
-| `experiment_history.md` | 全量实验索引 + 详情 |
+| `project_docs/experiment_template.md` | 单次实验记录模板 |
+| `project_docs/experiment_history.md` | 全量实验索引 + 详情 |
 | `AGENTS.md` | 项目架构、基线参数、红线 |
-| `project_roadmap.md` | 路线图、下一步任务 |
+| `project_docs/project_roadmap.md` | 路线图、下一步任务 |

@@ -1,18 +1,18 @@
 # PatchTST 太阳黑子预测 项目 — AGENTS.md v2
 
 ## 项目主控文档
-**`project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
+**`project_docs/project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
 
 ## 实验记录约定（2026-08-10 新增）
-- **操作规程**：`experiment_SOP.md`，跑任何实验前对照检查（全流程版 / 批量版）
-- **快速索引**：`experiment_history.md` 顶部索引表，Ctrl+F 查找实验
-- **记录模板**：`experiment_template.md`，每次跑新实验前复制、填写
+- **操作规程**：`project_docs/experiment_SOP.md`，跑任何实验前对照检查（全流程版 / 批量版）
+- **快速索引**：`project_docs/experiment_history.md` 顶部索引表，Ctrl+F 查找实验
+- **记录模板**：`project_docs/experiment_template.md`，每次跑新实验前复制、填写
 - **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
 - **硬规则**：一次只改一个变量，每次标明对照基线是谁
 
 ## 当前阶段：审计与基础设施建设完成（2026-08-10），待与导师对齐
 
-文献奠基完成（14 篇精读）、实验历史梳理完成、SOP 建立、EXP-16c 基线复现完成。下一步方向待导师讨论后确定。详见 `project_roadmap.md`。
+文献奠基完成（14 篇精读）、实验历史梳理完成、SOP 建立、EXP-16c 基线复现完成。下一步方向待导师讨论后确定。详见 `project_docs/project_roadmap.md`。
 
 ## 环境维护
 
@@ -64,7 +64,7 @@
   - step 0 单次 2 年预测物理 MAE=9.08（优于全步平均，说明模型在多窗口滑动评估中退化严重）
   - 峰值区域（SSN>150）误差均值 68.8（全步平均），MSE loss 压制峰值问题未因降参解决
 - 基线数据来源：`result.txt` line 64-68，npy 反算验证
-- 完整实验时间线见 `experiment_history.md`
+- 完整实验时间线见 `project_docs/experiment_history.md`
 
 ## 分阶段训练已确认的问题
 1. d_model=512 对每阶段 ~200 样本严重过拟合 → 下次降低模型参数
@@ -104,9 +104,9 @@
 - DLinear-I 全步平均 (MAE=19.30) 是全五组中最稳定的多窗口平均结果
 - 所有模型 peak 区域误差 50+ SSN
 - M4 物理方法 Cycle 25 MAE=3.32 仍是强基准
-- 全部数值经 npy 反算验证，数据来源和反算代码见 `experiment_history.md`
+- 全部数值经 npy 反算验证，数据来源和反算代码见 `project_docs/experiment_history.md`
 
 **之前 AGENTS.md 和 project_summary 中记录的「硬天花板 MAE≈19.30」是基于跨组比较得出的，可比性前提不成立，已废弃。**
 
 ## 下一步（2026-08-10 更新）
-审计与基础设施建设完成。**当前步骤：与导师讨论定位和方向。之后按 `experiment_SOP.md` 执行实验。** 路线图见 `project_roadmap.md`。完整实验时间线见 `experiment_history.md`。
+审计与基础设施建设完成。**当前步骤：与导师讨论定位和方向。之后按 `project_docs/experiment_SOP.md` 执行实验。** 路线图见 `project_docs/project_roadmap.md`。完整实验时间线见 `project_docs/experiment_history.md`。

@@ -1,7 +1,7 @@
 # PatchTST 太阳黑子预测项目 — 阶段总结报告
 
 > ⚠️ **本文档冻结于 2026-07-17，不再更新。**
-> 实验历史与最新结论以 **`experiment_history.md`** 和 **`AGENTS.md` v2（2026-08-09 更新）** 为准。
+> 实验历史与最新结论以 **`project_docs/experiment_history.md`** 和 **`AGENTS.md` v2（2026-08-09 更新）** 为准。
 > 以下已修正的判定请勿引用：
 > - 跨组比较 "DLinear-I 全面超过 PatchTST" —— 已判定无效（归一化/lr 不同）
 > - "硬天花板 MAE≈19.30" —— 基于跨组比较，已废弃
