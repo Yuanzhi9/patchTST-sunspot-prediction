@@ -64,9 +64,19 @@ python save_config.py EXP-XX --reason "一句话目的"
 ### 4. 训练
 
 ```bash
-python run_sunspot_fixed.py [参数...]
+PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
+  --is_training 1 --model_id sunspot --model PatchTST --data custom \
+  --root_path ./PatchTST_supervised/dataset/ \
+  --features MS --target ssn --enc_in 3 \
+  --seq_len 96 --label_len 48 --pred_len 24 \
+  --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 \
+  --patch_len 16 --stride 8 --revin 1 --dropout 0.05 \
+  --train_epochs 10 --patience 20 --batch_size 32 --learning_rate 0.0001 --loss mse \
+  --itr 1 --num_workers 0 --activation gelu --des EXP-XX
+  # 所有参数显式 CLI 传入，不修改 run_longExp.py 源码
+  # ⚠️ 上例是 EXP-14 默认配置，实验时替换为实际参数
 ```
-⚠️ 先存 config 再改 rsf.py 参数。顺序反过来 = 记录的配置和实际不一样。
+⚠️ 所有参数通过 CLI 传入 run_longExp.py，不修改源码。如 CLI 不支持所需功能 → 复制 run_longExp.py 为新文件（如 `run_longExp_EXP-XX.py`），文件头注释与原始版的差异。
 
 ### 5. 评估（门禁——缺一个不算完成）
 
@@ -110,7 +120,7 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 - 四个指标缺一 → 不算完成
 - 跑完说不出"它告诉了我什么" → 必须说出来再开下一个
 - 说不出来"什么样算无效" → 假设不完整，不跑
-- 先改 rsf.py 再存 config → 不跑（先存再改）
+- 直接修改 run_longExp.py 源码来适配实验 → 不跑（用 CLI 传参，或复制文件标注差异）
 
 ### 8. 失败处理
 
@@ -172,7 +182,7 @@ python eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | 用途 | 路径 |
 |------|------|
 | 数据 | `PatchTST_supervised/dataset/sunspot_with_cycle.csv` |
-| 训练入口 | `run_sunspot_fixed.py` |
+| 训练入口 | `run_longExp.py`（原管线，`PYTHONPATH=PatchTST_supervised`） |
 | 配置快照 | `save_config.py` |
 | 配置输出 | `configs/` |
 | 评估脚本 | `eval_metrics.py` |

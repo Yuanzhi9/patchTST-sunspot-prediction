@@ -70,8 +70,17 @@ normalization: StandardScaler  # or MinMax
 ## 训练命令
 
 ```bash
-# 复制到这里
-python run_sunspot_fixed.py
+# 所有参数显式 CLI 传入，不修改 run_longExp.py 源码
+# 如下示例为 EXP-14 默认配置，实验时替换为实际参数
+PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
+  --is_training 1 --model_id sunspot --model PatchTST --data custom \
+  --root_path ./PatchTST_supervised/dataset/ \
+  --features MS --target ssn --enc_in 3 \
+  --seq_len 96 --label_len 48 --pred_len 24 \
+  --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 \
+  --patch_len 16 --stride 8 --revin 1 --dropout 0.05 \
+  --train_epochs 10 --patience 20 --batch_size 32 --learning_rate 0.0001 --loss mse \
+  --itr 1 --num_workers 0 --activation gelu --des EXP-XX
 ```
 
 ---
@@ -104,6 +113,7 @@ R²:
 
 - [ ] 本次只改了 1 个变量？
 - [ ] 对照基线用的是同一配置？
+- [ ] 训练入口确认是 run_longExp.py（PYTHONPATH=PatchTST_supervised）？
 - [ ] 指标用物理口径报告（MAE/RMSE/R²），不只报 z-score？
 - [ ] result.txt 追加了一行？
 - [ ] experiment_history.md 索引表追加了一行？

@@ -1,6 +1,6 @@
 # 太阳黑子预测 — 项目说明
 
-> **当前阶段：Phase 0 — 文献奠基。** 不跑新实验。详见 `project_roadmap.md`。
+> ⚠️ **本文件已过时。** 训练入口已统一为 `run_longExp.py`（`PYTHONPATH=PatchTST_supervised`）。项目规范、当前阶段、实验记录见 **`AGENTS.md`**。
 
 ## 环境要求
 - Python 3.10+
