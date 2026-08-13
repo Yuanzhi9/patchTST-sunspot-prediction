@@ -90,6 +90,8 @@ def main():
             "patience": args.patience,
             "random_seed": args.random_seed,
             "num_workers": args.num_workers,
+            "test_start": args.test_start,
+            "test_end": args.test_end,
         },
     }
 

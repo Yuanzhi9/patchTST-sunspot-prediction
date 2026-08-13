@@ -26,11 +26,6 @@ if __name__ == '__main__':
     parser.add_argument('--target', type=str, default='ssn', help='target feature in S or MS task')
     parser.add_argument('--freq', type=str, default='m',    #2026.05.01h改为m
                         help='freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h')
-    # [2026-08-12 景修] 新增：支持多回测窗口按年月切分。不传时保持原硬编码切分（向后兼容）
-    # 改前：无这两个参数，data_loader.py 内 num_train/num_val/num_test 硬编码行数
-    # 改后：传 --test_start / --test_end 时，data_loader.py 按年月过滤行（train_end = test_start − 133月，val 固定 132 月）
-    parser.add_argument('--test_start', type=str, default='', help='测试集起始年月(YYYY-MM)，如 1996-08。留空=原始硬编码切分')
-    parser.add_argument('--test_end', type=str, default='', help='测试集截止年月(YYYY-MM)，如 2008-11。留空=原始硬编码切分')
     parser.add_argument('--checkpoints', type=str, default='./checkpoints/', help='location of model checkpoints')
 
     # forecasting task（要重点调）

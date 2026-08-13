@@ -66,6 +66,10 @@
 | **EXP-16** | 08.10 | Stage 7 | ~~Baseline B参数×1749+~~ | sl132,... | 24.02 | 18.07 | 0.553 | ❌ 无效：误用run_sunspot_fixed.py | L691 | — |
 | **EXP-16b** | 08.10 | Stage 7 | ~~patience 3→20~~ | 同上,pat=20 | 24.85 | 13.90 | 0.524 | ❌ 无效：同上 | L691 | — |
 | **EXP-16c** | 08.10 | Stage 7 | **Baseline B参数×1749+（run_longExp.py原管线）** | sl132,dm128,nh16,el3,df256,pl12,str6,MS,bs32,50ep(ES@38) | **24.54** | **11.21** | **0.532** | step0优于B(13.02)，滚动36.37差于B(33.13)，峰值-85.5。1749+宽range瓶颈 | L691 | — |
+| **EXP-17-0a** | 08.12 | Stage 8 | **Round 0 sl96 MS 50ep W1** | sl96,dm128,MS,50ep,W1(Cycle23) | 25.24 | 8.81 | 0.736 | 滚动43.51，E_r=-36.2 | L795 | ✓ |
+| **EXP-17-0b** | 08.12 | Stage 8 | **Round 0 sl336 MS 50ep W1** | sl336,dm128,MS,50ep,W1(Cycle23) | **23.87** | 11.39 | **0.769** | ✅ 胜出。滚动71.79但全步+峰值优于0a。后续基线=sl336 ⚠️ 最佳ckpt口径，08.13重跑 | L795 | ✓ |
+| **EXP-18-1a** | 08.12 | Stage 8 | **Round 1 patch_len 16→12 (stride 8→6)** | sl336,pl12,str6,MS,50ep,W1 | 26.85 | 16.62 | 0.693 | ❌ 恶化12.5%，细粒度patch不利 | L828 | ✓ |
+| **EXP-18-1c** | 08.12 | Stage 8 | **Round 1 patch_len 16→24 (stride 8→12)** | sl336,pl24,str12,MS,50ep,W1 | 25.84 | 10.26 | 0.720 | ❌ 恶化8.3%，粗patch丢峰值细节 | L828 | ✓ |
 
 > ⚠️ **必须了解的坑**：
 > - Baseline B (13.02) 和 EXP-14 (9.08) 的 step0 不可直接比——配置差 9 项
@@ -778,6 +782,10 @@ npy 文件路径（✓ 服务器可查）：
 | Jul PatchTST sl192 | 全 47 步 | 0.120 | 22.02 | 0.625 | result.txt + npy 反算 |
 | Jul M4 Waldmeier | Cycle 25 | — | 3.32 | — | AGENTS.md |
 | Jul Level 3 残差 | ? | 0.154~0.162 | 4.48 | — | result.txt + AGENTS |
+| **Aug EXP-17-0a (sl96)** | W1 全 125 步, MS | 0.371 | 25.24 | 0.736 | result.txt + npy 反算 |
+| **Aug EXP-17-0a (sl96)** | W1 step 0, MS | — | 8.81 | — | npy 反算 |
+| **Aug EXP-17-0b (sl336)** | W1 全 125 步, MS | 0.351 | 23.87 | 0.769 | result.txt + npy 反算 |
+| **Aug EXP-17-0b (sl336)** | W1 step 0, MS | — | 11.39 | — | npy 反算 |
 
 ## 附录 C: 缺失信息清单
 
@@ -793,3 +801,52 @@ npy 文件路径（✓ 服务器可查）：
 | 8 | Stage 3 配置变更原因 | Stage 3 | 谁决定的、为什么 |
 | 9 | Stage 3 各实验的具体 run 命令 | Stage 3 | — |
 | 10 | A-H 清单的实际执行情况 | Stage 2→3 | 哪些试了、结果如何 |
+
+---
+
+## Stage 8: 阶段1 参数搜索 — Round 0 (2026-08-12)
+
+### 目的
+
+在 features=MS, epochs=50, W1(Cycle 23) 回测窗口上，用唯一变量 seq_len 96 vs 336 确定后续所有实验的 seq_len 骨架。
+
+### 新基础设施
+
+- 新增 `--test_start` / `--test_end` CLI 参数，支持多回测窗口按年月切分
+- 修复 `--activation` 不传递给 PatchTST backbone 的 bug
+- 修复 `exp_main.py` torch.load 的 PyTorch 1.11 兼容性
+- 新增 `save_config.py` 支持 test_start/test_end 记录
+
+### EXP-17-0a (sl96) / EXP-17-0b (sl336)
+
+详见 `EXP-17-Round0_experiment.md`。全步 MAE：sl96=25.24, sl336=23.87。sl336 改善 5.4%，选为后续基线。
+
+| 指标 | 0a (sl96) | 0b (sl336) |
+|------|:---:|:---:|
+| 全步 MAE | 25.24 | **23.87** |
+| step0 MAE | **8.81** | 11.39 |
+| R² | 0.736 | **0.769** |
+| E_r | -36.2 | **-17.8** |
+| 滚动 MAE | **43.51** | 71.79 |
+
+> ⚠️ **2026-08-13 口径修正**：Round 0 旧数据（0a/0b）为"最佳 checkpoint 口径"（训练被 timeout 打断后经 `--is_training 0` 补测，加载 EarlyStopping 最佳权重），而 Round 1 及以后为"第 50 轮最终模型口径"（一次性 train→test）。两代口径不一致。已决定 2026-08-13 串行重跑（EXP-17-0a-r2 / EXP-17-0b-r2，最终模型口径），旧数据保留仅作追溯。官方基线以 -r2 为准。
+
+---
+
+## Stage 8b: 阶段1 参数搜索 — Round 1 patch_len/stride (2026-08-12)
+
+### 目的
+
+在 Round 0 基线 (sl336) 上，测试 patch_len/stride 三种组合（绑定，比值恒 2:1）。
+
+### 结果
+
+| 指标 | 1a (12,6) | 基线 (16,8) | 1c (24,12) |
+|------|:---:|:---:|:---:|
+| 全步 MAE | 26.85 | **23.87** | 25.84 |
+| step0 MAE | 16.62 | 11.39 | **10.26** |
+| R² | 0.693 | **0.769** | 0.720 |
+| E_r | -31.6 | -17.8 | +7.6 |
+| 150+ 分层 | 39.8 | **29.0** | 32.3 |
+
+**结论**：patch_len=16/stride=8 全面胜出（1a 恶化 12.5%，1c 恶化 8.3%）。参数固定为 16/8，不再搜索。详见 `EXP-18-Round1_experiment.md`。

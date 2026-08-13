@@ -21,6 +21,11 @@ def build_parser():
     parser.add_argument('--data_path', type=str, default='sunspot_with_cycle.csv')
     parser.add_argument('--features', type=str, default='M')
     parser.add_argument('--target', type=str, default='ssn')
+    # [2026-08-12 景修] 新增：支持多回测窗口按年月切分。不传时保持原硬编码切分（向后兼容）
+    # 改前：无这两个参数
+    # 改后：传 --test_start / --test_end 时，data_loader.py 按年月过滤行
+    parser.add_argument('--test_start', type=str, default='', help='测试集起始年月(YYYY-MM)，如 1996-08。留空=原始硬编码切分')
+    parser.add_argument('--test_end', type=str, default='', help='测试集截止年月(YYYY-MM)，如 2008-11。留空=原始硬编码切分')
     parser.add_argument('--freq', type=str, default='m')
 
     # ---- forecasting task ----

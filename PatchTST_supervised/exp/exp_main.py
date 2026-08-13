@@ -238,7 +238,8 @@ class Exp_Main(Exp_Basic):
             #注释掉了这一行self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
             #checkpoint_path = os.path.join('./checkpoints/' + setting, 'checkpoint.pth')04.03注释掉
             checkpoint_path = os.path.join('./checkpoints/' + setting, 'full_checkpoint.pth')
-            checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
+            # [2026-08-12 景修] 修复：去除 weights_only=False，PyTorch 1.11 不支持此参数
+            checkpoint = torch.load(checkpoint_path, map_location='cpu')
 
             # 如果 checkpoint 包含 model_state_dict，就加载它；否则直接作为权重加载
             if 'model_state_dict' in checkpoint:

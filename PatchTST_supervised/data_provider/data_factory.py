@@ -31,6 +31,7 @@ def data_provider(args, flag):
         batch_size = args.batch_size
         freq = args.freq
 
+    # [2026-08-12 景修] 新增 test_start/test_end 传递，支持多回测窗口按年月切分
     data_set = Data(
         root_path=args.root_path,
         data_path=args.data_path,
@@ -39,7 +40,9 @@ def data_provider(args, flag):
         features=args.features,
         target=args.target,
         timeenc=timeenc,
-        freq=freq
+        freq=freq,
+        test_start=getattr(args, 'test_start', ''),
+        test_end=getattr(args, 'test_end', '')
     )
     print(flag, len(data_set))
     data_loader = DataLoader(

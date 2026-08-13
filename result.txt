@@ -67,3 +67,29 @@ mse:0.08509543538093567, mae:0.14118161797523499, rse:0.3156743049621582
 sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_test_0  
 mse:0.07907412946224213, mae:0.12536537647247314, rse:0.3043009340763092
 
+sunspot_PatchTST_custom_ftM_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_REGRESSION_0  
+mse:0.07907412946224213, mae:0.12536537647247314, rse:0.3043009340763092
+
+sunspot_PatchTST_custom_ftMS_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-17-0a_0  
+mse:0.22700951993465424, mae:0.3713729679584503, rse:0.5139299631118774
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-17-0b_0  
+mse:0.19820722937583923, mae:0.3511476218700409, rse:0.48022159934043884
+
+EXP-17-0a 2026-08-12 Sunspot PatchTST sl96 MS 50ep W1 mse:0.227 mae:0.371 rse:0.514 全步MAE:25.24 step0:8.81 R2:0.736 E_r:-36.2 E_m:-7 滚动MAE:43.51
+EXP-17-0b 2026-08-12 Sunspot PatchTST sl336 MS 50ep W1 mse:0.198 mae:0.351 rse:0.480 全步MAE:23.87 step0:11.39 R2:0.769 E_r:-17.8 E_m:3 滚动MAE:71.79
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-1c_0  
+mse:0.24031344056129456, mae:0.3801855444908142, rse:0.5287750959396362
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-1a_0  
+mse:0.2636195123195648, mae:0.395023912191391, rse:0.5538226366043091
+
+
+# === 2026-08-13 口径标注 ===
+# 以下 EXP-17-0a/0b 两行为"最佳checkpoint口径"（训练中断后 --is_training 0 补测），
+# 2026-08-13 起官方基线以串行重跑 EXP-17-0a-r2 / EXP-17-0b-r2（最终模型口径）为准。
+# 旧行保留仅作追溯。
+# EXP-17-0a/0b 物理值见上（全步25.24/23.87），口径警告适用。
+EXP-18-1a 2026-08-12 Round1 patch_len=12,stride=6 vs 基线(16,8) 全步MAE:26.85 step0:16.62 R2:0.693 E_r:-31.6 E_m:-2 结论:恶化12.5% 淘汰
+EXP-18-1c 2026-08-12 Round1 patch_len=24,stride=12 vs 基线(16,8) 全步MAE:25.84 step0:10.26 R2:0.720 E_r:+7.6 E_m:0 结论:恶化8.3% 淘汰
+# Round 1 基线(16,8)胜出，参数固定 patch_len=16/stride=8

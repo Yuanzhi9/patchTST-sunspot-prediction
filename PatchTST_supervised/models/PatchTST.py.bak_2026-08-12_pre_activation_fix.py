@@ -17,11 +17,6 @@ class Model(nn.Module):
                  act:str="gelu", key_padding_mask:bool='auto',padding_var:Optional[int]=None, attn_mask:Optional[Tensor]=None, res_attention:bool=True, 
                  pre_norm:bool=False, store_attn:bool=False, pe:str='zeros', learn_pe:bool=True, pretrain_head:bool=False, head_type = 'flatten', verbose:bool=False, **kwargs):
         
-        # [2026-08-12 景修] 修复：--activation CLI参数此前不传给 PatchTST backbone，被硬编码 gelu 覆盖
-        # 改前：act 参数默认值 gelu，从不读取 configs.activation
-        # 改后：getattr 优先读 configs.activation，未传时回退到默认值 gelu
-        act = getattr(configs, 'activation', act)
-
         super().__init__()
         
         # load parameters

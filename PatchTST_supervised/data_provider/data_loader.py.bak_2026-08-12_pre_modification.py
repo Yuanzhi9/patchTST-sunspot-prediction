@@ -204,11 +204,9 @@ class Dataset_ETT_minute(Dataset):
 
 
 class Dataset_Custom(Dataset):
-    # [2026-08-12 景修] 新增 test_start/test_end 参数，支持多回测窗口按年月切分
     def __init__(self, root_path, flag='train', size=None,
                  features='M', data_path='sunspot_with_cycle.csv',
-                 target='OT', scale=True, timeenc=0, freq='h',
-                 test_start='', test_end=''):
+                 target='OT', scale=True, timeenc=0, freq='h'):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -232,9 +230,6 @@ class Dataset_Custom(Dataset):
 
         self.root_path = root_path
         self.data_path = data_path
-        # [2026-08-12 景修] 新增，支持多回测窗口按年月切分
-        self.test_start = test_start
-        self.test_end = test_end
         self.__read_data__()
 
     def __read_data__(self):
@@ -254,33 +249,20 @@ class Dataset_Custom(Dataset):
         cols=['month_sin', 'month_cos']
 
         df_raw = df_raw[['date'] + cols + [self.target]]
-
-        # [2026-08-12 景修] 切分逻辑：支持多回测窗口按年月切分
-        # 改前：num_test=70, num_val=132, num_train=len-num_val-num_test 硬编码行数
-        # 改后：传 test_start/test_end 时按年月过滤行；不传时走原硬编码逻辑（向后兼容）
-        if self.test_start and self.test_end:
-            date_ym = df_raw['date'].str[:7]
-            # train_end = test_start 前推 133 个月（留 132 个月给 val）
-            dt_start = pd.to_datetime(self.test_start)
-            dt_train_end = dt_start - pd.DateOffset(months=133)
-            train_end_str = dt_train_end.strftime('%Y-%m')
-            num_train = int((date_ym <= train_end_str).sum())
-            num_val = 132
-            test_end_row = int((date_ym <= self.test_end).sum()) - 1
-            total_used = test_end_row + 1
-            num_test = total_used - num_train - num_val
-            border1s = [0, num_train - self.seq_len, num_train + num_val - self.seq_len]
-            border2s = [num_train, num_train + num_val, total_used]
-            border1 = border1s[self.set_type]
-            border2 = border2s[self.set_type]
-        else:
-            num_test = 70
-            num_val = 132
-            num_train = len(df_raw) - num_val - num_test
-            border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
-            border2s = [num_train, num_train + num_val, len(df_raw)]
-            border1 = border1s[self.set_type]
-            border2 = border2s[self.set_type]
+        # print(cols)
+        #num_train = int(len(df_raw) * 0.7)
+        #num_test = int(len(df_raw) * 0.2)
+        #num_vali = len(df_raw) - num_train - num_test
+        #num_test = 132     2026.05.01修改 70/132
+        #num_val = 156
+        num_test = 70
+        num_val = 132
+        num_train = len(df_raw) - num_val - num_test
+        test_size = num_test
+        border1s = [0, num_train - self.seq_len, len(df_raw) - num_test - self.seq_len]
+        border2s = [num_train, num_train + num_val, len(df_raw)]
+        border1 = border1s[self.set_type]
+        border2 = border2s[self.set_type]
 
         if self.features == 'M' or self.features == 'MS':
             cols_data = df_raw.columns[1:]
@@ -358,7 +340,7 @@ class Dataset_Pred(Dataset):
         self.inverse = inverse
         self.timeenc = timeenc
         self.freq = freq
-
+        self.cols = cols
         self.root_path = root_path
         self.data_path = data_path
         self.__read_data__()
