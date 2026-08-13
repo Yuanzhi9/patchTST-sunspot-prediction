@@ -94,3 +94,12 @@ EXP-18-1a 2026-08-12 Round1 patch_len=12,stride=6 vs 基线(16,8) 全步MAE:26.8
 EXP-18-1c 2026-08-12 Round1 patch_len=24,stride=12 vs 基线(16,8) 全步MAE:25.84 step0:10.26 R2:0.720 E_r:+7.6 E_m:0 结论:恶化8.3% 淘汰
 # Round 1 基线(16,8)胜出，参数固定 patch_len=16/stride=8
 
+sunspot_PatchTST_custom_ftMS_sl96_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-17-0a-r2_0  
+mse:0.2087084800004959, mae:0.35709089040756226, rse:0.4927787780761719
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-17-0b-r2_0  
+mse:0.25477516651153564, mae:0.3904103636741638, rse:0.5444530844688416
+
+EXP-17-0a-r2 2026-08-13 口径修正重跑 sl96 MS 50ep W1 串行 全步MAE:24.27 step0:18.21 R2:0.757 E_r:-18.8 最终模型口径
+EXP-17-0b-r2 2026-08-13 口径修正重跑 sl336 MS 50ep W1 串行 全步MAE:26.53 step0:12.87 R2:0.704 E_r:-15.0 最终模型口径 过拟合(最佳epoch4)
+# 🛑 门禁：0b偏差11.1%>5% 未通过；结论反转(sl96优)。待用户决策口径
