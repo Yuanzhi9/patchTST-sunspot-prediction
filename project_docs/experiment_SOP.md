@@ -220,6 +220,12 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | Log/sqrt 变换 (E1) | 05.07 | A-H 清单 | — | ⬜ |
 | 相位编码 | — | — | — | ⬜ |
 | GRC 残差校正 | — | 文献 | — | ⬜ |
+| d_model 子轮 (64/256) | 08.12 | 阶段1方案 | 排队中（Round 4） | ⬜ |
+| dropout 扫描 | 08.12 | 阶段1方案 | 排队中（Round 5） | ⬜ |
+| activation relu | 08.12 | 阶段1方案 | 排队中（Round 6） | ⬜ |
+| individual=1 | 08.12 | 阶段1方案 | 排队中（Round 7） | ⬜ |
+| 多 seed 验证 | 08.12 | 阶段1方案 | 单种子限制，CPU 算力不足，待验证阶段用 W2/W3 交叉缓解 | ⬜ |
+| 最佳模型口径统一 | 08.13 | 门禁触发发现 | 已决策：方案 B 命令链（train && 补测） | ✅ 已定 |
 
 ---
 
