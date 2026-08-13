@@ -133,3 +133,12 @@ sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el3_dl1_df2048_fc1_ebtime
 mse:0.19150298833847046, mae:0.34470728039741516, rse:0.4720301032066345
 
 EXP-18-2b 2026-08-14 Round2 e_layers=3 vs 基线(el=2,23.87) 全步MAE:23.43 step0:10.0 R2:0.777 E_r:-18.1 结论:改善1.8%<3%无差异,方向正向
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el4_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-2c_0  
+mse:0.28246089816093445, mae:0.42562785744667053, rse:0.5732724666595459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el4_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-2c_0  
+mse:0.19381703436374664, mae:0.3435584306716919, rse:0.47487345337867737
+
+EXP-18-2c 2026-08-14 Round2 e_layers=4 vs 基线(el=2,23.87) 全步MAE:23.35 step0:11.88 R2:0.774 E_r:-11.8 结论:改善2.2%<3%无差异; E_r比el2好35%但主指标无差异
+# Round 2 结论: el=2/3/4 全步23.87/23.43/23.35 均<3%无实质差异 → 按规则选最便宜 el=2 维持
+# 注: el=3的step0(10.0)比el=2(11.39)好12%, el=4的E_r(-11.8)比el=2(-17.8)好35% —— 次要指标观察, 主决策仍按全步MAE
