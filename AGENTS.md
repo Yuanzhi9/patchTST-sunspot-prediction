@@ -67,6 +67,7 @@
   - patch_len=16, stride=8, RevIN=1, StandardScaler, MSE loss
   - batch_size=16, train_epochs=10
   - （旧基线 d_model=512，2026-06-14 验证 d_model=128 泛化更好，全面优于 512）
+- **⚠️ 2026-08-14 阶段1基线更新**：EXP-17 系列起使用 seq_len=336, train_epochs=50, patience=100, features=MS, W1回测窗口（test_start=1996-08, test_end=2008-11, num_train=2838），且**口径=最佳val模型（命令链 train&&补测，见 SOP §4）**。0b基线全步MAE=23.87。
 - ⚠️ **五月 Baseline B（1867+ 数据，step0 MAE=13.02）与当前基线 EXP-14（1749+ 数据，step0 MAE=9.08）不可直接比较：** 两者数据范围（1867+ vs 1749+）、seq_len（132 vs 96）、n_heads（16 vs 8）、e_layers（3 vs 2）、d_ff（256 vs 2048）、patch_len（12 vs 16）、stride（6 vs 8）、dropout（0.05 vs 0.2）、epochs（50 vs 10）共 9 项参数不同。step0 的 13.02→9.08 说明 EXP-14 在自身配置下单步更优，但不可归因到任何一个具体参数变更，也不是严格意义上的"进步"。
 - 分阶段训练允许缩小模型（d_model 128~256）以适应阶段数据量
 - 所有修改需在独立 worktree 上进行，主分支只保留稳定版

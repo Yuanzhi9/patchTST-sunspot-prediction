@@ -85,7 +85,26 @@ python ../save_config.py EXP-XX --reason "一句话目的"
 
 ### 4. 训练
 
+> ⚠️ **2026-08-14 口径规则（必须遵守）**：正式实验统一使用**命令链模式**（train && 补测），
+> 正式评估对象 = **最佳 val 模型**（EarlyStopping 保存的 full_checkpoint.pth）。
+> 原因：2026-08-13 发现 50ep 下 sl336 严重过拟合（val loss epoch4 后连续 46 轮恶化），
+> train→test 同进程时 test 用内存中的最终模型（exp_main.py L229 加载最佳权重的代码被注释），
+> 导致最终模型口径下结论反转。补测口径与标准 ML early stopping 实践一致。
+
 ```bash
+# 标准启动（命令链模式，经 launch 脚本）：
+./scripts/launch_experiment.sh EXP-XX bash -c 'ARGS="--model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --test_start 1996-08 --test_end 2008-11 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --dropout 0.05 --fc_dropout 0.05 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --des EXP-XX"; python3 -u run_longExp.py --is_training 1 $ARGS && python3 -u run_longExp.py --is_training 0 $ARGS'
+```
+
+要点：
+- `ARGS` 变量写一次参数、两次复用，杜绝 train/补测 参数抄错（抄错=找不到 checkpoint）
+- `&&`：训练中途崩溃 → 补测不执行 → npy 不存在 → 验收直接发现失败（无假证据）
+- 训练段自动 test 产生的 npy/result.txt 行为"最终模型口径"参考值；**正式引用补测段结果**
+- 每个实验 result.txt 会有两行 z-score（训练段+补测段），记录文件里标注哪行是正式值
+- 补测前若需要保留最终模型口径 npy（历史实验收口时），备份命名：`pred.bak_<日期>_final-model.npy`
+
+```bash
+# 旧格式（仅最终模型口径，不推荐用于正式实验）：
 PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
   --is_training 1 --model_id sunspot --model PatchTST --data custom \
   --root_path ./PatchTST_supervised/dataset/ \
