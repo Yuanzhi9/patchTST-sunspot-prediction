@@ -179,3 +179,11 @@ sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtime
 mse:0.18440285325050354, mae:0.33716869354248047, rse:0.4631970226764679
 
 EXP-18-5a 2026-08-14 Round5 dropout=0.1 vs 基线(0.05,23.87) 全步MAE:22.92 step0:10.56 R2:0.785 E_r:-20.0 结论:改善4.0%≥3%!
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-5b_0  
+mse:0.2250995635986328, mae:0.3765145540237427, rse:0.5117634534835815
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-5b_0  
+mse:0.1811838001012802, mae:0.3328419029712677, rse:0.4591362774372101
+
+EXP-18-5b 2026-08-14 Round5 dropout=0.2 vs 基线(0.05,23.87) 全步MAE:22.62 step0:11.01 R2:0.789 E_r:-24.4 结论:改善5.2%≥3%, 新基线do=0.2!
+# Round 5 结论: dropout正则敏感(0.05不足). 0.1=22.92(+4.0%), 0.2=22.62(+5.2%)最优. E_r张力:do越大峰值低估越深(-17.8/-20/-24.4)
