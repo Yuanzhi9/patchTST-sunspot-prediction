@@ -195,3 +195,11 @@ mse:0.18496952950954437, mae:0.3378864824771881, rse:0.4639081656932831
 
 EXP-18-6a 2026-08-14 Round6 activation=relu vs 基线(gelu,22.62) 全步MAE:22.96 step0:12.51 R2:0.785 E_r:-23.0 结论:差1.5%<3%无差异,维持gelu
 # Round 6 结论: gelu≈relu(文献预期). activation维度关停, 维持gelu. activation bug修复经正式实验验证正常
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-7a_0  
+mse:0.2336680293083191, mae:0.38557520508766174, rse:0.5214126706123352
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-7a_0  
+mse:0.2032071053981781, mae:0.3550284802913666, rse:0.48624080419540405
+
+EXP-18-7a 2026-08-14 Round7 individual=1 vs 基线(0,22.62) 全步MAE:24.13 step0:13.26 R2:0.764 E_r:-14.0 结论:恶化6.7%≥3%, 维持ind=0
+# Round 7 结论: MS模式下独立head有害(恶化6.7%). individual维度关停, 维持0
