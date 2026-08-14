@@ -149,3 +149,11 @@ sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df512_fc1_ebtimeF
 mse:0.22251680493354797, mae:0.37247514724731445, rse:0.5088189840316772
 
 EXP-18-3a 2026-08-14 Round3 d_ff=512 vs 基线(2048,23.87) 全步MAE:25.32 step0:12.67 R2:0.741 E_r:+3.8 结论:恶化6.1%≥5%, 512容量不足
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df1024_fc1_ebtimeF_dtTrue_EXP-18-3b_0  
+mse:0.23601271212100983, mae:0.38162773847579956, rse:0.5240221619606018
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df1024_fc1_ebtimeF_dtTrue_EXP-18-3b_0  
+mse:0.21347589790821075, mae:0.36526253819465637, rse:0.49837514758110046
+
+EXP-18-3b 2026-08-14 Round3 d_ff=1024 vs 基线(2048,23.87) 全步MAE:24.83 step0:14.97 R2:0.752 E_r:-4.7 结论:恶化4.0%, 趋势单调(512<1024<2048), 维持2048
+# Round 3 结论: d_ff单调敏感, 2048最优, 维度关停. 512/1024/2048 = 25.32/24.83/23.87
