@@ -187,3 +187,11 @@ mse:0.1811838001012802, mae:0.3328419029712677, rse:0.4591362774372101
 
 EXP-18-5b 2026-08-14 Round5 dropout=0.2 vs 基线(0.05,23.87) 全步MAE:22.62 step0:11.01 R2:0.789 E_r:-24.4 结论:改善5.2%≥3%, 新基线do=0.2!
 # Round 5 结论: dropout正则敏感(0.05不足). 0.1=22.92(+4.0%), 0.2=22.62(+5.2%)最优. E_r张力:do越大峰值低估越深(-17.8/-20/-24.4)
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-6a_0  
+mse:0.24465787410736084, mae:0.3964698910713196, rse:0.5335333347320557
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-6a_0  
+mse:0.18496952950954437, mae:0.3378864824771881, rse:0.4639081656932831
+
+EXP-18-6a 2026-08-14 Round6 activation=relu vs 基线(gelu,22.62) 全步MAE:22.96 step0:12.51 R2:0.785 E_r:-23.0 结论:差1.5%<3%无差异,维持gelu
+# Round 6 结论: gelu≈relu(文献预期). activation维度关停, 维持gelu. activation bug修复经正式实验验证正常
