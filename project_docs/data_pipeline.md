@@ -1,6 +1,7 @@
 # 数据管线说明
 
 从 CSV 到物理指标评估的完整数据流。
+最后更新：2026-08-14（date-based 切分 + 三窗口 + 命令链口径）
 
 ## 归一化与逆操作
 
@@ -63,8 +64,34 @@ python scripts/eval_metrics.py results/EXP-14_PATH/ --scaler <新scaler> --data_
 |------|------|-----|
 | 特征列名 | `data_loader.py:249` | `['month_sin', 'month_cos']` |
 | 目标列名 | argparse 默认值 | `'ssn'` |
-| 训练/验证/测试切分 | `data_loader.py:258-263` | train=3119, val=132, test=70 |
+| 训练/验证/测试切分 | `data_loader.py` | **2026-08-12 起支持 date-based**：传 `--test_start`/`--test_end` 时按年月切分；不传时回退旧硬编码 train=3119, val=132, test=70 |
 | RevIN 行为 | 模型内部 | norm(输入) → denorm(输出)，逐窗口统计 |
+
+## 回测窗口切分（2026-08-12 新增，阶段1起用）
+
+CLI 传 `--test_start`（YYYY-MM）和 `--test_end`（YYYY-MM），`data_loader.py` 自动：
+
+```
+train_end = test_start − 133 个月（留 132 个月给 val）
+num_train = count(date_ym ≤ train_end)
+val = 其后 132 个月
+test = val 后至 test_end
+```
+
+三窗口（阶段1使用，数值已实测验证）：
+
+| 窗口 | test_start | test_end | train_end(自动) | num_train | num_test |
+|------|-----------|----------|-----------------|-----------|----------|
+| W1 | 1996-08 | 2008-11 | 1985-07 | 2838 | 148 |
+| W2 | 2008-12 | 2019-11 | 1997-11 | 2986 | 132 |
+| W3 | 2019-12 | 2025-10 | 2008-11 | 3118 | 71 |
+
+> `eval_metrics.py` 的 `--num_train` 必须与上表严格一致（差一行=scaler 锚点错位，所有物理值作废）。
+
+## 正式口径（2026-08-14 起）
+
+**正式实验 = 最佳 val 模型口径**：命令链 `train && 补测(--is_training 0)`，见 experiment_SOP.md §4。
+背景：train→test 同进程时 test 用内存中的最终模型（exp_main.py L229 加载最佳权重的代码被注释），50ep 下最终模型过拟合（0b-r2 门禁触发记录），故统一为最佳模型口径。
 
 ## 归一化历史
 
@@ -74,3 +101,4 @@ python scripts/eval_metrics.py results/EXP-14_PATH/ --scaler <新scaler> --data_
 | Stage 1（Baseline B） | 1867+ | standard | MS（3 列） |
 | Stage 3（EXP-14） | 1749+ | standard | M（3 列） |
 | Stage 7（EXP-16c） | 1749+ | standard | MS（3 列） |
+| Stage 8（EXP-17~19，阶段1） | 1749+ | standard | MS（3 列），date-based 三窗口，最佳模型口径 |
