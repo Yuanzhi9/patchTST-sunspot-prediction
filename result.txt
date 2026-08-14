@@ -164,3 +164,11 @@ sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm64_nh8_el2_dl1_df2048_fc1_ebtimeF
 mse:0.20361395180225372, mae:0.35561367869377136, rse:0.4867272973060608
 
 EXP-18-4a 2026-08-14 Round4 d_model=64 vs 基线(128,23.87) 全步MAE:24.17 step0:13.39 R2:0.763 E_r:-8.7 结论:恶化1.3%<3%无差异
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm256_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-4b_0  
+mse:0.31544363498687744, mae:0.4529713988304138, rse:0.6058189272880554
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm256_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-18-4b_0  
+mse:0.21376876533031464, mae:0.36344006657600403, rse:0.4987168610095978
+
+EXP-18-4b 2026-08-14 Round4 d_model=256 vs 基线(128,23.87) 全步MAE:24.70 step0:13.67 R2:0.751 E_r:-1.4 结论:恶化3.5%≥3%淘汰
+# Round 4 结论: dm=128维持(全步/step0/R²三项最优). 64差1.3%但step0恶化17.6%; 256差3.5%. E_r观察:dm越大峰值误差越小(-17.8/-8.7/-1.4),主指标不支持
