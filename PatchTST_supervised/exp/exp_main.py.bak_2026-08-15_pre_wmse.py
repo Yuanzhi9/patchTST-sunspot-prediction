@@ -19,20 +19,6 @@ import numpy as np
 
 warnings.filterwarnings('ignore')
 
-# [2026-08-15 景修] 新增：高值加权 MSE（探索期 EXP-20-3）。
-# 权重 w = 1 + alpha * clamp(z_true, min=0)：z_true 为正（高于训练均值）的样本获得更大权重，
-# 目标是让模型不再牺牲高活动水平样本换取低值区的小误差（峰值压制机制1的对策）。
-# 在 z 空间计算（与模型输入输出空间一致），alpha=1.0 时峰值样本权重最多 ~4.5 倍。
-class WeightedMSELoss(nn.Module):
-    def __init__(self, alpha=1.0):
-        super(WeightedMSELoss, self).__init__()
-        self.alpha = alpha
-
-    def forward(self, pred, true):
-        w = 1.0 + self.alpha * true.clamp(min=0)
-        return (w * (pred - true) ** 2).mean()
-
-
 class Exp_Main(Exp_Basic):
     def __init__(self, args):
         super(Exp_Main, self).__init__(args)
@@ -66,10 +52,6 @@ class Exp_Main(Exp_Basic):
      #   return criterion
 
      #2026.04.09修改
-    # [2026-08-15 景修] 新增 wmse 分支（高值加权MSE，探索期 EXP-20-3 用）：
-    # 改前：仅 mse/mae/huber 三分支
-    # 改后：新增 wmse → WeightedMSELoss（权重 = 1 + alpha*clamp(z_true,min=0)，在 z 空间计算）
-    # 峰值压制机制1（MSE账本偏袒低值）的对策：抬高正 z 值（高活动水平）样本的 loss 权重
     def _select_criterion(self):
         if self.args.loss == 'mse':
             criterion = nn.MSELoss()
@@ -77,9 +59,7 @@ class Exp_Main(Exp_Basic):
             criterion = nn.L1Loss()
         elif self.args.loss == 'huber':
             # delta 建议设为 20.0 - 50.0，针对太阳黑子数据范围 0-400
-            criterion = nn.HuberLoss(delta=20.0)
-        elif self.args.loss == 'wmse':
-            criterion = WeightedMSELoss(alpha=1.0)
+            criterion = nn.HuberLoss(delta=20.0) 
         else:
             criterion = nn.MSELoss()
         return criterion

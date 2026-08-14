@@ -39,14 +39,11 @@ def load_data_enc1(data_csv, num_train, num_val):
     return df, scaler, ssn_arr, test_start_idx
 
 
-def load_data_enc3(data_csv, num_train, num_val, scaler_name='standard', target_transform=''):
-    """enc_in=3 管线：month_sin + month_cos + ssn → StandardScaler。
-    [2026-08-15 景修] target_transform='sqrt' 时 ssn 列先取平方根再 fit scaler（与训练侧一致）。"""
+def load_data_enc3(data_csv, num_train, num_val, scaler_name='standard'):
+    """enc_in=3 管线：month_sin + month_cos + ssn → StandardScaler。"""
     df = pd.read_csv(data_csv)
     cols = ['month_sin', 'month_cos', 'ssn']
     arr = df[cols].values
-    if target_transform == 'sqrt':
-        arr[:, -1] = np.sqrt(np.clip(arr[:, -1], 0, None))
 
     if scaler_name == 'standard':
         scaler = StandardScaler()
@@ -106,10 +103,8 @@ def run_rolling_enc1(model, ssn_arr, test_start_idx, seq_len, n_roll):
     return np.array(preds), np.array(trues)
 
 
-def run_rolling_enc3(model, scaler, data_z, test_start_idx, seq_len, n_roll, target_transform=''):
-    """enc_in=3：StandardScaler z-score → model → inverse scaler。
-    [2026-08-15 景修] target_transform='sqrt' 时 inverse scaler 得 sqrt 空间值，输出前平方回物理空间；
-    滚动回填链保持 sqrt 空间一致（scaler 训练于 sqrt 空间）。"""
+def run_rolling_enc3(model, scaler, data_z, test_start_idx, seq_len, n_roll):
+    """enc_in=3：StandardScaler z-score → model → inverse scaler。"""
     window = data_z[test_start_idx - seq_len : test_start_idx].copy()  # (96, 3)
 
     preds_phy = []
@@ -117,7 +112,7 @@ def run_rolling_enc3(model, scaler, data_z, test_start_idx, seq_len, n_roll, tar
 
     for step in range(n_roll):
         true_z_month = data_z[test_start_idx + step]
-        true_phy_sqrt = scaler.inverse_transform(true_z_month.reshape(1, -1))[0, 2]
+        true_phy = scaler.inverse_transform(true_z_month.reshape(1, -1))[0, 2]
 
         x = torch.FloatTensor(window).unsqueeze(0)
         with torch.no_grad():
@@ -125,16 +120,12 @@ def run_rolling_enc3(model, scaler, data_z, test_start_idx, seq_len, n_roll, tar
         pred_step0_z = out[0, 0, 2].item()
 
         pred_row_z = np.array([[window[-1, 0], window[-1, 1], pred_step0_z]])
-        pred_phy_sqrt = scaler.inverse_transform(pred_row_z)[0, 2]
+        pred_phy = scaler.inverse_transform(pred_row_z)[0, 2]
 
-        if target_transform == 'sqrt':
-            preds_phy.append(pred_phy_sqrt ** 2)
-            trues_phy.append(true_phy_sqrt ** 2)
-        else:
-            preds_phy.append(pred_phy_sqrt)
-            trues_phy.append(true_phy_sqrt)
+        preds_phy.append(pred_phy)
+        trues_phy.append(true_phy)
 
-        new_row_phy = np.array([[0, 0, pred_phy_sqrt]])
+        new_row_phy = np.array([[0, 0, pred_phy]])
         new_row_z = scaler.transform(new_row_phy)
         new_row_z[0, 0] = true_z_month[0]  # real month_sin
         new_row_z[0, 1] = true_z_month[1]  # real month_cos
@@ -172,8 +163,6 @@ def main():
     p.add_argument("--num_val", type=int, default=132)
     p.add_argument("--n_roll", type=int, default=70)
     p.add_argument("--scaler", default="standard", help="enc_in > 1 时用")
-    # [2026-08-15 景修] 新增：目标变换逆操作（与训练侧 --target_transform 对应）
-    p.add_argument("--target_transform", default="", help="目标变换: 空/sqrt")
     args = p.parse_args()
 
     # --- config JSON mode ---
@@ -197,8 +186,6 @@ def main():
             params.get('data_path', 'sunspot_with_cycle.csv'))
         args.num_train = cfg.get('num_train', 3119)
         args.num_val = params.get('num_val', 132) if 'num_val' in params else 132
-        # [2026-08-15 景修] config 模式同步读 target_transform
-        args.target_transform = params.get('target_transform', '')
 
     if not args.checkpoint:
         p.error("需要 --checkpoint 或 --config")
@@ -217,9 +204,9 @@ def main():
         preds, trues = run_rolling_enc1(model, data_arr, t0, seq_len, n_roll)
     else:
         print(f"管线: {args.scaler} scaler → model → inverse")
-        df, scaler, data_z, t0 = load_data_enc3(args.data_csv, args.num_train, args.num_val, args.scaler, args.target_transform)
+        df, scaler, data_z, t0 = load_data_enc3(args.data_csv, args.num_train, args.num_val, args.scaler)
         n_roll = min(args.n_roll, len(data_z) - t0)
-        preds, trues = run_rolling_enc3(model, scaler, data_z, t0, seq_len, n_roll, args.target_transform)
+        preds, trues = run_rolling_enc3(model, scaler, data_z, t0, seq_len, n_roll)
 
     report(preds, trues, ckpt_args, n_roll)
 

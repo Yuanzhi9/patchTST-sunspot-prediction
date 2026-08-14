@@ -32,6 +32,7 @@ def data_provider(args, flag):
         freq = args.freq
 
     # [2026-08-12 景修] 新增 test_start/test_end 传递，支持多回测窗口按年月切分
+    # [2026-08-15 景修] 新增 target_transform 传递（sqrt 变换，EXP-20-4）
     data_set = Data(
         root_path=args.root_path,
         data_path=args.data_path,
@@ -42,7 +43,8 @@ def data_provider(args, flag):
         timeenc=timeenc,
         freq=freq,
         test_start=getattr(args, 'test_start', ''),
-        test_end=getattr(args, 'test_end', '')
+        test_end=getattr(args, 'test_end', ''),
+        target_transform=getattr(args, 'target_transform', '')
     )
     print(flag, len(data_set))
     data_loader = DataLoader(

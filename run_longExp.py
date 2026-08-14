@@ -31,6 +31,8 @@ if __name__ == '__main__':
     # 改后：传 --test_start / --test_end 时，data_loader.py 按年月过滤行（train_end = test_start − 133月，val 固定 132 月）
     parser.add_argument('--test_start', type=str, default='', help='测试集起始年月(YYYY-MM)，如 1996-08。留空=原始硬编码切分')
     parser.add_argument('--test_end', type=str, default='', help='测试集截止年月(YYYY-MM)，如 2008-11。留空=原始硬编码切分')
+    # [2026-08-15 景修] 新增：目标变换（sqrt 压缩右偏，探索期 EXP-20-4 用）。默认 '' = 不变换
+    parser.add_argument('--target_transform', type=str, default='', help='目标变换: 空/sqrt。sqrt=对SSN取平方根, 评估侧自动平方回物理空间')
     parser.add_argument('--checkpoints', type=str, default='./checkpoints/', help='location of model checkpoints')
 
     # forecasting task（要重点调）

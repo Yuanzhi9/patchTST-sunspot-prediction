@@ -205,11 +205,10 @@ class Dataset_ETT_minute(Dataset):
 
 class Dataset_Custom(Dataset):
     # [2026-08-12 景修] 新增 test_start/test_end 参数，支持多回测窗口按年月切分
-    # [2026-08-15 景修] 新增 target_transform 参数（探索期 EXP-20-4 sqrt 变换用）
     def __init__(self, root_path, flag='train', size=None,
                  features='M', data_path='sunspot_with_cycle.csv',
                  target='OT', scale=True, timeenc=0, freq='h',
-                 test_start='', test_end='', target_transform=''):
+                 test_start='', test_end=''):
         # size [seq_len, label_len, pred_len]
         # info
         if size == None:
@@ -236,8 +235,6 @@ class Dataset_Custom(Dataset):
         # [2026-08-12 景修] 新增，支持多回测窗口按年月切分
         self.test_start = test_start
         self.test_end = test_end
-        # [2026-08-15 景修] 新增，目标变换（sqrt），探索期 EXP-20-4 用
-        self.target_transform = target_transform
         self.__read_data__()
 
     def __read_data__(self):
@@ -290,13 +287,6 @@ class Dataset_Custom(Dataset):
             df_data = df_raw[cols_data]
         elif self.features == 'S':
             df_data = df_raw[[self.target]]
-
-        # [2026-08-15 景修] 目标变换：sqrt(SSN)。改前：无此步。
-        # 在 scaler fit/transform 之前对目标列（最后一列）取平方根，
-        # 压缩右偏分布，使 MSE 在高值区的梯度更均匀（峰值压制机制2的对策，EXP-20-4）。
-        # 评估侧（eval_metrics/roll_eval）需同步做逆变换：inverse scaler 后平方回物理空间。
-        if self.target_transform == 'sqrt':
-            df_data.iloc[:, -1] = np.sqrt(df_data.iloc[:, -1].clip(lower=0))
 
         if self.scale:
             train_data = df_data[border1s[0]:border2s[0]]

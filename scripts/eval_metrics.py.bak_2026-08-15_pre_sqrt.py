@@ -34,13 +34,9 @@ SCALER_MAP = {
 }
 
 
-def load_data(data_csv, num_train, scaler_name, scaler_kwargs=None, target_transform=''):
+def load_data(data_csv, num_train, scaler_name, scaler_kwargs=None):
     df = pd.read_csv(data_csv)
     ssn_train = df["ssn"].values[:num_train].reshape(-1, 1)
-    # [2026-08-15 景修] sqrt 模式：scaler fit 在 sqrt 空间（与训练侧 data_loader 一致）。
-    # 改前：直接 fit 原始 SSN——sqrt 模式下 inverse 会算错（08-15 EXP-20-4 评估时发现的 bug）。
-    if target_transform == 'sqrt':
-        ssn_train = np.sqrt(np.clip(ssn_train, 0, None))
     cls = SCALER_MAP[scaler_name]
     scaler = cls(**scaler_kwargs) if scaler_kwargs else cls()
     scaler.fit(ssn_train)
@@ -101,11 +97,6 @@ def main():
                    help="训练集行数（scaler fit 范围）")
     p.add_argument("--enc_in", type=int, default=3,
                    help="输入通道数（ssn 在最后一列）")
-    # [2026-08-15 景修] 新增：目标变换逆操作（sqrt 实验配套，EXP-20-4）。
-    # 改前：无此参数，inverse scaler 直接得物理 SSN。
-    # 改后：--target_transform sqrt 时，inverse scaler 得 sqrt 空间值，再平方回物理空间。
-    p.add_argument("--target_transform", type=str, default="",
-                   help="目标变换逆操作: 空/sqrt（与训练侧 --target_transform 对应）")
     args = p.parse_args()
 
     # --- 模式一：从 config JSON 读取全部参数 ---
@@ -121,8 +112,6 @@ def main():
         )
         num_train = cfg.get("num_train", 3119)
         enc_in = params.get("enc_in", 3)
-        # [2026-08-15 景修] config 模式同步读 target_transform（sqrt 逆操作）
-        args.target_transform = params.get("target_transform", "")
 
         # 自动推断 results_dir
         default_root = os.path.join(
@@ -173,15 +162,9 @@ def main():
     pred_ssn_z = pred_z[:, :, ssn_col]
     true_ssn_z = true_z[:, :, ssn_col]
 
-    _, scaler = load_data(data_csv, num_train, scaler_name, scaler_kwargs, args.target_transform)
+    _, scaler = load_data(data_csv, num_train, scaler_name, scaler_kwargs)
     pred_phy = scaler.inverse_transform(pred_ssn_z.reshape(-1, 1)).reshape(pred_ssn_z.shape)
     true_phy = scaler.inverse_transform(true_ssn_z.reshape(-1, 1)).reshape(true_ssn_z.shape)
-
-    # [2026-08-15 景修] 目标变换逆操作：sqrt 空间 → 物理空间（平方）。
-    # 改前：inverse scaler 直接得物理 SSN。改后：sqrt 时平方回物理空间（clip 防负数）。
-    if args.target_transform == "sqrt":
-        pred_phy = np.clip(pred_phy, 0, None) ** 2
-        true_phy = np.clip(true_phy, 0, None) ** 2
 
     metrics = compute(pred_phy, true_phy)
     strat = metrics.pop("error_stratification")

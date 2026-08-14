@@ -92,6 +92,7 @@ def main():
             "num_workers": args.num_workers,
             "test_start": args.test_start,
             "test_end": args.test_end,
+            "target_transform": args.target_transform,
         },
     }
 

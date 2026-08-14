@@ -26,6 +26,8 @@ def build_parser():
     # 改后：传 --test_start / --test_end 时，data_loader.py 按年月过滤行
     parser.add_argument('--test_start', type=str, default='', help='测试集起始年月(YYYY-MM)，如 1996-08。留空=原始硬编码切分')
     parser.add_argument('--test_end', type=str, default='', help='测试集截止年月(YYYY-MM)，如 2008-11。留空=原始硬编码切分')
+    # [2026-08-15 景修] 新增：目标变换（与 run_longExp.py 同步）
+    parser.add_argument('--target_transform', type=str, default='', help='目标变换: 空/sqrt')
     parser.add_argument('--freq', type=str, default='m')
 
     # ---- forecasting task ----
