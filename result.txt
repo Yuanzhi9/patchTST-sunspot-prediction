@@ -203,3 +203,11 @@ mse:0.2032071053981781, mae:0.3550284802913666, rse:0.48624080419540405
 
 EXP-18-7a 2026-08-14 Round7 individual=1 vs 基线(0,22.62) 全步MAE:24.13 step0:13.26 R2:0.764 E_r:-14.0 结论:恶化6.7%≥3%, 维持ind=0
 # Round 7 结论: MS模式下独立head有害(恶化6.7%). individual维度关停, 维持0
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-19-2_0  
+mse:0.15498954057693481, mae:0.3070128262042999, rse:0.6844511032104492
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-19-2_0  
+mse:0.1392015516757965, mae:0.2921696603298187, rse:0.6486542224884033
+
+EXP-19-2 2026-08-14 验证W2(Cycle24完整) 最优配置 全步MAE:20.03 step0:36.0 R2:0.579 E_r:+16.0 E_m:-9 150+层:0.0(弱周期无此档) 注:Cycle24弱周期整体SSN低
+# W1+W2平均=(22.62+20.03)/2=21.33. W2未退化(W2<W1×1.15✓) 但R²/step0明显弱于W1, 极小值附近预测不稳
