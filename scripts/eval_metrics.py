@@ -35,6 +35,12 @@ SCALER_MAP = {
 
 # [2026-08-15 景修] 目标变换逆变换映射表（探索期 EXP-21 系列）。
 # 改前：无此表。改后：与 data_loader.py 的 TARGET_TRANSFORMS 一一对应。
+TARGET_TRANSFORMS = {
+    'sqrt': lambda x: np.sqrt(x),
+    'pow07': lambda x: np.power(x, 0.7),
+    'pow23': lambda x: np.power(x, 2.0 / 3.0),
+    'log1p': lambda x: np.log1p(x),
+}
 INV_TARGET_TRANSFORMS = {
     'sqrt': lambda y: np.clip(y, 0, None) ** 2,
     'pow07': lambda y: np.clip(y, 0, None) ** (1.0 / 0.7),
@@ -46,10 +52,13 @@ INV_TARGET_TRANSFORMS = {
 def load_data(data_csv, num_train, scaler_name, scaler_kwargs=None, target_transform=''):
     df = pd.read_csv(data_csv)
     ssn_train = df["ssn"].values[:num_train].reshape(-1, 1)
-    # [2026-08-15 景修] sqrt 模式：scaler fit 在 sqrt 空间（与训练侧 data_loader 一致）。
-    # 改前：直接 fit 原始 SSN——sqrt 模式下 inverse 会算错（08-15 EXP-20-4 评估时发现的 bug）。
-    if target_transform == 'sqrt':
-        ssn_train = np.sqrt(np.clip(ssn_train, 0, None))
+    # [2026-08-15 景修] 目标变换：scaler fit 在变换空间（与训练侧 data_loader 一致）。
+    # 改前：仅 sqrt 分支（08-15 初版 bug 修复）；08-15 基建A 扩展为映射表（修复 pow07 等模式评估 bug）。
+    if target_transform:
+        fn = TARGET_TRANSFORMS.get(target_transform)
+        if fn is None:
+            raise ValueError(f"未知 target_transform: {target_transform}")
+        ssn_train = fn(np.clip(ssn_train, 0, None))
     cls = SCALER_MAP[scaler_name]
     scaler = cls(**scaler_kwargs) if scaler_kwargs else cls()
     scaler.fit(ssn_train)
