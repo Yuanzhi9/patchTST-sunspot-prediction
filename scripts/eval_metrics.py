@@ -33,6 +33,15 @@ SCALER_MAP = {
     "minmax": MinMaxScaler,
 }
 
+# [2026-08-15 景修] 目标变换逆变换映射表（探索期 EXP-21 系列）。
+# 改前：无此表。改后：与 data_loader.py 的 TARGET_TRANSFORMS 一一对应。
+INV_TARGET_TRANSFORMS = {
+    'sqrt': lambda y: np.clip(y, 0, None) ** 2,
+    'pow07': lambda y: np.clip(y, 0, None) ** (1.0 / 0.7),
+    'pow23': lambda y: np.clip(y, 0, None) ** 1.5,
+    'log1p': lambda y: np.expm1(y),
+}
+
 
 def load_data(data_csv, num_train, scaler_name, scaler_kwargs=None, target_transform=''):
     df = pd.read_csv(data_csv)
@@ -177,11 +186,16 @@ def main():
     pred_phy = scaler.inverse_transform(pred_ssn_z.reshape(-1, 1)).reshape(pred_ssn_z.shape)
     true_phy = scaler.inverse_transform(true_ssn_z.reshape(-1, 1)).reshape(true_ssn_z.shape)
 
-    # [2026-08-15 景修] 目标变换逆操作：sqrt 空间 → 物理空间（平方）。
-    # 改前：inverse scaler 直接得物理 SSN。改后：sqrt 时平方回物理空间（clip 防负数）。
-    if args.target_transform == "sqrt":
-        pred_phy = np.clip(pred_phy, 0, None) ** 2
-        true_phy = np.clip(true_phy, 0, None) ** 2
+    # [2026-08-15 景修] 目标变换逆操作（映射表）。
+    # 改前：仅 sqrt 分支（08-15 初版）。
+    # 改后：INV_TARGET_TRANSFORMS 支持 sqrt/pow07/pow23/log1p（与训练侧 TARGET_TRANSFORMS 对应）。
+    if args.target_transform:
+        fn = INV_TARGET_TRANSFORMS.get(args.target_transform)
+        if fn is None:
+            print(f"ERROR: 未知 target_transform 逆变换: {args.target_transform}")
+            sys.exit(1)
+        pred_phy = fn(pred_phy)
+        true_phy = fn(true_phy)
 
     metrics = compute(pred_phy, true_phy)
     strat = metrics.pop("error_stratification")

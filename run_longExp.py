@@ -31,8 +31,9 @@ if __name__ == '__main__':
     # 改后：传 --test_start / --test_end 时，data_loader.py 按年月过滤行（train_end = test_start − 133月，val 固定 132 月）
     parser.add_argument('--test_start', type=str, default='', help='测试集起始年月(YYYY-MM)，如 1996-08。留空=原始硬编码切分')
     parser.add_argument('--test_end', type=str, default='', help='测试集截止年月(YYYY-MM)，如 2008-11。留空=原始硬编码切分')
-    # [2026-08-15 景修] 新增：目标变换（sqrt 压缩右偏，探索期 EXP-20-4 用）。默认 '' = 不变换
-    parser.add_argument('--target_transform', type=str, default='', help='目标变换: 空/sqrt。sqrt=对SSN取平方根, 评估侧自动平方回物理空间')
+    # [2026-08-15 景修] 新增：目标变换（探索期 EXP-20-4 sqrt / EXP-21 系列）。默认 '' = 不变换
+    # 改前：仅支持 sqrt。改后：sqrt/pow07/pow23/log1p（与 data_loader/eval/roll_eval 映射表对应）
+    parser.add_argument('--target_transform', type=str, default='', help='目标变换: 空/sqrt/pow07/pow23/log1p。评估侧自动逆变换回物理空间')
     parser.add_argument('--checkpoints', type=str, default='./checkpoints/', help='location of model checkpoints')
 
     # forecasting task（要重点调）
@@ -88,6 +89,9 @@ if __name__ == '__main__':
     parser.add_argument('--learning_rate', type=float, default=0.0001, help='optimizer learning rate')
     parser.add_argument('--des', type=str, default='test', help='exp description')
     parser.add_argument('--loss', type=str, default='mse', help='loss function')#2026.04.09修改为huber   2026.05.01改回mse
+    # [2026-08-15 景修] 新增：wmse 权重系数（探索期 EXP-22-2 alpha 扫描用）。
+    # 改前：WeightedMSELoss 的 alpha 写死 1.0。改后：CLI 可传，仅当 --loss wmse 时生效。
+    parser.add_argument('--wmse_alpha', type=float, default=1.0, help='wmse 权重系数 alpha（仅 --loss wmse 时生效），默认 1.0')
     parser.add_argument('--lradj', type=str, default='type3', help='adjust learning rate')
     parser.add_argument('--pct_start', type=float, default=0.3, help='pct_start')
     parser.add_argument('--use_amp', action='store_true', help='use automatic mixed precision training', default=False)

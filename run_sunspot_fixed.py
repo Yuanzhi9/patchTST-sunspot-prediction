@@ -27,7 +27,8 @@ def build_parser():
     parser.add_argument('--test_start', type=str, default='', help='测试集起始年月(YYYY-MM)，如 1996-08。留空=原始硬编码切分')
     parser.add_argument('--test_end', type=str, default='', help='测试集截止年月(YYYY-MM)，如 2008-11。留空=原始硬编码切分')
     # [2026-08-15 景修] 新增：目标变换（与 run_longExp.py 同步）
-    parser.add_argument('--target_transform', type=str, default='', help='目标变换: 空/sqrt')
+    # 改前：仅 sqrt。改后：sqrt/pow07/pow23/log1p
+    parser.add_argument('--target_transform', type=str, default='', help='目标变换: 空/sqrt/pow07/pow23/log1p')
     parser.add_argument('--freq', type=str, default='m')
 
     # ---- forecasting task ----
@@ -76,6 +77,8 @@ def build_parser():
     parser.add_argument('--learning_rate', type=float, default=0.0001)
     parser.add_argument('--des', type=str, default='test')
     parser.add_argument('--loss', type=str, default='mse')
+    # [2026-08-15 景修] 新增：与 run_longExp.py 同步（EXP-22-2 alpha 扫描）
+    parser.add_argument('--wmse_alpha', type=float, default=1.0, help='wmse 权重系数 alpha，仅 --loss wmse 时生效')
     parser.add_argument('--lradj', type=str, default='type3')
     parser.add_argument('--pct_start', type=float, default=0.3)
     parser.add_argument('--use_amp', action='store_true', default=False)

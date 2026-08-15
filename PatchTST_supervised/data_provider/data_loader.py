@@ -7,6 +7,16 @@ from torch.utils.data import Dataset, DataLoader
 #from sklearn.preprocessing import MinMaxScaler   2026.05.01修改
 from sklearn.preprocessing import StandardScaler   #2026.05.01添加
 from utils.timefeatures import time_features
+
+# [2026-08-15 景修] 目标变换映射表（探索期 EXP-21 系列）。
+# 改前：无此表（sqrt 分支硬编码）。
+# 改后：sqrt/pow07/pow23/log1p 四变换。评估侧逆变换见 eval_metrics.py / roll_eval.py 的 INV_TARGET_TRANSFORMS。
+TARGET_TRANSFORMS = {
+    'sqrt': lambda x: np.sqrt(x),
+    'pow07': lambda x: np.power(x, 0.7),
+    'pow23': lambda x: np.power(x, 2.0 / 3.0),
+    'log1p': lambda x: np.log1p(x),
+}
 import warnings
 
 warnings.filterwarnings('ignore')
@@ -291,12 +301,16 @@ class Dataset_Custom(Dataset):
         elif self.features == 'S':
             df_data = df_raw[[self.target]]
 
-        # [2026-08-15 景修] 目标变换：sqrt(SSN)。改前：无此步。
-        # 在 scaler fit/transform 之前对目标列（最后一列）取平方根，
-        # 压缩右偏分布，使 MSE 在高值区的梯度更均匀（峰值压制机制2的对策，EXP-20-4）。
-        # 评估侧（eval_metrics/roll_eval）需同步做逆变换：inverse scaler 后平方回物理空间。
-        if self.target_transform == 'sqrt':
-            df_data.iloc[:, -1] = np.sqrt(df_data.iloc[:, -1].clip(lower=0))
+        # [2026-08-15 景修] 目标变换（映射表）。
+        # 改前：仅 'sqrt' 分支（08-15 初版）。
+        # 改后：TARGET_TRANSFORMS 映射表，支持 sqrt/pow07/pow23/log1p（探索期 EXP-21 系列）。
+        # 在 scaler fit/transform 之前对目标列（最后一列）取变换，
+        # 评估侧（eval_metrics/roll_eval）需同步做逆变换（INV_TARGET_TRANSFORMS）。
+        if self.target_transform:
+            fn = TARGET_TRANSFORMS.get(self.target_transform)
+            if fn is None:
+                raise ValueError(f"未知 target_transform: {self.target_transform}（支持: {list(TARGET_TRANSFORMS.keys())}）")
+            df_data.iloc[:, -1] = fn(df_data.iloc[:, -1].clip(lower=0))
 
         if self.scale:
             train_data = df_data[border1s[0]:border2s[0]]

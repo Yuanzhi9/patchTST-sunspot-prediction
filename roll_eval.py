@@ -27,6 +27,21 @@ sys.path.insert(1, os.path.join(ROOT, 'PatchTST_supervised'))
 from run_sunspot_fixed import build_parser as rsf_parser
 from models.PatchTST import Model
 
+# [2026-08-15 景修] 目标变换映射表（探索期 EXP-21 系列）。
+# 改前：仅 'sqrt' 分支。改后：四变换映射，与 data_loader.py / eval_metrics.py 对应。
+TARGET_TRANSFORMS = {
+    'sqrt': lambda x: np.sqrt(x),
+    'pow07': lambda x: np.power(x, 0.7),
+    'pow23': lambda x: np.power(x, 2.0 / 3.0),
+    'log1p': lambda x: np.log1p(x),
+}
+INV_TARGET_TRANSFORMS = {
+    'sqrt': lambda y: np.clip(y, 0, None) ** 2,
+    'pow07': lambda y: np.clip(y, 0, None) ** (1.0 / 0.7),
+    'pow23': lambda y: np.clip(y, 0, None) ** 1.5,
+    'log1p': lambda y: np.expm1(y),
+}
+
 
 def load_data_enc1(data_csv, num_train, num_val):
     """enc_in=1 管线：只取 ssn 列，不归一化。RevIN 内部处理。"""
@@ -45,8 +60,12 @@ def load_data_enc3(data_csv, num_train, num_val, scaler_name='standard', target_
     df = pd.read_csv(data_csv)
     cols = ['month_sin', 'month_cos', 'ssn']
     arr = df[cols].values
-    if target_transform == 'sqrt':
-        arr[:, -1] = np.sqrt(np.clip(arr[:, -1], 0, None))
+    # [2026-08-15 景修] 目标变换（映射表）。改前：仅 'sqrt' 分支。改后：四变换。
+    if target_transform:
+        fn = TARGET_TRANSFORMS.get(target_transform)
+        if fn is None:
+            raise ValueError(f"未知 target_transform: {target_transform}")
+        arr[:, -1] = fn(np.clip(arr[:, -1], 0, None))
 
     if scaler_name == 'standard':
         scaler = StandardScaler()
@@ -127,9 +146,12 @@ def run_rolling_enc3(model, scaler, data_z, test_start_idx, seq_len, n_roll, tar
         pred_row_z = np.array([[window[-1, 0], window[-1, 1], pred_step0_z]])
         pred_phy_sqrt = scaler.inverse_transform(pred_row_z)[0, 2]
 
-        if target_transform == 'sqrt':
-            preds_phy.append(pred_phy_sqrt ** 2)
-            trues_phy.append(true_phy_sqrt ** 2)
+        if target_transform:
+            inv = INV_TARGET_TRANSFORMS.get(target_transform)
+            if inv is None:
+                raise ValueError(f"未知 target_transform 逆变换: {target_transform}")
+            preds_phy.append(inv(pred_phy_sqrt))
+            trues_phy.append(inv(true_phy_sqrt))
         else:
             preds_phy.append(pred_phy_sqrt)
             trues_phy.append(true_phy_sqrt)

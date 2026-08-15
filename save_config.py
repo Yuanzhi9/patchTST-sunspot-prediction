@@ -83,6 +83,7 @@ def main():
             "embed": args.embed,
             "activation": args.activation,
             "loss": args.loss,
+            "wmse_alpha": args.wmse_alpha,
             "learning_rate": args.learning_rate,
             "lradj": args.lradj,
             "batch_size": args.batch_size,

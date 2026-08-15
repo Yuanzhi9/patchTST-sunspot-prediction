@@ -79,7 +79,8 @@ class Exp_Main(Exp_Basic):
             # delta 建议设为 20.0 - 50.0，针对太阳黑子数据范围 0-400
             criterion = nn.HuberLoss(delta=20.0)
         elif self.args.loss == 'wmse':
-            criterion = WeightedMSELoss(alpha=1.0)
+            # [2026-08-15 景修] 改前：alpha 写死 1.0。改后：读 CLI --wmse_alpha（默认 1.0，行为不变）。
+            criterion = WeightedMSELoss(alpha=getattr(self.args, 'wmse_alpha', 1.0))
         else:
             criterion = nn.MSELoss()
         return criterion
