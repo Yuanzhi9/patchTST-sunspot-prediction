@@ -33,22 +33,6 @@ class WeightedMSELoss(nn.Module):
         return (w * (pred - true) ** 2).mean()
 
 
-# [2026-08-15 景修] 新增：阈值型加权 MSE（探索期 EXP-22-3）。
-# 改前：无此类。改后：只对 z_true > tau 的峰值样本加权（w = 1 + alpha·[z>tau]），
-# 不伤中等值区。tau=1.5（对应训练段 SSN>185，占比 9.4%，2026-08-15 实测）：
-# z>1.0 占 16.9%（SSN>151）、z>2.0 占 5.1%（SSN>219）、z>2.5 占 2.1%（SSN>253）。
-# 与线性 wmse（全段线性加权）的区别：中等值区权重为 1，只有真峰值被重罚。
-class ThresholdWeightedMSELoss(nn.Module):
-    def __init__(self, alpha=1.0, tau=1.5):
-        super(ThresholdWeightedMSELoss, self).__init__()
-        self.alpha = alpha
-        self.tau = tau
-
-    def forward(self, pred, true):
-        w = 1.0 + self.alpha * (true > self.tau).float()
-        return (w * (pred - true) ** 2).mean()
-
-
 class Exp_Main(Exp_Basic):
     def __init__(self, args):
         super(Exp_Main, self).__init__(args)
@@ -97,9 +81,6 @@ class Exp_Main(Exp_Basic):
         elif self.args.loss == 'wmse':
             # [2026-08-15 景修] 改前：alpha 写死 1.0。改后：读 CLI --wmse_alpha（默认 1.0，行为不变）。
             criterion = WeightedMSELoss(alpha=getattr(self.args, 'wmse_alpha', 1.0))
-        elif self.args.loss == 'wmse_th':
-            # [2026-08-15 景修] 新增：阈值型加权（EXP-22-3）。tau=1.5，alpha 读 CLI（默认 1.0）。
-            criterion = ThresholdWeightedMSELoss(alpha=getattr(self.args, 'wmse_alpha', 1.0), tau=1.5)
         else:
             criterion = nn.MSELoss()
         return criterion
