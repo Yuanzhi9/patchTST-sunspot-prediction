@@ -49,6 +49,21 @@ class ThresholdWeightedMSELoss(nn.Module):
         return (w * (pred - true) ** 2).mean()
 
 
+# [2026-08-15 景修] 新增：非对称（低估）惩罚 MSE（探索期 EXP-22-4）。
+# 改前：无此类。改后：loss = MSE + lam·max(true-pred,0)²——只额外惩罚"预测低于真实"，
+# 高估不罚。针对阶段3"预测峰值"目标（低估是致命错误，高估危害小）。
+# 风险监控（预检表约定）：训练后检查预测均值 vs 真实均值，若整体高估严重标记"不稳定"。
+class AsymmetricMSELoss(nn.Module):
+    def __init__(self, lam=1.0):
+        super(AsymmetricMSELoss, self).__init__()
+        self.lam = lam
+
+    def forward(self, pred, true):
+        mse = (pred - true) ** 2
+        under = (true - pred).clamp(min=0) ** 2
+        return (mse + self.lam * under).mean()
+
+
 class Exp_Main(Exp_Basic):
     def __init__(self, args):
         super(Exp_Main, self).__init__(args)
@@ -100,6 +115,9 @@ class Exp_Main(Exp_Basic):
         elif self.args.loss == 'wmse_th':
             # [2026-08-15 景修] 新增：阈值型加权（EXP-22-3）。tau=1.5，alpha 读 CLI（默认 1.0）。
             criterion = ThresholdWeightedMSELoss(alpha=getattr(self.args, 'wmse_alpha', 1.0), tau=1.5)
+        elif self.args.loss == 'wmse_asym':
+            # [2026-08-15 景修] 新增：非对称惩罚（EXP-22-4）。lam=1.0 起步。
+            criterion = AsymmetricMSELoss(lam=getattr(self.args, 'wmse_alpha', 1.0))
         else:
             criterion = nn.MSELoss()
         return criterion
