@@ -24,9 +24,9 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：审计与基础设施建设完成（2026-08-10），待与导师对齐
+## 当前阶段：探索期完成，判定标准待景修批注（2026-08-15）
 
-文献奠基完成（14 篇精读）、实验历史梳理完成、SOP 建立、EXP-16c 基线复现完成。下一步方向待导师讨论后确定。详见 `project_docs/project_roadmap.md`。
+阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 全部完成。判定标准 6 项待景修批注（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后回填结论并启动组合实验 C-1（pow23+wmse_th）/ C-2（block+wmse_th）。详见 `project_docs/project_roadmap.md` 和 `project_docs/exploration_analysis.md`。
 
 ## 环境维护
 
@@ -137,5 +137,13 @@
 
 **之前 AGENTS.md 和 project_summary 中记录的「硬天花板 MAE≈19.30」是基于跨组比较得出的，可比性前提不成立，已废弃。**
 
-## 下一步（2026-08-10 更新）
-审计与基础设施建设完成。**当前步骤：与导师讨论定位和方向。之后按 `project_docs/experiment_SOP.md` 执行实验。** 路线图见 `project_docs/project_roadmap.md`。完整实验时间线见 `project_docs/experiment_history.md`。
+## 下一步（2026-08-15 更新）
+
+1. 景修批注判定标准 6 项（`judgment_criteria_discussion_2026-08-15.md`）
+2. 批注后：回填 EXP-20~23 实验结论 → 组合实验 C-1/C-2（需景修重新预先批准，属新队列）
+3. 极小值专项评估（阶段3 前置）、优胜配置 W2/W3 验证
+4. 开学讨论：学姐（Xiong 数据）/ 学长（M4 对质 + block 策略）/ 导师（物理参数数据集方向）
+5. 阶段2：数据更新 2026.07 → 全量重训（配置待判定+组合实验后冻结）
+6. 阶段3：滚动/block 外推 25 周期极小值 + 26 周期完整曲线
+
+纪律：预检表跑前完成（事后补写不算数）；坑清单 1-28 跑前回顾；主控文档顶部快照随进度同步更新。路线图见 `project_docs/project_roadmap.md`。
