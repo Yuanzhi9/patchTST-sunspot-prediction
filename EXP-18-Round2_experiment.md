@@ -64,6 +64,7 @@ PatchTST 原文（Nie et al. 2023）用 e_layers=3；本项目 EXP-14 用 2。�
 ## 结论前提条件
 
 结论仅在：features=MS、StandardScaler+RevIN、W1 回测窗口、最佳模型口径、50ep、单种子 seed=2021、sl336+pl16/s8 下成立。不推广到其他窗口/口径/seed。
+（⚠️ 单种子弊端与解决想法见 data_pipeline.md 顶部警示：无重复标准差、3%边缘差异不可靠；想法=多种子重跑+bootstrap，不写死）
 
 ## 成功标准
 

@@ -65,6 +65,7 @@ sqrt 变换是太阳物理传统做法（Hathaway 2015；Petrovay 2020 §1.2.3�
 ### 结论前提条件（补写）
 
 结论仅在 features=MS、W1、最佳模型口径、50ep、单种子、sl336+pl16s8+el2+df2048+dm128+do0.2、target_transform=sqrt 下成立；E_r 在物理空间（平方后）计算。
+（⚠️ 单种子弊端与解决想法见 data_pipeline.md 顶部警示：无重复标准差、3%边缘差异不可靠；想法=多种子重跑+bootstrap，不写死）
 
 ### 成功标准（补写）
 

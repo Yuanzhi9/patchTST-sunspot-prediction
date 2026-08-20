@@ -63,6 +63,7 @@ Bracewell 3/2 律（a=2/3 物理依据）；Hathaway/Petrovay 的 sqrt 传统；
 ### 结论前提条件（补写）
 
 结论仅在 features=MS、W1、最佳模型口径、50ep、单种子、sl336+pl16s8+el2+df2048+dm128+do0.2 下成立。
+（⚠️ 单种子弊端与解决想法见 data_pipeline.md 顶部警示：无重复标准差、3%边缘差异不可靠；想法=多种子重跑+bootstrap，不写死）
 
 ### 成功标准（补写）
 

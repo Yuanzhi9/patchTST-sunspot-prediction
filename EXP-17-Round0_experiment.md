@@ -116,6 +116,7 @@ PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
 **✅ 通过 — sl336 胜出。** 全步 MAE 改善 5.4%，E_r 减半，R² 提升 4.5%。后续 Round 1-7 全部以 seq_len=336 为基线。
 
 **⚠️ 单种子限制**：此结论基于 seed=2021 的单次训练。多 seed 验证未做。W2/W3 窗口将在验证阶段提供交叉验证。
+（⚠️ 单种子弊端与解决想法见 data_pipeline.md 顶部警示：无重复标准差、3%边缘差异不可靠；想法=多种子重跑+bootstrap，不写死）
 
 **收尾判定**：✅ 通过 — 假设成立，结论可进入知识库。
 

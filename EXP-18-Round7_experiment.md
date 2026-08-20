@@ -43,6 +43,7 @@ enc_in=3（sin/cos/ssn）+ MS 模式。individual=1 时每通道独立 head，SS
 ## 结论前提条件
 
 features=MS、W1、最佳模型口径、50ep、单种子、sl336+pl16/s8+el=2+df=2048+dm=128+do=0.2 下成立。**不推广到 M 模式**（M 模式下 ind 行为完全不同）。
+（⚠️ 单种子弊端与解决想法见 data_pipeline.md 顶部警示：无重复标准差、3%边缘差异不可靠；想法=多种子重跑+bootstrap，不写死）
 
 ## 成功标准
 
