@@ -24,7 +24,7 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：探索期完成，判定标准待景修批注（2026-08-15）
+## 当前阶段：探索期完成，判定标准待景修批注（2026-08-19）
 
 阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 全部完成。判定标准 6 项待景修批注（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后回填结论并启动组合实验 C-1（pow23+wmse_th）/ C-2（block+wmse_th）。详见 `project_docs/project_roadmap.md` 和 `project_docs/exploration_analysis.md`。
 
@@ -62,6 +62,7 @@
 - 训练框架：`exp/exp_main.py`（继承自 `exp_basic.py`）
 
 ## 关键参数约定
+- **数据口径警示（2026-08-20）**：ssn 列为 **SILSO 月均 SSN（未平滑）**。阶段3 若引用官方周期界（平滑极小值/极大值）需 13 月平滑转换。**Q9 待议**：训练数据是否改用 13 月平滑（景修倾向应该用）——待与学姐学长/导师讨论。谷峰数字引用均为月均口径。版本锚点=V2（2014/2024 已对拍），1778-05=398.2 版本归属待官网核对。
 - **对标基线**：任何实验必须与基线使用相同参数配置，否则不可比：
   - seq_len=96, pred_len=24, d_model=128, n_heads=8, e_layers=2, d_ff=2048
   - patch_len=16, stride=8, RevIN=1, StandardScaler, MSE loss

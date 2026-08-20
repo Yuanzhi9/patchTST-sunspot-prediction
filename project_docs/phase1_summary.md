@@ -1,7 +1,8 @@
 # 阶段1总结 — PatchTST 参数搜索与三窗口验证（2026-08-14）
 
 > 分支：EXP-17-stage1（worktree: patchTST-sunspot-prediction-EXP17）
-> 数据：SILSO 月均值 1749-2025.10（3321 个月，未平滑）
+> 数据：SILSO **月均** SSN（未平滑）1749-2025.10（3321 个月）。⚠️ 本文档谷峰数字均为月均口径；
+> 月均 vs 13月平滑对照与 Q9 待议见 data_pipeline.md 顶部警示（2026-08-20 补充标注）。
 > 口径：**最佳 val 模型**（命令链 train && 补测，见 experiment_SOP.md §4）
 > 全部实验单种子（seed=2021），结论可靠性受此限制
 
