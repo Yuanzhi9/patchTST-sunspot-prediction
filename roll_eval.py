@@ -82,7 +82,20 @@ def load_data_enc3(data_csv, num_train, num_val, scaler_name='standard', target_
 
 
 def load_model(checkpoint_path):
-    ckpt = torch.load(checkpoint_path, map_location='cpu')
+    # [2026-10-10 AI] 同 exp_main._load_checkpoint：torch>=2.6 默认 weights_only=True，
+    # 而 checkpoint 含 argparse.Namespace / numpy 标量与 dtype，白名单无法穷尽
+    # （随 numpy 版本漂移）。旧版 torch 走原路径，新版先试安全路径再显式回退。
+    # 仅用于本项目自身训练产物。
+    if not hasattr(torch.serialization, 'add_safe_globals'):
+        ckpt = torch.load(checkpoint_path, map_location='cpu')
+    else:
+        try:
+            ckpt = torch.load(checkpoint_path, map_location='cpu')
+        except Exception as exc:
+            print('[AI 2026-10-10] checkpoint 含非张量对象（{}），按项目自身产物处理，'
+                  '使用 weights_only=False 加载：{}'.format(type(exc).__name__,
+                                                          os.path.basename(checkpoint_path)))
+            ckpt = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
     if 'args' in ckpt:
         ckpt_args = ckpt['args']
     elif 'config' in ckpt:
