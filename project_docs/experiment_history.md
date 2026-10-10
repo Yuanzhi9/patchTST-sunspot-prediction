@@ -1035,7 +1035,7 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
 | 项目 | 值 |
 |------|-----|
 | 日期 | 2026-10-10 |
-| 分支 / worktree | `EXP-25-baseline-newenv` / `/output/patchTST-EXP25` |
+| 分支 / worktree | `GPU-exp25` / `/output/GPU-exp25` |
 | 环境 | Python 3.10.18 + **torch 2.8.0+cu128 + RTX A6000 (48G)**；`NVIDIA_TF32_OVERRIDE=0` |
 | 配置 | 与 SOP §4 标准 ARGS **零改动**（sl336/ll48/pl24/dm128/nh8/el2/df2048/patch16/stride8/revin1/dropout0.05/50ep/bs16/lr1e-4/mse/gelu/seed2021），W1 窗口，num_train=2838 |
 | 口径 | 命令链 train && 补测，正式值取**补测段**（最佳 val 模型） |

@@ -12,7 +12,7 @@
 |------|------|
 | 日期 | 2026-10-10（夜） |
 | 实验ID | EXP-25 |
-| 分支 / worktree | `EXP-25-baseline-newenv` / `/output/patchTST-EXP25` |
+| 分支 / worktree | `GPU-exp25` / `/output/GPU-exp25` |
 | 类型 | 训练实验（**环境重基线**，非单变量对照） |
 | 目的 | 在换机后（torch 2.8 + A6000 GPU）重建基线锚点，供后续所有实验对比 |
 | 改动变量 | **无**。本实验不是对照实验，是重建锚点。相对"历史环境"改了环境（CPU→GPU、torch 1.11→2.8），相对"配置"沿用 SOP §4 标准 ARGS |
