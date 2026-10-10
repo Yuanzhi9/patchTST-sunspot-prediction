@@ -30,10 +30,27 @@
 
 ## 环境维护
 
+### 运行环境（2026-10-10 换新云服务器，景修确认）
+
+| 项目 | 当前值 |
+|------|--------|
+| 机器 | 新云服务器；GPU = NVIDIA RTX A6000（48 GB），CUDA 可用 |
+| Python | 3.10.18（`/usr/local/bin/python3`）。**无 venv/conda 虚拟环境**，直接用系统解释器 |
+| PyTorch | 2.8.0+cu128（旧环境：1.11，纯 CPU。换机后不再适用） |
+| 其他依赖 | numpy 2.2.6、pandas 2.3.2、scipy 1.15.3、scikit-learn 1.7.2、matplotlib 3.10.6、tqdm |
+| 依赖缺口 | `einops`/`pyraformer`/`tvm`/`fbm`（Pyraformer、FEDformer 对照基线用）、`pmdarima`（`models/Stat_models.py`，该模块未被主路径引用）、`ptflops`（`utils/tools.py` 内惰性调用）。**主训练路径 `run_longExp.py` 不需要这些** |
+| ⚠️ 可比性断裂 | torch 2.8 vs 1.11、GPU vs CPU 同时变了。**在本机重跑得到的数值不能直接与 `result.txt` 的历史基线对比**，需按 SOP 重新建立基线 |
+| ⚠️ 全局环境污染 | 系统解释器同时承载 pdf/docx skill 等工具的依赖。**装任何新包前先确认它不会升级 numpy / torch**，否则会静默改变实验环境 |
+| torch.load 兼容 | torch ≥2.6 默认 `weights_only=True`。部分脚本已改（`check_pred.py`、`manual_inference.py` 等），`roll_eval.py:85` 和 `Formers/*/exp/exp_main.py` 仍是默认值，可能加载失败 |
+
+### Git / GitHub
+
 | 项目 | 状态 |
 |------|------|
-| Git credential | `~/.git-credentials` 已配置，有效期至 **2026-10-10**。过期后需重新生成 GitHub token 并更新 |
-| Token 获取 | https://github.com/settings/tokens → Generate new token (classic) → 勾选 `repo`
+| 仓库位置 | `/output/patchTST-sunspot-prediction`（持久卷），当前分支 `EXP-17-stage1` |
+| Git credential | `/openbayes/home/.git-credentials`（权限 600），helper = `store --file=...`。2026-10-10 重新生成，有效期至 **2027-01-08** |
+| ⚠️ 持久化陷阱 | `/root` 是容器临时层，重启即丢。真实配置在 `/openbayes/home/.gitconfig`，`/root/.gitconfig` 只是由平台生成、通过 `include` 引入。**重启后若 git 不认身份，跑一次 `git config --global include.path /openbayes/home/.gitconfig`**；仓库本地 `.git/config` 已冗余配置一份，不受影响 |
+| Token 获取 | https://github.com/settings/tokens → Generate new token (classic) → 勾选 `repo`（只读 token 能 clone 不能 push） |
 
 ## 项目目标（当前定位）
 使用深度学习模型探索太阳黑子数（SSN）预测的可行性边界，核心关注第 25、26 太阳活动周的完整曲线预测。M4 Waldmeier 参数化曲线（师兄代码）做物理方法对照基线。当前定位偏向"可行性边界研究"——系统刻画纯数据驱动方法在该问题上的能力上限和失效模式。待文献读完 + 导师确认后再定最终定位。
@@ -56,7 +73,7 @@
 - 不要提交 `__pycache__/`、`.pth`、`.pyc`
 
 ## 技术栈
-- Python 3.10 + PyTorch 1.11
+- Python 3.10.18 + PyTorch 2.8.0+cu128（当前云服务器实况，详见上方「运行环境」。历史实验是在 Python 3.10 + PyTorch 1.11 纯 CPU 上跑的）
 - 数据处理：numpy, pandas, scipy, scikit-learn
 - 模型：PatchTST（Patch Time Series Transformer），源代码位于 `layers/`、`models/`
 - 训练框架：`exp/exp_main.py`（继承自 `exp_basic.py`）

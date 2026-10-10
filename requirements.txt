@@ -1,6 +1,14 @@
+# 2026-10-10 更新：改为新云服务器实际环境。
+# 历史环境（result.txt 里所有基线数值的来源）：Python 3.10 + torch 1.11，纯 CPU。
+# 两者数值不可直接对比，详见 AGENTS.md「运行环境」。
+#
+# torch 当前为 2.8.0+cu128，装 CUDA 轮子需指定索引：
+#   pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+
 numpy
 matplotlib
 pandas
 scikit-learn
 scipy
-torch==1.11.0
+tqdm
+torch==2.8.0
