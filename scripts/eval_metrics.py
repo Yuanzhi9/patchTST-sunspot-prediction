@@ -162,6 +162,9 @@ def main():
                 params.get("embed", "timeF"),
                 params.get("distil", True),
                 cfg.get("experiment_id", "0"),
+                # [2026-10-10 AI] run_longExp 生成的目录名末尾还有 --itr 的序号后缀（itr=1 → "_0"），
+                # 原格式串多一个占位符却少传这个参数，导致 config 模式必然 IndexError
+                params.get("itr", 1) - 1,
             ),
         )
         results_dir = args.results_dir or default_root

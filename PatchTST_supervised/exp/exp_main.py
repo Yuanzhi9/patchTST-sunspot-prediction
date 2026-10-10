@@ -23,6 +23,30 @@ warnings.filterwarnings('ignore')
 # 权重 w = 1 + alpha * clamp(z_true, min=0)：z_true 为正（高于训练均值）的样本获得更大权重，
 # 目标是让模型不再牺牲高活动水平样本换取低值区的小误差（峰值压制机制1的对策）。
 # 在 z 空间计算（与模型输入输出空间一致），alpha=1.0 时峰值样本权重最多 ~4.5 倍。
+def _load_checkpoint(path):
+    """兼容加载 checkpoint（torch 1.11 与 torch>=2.6 都能用）。
+
+    [2026-10-10 AI 新增] torch>=2.6 把 torch.load 的默认值从 weights_only=False
+    改成 True，而本项目的 full_checkpoint.pth 里除张量外还含 argparse.Namespace
+    （args）、numpy 标量（best_loss）和 numpy dtype 实例。
+
+    曾尝试用 add_safe_globals 白名单保留安全检查，实测不可行：需要放行的类型
+    随 numpy 版本漂移（numpy._core.multiarray.scalar → numpy.dtype →
+    numpy.dtypes.Float32DType …），枚举不可能穷尽。
+
+    因此：旧版 torch 走原路径（默认即 False）；新版先试安全路径，失败则显式
+    weights_only=False。**加载对象限本项目自身训练产物**，不要用于外部 checkpoint。
+    """
+    if not hasattr(torch.serialization, 'add_safe_globals'):
+        return torch.load(path, map_location='cpu')          # torch 1.11：默认即 False
+    try:
+        return torch.load(path, map_location='cpu')          # 尽量走安全路径
+    except Exception as exc:
+        print('[AI 2026-10-10] checkpoint 含非张量对象（{}），按项目自身产物处理，'
+              '使用 weights_only=False 加载：{}'.format(type(exc).__name__, os.path.basename(path)))
+        return torch.load(path, map_location='cpu', weights_only=False)
+
+
 class WeightedMSELoss(nn.Module):
     def __init__(self, alpha=1.0):
         super(WeightedMSELoss, self).__init__()
@@ -296,8 +320,10 @@ class Exp_Main(Exp_Basic):
             #注释掉了这一行self.model.load_state_dict(torch.load(os.path.join('./checkpoints/' + setting, 'checkpoint.pth')))
             #checkpoint_path = os.path.join('./checkpoints/' + setting, 'checkpoint.pth')04.03注释掉
             checkpoint_path = os.path.join('./checkpoints/' + setting, 'full_checkpoint.pth')
-            # [2026-08-12 景修] 修复：去除 weights_only=False，PyTorch 1.11 不支持此参数
-            checkpoint = torch.load(checkpoint_path, map_location='cpu')
+            # [2026-08-12 景修] 去除 weights_only=False，PyTorch 1.11 不支持此参数
+            # [2026-10-10 AI] 换 torch 2.8 后默认 weights_only=True 会报 UnpicklingError，
+            # 改用 _load_checkpoint：优先白名单，失败才回退，见函数 docstring
+            checkpoint = _load_checkpoint(checkpoint_path)
 
             # 如果 checkpoint 包含 model_state_dict，就加载它；否则直接作为权重加载
             if 'model_state_dict' in checkpoint:
