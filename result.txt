@@ -335,3 +335,27 @@ mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
 sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-26_0  
 mse:0.1851743757724762, mae:0.3364803194999695, rse:0.46416500210762024
 
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-27_0  
+mse:0.19871577620506287, mae:0.3534232974052429, rse:0.7750101685523987
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-27_0  
+mse:0.16372118890285492, mae:0.3180637061595917, rse:0.7034668922424316
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-28_0  
+mse:0.15435878932476044, mae:0.3066921532154083, rse:0.6830570101737976
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-28_0  
+mse:0.14776329696178436, mae:0.30176061391830444, rse:0.6683047413825989
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-29_0  
+mse:0.1206357479095459, mae:0.2555317282676697, rse:0.46266838908195496
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-29_0  
+mse:0.17979249358177185, mae:0.3068394660949707, rse:0.5648298263549805
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-30_0  
+mse:0.14792558550834656, mae:0.28130561113357544, rse:0.5123343467712402
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-30_0  
+mse:0.16567789018154144, mae:0.295958012342453, rse:0.5422057509422302
+

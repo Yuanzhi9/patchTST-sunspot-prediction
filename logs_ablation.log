@@ -1,0 +1,136 @@
+==================== EXP-27  dropout=0.05  window 2008-12~2019-11  num_train=2986 ====================
+[内存] 可用 58716MB ≥ 3000MB ✓
+[启动] EXP_ID=EXP-27
+[启动] OMP_NUM_THREADS=4
+[启动] 命令: bash -c python3 -u run_longExp.py --is_training 1 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2008-12 --test_end 2019-11 --dropout 0.05 --fc_dropout 0.05 --des EXP-27 && python3 -u run_longExp.py --is_training 0 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2008-12 --test_end 2019-11 --dropout 0.05 --fc_dropout 0.05 --des EXP-27
+[启动] 日志: logs/EXP-27.log
+[启动] 时间: 2026-10-10 16:41:46
+[启动] PID=44605 (已写 logs/EXP-27.pid)
+[确认] 进程存活且已开始训练 ✓
+[EXP-27] 训练结束
+--- 物理四指标 ---
+scaler: standard  num_train: 2986
+----------------------------------------
+ step0_MAE: 51.62
+  full_MAE: 21.8
+      RMSE: 27.74
+        R2: 0.505
+       E_r: 23.4
+       E_m: -18
+----------------------------------------
+误差分层 (MAE):
+  SSN       0-50: 20.6
+  SSN     50-100: 21.7
+  SSN    100-150: 24.4
+  SSN   150-plus: 0.0
+--- 滚动（整段测试期） ---
+滚动段: 本次评估 132 月 (--test_end 2019-11 → 测试期 132 月)；数据可用 203 月
+滚动 MAE  (全 132 月): 109.62
+前期 MAE  (前 44 月): 105.46
+后期 MAE  (后 44 月): 155.08
+后期/前期: 1.5x
+真实峰值: 146.1  预测: 78.3  误差(pred-true, 负=低估): -67.8 (第 63 月)
+
+==================== EXP-28  dropout=0.2  window 2008-12~2019-11  num_train=2986 ====================
+[提示] 清理失效 PID 文件: EXP-27.pid (44605 已不存在)
+[内存] 可用 58714MB ≥ 3000MB ✓
+[启动] EXP_ID=EXP-28
+[启动] OMP_NUM_THREADS=4
+[启动] 命令: bash -c python3 -u run_longExp.py --is_training 1 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2008-12 --test_end 2019-11 --dropout 0.2 --fc_dropout 0.2 --des EXP-28 && python3 -u run_longExp.py --is_training 0 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2008-12 --test_end 2019-11 --dropout 0.2 --fc_dropout 0.2 --des EXP-28
+[启动] 日志: logs/EXP-28.log
+[启动] 时间: 2026-10-10 16:43:28
+[启动] PID=45497 (已写 logs/EXP-28.pid)
+[确认] 进程存活且已开始训练 ✓
+[EXP-28] 训练结束
+--- 物理四指标 ---
+scaler: standard  num_train: 2986
+----------------------------------------
+ step0_MAE: 42.98
+  full_MAE: 20.69
+      RMSE: 26.35
+        R2: 0.553
+       E_r: 12.6
+       E_m: -18
+----------------------------------------
+误差分层 (MAE):
+  SSN       0-50: 18.3
+  SSN     50-100: 19.2
+  SSN    100-150: 28.7
+  SSN   150-plus: 0.0
+--- 滚动（整段测试期） ---
+滚动段: 本次评估 132 月 (--test_end 2019-11 → 测试期 132 月)；数据可用 203 月
+滚动 MAE  (全 132 月): 47.95
+前期 MAE  (前 44 月): 67.53
+后期 MAE  (后 44 月): 43.32
+后期/前期: 0.6x
+真实峰值: 146.1  预测: 129.1  误差(pred-true, 负=低估): -17.0 (第 63 月)
+
+==================== EXP-29  dropout=0.05  window 2019-12~2025-10  num_train=3118 ====================
+[提示] 清理失效 PID 文件: EXP-28.pid (45497 已不存在)
+[内存] 可用 58724MB ≥ 3000MB ✓
+[启动] EXP_ID=EXP-29
+[启动] OMP_NUM_THREADS=4
+[启动] 命令: bash -c python3 -u run_longExp.py --is_training 1 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2019-12 --test_end 2025-10 --dropout 0.05 --fc_dropout 0.05 --des EXP-29 && python3 -u run_longExp.py --is_training 0 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2019-12 --test_end 2025-10 --dropout 0.05 --fc_dropout 0.05 --des EXP-29
+[启动] 日志: logs/EXP-29.log
+[启动] 时间: 2026-10-10 16:45:08
+[启动] PID=46433 (已写 logs/EXP-29.pid)
+[确认] 进程存活且已开始训练 ✓
+[EXP-29] 训练结束
+--- 物理四指标 ---
+scaler: standard  num_train: 3118
+----------------------------------------
+ step0_MAE: 11.36
+  full_MAE: 20.99
+      RMSE: 29.01
+        R2: 0.681
+       E_r: -72.4
+       E_m: -13
+----------------------------------------
+误差分层 (MAE):
+  SSN       0-50: 10.6
+  SSN     50-100: 14.9
+  SSN    100-150: 18.5
+  SSN   150-plus: 58.5
+--- 滚动（整段测试期） ---
+滚动段: 本次评估 71 月 (--test_end 2025-10 → 测试期 71 月)；数据可用 71 月
+滚动 MAE  (全 71 月): 23.28
+前期 MAE  (前 23 月): 7.29
+后期 MAE  (后 23 月): 41.92
+后期/前期: 5.7x
+真实峰值: 216.0  预测: 101.3  误差(pred-true, 负=低估): -114.7 (第 57 月)
+
+==================== EXP-30  dropout=0.2  window 2019-12~2025-10  num_train=3118 ====================
+[提示] 清理失效 PID 文件: EXP-29.pid (46433 已不存在)
+[内存] 可用 58726MB ≥ 3000MB ✓
+[启动] EXP_ID=EXP-30
+[启动] OMP_NUM_THREADS=4
+[启动] 命令: bash -c python3 -u run_longExp.py --is_training 1 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2019-12 --test_end 2025-10 --dropout 0.2 --fc_dropout 0.2 --des EXP-30 && python3 -u run_longExp.py --is_training 0 --model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --use_gpu 1 --test_start 2019-12 --test_end 2025-10 --dropout 0.2 --fc_dropout 0.2 --des EXP-30
+[启动] 日志: logs/EXP-30.log
+[启动] 时间: 2026-10-10 16:46:43
+[启动] PID=47377 (已写 logs/EXP-30.pid)
+[确认] 进程存活且已开始训练 ✓
+[EXP-30] 训练结束
+--- 物理四指标 ---
+scaler: standard  num_train: 3118
+----------------------------------------
+ step0_MAE: 9.09
+  full_MAE: 20.25
+      RMSE: 27.85
+        R2: 0.706
+       E_r: -75.8
+       E_m: -13
+----------------------------------------
+误差分层 (MAE):
+  SSN       0-50: 8.9
+  SSN     50-100: 15.2
+  SSN    100-150: 18.4
+  SSN   150-plus: 55.8
+--- 滚动（整段测试期） ---
+滚动段: 本次评估 71 月 (--test_end 2025-10 → 测试期 71 月)；数据可用 71 月
+滚动 MAE  (全 71 月): 43.65
+前期 MAE  (前 23 月): 17.83
+后期 MAE  (后 23 月): 56.45
+后期/前期: 3.2x
+真实峰值: 216.0  预测: 84.4  误差(pred-true, 负=低估): -131.6 (第 57 月)
+
+=== 四个实验全部完成 ===
