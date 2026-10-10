@@ -29,6 +29,19 @@
 | 27 | 主控文档只在尾部追加新章节，顶部"当前状态"快照不更新（roadmap/AGENTS 落后两个阶段） | 无状态快照同步纪律 | 主控文档顶部的状态快照必须随进度同步更新，禁止只在尾部追加。命令是铁是钢 |
 | 28 | 实验跑前没回顾历史错误，同类错误反复（代码漏commit 两次） | 无跑前回顾门禁 | SOP §1 预检表加必填行："坑清单回顾：本实验可能踩的坑编号是 ___"；不填不 launch；犯错当天补入坑清单 |
 
+### 换机后新增坑（2026-10-10，新云服务器 torch 2.8 + numpy 2.2，6 条）
+
+> 与"阶段1新增坑"同一体例：现象 → 根因 → 对策。全部在 EXP-25/26 换机时实际踩到。
+
+| # | 坑 | 根因 | 对策（已固化） |
+|---|-----|------|---------------|
+| 29 | 补测加载 checkpoint 报 `UnpicklingError`，训练白跑 | torch≥2.6 把 `torch.load` 的 `weights_only` 默认值从 `False` 改成 `True`，而 `full_checkpoint.pth` 含 `argparse.Namespace`/numpy 标量与 dtype | `exp_main._load_checkpoint()` 显式 `weights_only=False`（**仅限本项目自身产物**，勿用于外部 checkpoint）。白名单 `add_safe_globals` 不可行——需放行的类型随 numpy 版本漂移 |
+| 30 | 训练启动即崩：`AttributeError: np.Inf was removed in the NumPy 2.0 release` | numpy 2.0 移除 `np.Inf` 别名 | 改 `np.inf`（3 处 `utils/tools.py`，含 `sunspot_code_package` 与 FEDformer 副本） |
+| 31 | `eval_metrics.py` / `roll_eval.py` 的 `--config` 模式**必然** IndexError | results 目录名格式串的占位符比实参多一个（漏了 `--itr` 的 `_0` 后缀）。**属既有 bug，不是新环境引入**——说明这两个脚本的 config 模式历史上可能从未跑通 | 补传 `itr-1`；改评估脚本后按 §5 跑 `scripts/test_eval.py` 回归（EXP-14 锚点 9.08/23.87/0.568 逐位重现） |
+| 32 | 同一 checkpoint 的滚动 MAE 出现 30.32 与记录 50.41 相差 40%，被误判为"滚动口径不稳"，进而动摇 block 优于滚动 44-59% 这条阶段3 唯一策略依据 | `roll_eval.py` 旧默认 `n_roll=70`，而 `plot_rolling.py` / `b23_block_eval.py` 用**整段测试期**（W1=148 / W2=132 / W3=71）。用默认值跑得到的不是记录基线 | `n_roll` 默认改为由 `--test_end`（或 config 的 `test_end`）推出整段；两者都没有则**报错退出**，不静默兜底（刻意不用文件长度兜底：CSV 到 2025-10，W1 会错算成 351 月）。**铁律：任何滚动数字必须同时记录段长** |
+| 33 | 配置冻结时 `num_train` 静默取默认 3119，而 W1 应为 2838 → 首轮算出的物理四指标**全部作废**（看起来还合理：全步 23.53 vs 正确的 23.37） | `save_config.py` 的 `--num_train` 默认值 3119，不随日期切分自动推导 | 显式传 `--num_train`；**跑通 ≠ 跑对**——物理值必须用 `data_pipeline.md` 三窗口表（W1 2838 / W2 2986 / W3 3118）逐项核对 |
+| 34 | 把"过期的标准 ARGS"当权威基线，跑完才发现跑的是旧配置 | §4 的标准 ARGS 停在 Round 5 dropout 扫描**之前**（`dropout 0.05`），而阶段1 最终基线是 `EXP-18-5b`（`dropout 0.2 / fc_dropout 0.2`） | ①§4 的 ARGS 已在下文改为 dropout 0.2；②**凡"基线"必须标注=哪个实验 ID**，不写 ID 的基线描述一律视为不可信 |
+
 ---
 
 ## 两档
@@ -123,8 +136,12 @@ python ../save_config.py EXP-XX --reason "一句话目的"
 > 导致最终模型口径下结论反转。补测口径与标准 ML early stopping 实践一致。
 
 ```bash
+# ⚠️ 2026-10-10 更新：ARGS 中的 dropout/fc_dropout 已由 0.05 改为 **0.2**，
+#    与原基线一致。当前基线 = **EXP-18-5b**（Round 5 dropout 扫描胜者：
+#    W1 全步 22.62 / step0 11.01 / R² 0.789 / E_r -24.4 / 滚动 50.41(148月)）。
+#    旧版此处写 0.05 是 Round 5 之前的 0b 配置，已作废——见坑清单 34。
 # 标准启动（命令链模式，经 launch 脚本）：
-./scripts/launch_experiment.sh EXP-XX bash -c 'ARGS="--model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --test_start 1996-08 --test_end 2008-11 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --dropout 0.05 --fc_dropout 0.05 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --des EXP-XX"; python3 -u run_longExp.py --is_training 1 $ARGS && python3 -u run_longExp.py --is_training 0 $ARGS'
+./scripts/launch_experiment.sh EXP-XX bash -c 'ARGS="--model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --test_start 1996-08 --test_end 2008-11 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --dropout 0.2 --fc_dropout 0.2 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --des EXP-XX"; python3 -u run_longExp.py --is_training 1 $ARGS && python3 -u run_longExp.py --is_training 0 $ARGS'
 ```
 
 要点：
@@ -318,6 +335,37 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | **Q9 平滑数据口径** | 08.20 | 景修提出 | 训练数据是否改用 13 月平滑 SSN（景修倾向应该用）——待开学讨论。附数据版本核对（398.2 疑点） | 🔜 待讨论 |
 | 单种子解决·多种子重跑 | 08.20 | 图规范讨论 | 关键配置（基线5b/wmse_th/pow23）补 2-3 seed 重跑，得训练方差（mean±std）。想法级，方案可灵活调整 | ⬜ 判定批注后 |
 | 单种子解决·bootstrap CI | 08.20 | 图规范讨论 | 对现有预测窗口做 bootstrap 重采样，得评估方差 95% CI。想法级，成本~30分钟 | ⬜ 画图时配套 |
+| **峰值指标升为并列主指标**（判定标准③的替代方案） | 10.10 | 判定标准讨论 | 待景修批注；完整思路见下方「专项说明 A」 | ⬜ 批注后定稿 |
+| **滚动数字必须记录段长** | 10.10 | 换机后复盘（坑 32） | `roll_eval.py` 默认值已修；但历史记录里的滚动数（50.41/66.80/42.05/149.92/54.77）**尚未逐条补标段长**，混用风险仍在 | ⬜ 补标 |
+| **dropout 在滚动口径下方向反转的核实** | 10.10 | 换机后复盘 | 同环境下 dropout 0.05 滚动 41.63 vs 记录 0.2 的 50.41（方向与全步相反）；因混杂环境差异，需 EXP-26 同环境对照才能定论 | 🔬 EXP-26 进行中 |
+
+### 专项说明 A：峰值指标升为并列主指标（AI 提案，2026-10-10，待景修批注）
+
+**背景**：判定标准③ 原条款是"全步 MAE 为主；峰值改善 ≥20% 且全步恶化 <5% 才判定'峰值有效'"。
+EXP-20-3（wmse）实测峰值改善 92%（滚动峰 −26.7 → −2.2），但全步恶化 14.6% → 按原条款判"峰值无效"。
+AI 当时的建议是把全步容忍度从 5% 放宽到 15%。
+
+**为什么不采用"放宽阈值"**：15% 是拍出来的数字，没有结构；门槛一松，任何"全步轻微恶化"都可能
+被峰值单项的亮眼改善掩盖，等于用更松的门槛换更松的判定，容易把凑数的东西放进结论。
+
+**提案**：不动阈值，改为**把峰值指标提升为并列主指标**——
+
+| 指标 | 负责回答 | 判定角色 |
+|------|---------|---------|
+| 全步 MAE | 这个改动有没有把普遍精度搞坏？ | 守门：整体不退化 |
+| E_r / 滚动峰误差 | 阶段3 真正要的峰值有没有变好？ | 目标：峰值精度 |
+
+两个指标**同时报告、各自判定，不互相掩盖**。出现"一好一坏"时如实记为**权衡型结果**，
+由用途决定取舍：阶段3 是外推场景，以峰值/滚动口径为主；全步保留为"整体体检"，防远期输出退化。
+
+**为什么这条重要**：阶段3 的核心产出就是"26 周期最大值与最大时间"，峰值是**目标**不是副产品。
+判定规则若只认全步，会把目前最有价值的那类改进判成无效，进而否掉组合实验 C-1/C-2 的动机。
+
+**边界条件（防滥用）**：全步恶化 ≥15%、或滚动崩溃（量级级误差 / 负值崩塌）→ **一律判无效**，
+不论峰值改善多少。这条守住 EXP-20-1（revin=0 滚动崩溃 1967 万）、EXP-20-2b（pl48 滚动 37 万）
+这类崩溃结果不被误采信。
+
+**待办**：景修批注后写入 `judgment_criteria_discussion_2026-08-15.md`，并据此回填 EXP-20~23 结论。
 
 > **探索期队列豁免（2026-08-14，仅此一次，不修改 SOP §8）**：EXP-20-1~23-2（机制诊断 4 + 变换 3 + loss 4 + block 策略 2）是预先批准的整体探索队列，
 > 一次性豁免"连续 3 个实验改善 <10% 停止"规则。仅此队列，之后的计划外追加实验仍受 §8 约束（组合实验 C-1/C-2 是新队列，启动前需景修重新预先批准）。
