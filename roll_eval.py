@@ -223,7 +223,10 @@ def main():
             params.get('e_layers', 2), params.get('d_layers', 1),
             params.get('d_ff', 2048), params.get('factor', 1),
             params.get('embed', 'timeF'), params.get('distil', True),
-            cfg.get('experiment_id', '0'))
+            cfg.get('experiment_id', '0'),
+            # [2026-10-10 AI] 目录名末尾还有 --itr 序号后缀（itr=1 → "_0"），
+            # 原格式串多一个占位符却少传此参数，导致 config 模式必然 IndexError
+            params.get('itr', 1) - 1)
         args.checkpoint = os.path.join(
             params.get('checkpoints', 'PatchTST_supervised/checkpoints/'),
             ckpt_dir, 'full_checkpoint.pth')

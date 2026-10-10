@@ -101,3 +101,63 @@
 > 其他：
 >
 >
+
+---
+
+## 结果（训练已完成，AI 填写）
+
+### 原始输出（result.txt）
+
+```
+训练段（最终模型口径，非正式值）：mse 0.25927, mae 0.39870, rse 0.54924
+补测段（最佳 val 口径，★正式引用）：mse 0.19209, mae 0.34388, rse 0.47275
+```
+
+### 物理四指标（`scripts/eval_metrics.py --config configs/EXP-25_2026-10-10.json`，num_train=2838）
+
+| 指标 | 值 |
+|------|-----|
+| step0 MAE | **11.41** |
+| 全步 MAE | **23.37** |
+| RMSE | 29.79 |
+| R² | **0.777** |
+| E_r | −6.8 |
+| E_m | 0 |
+
+误差分层（MAE）：0-50 → 13.8；50-100 → 23.3；100-150 → 30.3；>150 → 29.9
+
+### 滚动评估（基线类实验必跑，SOP §5）
+
+滚动 MAE（70 月）**30.32**；前期 18.63 / 后期 40.93 = **2.2×**；真实峰 244.3 vs 预测 224.3（−20.0，第 48 月）
+
+### 训练过程特征
+
+- 约 **1.24 s/epoch**（GPU），50 epoch 约 1 分钟
+- EarlyStopping counter 在第 47 轮为 43/100 → 最佳 val 出现在第 4 轮附近，之后持续恶化
+  → 与历史记录"sl336 在 50ep 下 epoch4 后过拟合"**一致**，配置选择得到侧面印证
+
+### 结论（AI 判断，标注为 AI 结论）
+
+1. 新环境**零配置改动**复现旧基线：全步 MAE 23.37 vs 旧 0b 的 23.87，差 **−2.1%**。
+2. 该偏差与单种子噪声同量级，**不能据此断言"环境无影响"**，只能说锚点已重建、量级可比。
+3. 通道侧结论：GPU 训练 + 补测 + 物理评估 + 滚动评估四段链路全部跑通。
+
+### 本次踩到并修掉的新坑（建议补入 SOP 坑清单）
+
+| # | 坑 | 根因 | 对策 |
+|---|-----|------|------|
+| 29 | `torch.load` 报 UnpicklingError，补测无法加载 checkpoint | torch≥2.6 把默认值从 `weights_only=False` 改成 `True`，而 checkpoint 含 `argparse.Namespace`/numpy 标量与 dtype；白名单随 numpy 版本漂移、无法穷尽 | 显式 `weights_only=False`，仅用于本项目自身产物；见 `exp_main._load_checkpoint` |
+| 30 | 训练启动即崩：`AttributeError: np.Inf was removed in the NumPy 2.0 release` | numpy 2.0 移除 `np.Inf` 别名 | 改 `np.inf`（三处工具文件） |
+| 31 | `eval_metrics.py --config` / `roll_eval.py --config` 必然 IndexError | results 目录名格式串的占位符比实参多一个（漏了 `--itr` 的 `_0` 后缀） | 补传 `itr-1`；改后按 SOP §5 跑 `scripts/test_eval.py` 回归（PASS） |
+| 32 | 配置冻结时 `num_train` 静默取了默认 3119，与 W1 的 2838 不符 | `save_config.py` 的 `--num_train` 默认值 3119，不随日期切分自动推导 | 显式传 `--num_train 2838`；**这类"默认值静默生效"的错必须靠核对而不是靠跑通来发现** |
+
+### 自检
+
+- [x] 本次只改了 1 个变量？→ 环境（设备+torch 版本），配置零改动；非"单变量对照"而是环境重基线
+- [x] 对照基线用的是同一配置？→ 与 EXP-17-0b 同配置、同窗口、同口径
+- [x] 训练入口是 `run_longExp.py`？→ 是，经 `launch_experiment.sh`，命令链 train && 补测
+- [x] 指标用物理口径报告？→ 是（MAE/RMSE/R² + 分层）
+- [x] `result.txt` 追加了行？→ 是（两行：训练段 + 补测段）
+- [x] `experiment_history.md` 索引表追加了一行？→ 是（顶部 + 文末 Stage 7 节）
+- [x] diary 当天日志已写？→ 是（`diary/2026-10-10.md`）
+- [ ] 图内数值与已记值对拍？→ 本次未出图

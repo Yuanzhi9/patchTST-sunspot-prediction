@@ -341,3 +341,9 @@ mse:0.22528286278247833, mae:0.3748050928115845, rse:0.5119717717170715
 sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-25-smoke_0  
 mse:0.22528286278247833, mae:0.3748050928115845, rse:0.5119717717170715
 
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-25_0  
+mse:0.25927338004112244, mae:0.3986973762512207, rse:0.5492384433746338
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-25_0  
+mse:0.19208942353725433, mae:0.34388113021850586, rse:0.47275233268737793
+
