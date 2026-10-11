@@ -42,6 +42,15 @@
 | 33 | 配置冻结时 `num_train` 静默取默认 3119，而 W1 应为 2838 → 首轮算出的物理四指标**全部作废**（看起来还合理：全步 23.53 vs 正确的 23.37） | `save_config.py` 的 `--num_train` 默认值 3119，不随日期切分自动推导 | 显式传 `--num_train`；**跑通 ≠ 跑对**——物理值必须用 `data_pipeline.md` 三窗口表（W1 2838 / W2 2986 / W3 3118）逐项核对 |
 | 34 | 把"过期的标准 ARGS"当权威基线，跑完才发现跑的是旧配置 | §4 的标准 ARGS 停在 Round 5 dropout 扫描**之前**（`dropout 0.05`），而阶段1 最终基线是 `EXP-18-5b`（`dropout 0.2 / fc_dropout 0.2`） | ①§4 的 ARGS 已在下文改为 dropout 0.2；②**凡"基线"必须标注=哪个实验 ID**，不写 ID 的基线描述一律视为不可信 |
 
+### 证据链坑（2026-10-11 景修审计 EXP-27~30 提交结果，2 条）
+
+> 上次踩的坑同一性质：**结论齐了、过程漏了**。审计由景修发起，不是自己发现的——这条本身也是教训。
+
+| # | 坑 | 根因 | 对策（已固化） |
+|---|-----|------|---------------|
+| 35 | **commit 漏掉未跟踪的原始训练日志**：EXP-27~30 的 `logs/EXP-*.log`（各 318 行，含逐 epoch train/val loss、学习率、EarlyStopping counter）未入库，远端只剩结论、没有过程，别人 clone 后复现不了训练动态 | commit 时只 `git add` 了自己这次改过的文件，**没有按"未跟踪文件全量"对账**。反例就在眼前：同批的 EXP-25/26 日志已入库，标准摆着却没比对 | §6 记录节新增门禁「提交前核对未跟踪文件」：`git status --porcelain --untracked-files=all`，逐条把未跟踪文件判为「证据→提交」或「残留→ignore」，**有未归类的就不许 commit** |
+| 36 | 运行残留混进版本库：`logs/EXP-25.pid` 被提交，而同类的 `EXP-26.pid`/`EXP-30.pid` 没有——同一类文件两种处理 | `.gitignore` 无 pid 规则，pid 进不进库取决于当时顺手不顺手 | `.gitignore` 加 `*.pid`（消融分支/GPU-exp26/主线三处同步）；已入库的 `EXP-25.pid` 属删文件，**待景修批准后** `git rm --cached` |
+
 ---
 
 ## 两档
@@ -251,6 +260,13 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 [ ] 追加 `result.txt` 一行
 
 [ ] 更新未做方向追踪表（§8）
+
+[ ] **提交前核对未跟踪文件（2026-10-11 起，铁律，坑 35）**：
+    `git status --porcelain --untracked-files=all` → 逐条判断每个未跟踪文件，只许两个归类：
+    - **证据 → 必须提交**：`logs/EXP-*.log`（原始训练日志，逐 epoch 过程）、`results/*/pred.npy|true.npy`、
+      `configs/*.json`、`plots/*.png`、`test_results/*/0.pdf`
+    - **残留 → ignore**：`*.pid`、`__pycache__/`、`*.pth`、`.ipynb_checkpoints/`
+    → **有未归类的文件就不许 commit**。"记录写完了"不等于"证据齐了"。
 
 [ ] git add → commit → push
 

@@ -11,7 +11,9 @@
 - **记录模板**：`project_docs/experiment_template.md`，每次跑新实验前复制、填写
 - **数据管线**：`project_docs/data_pipeline.md`（归一化方法/数据流/硬编码约束）
 - **工具回归测试**：`scripts/test_eval.py`（改 eval/roll_eval 后跑一次确认没坏）
-- **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
+- **跑实验后四件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ **commit 前核对未跟踪文件**
+  （`git status --untracked-files=all` 逐条归类：`logs/EXP-*.log`、npy、config、图=证据必须提交；`*.pid`、`__pycache__`、`.pth`=ignore）④ commit 推送
+  —— 2026-10-11 加第③件：EXP-27~30 的四个原始训练日志曾漏提交（SOP 坑 35）
 - **硬规则**：一次只改一个变量，每次标明对照基线是谁
 
 ## 文献笔记
