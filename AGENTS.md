@@ -26,9 +26,21 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：探索期完成，判定标准待景修批注（2026-08-19）
+## 当前阶段：GPU 新环境重建基线 + 调参中（2026-10-11）
 
-阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 全部完成。判定标准 6 项待景修批注（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后回填结论并启动组合实验 C-1（pow23+wmse_th）/ C-2（block+wmse_th）。详见 `project_docs/project_roadmap.md` 和 `project_docs/exploration_analysis.md`。
+- 阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 完成；
+  **判定标准 6 项仍待景修批注**（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后才启动组合实验 C-1/C-2
+- 2026-10-10 换新云服务器（A6000 / torch 2.8），可比性断裂 → 新环境重跑 EXP-25~30：
+  EXP-25 作废（误用旧 ARGS）、EXP-26 复现 50.41（差 0.24%，证明段长是"30.32 vs 50.41"的全部原因）、
+  EXP-27~30 得三条修正（口径分裂只在 2/3 窗口成立；**do0.05 的滚动是高方差不是更好**；撤回"环境差异≤1%"）
+- **当前基线（GPU 环境）**＝EXP-18-5b 的配置在新环境的复核结果 **EXP-26**（W1 全步 22.87 / step0 11.78 / 滚动 50.29，148 月）
+- **用法口径＝block24 无重叠**（判据=minimax"最不易翻车"，EXP-23-R3；不是因为它平均最好）
+- **当前任务＝找 GPU 基线（调参）**；**新方法一律冻结**，想法队列见 `project_docs/plan_preregistration_2026-10-11.md`
+  （`GPU-dropout-abl` 分支）；还没扫过的调参维度：`learning_rate` / `batch_size` / `label_len` / epochs-patience
+- 跨环境比较：只用**全步**（≤4%）与 **block24**（≤10.6%）作辅证；**滚动数只能同环境自比**（≤28%）
+- 数据泄露：三种口径已核查**无泄露**，见 `project_docs/data_pipeline.md`「数据泄露核查」节
+- 未决：判定标准批注、文档对齐（A/B 类已做，C 类待定）、推送与合并（对齐后再合，目标 `EXP-17-stage1`）
+- 详见 `project_docs/project_roadmap.md`、`project_docs/exploration_analysis.md`
 
 ## 环境维护
 
