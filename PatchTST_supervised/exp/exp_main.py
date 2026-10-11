@@ -303,7 +303,8 @@ class Exp_Main(Exp_Basic):
             if getattr(self.args, 'ckpt_every', 0) and (epoch + 1) % self.args.ckpt_every == 0:
                 torch.save({'model_state_dict': self.model.state_dict(),
                             'optimizer_state_dict': model_optim.state_dict(),
-                            'epoch': epoch + 1, 'vali_loss': vali_loss, 'test_loss': test_loss},
+                            'epoch': epoch + 1, 'vali_loss': vali_loss, 'test_loss': test_loss,
+                            'args': self.args},   # 必须有 args：roll_eval/block_eval 靠它重建模型结构
                            os.path.join(path, 'ckpt_e%02d.pth' % (epoch + 1)))
             if early_stopping.early_stop:
                 print("Early stopping")

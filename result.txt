@@ -405,3 +405,116 @@ mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
 
 
 # [2026-10-11] 上面两行是 L-1 验证跑（--ckpt_every 开/关各一次，W1 do0.2 seed2021），非实验；数字与 EXP-26 逐位一致即证明默认行为未变
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e05_0  
+mse:0.204610213637352, mae:0.3559023439884186, rse:0.48791661858558655
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e10_0  
+mse:0.18418900668621063, mae:0.3363720774650574, rse:0.4629283547401428
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e15_0  
+mse:0.20886042714118958, mae:0.36042317748069763, rse:0.492958128452301
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e20_0  
+mse:0.22013252973556519, mae:0.37190255522727966, rse:0.5060856938362122
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e25_0  
+mse:0.21734797954559326, mae:0.3673887550830841, rse:0.5028746128082275
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e30_0  
+mse:0.212588831782341, mae:0.3624951243400574, rse:0.49733859300613403
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e35_0  
+mse:0.21646417677402496, mae:0.36655980348587036, rse:0.5018512010574341
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e40_0  
+mse:0.2262720763683319, mae:0.3775074779987335, rse:0.5130945444107056
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e45_0  
+mse:0.22342950105667114, mae:0.37404346466064453, rse:0.5098614692687988
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-e50_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W1-avg_0  
+mse:0.2253970205783844, mae:0.37632372975349426, rse:0.5121014714241028
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2_0  
+mse:0.15435878932476044, mae:0.3066921532154083, rse:0.6830570101737976
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e05_0  
+mse:0.1578086018562317, mae:0.3150756061077118, rse:0.6906476616859436
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e10_0  
+mse:0.1487792432308197, mae:0.3028899133205414, rse:0.6705982685089111
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e15_0  
+mse:0.1585380584001541, mae:0.3134830594062805, rse:0.6922420859336853
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e20_0  
+mse:0.15958143770694733, mae:0.3130660653114319, rse:0.6945162415504456
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e25_0  
+mse:0.15258054435253143, mae:0.30509814620018005, rse:0.6791110634803772
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e30_0  
+mse:0.153111532330513, mae:0.30544188618659973, rse:0.6802917122840881
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e35_0  
+mse:0.15375150740146637, mae:0.3059193193912506, rse:0.6817120313644409
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e40_0  
+mse:0.15419167280197144, mae:0.3064741790294647, rse:0.6826871037483215
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e45_0  
+mse:0.15492090582847595, mae:0.30743759870529175, rse:0.6842995285987854
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-e50_0  
+mse:0.15435878932476044, mae:0.3066921532154083, rse:0.6830570101737976
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W2-avg_0  
+mse:0.15445736050605774, mae:0.3068292438983917, rse:0.683275043964386
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3_0  
+mse:0.14792558550834656, mae:0.28130561113357544, rse:0.5123343467712402
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e05_0  
+mse:0.14768552780151367, mae:0.2836796045303345, rse:0.5119184851646423
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e10_0  
+mse:0.15982183814048767, mae:0.291353702545166, rse:0.5325371623039246
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e15_0  
+mse:0.15392860770225525, mae:0.2863188683986664, rse:0.5226265788078308
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e20_0  
+mse:0.15653491020202637, mae:0.2870839536190033, rse:0.5270325541496277
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e25_0  
+mse:0.15014304220676422, mae:0.2822454571723938, rse:0.5161600708961487
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e30_0  
+mse:0.15052621066570282, mae:0.28276336193084717, rse:0.5168183445930481
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e35_0  
+mse:0.14536821842193604, mae:0.27952879667282104, rse:0.5078864097595215
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e40_0  
+mse:0.14869087934494019, mae:0.2816062271595001, rse:0.5136579275131226
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e45_0  
+mse:0.14963990449905396, mae:0.28252336382865906, rse:0.5152945518493652
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-e50_0  
+mse:0.14792558550834656, mae:0.28130561113357544, rse:0.5123343467712402
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_RULE-W3-avg_0  
+mse:0.14874261617660522, mae:0.28179529309272766, rse:0.5137472748756409
+
+
+# [2026-10-11] 以上若干行属 EXP-RULE-COMPARE 诊断批次（逐轮快照补测的中间值，des 前缀 RULE-*），不作正式结果；正式比较见 EXP-RULE-COMPARE_2026-10-11.md
