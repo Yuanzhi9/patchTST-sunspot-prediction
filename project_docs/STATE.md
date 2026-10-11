@@ -13,6 +13,7 @@
 | 下一阶段基线 | **平滑口径**（参数沿用月均基线），排在月均基线之后 | `plan_preregistration_2026-10-11.md` §P6 |
 | 工作分支 | `GPU-basemodel-search`（本分支，2026-10-11 建） | `git worktree list` |
 | 文档线 | `env-newserver-2026-10`（A/B 对齐已完成；C 类落本分支） | git log |
+| 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
 | 运行环境 | A6000 48G / torch 2.8.0+cu128 / numpy 2.2 / 无 venv | AGENTS.md 环境维护 |
 | 数据口径 | SILSO **月均未平滑**，1749-02 ~ 2025-10 | data_pipeline.md |
 | 用法口径 | **block24 无重叠**（minimax 判据） | EXP-23-R3 |
