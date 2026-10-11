@@ -518,3 +518,14 @@ mse:0.14874261617660522, mae:0.28179529309272766, rse:0.5137472748756409
 
 
 # [2026-10-11] 以上若干行属 EXP-RULE-COMPARE 诊断批次（逐轮快照补测的中间值，des 前缀 RULE-*），不作正式结果；正式比较见 EXP-RULE-COMPARE_2026-10-11.md
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_V3-W1_0  
+mse:0.25927338004112244, mae:0.3986973762512207, rse:0.5492384433746338
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_V3-W2_0  
+mse:0.19871577620506287, mae:0.3534232974052429, rse:0.7750101685523987
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_V3-W3_0  
+mse:0.1206357479095459, mae:0.2555317282676697, rse:0.46266838908195496
+
+
+# [2026-10-11] 以上行属 EXP-RULE-V3-DO005 诊断批次（des 前缀 V3-*），不作正式结果；详见 EXP-RULE-V3-DO005_2026-10-11.md
