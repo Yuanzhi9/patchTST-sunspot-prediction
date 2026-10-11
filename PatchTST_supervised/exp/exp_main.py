@@ -298,14 +298,20 @@ class Exp_Main(Exp_Basic):
                 epoch + 1, train_steps, train_loss, vali_loss, test_loss))
             #early_stopping(vali_loss, self.model, path)
             early_stopping(vali_loss, self.model, model_optim, scheduler, epoch, self.args, path)
-            # [2026-10-11 L-1 景修批准] 每 ckpt_every 轮存一次快照（默认 0=关闭，不影响现有行为）
-            # 用途：对比不同"选模规则"（best-val / 平滑 val / 固定轮次 / 末轮 / 权重平均）需要逐轮权重
-            if getattr(self.args, 'ckpt_every', 0) and (epoch + 1) % self.args.ckpt_every == 0:
+            # [2026-10-11 L-1 景修批准 / 10-11 追加细粒度] 存训练快照（默认全关，不影响现有行为）
+            # 用途：对比"选模规则"（val 轨迹 / 峰值误差 / best-val 等）需要逐轮权重。
+            # 细粒度：前 ckpt_early_until 轮用 ckpt_every_early（因早期轮次灵敏度过高，5 轮粒度不够）
+            _ev = getattr(self.args, 'ckpt_every', 0)
+            _ee = getattr(self.args, 'ckpt_every_early', 0)
+            _eu = getattr(self.args, 'ckpt_early_until', 20)
+            _ep = epoch + 1
+            _interval = _ee if (_ee and _ep <= _eu) else _ev
+            if _interval and _ep % _interval == 0:
                 torch.save({'model_state_dict': self.model.state_dict(),
                             'optimizer_state_dict': model_optim.state_dict(),
-                            'epoch': epoch + 1, 'vali_loss': vali_loss, 'test_loss': test_loss,
+                            'epoch': _ep, 'vali_loss': vali_loss, 'test_loss': test_loss,
                             'args': self.args},   # 必须有 args：roll_eval/block_eval 靠它重建模型结构
-                           os.path.join(path, 'ckpt_e%02d.pth' % (epoch + 1)))
+                           os.path.join(path, 'ckpt_e%02d.pth' % _ep))
             if early_stopping.early_stop:
                 print("Early stopping")
                 break

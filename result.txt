@@ -529,3 +529,23 @@ mse:0.1206357479095459, mae:0.2555317282676697, rse:0.46266838908195496
 
 
 # [2026-10-11] 以上行属 EXP-RULE-V3-DO005 诊断批次（des 前缀 V3-*），不作正式结果；详见 EXP-RULE-V3-DO005_2026-10-11.md
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_FINE-W1-do005_0  
+mse:0.25927338004112244, mae:0.3986973762512207, rse:0.5492384433746338
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_FINE-W1-do020_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_FINE-W2-do005_0  
+mse:0.19871577620506287, mae:0.3534232974052429, rse:0.7750101685523987
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_FINE-W2-do020_0  
+mse:0.15435878932476044, mae:0.3066921532154083, rse:0.6830570101737976
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_FINE-W3-do005_0  
+mse:0.1206357479095459, mae:0.2555317282676697, rse:0.46266838908195496
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_FINE-W3-do020_0  
+mse:0.14792558550834656, mae:0.28130561113357544, rse:0.5123343467712402
+
+
+# [2026-10-11] 以上行属 EXP-RULE-FINE 诊断批次（des 前缀 FINE-*），不作正式结果；详见 EXP-RULE-FINE_2026-10-11.md

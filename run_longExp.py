@@ -13,6 +13,9 @@ if __name__ == '__main__':
     # [2026-10-11 L-1 景修批准] 每 N 轮保存 checkpoint 快照（默认 0=关闭，行为与改前完全一致）
     parser.add_argument('--ckpt_every', type=int, default=0,
                         help='每 N 轮保存一次快照到 checkpoints/<setting>/ckpt_e<N>.pth（0=关闭）')
+    # [2026-10-11] 细粒度：前 --ckpt_early_until 轮改用 --ckpt_every_early 的间隔（早期轮次灵敏度过高）
+    parser.add_argument('--ckpt_every_early', type=int, default=0, help='前若干轮的保存间隔（0=关闭细粒度）')
+    parser.add_argument('--ckpt_early_until', type=int, default=20, help='细粒度生效的轮数上限')
 
     # basic config
     parser.add_argument('--is_training', type=int, required=True, default=1, help='status')
