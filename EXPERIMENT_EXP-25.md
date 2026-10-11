@@ -3,7 +3,7 @@
 > ## ⚠️ 作废声明（2026-10-10，景修判定）
 >
 > **本实验不构成基线，已作废。** 原因：配置用了 `dropout / fc_dropout = 0.05`——那是
-> Round 5 dropout 扫描**之前**的 `EXP-17-0b` 旧配置；项目当前基线是 **`EXP-18-5b`**
+> Round 5 dropout 扫描**之前**的 `EXP-17-0b` 旧配置；项目当时的基线是 **`EXP-18-5b`**（当前基线见 `project_docs/STATE.md`）
 > （`dropout 0.2`，W1 全步 **22.62**）。
 >
 > 误用来源：`experiment_SOP.md` §4 那段"标准 ARGS"当时写着 `dropout 0.05`（已在
