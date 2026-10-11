@@ -298,6 +298,13 @@ class Exp_Main(Exp_Basic):
                 epoch + 1, train_steps, train_loss, vali_loss, test_loss))
             #early_stopping(vali_loss, self.model, path)
             early_stopping(vali_loss, self.model, model_optim, scheduler, epoch, self.args, path)
+            # [2026-10-11 L-1 景修批准] 每 ckpt_every 轮存一次快照（默认 0=关闭，不影响现有行为）
+            # 用途：对比不同"选模规则"（best-val / 平滑 val / 固定轮次 / 末轮 / 权重平均）需要逐轮权重
+            if getattr(self.args, 'ckpt_every', 0) and (epoch + 1) % self.args.ckpt_every == 0:
+                torch.save({'model_state_dict': self.model.state_dict(),
+                            'optimizer_state_dict': model_optim.state_dict(),
+                            'epoch': epoch + 1, 'vali_loss': vali_loss, 'test_loss': test_loss},
+                           os.path.join(path, 'ckpt_e%02d.pth' % (epoch + 1)))
             if early_stopping.early_stop:
                 print("Early stopping")
                 break

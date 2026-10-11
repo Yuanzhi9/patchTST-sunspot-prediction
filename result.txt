@@ -397,3 +397,9 @@ EXP-23-R3 2026-10-11 块长扫描+集成(评估复跑,零训练): 门禁6/6 PASS
 # 多起点中位数 看着好(W2 33.54→23.22 / 28.44→21.47) 但不可部署(要用起点之后的真值),且是"平均提前期减半"假象
 # 入想法库: 多配置集成(不同 dropout/变换各跑 block24 取中位数)——失效模式不相关,可部署
 
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_L1-off_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_L1-on_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+

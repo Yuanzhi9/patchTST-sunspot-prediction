@@ -10,6 +10,9 @@ if __name__ == '__main__':
 
     # random seed
     parser.add_argument('--random_seed', type=int, default=2021, help='random seed')
+    # [2026-10-11 L-1 景修批准] 每 N 轮保存一次 checkpoint 快照（默认 0=关闭，行为与改前完全一致）
+    parser.add_argument('--ckpt_every', type=int, default=0,
+                        help='每 N 轮保存一次 checkpoint 快照到 checkpoints/<setting>/ckpt_e<N>.pth（0=关闭）')
 
     # basic config
     parser.add_argument('--is_training', type=int, required=True, default=1, help='status')
