@@ -83,6 +83,12 @@ def main():
     p.add_argument("--block_size", type=int, default=24)
     p.add_argument("--overlap", type=int, default=0)
     p.add_argument("--target_transform", default="")
+    # [2026-10-11 景修批准的分析用] 轨迹起点提前 offset 个月（默认 0 = 原行为不变）。
+    # 用途：在**验证段**上跑同一条 block24 协议（--num_train NT --num_val 132 --offset 132 --n_roll 132
+    # → 轨迹从训练段末尾起、整段覆盖验证段），以检验"选择指标是否与交付场景一致"。
+    # 不会使用未来真值：输入窗口仍严格早于轨迹起点。
+    p.add_argument("--traj_start_offset", type=int, default=0,
+                   help="轨迹起点相对 test_start_idx 提前的月数（默认 0）")
     args = p.parse_args()
 
     model, ckpt_args = load_model(args.checkpoint)
@@ -92,13 +98,14 @@ def main():
 
     # 真值（物理空间，注意 target_transform 逆变换）
     inv = INV_TARGET_TRANSFORMS.get(args.target_transform, lambda y: y)
+    t_start = t0 - args.traj_start_offset          # [2026-10-11] 真值与轨迹必须同步平移
     trues = []
     for t in range(args.n_roll):
-        z_row = data_z[t0 + t]
+        z_row = data_z[t_start + t]
         trues.append(float(inv(inverse_phy(scaler, z_row))))
     trues = np.array(trues)
 
-    preds = block_predict(model, scaler, data_z, t0, seq_len, args.n_roll,
+    preds = block_predict(model, scaler, data_z, t_start, seq_len, args.n_roll,
                           args.block_size, args.overlap)
     if args.target_transform:
         preds = inv(preds)
