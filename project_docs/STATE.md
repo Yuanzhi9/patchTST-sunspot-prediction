@@ -12,7 +12,8 @@
 | 当前基线（月均） | 阶段1 配置 EXP-18-5b；GPU 环境复核 = **EXP-26** | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 下一阶段基线 | **平滑口径**（参数沿用月均基线），排在月均基线之后 | `plan_preregistration_2026-10-11.md` §P6 |
 | 工作分支 | `GPU-basemodel-search`（本分支，2026-10-11 建） | `git worktree list` |
-| 文档线 | `env-newserver-2026-10`（A/B 对齐已完成；C 类落本分支） | git log |
+| 主线（合并目标） | **`EXP-17-stage1`** — 2026-10-11 已合并 `GPU-exp25` + 本次全部内容；`main` 标为**临时遗留**（等主线定名后再改名） | `BRANCHES.md` §四 |
+| 文档线（原） | `env-newserver-2026-10`（内容已并入主线；标签待归档） | git log |
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
 | 运行环境 | A6000 48G / torch 2.8.0+cu128 / numpy 2.2 / 无 venv | AGENTS.md 环境维护 |
 | 数据口径 | SILSO **月均未平滑**，1749-02 ~ 2025-10 | data_pipeline.md |
