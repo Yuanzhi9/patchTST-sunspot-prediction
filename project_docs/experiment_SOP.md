@@ -15,7 +15,7 @@
 | 13 | 并行训练 OOM，SSH 断连，实验全军覆没 | 两个 sl336 进程吃满 4 核+内存（8GB 无 swap） | 串行铁律 + PID 锁 + 内存预检（launch 脚本） |
 | 14 | 训练"卡死"无任何输出 | python stdout 缓冲 | 训练命令必带 `-u` |
 | 15 | SSH 断连杀掉训练进程 | 未加 nohup | nohup+setsid（launch 脚本） |
-| 16 | 两代实验口径混比，结论反转两次 | train→test 用最终模型（exp_main.py L229 加载最佳权重的代码被注释），与 `--is_training 0` 补测口径不同 | 正式实验统一命令链（train && 补测）最佳模型口径，见 §4 |
+| 16 | 两代实验口径混比，结论反转两次 | train→test 用最终模型（`exp_main.py:287` 加载最佳权重的代码 04.02 被注释；补测路径 `exp_main.py:296-306` 才加载 `full_checkpoint.pth`），与 `--is_training 0` 补测口径不同 | 正式实验统一命令链（train && 补测）最佳模型口径，见 §4 |
 | 17 | 可复现性门禁误报 11.1% 偏差 | 门禁拿两种口径数据互比 | 门禁比较必须同口径 |
 | 18 | 证据链断裂：补测后 npy 未 commit，远程 checkout 后数字对不上 | commit 只 add 了备份文件，漏了被覆盖的 npy | 五件证据链 + commit 前 `git status` 逐项核对 |
 | 19 | Round 1 跑完没写记录就开 Round 2 | 纪律松懈 | 每实验完成即落盘，不攒账 |
@@ -141,7 +141,7 @@ python ../save_config.py EXP-XX --reason "一句话目的"
 > ⚠️ **2026-08-14 口径规则（必须遵守）**：正式实验统一使用**命令链模式**（train && 补测），
 > 正式评估对象 = **最佳 val 模型**（EarlyStopping 保存的 full_checkpoint.pth）。
 > 原因：2026-08-13 发现 50ep 下 sl336 严重过拟合（val loss epoch4 后连续 46 轮恶化），
-> train→test 同进程时 test 用内存中的最终模型（exp_main.py L229 加载最佳权重的代码被注释），
+> train→test 同进程时 test 用内存中的最终模型（`exp_main.py:287` 加载最佳权重的代码 04.02 被注释；补测路径 `exp_main.py:296-306` 才加载 `full_checkpoint.pth`），
 > 导致最终模型口径下结论反转。补测口径与标准 ML early stopping 实践一致。
 
 ```bash

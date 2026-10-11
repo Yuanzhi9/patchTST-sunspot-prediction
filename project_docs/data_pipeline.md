@@ -109,7 +109,8 @@ test = val 后至 test_end
 ## 正式口径（2026-08-14 起）
 
 **正式实验 = 最佳 val 模型口径**：命令链 `train && 补测(--is_training 0)`，见 experiment_SOP.md §4。
-背景：train→test 同进程时 test 用内存中的最终模型（exp_main.py L229 加载最佳权重的代码被注释），50ep 下最终模型过拟合（0b-r2 门禁触发记录），故统一为最佳模型口径。
+背景：train→test 同进程时 test 用内存中的最终模型（`exp_main.py:287` 加载最佳权重的代码 04.02 被注释；
+补测路径 `exp_main.py:296-306` 才加载 `full_checkpoint.pth`），50ep 下最终模型过拟合（0b-r2 门禁触发记录），故统一为最佳模型口径。
 
 ## 归一化历史
 
