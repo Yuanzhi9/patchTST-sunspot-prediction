@@ -10,6 +10,7 @@ check_docs.py — 文档一致性三查（STATE.md 维护方案的执行器）
               索引更新了而 STATE 没更新 → 报警（这条专治"忘了更新"）。
   C 唯一性有效：STATE.md 的"当前基线"字段值必须能在 AGENTS.md 里找到同一个 ID；
               且除 STATE.md 外，其他文档不允许再出现"当前基线 ="这类定义式表述。
+  D 分支已登记：本地每条分支都必须在 BRANCHES.md 里出现（方案 C 铁律 3 的机器兜底）。
 
 用法: python3 scripts/check_docs.py        # 有 FAIL 则退出码 1
 """
@@ -89,19 +90,33 @@ def check_c():
     return problems
 
 
+def check_d():
+    """方案 C 铁律 3：开分支必须当天登记 BRANCHES.md。"""
+    import subprocess
+    try:
+        out = subprocess.check_output(["git", "branch", "--format=%(refname:short)"],
+                                      cwd=ROOT, text=True, stderr=subprocess.DEVNULL)
+    except Exception as e:  # 不在 git 仓库里/无 git
+        return [f"无法枚举本地分支（{e}）"]
+    branches = [b.strip() for b in out.split("\n") if b.strip()]
+    registry = open(os.path.join(ROOT, "project_docs/BRANCHES.md"), encoding="utf-8").read()
+    return [f"本地分支 `{b}` 未登记在 BRANCHES.md → 违反方案 C 铁律 3" for b in branches if b not in registry]
+
+
 def main():
     a, stages = check_a()
     b = check_b()
     c = check_c()
-    print(f"文档三查（A 指针 / B 时效 / C 唯一性）｜ 发现的 Stage 节：{len(stages)} 个\n")
-    for name, probs in (("A 指针有效", a), ("B 时效有效", b), ("C 唯一性有效", c)):
+    d = check_d()
+    print(f"文档四查（A 指针 / B 时效 / C 唯一性 / D 分支登记）｜ 发现的 Stage 节：{len(stages)} 个\n")
+    for name, probs in (("A 指针有效", a), ("B 时效有效", b), ("C 唯一性有效", c), ("D 分支已登记", d)):
         if probs:
             print(f"❌ {name}：{len(probs)} 处")
             for p in probs[:20]:
                 print(f"    - {p}")
         else:
             print(f"✅ {name}：通过")
-    total = len(a) + len(b) + len(c)
+    total = len(a) + len(b) + len(c) + len(d)
     print(f"\n合计 {total} 处问题")
     return 1 if total else 0
 
