@@ -346,4 +346,54 @@ mse:0.25927338004112244, mae:0.3986973762512207, rse:0.5492384433746338
 
 sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-25_0  
 mse:0.19208942353725433, mae:0.34388113021850586, rse:0.47275233268737793
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-26_0  
+mse:0.22670048475265503, mae:0.3776644170284271, rse:0.5135800838470459
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-26_0  
+mse:0.1851743757724762, mae:0.3364803194999695, rse:0.46416500210762024
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-27_0  
+mse:0.19871577620506287, mae:0.3534232974052429, rse:0.7750101685523987
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-27_0  
+mse:0.16372118890285492, mae:0.3180637061595917, rse:0.7034668922424316
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-28_0  
+mse:0.15435878932476044, mae:0.3066921532154083, rse:0.6830570101737976
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-28_0  
+mse:0.14776329696178436, mae:0.30176061391830444, rse:0.6683047413825989
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-29_0  
+mse:0.1206357479095459, mae:0.2555317282676697, rse:0.46266838908195496
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-29_0  
+mse:0.17979249358177185, mae:0.3068394660949707, rse:0.5648298263549805
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-30_0  
+mse:0.14792558550834656, mae:0.28130561113357544, rse:0.5123343467712402
+
+sunspot_PatchTST_custom_ftMS_sl336_ll48_pl24_dm128_nh8_el2_dl1_df2048_fc1_ebtimeF_dtTrue_EXP-30_0  
+mse:0.16567789018154144, mae:0.295958012342453, rse:0.5422057509422302
+
+EXP-23-R2 2026-10-11 新环境 block24无重叠 跨环境复跑(评估复跑,无训练): W1 do0.05:21.95 do0.2:23.55 | W2 do0.05:33.54 do0.2:28.44 | W3 do0.05:22.86 do0.2:22.17 段长148/132/71
+# 门禁: block=1 对拍滚动 EXP-26 50.29 / EXP-30 43.65 逐位一致 → 回填逻辑正确
+# block 优于滚动复现: W1 -47~53%, W2 -41~69%, W3 do0.2 -49%(do0.05 仅-2%,该配置滚动本身好)
+# 跨环境稳定性: 全步≤4% < block≤10.6% < 滚动≤28% → block可作辅证,滚动不可跨环境比
+# 对拍CPU记录(21.29/27.28/23.75): +10.6%/+4.3%/-6.7%
+# 新发现: roll_eval峰值=真峰月预测值, b23_block_eval峰值=轨迹argmax → 两口径不可比(未修)
+
+EXP-23-R3 2026-10-11 块长扫描+集成(评估复跑,零训练): 门禁6/6 PASS(block=1逐位等于滚动记录)
+# block_size → 全段MAE(物理). W1 do0.2: 1:50.29 2:20.09 3:36.31 6:33.28 12:23.81 24:23.55
+#                                  W1 do0.05: 1:41.63 2:61.32 3:19.46 6:23.28 12:21.38 24:21.95
+#                                  W2 do0.2: 1:47.95 2:34.96 3:29.20 6:40.35 12:31.49 24:28.44
+#                                  W2 do0.05: 1:109.62 2:90.37 3:62.86 6:66.55 12:40.19 24:33.54
+#                                  W3 do0.2: 1:43.65 2:18.60 3:21.32 6:20.69 12:24.86 24:22.17
+#                                  W3 do0.05: 1:23.28 2:19.07 3:19.99 6:23.60 12:25.43 24:22.86
+# 修正旧判断: 非单调! block=2/3 在4组里优于 block=24 → "回填频率高就必差"不成立;
+#             正解是"稳/失控双分支", 回填少=进失控分支的概率低
+# minimax 判据(do0.2 三窗口最坏值): bs1 50.29 > bs6 40.35 > bs3 36.31 > bs2 34.96 > bs12 31.49 > bs24 28.44 → 维持 block24
+# 多块长中位数(可部署) 无效: W1 do0.2 25.06、W2 39.57/31.51 均劣于单条 → 失控相关,中位数救不了
+# 多起点中位数 看着好(W2 33.54→23.22 / 28.44→21.47) 但不可部署(要用起点之后的真值),且是"平均提前期减半"假象
+# 入想法库: 多配置集成(不同 dropout/变换各跑 block24 取中位数)——失效模式不相关,可部署
 

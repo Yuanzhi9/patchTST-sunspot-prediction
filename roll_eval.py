@@ -195,7 +195,40 @@ def report(preds, trues, label, n_roll):
         print(f"后期/前期: {ratio:.1f}x")
 
     peak_idx = int(np.argmax(trues))
-    print(f"真实峰值: {trues[peak_idx]:.1f}  预测: {preds[peak_idx]:.1f}  误差: {trues[peak_idx] - preds[peak_idx]:.1f} (第 {peak_idx+1} 月)")
+    # [2026-10-10 AI] 符号约定统一为 pred - true（负=低估），与 result.txt / figure_guide 一致。
+    # 改前打印 true - pred，与全项目约定相反，2026-08-20 曾因此导致对拍误判 FAIL。
+    peak_err = preds[peak_idx] - trues[peak_idx]
+    print(f"真实峰值: {trues[peak_idx]:.1f}  预测: {preds[peak_idx]:.1f}  "
+          f"误差(pred-true, 负=低估): {peak_err:+.1f} (第 {peak_idx+1} 月)")
+
+
+def _resolve_n_roll(args, df, t0, n_avail):
+    """决定滚动月数，并打印实际评估段长。
+
+    [2026-10-10 AI] 三窗口的记录基线（W1 50.41 / W2 66.80 / W3 42.05）都是用**整段测试期**
+    （148 / 132 / 71 月）算的，而本脚本旧默认 70 会把测试期的后半段整个切掉。
+    默认值不一致会让"用默认真跑"得到的数不是记录里的基线——AI 曾因此把 30.32（70 月）
+    与 50.41（148 月）当成"标尺不稳"误判。
+    现在：显式 --n_roll > 由 --test_end 推出的整段 > 报错退出。
+    刻意不用"文件长度"兜底：CSV 比测试期长得多（W1 会错算成 351 月）。
+    """
+    if args.n_roll is not None:
+        n_roll, note = min(args.n_roll, n_avail), "(显式 --n_roll)"
+    elif args.test_end:
+        date_col = 'date' if 'date' in df.columns else df.columns[0]
+        start = pd.to_datetime(df[date_col].iloc[t0])
+        end = pd.to_datetime(args.test_end)
+        n_test = (end.year - start.year) * 12 + (end.month - start.month) + 1
+        n_roll, note = min(n_test, n_avail), f"(--test_end {args.test_end} → 测试期 {n_test} 月)"
+    else:
+        raise SystemExit(
+            "错误：既没有 --n_roll，也没有 --test_end（config 里也缺），无法界定测试期长度。\n"
+            "  对照：W1 test_end=2008-11 → 148 月；W2 test_end=2019-11 → 132 月；"
+            "W3 test_end=2025-10 → 71 月。\n"
+            "  这是为了防止静默用错段长（旧默认 70 与记录基线口径不一致）。"
+        )
+    print(f"滚动段: 本次评估 {n_roll} 月 {note}；数据可用 {n_avail} 月")
+    return n_roll, n_avail
 
 
 def main():
@@ -205,7 +238,14 @@ def main():
     p.add_argument("--data_csv", default="PatchTST_supervised/dataset/sunspot_with_cycle.csv")
     p.add_argument("--num_train", type=int, default=3119)
     p.add_argument("--num_val", type=int, default=132)
-    p.add_argument("--n_roll", type=int, default=70)
+    # [2026-10-10 AI] 改前默认 n_roll=70，而 plot_rolling.py / b23_block_eval.py 用的是
+    # 整段测试期（W1=148/W2=132/W3=71）。默认值不一致会让"用默认真跑"得到的数不是记录里的
+    # 滚动基线——AI 曾因此把 30.32（70 月）与记录 50.41（148 月）当成口径不稳，属误判。
+    # 现默认 None = 覆盖整段测试期，与记录基线同口径；显式传值仍可截断（会打印实际段长）。
+    p.add_argument("--n_roll", type=int, default=None,
+                   help="滚动月数；默认 None = 由 --test_end 推出整段测试期（与 plot_rolling/b23_block_eval 同口径）")
+    p.add_argument("--test_end", default=None, metavar="YYYY-MM",
+                   help="回测窗口结束月；n_roll 缺省时用它界定测试期长度（W1=2008-11→148 月）")
     p.add_argument("--scaler", default="standard", help="enc_in > 1 时用")
     # [2026-08-15 景修] 新增：目标变换逆操作（与训练侧 --target_transform 对应）
     p.add_argument("--target_transform", default="", help="目标变换: 空/sqrt")
@@ -235,6 +275,8 @@ def main():
             params.get('data_path', 'sunspot_with_cycle.csv'))
         args.num_train = cfg.get('num_train', 3119)
         args.num_val = params.get('num_val', 132) if 'num_val' in params else 132
+        # [2026-10-10 AI] config 模式读 test_end，供 n_roll 缺省时界定测试期长度
+        args.test_end = params.get('test_end') or args.test_end
         # [2026-08-15 景修] config 模式同步读 target_transform
         args.target_transform = params.get('target_transform', '')
 
@@ -251,12 +293,12 @@ def main():
     if enc_in == 1:
         print("管线: raw SSN → RevIN（内部处理）")
         df, scaler, data_arr, t0 = load_data_enc1(args.data_csv, args.num_train, args.num_val)
-        n_roll = min(args.n_roll, len(data_arr) - t0)
+        n_roll, n_full = _resolve_n_roll(args, df, t0, len(data_arr) - t0)
         preds, trues = run_rolling_enc1(model, data_arr, t0, seq_len, n_roll)
     else:
         print(f"管线: {args.scaler} scaler → model → inverse")
         df, scaler, data_z, t0 = load_data_enc3(args.data_csv, args.num_train, args.num_val, args.scaler, args.target_transform)
-        n_roll = min(args.n_roll, len(data_z) - t0)
+        n_roll, n_full = _resolve_n_roll(args, df, t0, len(data_z) - t0)
         preds, trues = run_rolling_enc3(model, scaler, data_z, t0, seq_len, n_roll, args.target_transform)
 
     report(preds, trues, ckpt_args, n_roll)
