@@ -86,7 +86,7 @@
 | 错误 | 正确的做法 |
 |------|----------|
 | 用 run_sunspot_fixed.py 跑实验 | **必须用 run_longExp.py 命令链模式**（SOP §4） |
-| 并行跑两个训练进程 | **串行铁律**。8GB 无 swap，并行=OOM+SSH断连（08-12 事故） |
+| 并行跑两个训练进程 | **串行铁律（保留）**。旧机 8GB 无 swap，并行=OOM+SSH断连（08-12 事故）；2026-10-10 新机为 16 核 / 58G 内存 / 仍无 swap，OOM 风险大幅降低，但两个训练并行仍会争抢 GPU 显存与内存带宽，数值不可信。`scripts/launch_experiment.sh` 的 PID 锁保留 |
 | python 不带 -u 跑训练 | 输出缓冲会让你以为卡死。必须 `-u` |
 | 进程不加 nohup/setsid | SSH 断连会杀掉训练。统一用 `scripts/launch_experiment.sh` |
 | 测试口径混用 | **正式实验=最佳val模型口径（train&&补测命令链）**。最终模型口径（一次性train→test）在 50ep 下过拟合导致结论反转，已废弃 |

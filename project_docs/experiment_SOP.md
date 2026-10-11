@@ -15,7 +15,7 @@
 | 13 | 并行训练 OOM，SSH 断连，实验全军覆没 | 两个 sl336 进程吃满 4 核+内存（8GB 无 swap） | 串行铁律 + PID 锁 + 内存预检（launch 脚本） |
 | 14 | 训练"卡死"无任何输出 | python stdout 缓冲 | 训练命令必带 `-u` |
 | 15 | SSH 断连杀掉训练进程 | 未加 nohup | nohup+setsid（launch 脚本） |
-| 16 | 两代实验口径混比，结论反转两次 | train→test 用最终模型（exp_main.py L229 加载最佳权重的代码被注释），与 `--is_training 0` 补测口径不同 | 正式实验统一命令链（train && 补测）最佳模型口径，见 §4 |
+| 16 | 两代实验口径混比，结论反转两次 | train→test 用最终模型（`exp_main.py:287` 加载最佳权重的代码 04.02 被注释；补测路径 `exp_main.py:296-306` 才加载 `full_checkpoint.pth`），与 `--is_training 0` 补测口径不同 | 正式实验统一命令链（train && 补测）最佳模型口径，见 §4 |
 | 17 | 可复现性门禁误报 11.1% 偏差 | 门禁拿两种口径数据互比 | 门禁比较必须同口径 |
 | 18 | 证据链断裂：补测后 npy 未 commit，远程 checkout 后数字对不上 | commit 只 add 了备份文件，漏了被覆盖的 npy | 五件证据链 + commit 前 `git status` 逐项核对 |
 | 19 | Round 1 跑完没写记录就开 Round 2 | 纪律松懈 | 每实验完成即落盘，不攒账 |
@@ -28,6 +28,28 @@
 | 26 | 口径分裂：全步与滚动/block 结论可相反（wmse_th 全步恶化7%但滚动改善33%） | 混合提前期的口径与使用场景不匹配 | 按使用场景选口径（滚动场景看step0/滚动MAE，block场景看block轨迹MAE）；阶段3外推以滚动/block为主；全步保留为"远期输出退化体检" |
 | 27 | 主控文档只在尾部追加新章节，顶部"当前状态"快照不更新（roadmap/AGENTS 落后两个阶段） | 无状态快照同步纪律 | 主控文档顶部的状态快照必须随进度同步更新，禁止只在尾部追加。命令是铁是钢 |
 | 28 | 实验跑前没回顾历史错误，同类错误反复（代码漏commit 两次） | 无跑前回顾门禁 | SOP §1 预检表加必填行："坑清单回顾：本实验可能踩的坑编号是 ___"；不填不 launch；犯错当天补入坑清单 |
+
+### 换机后新增坑（2026-10-10，新云服务器 torch 2.8 + numpy 2.2，6 条）
+
+> 与"阶段1新增坑"同一体例：现象 → 根因 → 对策。全部在 EXP-25/26 换机时实际踩到。
+
+| # | 坑 | 根因 | 对策（已固化） |
+|---|-----|------|---------------|
+| 29 | 补测加载 checkpoint 报 `UnpicklingError`，训练白跑 | torch≥2.6 把 `torch.load` 的 `weights_only` 默认值从 `False` 改成 `True`，而 `full_checkpoint.pth` 含 `argparse.Namespace`/numpy 标量与 dtype | `exp_main._load_checkpoint()` 显式 `weights_only=False`（**仅限本项目自身产物**，勿用于外部 checkpoint）。白名单 `add_safe_globals` 不可行——需放行的类型随 numpy 版本漂移 |
+| 30 | 训练启动即崩：`AttributeError: np.Inf was removed in the NumPy 2.0 release` | numpy 2.0 移除 `np.Inf` 别名 | 改 `np.inf`（3 处 `utils/tools.py`，含 `sunspot_code_package` 与 FEDformer 副本） |
+| 31 | `eval_metrics.py` / `roll_eval.py` 的 `--config` 模式**必然** IndexError | results 目录名格式串的占位符比实参多一个（漏了 `--itr` 的 `_0` 后缀）。**属既有 bug，不是新环境引入**——说明这两个脚本的 config 模式历史上可能从未跑通 | 补传 `itr-1`；改评估脚本后按 §5 跑 `scripts/test_eval.py` 回归（EXP-14 锚点 9.08/23.87/0.568 逐位重现） |
+| 32 | 同一 checkpoint 的滚动 MAE 出现 30.32 与记录 50.41 相差 40%，被误判为"滚动口径不稳"，进而动摇 block 优于滚动 44-59% 这条阶段3 唯一策略依据 | `roll_eval.py` 旧默认 `n_roll=70`，而 `plot_rolling.py` / `b23_block_eval.py` 用**整段测试期**（W1=148 / W2=132 / W3=71）。用默认值跑得到的不是记录基线 | `n_roll` 默认改为由 `--test_end`（或 config 的 `test_end`）推出整段；两者都没有则**报错退出**，不静默兜底（刻意不用文件长度兜底：CSV 到 2025-10，W1 会错算成 351 月）。**铁律：任何滚动数字必须同时记录段长** |
+| 33 | 配置冻结时 `num_train` 静默取默认 3119，而 W1 应为 2838 → 首轮算出的物理四指标**全部作废**（看起来还合理：全步 23.53 vs 正确的 23.37） | `save_config.py` 的 `--num_train` 默认值 3119，不随日期切分自动推导 | 显式传 `--num_train`；**跑通 ≠ 跑对**——物理值必须用 `data_pipeline.md` 三窗口表（W1 2838 / W2 2986 / W3 3118）逐项核对 |
+| 34 | 把"过期的标准 ARGS"当权威基线，跑完才发现跑的是旧配置 | §4 的标准 ARGS 停在 Round 5 dropout 扫描**之前**（`dropout 0.05`），而阶段1 最终基线是 `EXP-18-5b`（`dropout 0.2 / fc_dropout 0.2`） | ①§4 的 ARGS 已在下文改为 dropout 0.2；②**凡"基线"必须标注=哪个实验 ID**，不写 ID 的基线描述一律视为不可信 |
+
+### 证据链坑（2026-10-11 景修审计 EXP-27~30 提交结果，2 条）
+
+> 上次踩的坑同一性质：**结论齐了、过程漏了**。审计由景修发起，不是自己发现的——这条本身也是教训。
+
+| # | 坑 | 根因 | 对策（已固化） |
+|---|-----|------|---------------|
+| 35 | **commit 漏掉未跟踪的原始训练日志**：EXP-27~30 的 `logs/EXP-*.log`（各 318 行，含逐 epoch train/val loss、学习率、EarlyStopping counter）未入库，远端只剩结论、没有过程，别人 clone 后复现不了训练动态 | commit 时只 `git add` 了自己这次改过的文件，**没有按"未跟踪文件全量"对账**。反例就在眼前：同批的 EXP-25/26 日志已入库，标准摆着却没比对 | §6 记录节新增门禁「提交前核对未跟踪文件」：`git status --porcelain --untracked-files=all`，逐条把未跟踪文件判为「证据→提交」或「残留→ignore」，**有未归类的就不许 commit** |
+| 36 | 运行残留混进版本库：`logs/EXP-25.pid` 被提交，而同类的 `EXP-26.pid`/`EXP-30.pid` 没有——同一类文件两种处理 | `.gitignore` 无 pid 规则，pid 进不进库取决于当时顺手不顺手 | `.gitignore` 加 `*.pid`（消融分支/GPU-exp26/主线三处同步）；已入库的 `EXP-25.pid` 属删文件，**待景修批准后** `git rm --cached` |
 
 ---
 
@@ -119,12 +141,16 @@ python ../save_config.py EXP-XX --reason "一句话目的"
 > ⚠️ **2026-08-14 口径规则（必须遵守）**：正式实验统一使用**命令链模式**（train && 补测），
 > 正式评估对象 = **最佳 val 模型**（EarlyStopping 保存的 full_checkpoint.pth）。
 > 原因：2026-08-13 发现 50ep 下 sl336 严重过拟合（val loss epoch4 后连续 46 轮恶化），
-> train→test 同进程时 test 用内存中的最终模型（exp_main.py L229 加载最佳权重的代码被注释），
+> train→test 同进程时 test 用内存中的最终模型（`exp_main.py:287` 加载最佳权重的代码 04.02 被注释；补测路径 `exp_main.py:296-306` 才加载 `full_checkpoint.pth`），
 > 导致最终模型口径下结论反转。补测口径与标准 ML early stopping 实践一致。
 
 ```bash
+# ⚠️ 2026-10-10 更新：ARGS 中的 dropout/fc_dropout 已由 0.05 改为 **0.2**，
+#    与原基线一致。当前基线 = **EXP-18-5b**（Round 5 dropout 扫描胜者：
+#    W1 全步 22.62 / step0 11.01 / R² 0.789 / E_r -24.4 / 滚动 50.41(148月)）。
+#    旧版此处写 0.05 是 Round 5 之前的 0b 配置，已作废——见坑清单 34。
 # 标准启动（命令链模式，经 launch 脚本）：
-./scripts/launch_experiment.sh EXP-XX bash -c 'ARGS="--model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --test_start 1996-08 --test_end 2008-11 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --dropout 0.05 --fc_dropout 0.05 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --des EXP-XX"; python3 -u run_longExp.py --is_training 1 $ARGS && python3 -u run_longExp.py --is_training 0 $ARGS'
+./scripts/launch_experiment.sh EXP-XX bash -c 'ARGS="--model_id sunspot --model PatchTST --data custom --root_path ./PatchTST_supervised/dataset/ --data_path sunspot_with_cycle.csv --features MS --target ssn --enc_in 3 --test_start 1996-08 --test_end 2008-11 --seq_len 336 --label_len 48 --pred_len 24 --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 --patch_len 16 --stride 8 --revin 1 --affine 0 --dropout 0.2 --fc_dropout 0.2 --head_dropout 0.0 --individual 0 --train_epochs 50 --patience 100 --batch_size 16 --learning_rate 0.0001 --loss mse --activation gelu --random_seed 2021 --num_workers 0 --itr 1 --des EXP-XX"; python3 -u run_longExp.py --is_training 1 $ARGS && python3 -u run_longExp.py --is_training 0 $ARGS'
 ```
 
 要点：
@@ -235,6 +261,13 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 
 [ ] 更新未做方向追踪表（§8）
 
+[ ] **提交前核对未跟踪文件（2026-10-11 起，铁律，坑 35）**：
+    `git status --porcelain --untracked-files=all` → 逐条判断每个未跟踪文件，只许两个归类：
+    - **证据 → 必须提交**：`logs/EXP-*.log`（原始训练日志，逐 epoch 过程）、`results/*/pred.npy|true.npy`、
+      `configs/*.json`、`plots/*.png`、`test_results/*/0.pdf`
+    - **残留 → ignore**：`*.pid`、`__pycache__/`、`*.pth`、`.ipynb_checkpoints/`
+    → **有未归类的文件就不许 commit**。"记录写完了"不等于"证据齐了"。
+
 [ ] git add → commit → push
 
 ### 7. 红线
@@ -315,9 +348,45 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | 极小值专项评估 | 08.15 | 阶段3前置 | ✅ EXP-24 已完成（08-20）：谷值区系统性弱，阶段3 谷值需专门策略 | ✅ 完成 |
 | 误差分解（偏差/方差） | 08.14 | 阶段1价值D项 | ❌ 暂不做：单种子无法标准分解，替代版判据已被探索期实验直接回答；留作组合实验异常时的诊断手段 | ⬜ 诊断备用 |
 | 变换/loss 优胜者 W2/W3 验证 | 08.15 | 泛化验证 | 待判定批注后 | ⬜ |
-| **Q9 平滑数据口径** | 08.20 | 景修提出 | 训练数据是否改用 13 月平滑 SSN（景修倾向应该用）——待开学讨论。附数据版本核对（398.2 疑点） | 🔜 待讨论 |
+| **Q9 平滑数据口径** | 10.11 更新 | 景修定 | **训练口径暂不动**（换口径＝同时换尺子，历史全废）。**基线定后开一个新实验分支，用平滑序列重训，超参沿用非平滑基线**。交付口径形式（"一个数+区间+换算说明"）**景修持怀疑态度，放基线之后研究**。附数据版本核对（398.2 疑点） | 🔜 基线后 |
+| **交付口径（25 周谷值）** | 10.11 | 谷值讨论 | 候选=最小年给区间 + 谷窗口均值 + 不确定性说明；"三件套"并列形式可行性存疑（预测序列做平滑信息量低、易被读成两个独立估计）。**先不深入，放基线之后** | ⬜ 待研究 |
+| **文档架构 STATE.md（L1）** | 10.11 | 文档治理讨论 | 景修选定 L1（字段化状态表 + 证据指针 + 脚本生成一半）。**前提=维护办法先讨论清楚并确保执行到位**，未定不建 | 🔜 维护办法待定 |
+| **谷区加权 loss（低值加权）** | 10.11 | 谷值讨论（P6 备选） | **已评估，暂不尝试**（景修 10-11 决定）：①加权只改目标分布、不给新信息（谷区报错源于"这次极小期会特别长"在历史里几乎无先例：SSN≤3 连续段 76 段、中位 1 月、仅 2 段≥13 月）；②零和已有前例（wmse 峰改善 92% 但全步恶化 14.6%）；③**最大风险=加剧峰值压制**（峰值已被压 216→113）。替代候选=分位数回归 / 谷区上界约束（记录在 `plan_preregistration_2026-10-11.md`） | ✅ 已记录 |
+| **轨迹"稳/失控双分支"机理** | 10.11 | EXP-23-R3 | 块长扫描推翻"回填频率是主因"：block=2/3 有时优于 24 → 不是单调，而是"稳/失控"双分支；可用判据=minimax（block24 最坏值最小）→ 维持 block24 | ✅ 已回填 |
+| **多配置集成** | 10.11 | EXP-23-R3 引发 | 不同 dropout / 不同目标变换的模型各跑一条 block24 轨迹取中位数（失效模式不相关，可部署）。**冻结至基线找到后** | ⬜ 入队 |
 | 单种子解决·多种子重跑 | 08.20 | 图规范讨论 | 关键配置（基线5b/wmse_th/pow23）补 2-3 seed 重跑，得训练方差（mean±std）。想法级，方案可灵活调整 | ⬜ 判定批注后 |
 | 单种子解决·bootstrap CI | 08.20 | 图规范讨论 | 对现有预测窗口做 bootstrap 重采样，得评估方差 95% CI。想法级，成本~30分钟 | ⬜ 画图时配套 |
+| **峰值指标升为并列主指标**（判定标准③的替代方案） | 10.10 | 判定标准讨论 | 待景修批注；完整思路见下方「专项说明 A」 | ⬜ 批注后定稿 |
+| **滚动数字必须记录段长** | 10.10 | 换机后复盘（坑 32） | `roll_eval.py` 默认值已修；**10-10 起的记录已逐条带段长**；历史记录里的旧滚动数（50.41/66.80/42.05/149.92/54.77）**尚未逐条补标**，混用风险仍在 | 🔜 补标 |
+| **dropout 在滚动口径下方向反转的核实** | 10.11 收口 | 换机后复盘 | ✅ **已完成（EXP-26 + EXP-27~30 + EXP-23-R2/R3）**：do0.05 的滚动是**高方差**（41.63/109.62/23.28，波动 4.7x）而非更好；do0.2 稳定（50.29/47.95/43.65，1.15x）。→ **滚动不作为选型依据、不用于跨环境比较**；do0.2 站得住 | ✅ 已完成 |
+
+### 专项说明 A：峰值指标升为并列主指标（AI 提案，2026-10-10，待景修批注）
+
+**背景**：判定标准③ 原条款是"全步 MAE 为主；峰值改善 ≥20% 且全步恶化 <5% 才判定'峰值有效'"。
+EXP-20-3（wmse）实测峰值改善 92%（滚动峰 −26.7 → −2.2），但全步恶化 14.6% → 按原条款判"峰值无效"。
+AI 当时的建议是把全步容忍度从 5% 放宽到 15%。
+
+**为什么不采用"放宽阈值"**：15% 是拍出来的数字，没有结构；门槛一松，任何"全步轻微恶化"都可能
+被峰值单项的亮眼改善掩盖，等于用更松的门槛换更松的判定，容易把凑数的东西放进结论。
+
+**提案**：不动阈值，改为**把峰值指标提升为并列主指标**——
+
+| 指标 | 负责回答 | 判定角色 |
+|------|---------|---------|
+| 全步 MAE | 这个改动有没有把普遍精度搞坏？ | 守门：整体不退化 |
+| E_r / 滚动峰误差 | 阶段3 真正要的峰值有没有变好？ | 目标：峰值精度 |
+
+两个指标**同时报告、各自判定，不互相掩盖**。出现"一好一坏"时如实记为**权衡型结果**，
+由用途决定取舍：阶段3 是外推场景，以峰值/滚动口径为主；全步保留为"整体体检"，防远期输出退化。
+
+**为什么这条重要**：阶段3 的核心产出就是"26 周期最大值与最大时间"，峰值是**目标**不是副产品。
+判定规则若只认全步，会把目前最有价值的那类改进判成无效，进而否掉组合实验 C-1/C-2 的动机。
+
+**边界条件（防滥用）**：全步恶化 ≥15%、或滚动崩溃（量级级误差 / 负值崩塌）→ **一律判无效**，
+不论峰值改善多少。这条守住 EXP-20-1（revin=0 滚动崩溃 1967 万）、EXP-20-2b（pl48 滚动 37 万）
+这类崩溃结果不被误采信。
+
+**待办**：景修批注后写入 `judgment_criteria_discussion_2026-08-15.md`，并据此回填 EXP-20~23 结论。
 
 > **探索期队列豁免（2026-08-14，仅此一次，不修改 SOP §8）**：EXP-20-1~23-2（机制诊断 4 + 变换 3 + loss 4 + block 策略 2）是预先批准的整体探索队列，
 > 一次性豁免"连续 3 个实验改善 <10% 停止"规则。仅此队列，之后的计划外追加实验仍受 §8 约束（组合实验 C-1/C-2 是新队列，启动前需景修重新预先批准）。

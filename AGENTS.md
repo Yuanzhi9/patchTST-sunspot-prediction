@@ -11,7 +11,9 @@
 - **记录模板**：`project_docs/experiment_template.md`，每次跑新实验前复制、填写
 - **数据管线**：`project_docs/data_pipeline.md`（归一化方法/数据流/硬编码约束）
 - **工具回归测试**：`scripts/test_eval.py`（改 eval/roll_eval 后跑一次确认没坏）
-- **跑实验后三件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ commit 推送
+- **跑实验后四件事**：① 追加一行到 `result.txt` ② 追加到索引表 ③ **commit 前核对未跟踪文件**
+  （`git status --untracked-files=all` 逐条归类：`logs/EXP-*.log`、npy、config、图=证据必须提交；`*.pid`、`__pycache__`、`.pth`=ignore）④ commit 推送
+  —— 2026-10-11 加第③件：EXP-27~30 的四个原始训练日志曾漏提交（SOP 坑 35）
 - **硬规则**：一次只改一个变量，每次标明对照基线是谁
 
 ## 文献笔记
@@ -24,16 +26,45 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：探索期完成，判定标准待景修批注（2026-08-19）
+## 当前阶段：GPU 新环境重建基线 + 调参中（2026-10-11）
 
-阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 全部完成。判定标准 6 项待景修批注（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后回填结论并启动组合实验 C-1（pow23+wmse_th）/ C-2（block+wmse_th）。详见 `project_docs/project_roadmap.md` 和 `project_docs/exploration_analysis.md`。
+- 阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 完成；
+  **判定标准 6 项仍待景修批注**（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后才启动组合实验 C-1/C-2
+- 2026-10-10 换新云服务器（A6000 / torch 2.8），可比性断裂 → 新环境重跑 EXP-25~30：
+  EXP-25 作废（误用旧 ARGS）、EXP-26 复现 50.41（差 0.24%，证明段长是"30.32 vs 50.41"的全部原因）、
+  EXP-27~30 得三条修正（口径分裂只在 2/3 窗口成立；**do0.05 的滚动是高方差不是更好**；撤回"环境差异≤1%"）
+- **当前基线（GPU 环境）**＝EXP-18-5b 的配置在新环境的复核结果 **EXP-26**（W1 全步 22.87 / step0 11.78 / 滚动 50.29，148 月）
+- **用法口径＝block24 无重叠**（判据=minimax"最不易翻车"，EXP-23-R3；不是因为它平均最好）
+- **当前任务＝找 GPU 基线（调参）**；**新方法一律冻结**，想法队列见 `project_docs/plan_preregistration_2026-10-11.md`
+  （`GPU-dropout-abl` 分支）；还没扫过的调参维度：`learning_rate` / `batch_size` / `label_len` / epochs-patience
+- 跨环境比较：只用**全步**（≤4%）与 **block24**（≤10.6%）作辅证；**滚动数只能同环境自比**（≤28%）
+- 数据泄露：三种口径已核查**无泄露**，见 `project_docs/data_pipeline.md`「数据泄露核查」节
+- 未决：判定标准批注、文档对齐（A/B 类已做，C 类待定）、推送与合并（对齐后再合，目标 `EXP-17-stage1`）
+- 详见 `project_docs/project_roadmap.md`、`project_docs/exploration_analysis.md`
 
 ## 环境维护
 
+### 运行环境（2026-10-10 换新云服务器，景修确认）
+
+| 项目 | 当前值 |
+|------|--------|
+| 机器 | 新云服务器；GPU = NVIDIA RTX A6000（48 GB），CUDA 可用 |
+| Python | 3.10.18（`/usr/local/bin/python3`）。**无 venv/conda 虚拟环境**，直接用系统解释器 |
+| PyTorch | 2.8.0+cu128（旧环境：1.11，纯 CPU。换机后不再适用） |
+| 其他依赖 | numpy 2.2.6、pandas 2.3.2、scipy 1.15.3、scikit-learn 1.7.2、matplotlib 3.10.6、tqdm |
+| 依赖缺口 | `einops`/`pyraformer`/`tvm`/`fbm`（Pyraformer、FEDformer 对照基线用）、`pmdarima`（`models/Stat_models.py`，该模块未被主路径引用）、`ptflops`（`utils/tools.py` 内惰性调用）。**主训练路径 `run_longExp.py` 不需要这些** |
+| ⚠️ 可比性断裂 | torch 2.8 vs 1.11、GPU vs CPU 同时变了。**在本机重跑得到的数值不能直接与 `result.txt` 的历史基线对比**，需按 SOP 重新建立基线 |
+| ⚠️ 全局环境污染 | 系统解释器同时承载 pdf/docx skill 等工具的依赖。**装任何新包前先确认它不会升级 numpy / torch**，否则会静默改变实验环境 |
+| torch.load 兼容 | torch ≥2.6 默认 `weights_only=True`。部分脚本已改（`check_pred.py`、`manual_inference.py` 等），`roll_eval.py:85` 和 `Formers/*/exp/exp_main.py` 仍是默认值，可能加载失败 |
+
+### Git / GitHub
+
 | 项目 | 状态 |
 |------|------|
-| Git credential | `~/.git-credentials` 已配置，有效期至 **2026-10-10**。过期后需重新生成 GitHub token 并更新 |
-| Token 获取 | https://github.com/settings/tokens → Generate new token (classic) → 勾选 `repo`
+| 仓库位置 | `/output/patchTST-sunspot-prediction`（持久卷），当前分支 `EXP-17-stage1` |
+| Git credential | `/openbayes/home/.git-credentials`（权限 600），helper = `store --file=...`。2026-10-10 重新生成，有效期至 **2027-01-08** |
+| ⚠️ 持久化陷阱 | `/root` 是容器临时层，重启即丢。真实配置在 `/openbayes/home/.gitconfig`，`/root/.gitconfig` 只是由平台生成、通过 `include` 引入。**重启后若 git 不认身份，跑一次 `git config --global include.path /openbayes/home/.gitconfig`**；仓库本地 `.git/config` 已冗余配置一份，不受影响 |
+| Token 获取 | https://github.com/settings/tokens → Generate new token (classic) → 勾选 `repo`（只读 token 能 clone 不能 push） |
 
 ## 项目目标（当前定位）
 使用深度学习模型探索太阳黑子数（SSN）预测的可行性边界，核心关注第 25、26 太阳活动周的完整曲线预测。M4 Waldmeier 参数化曲线（师兄代码）做物理方法对照基线。当前定位偏向"可行性边界研究"——系统刻画纯数据驱动方法在该问题上的能力上限和失效模式。待文献读完 + 导师确认后再定最终定位。
@@ -56,7 +87,7 @@
 - 不要提交 `__pycache__/`、`.pth`、`.pyc`
 
 ## 技术栈
-- Python 3.10 + PyTorch 1.11
+- Python 3.10.18 + PyTorch 2.8.0+cu128（当前云服务器实况，详见上方「运行环境」。历史实验是在 Python 3.10 + PyTorch 1.11 纯 CPU 上跑的）
 - 数据处理：numpy, pandas, scipy, scikit-learn
 - 模型：PatchTST（Patch Time Series Transformer），源代码位于 `layers/`、`models/`
 - 训练框架：`exp/exp_main.py`（继承自 `exp_basic.py`）
@@ -69,6 +100,9 @@
   - batch_size=16, train_epochs=10
   - （旧基线 d_model=512，2026-06-14 验证 d_model=128 泛化更好，全面优于 512）
 - **⚠️ 2026-08-14 阶段1基线更新**：EXP-17 系列起使用 seq_len=336, train_epochs=50, patience=100, features=MS, W1回测窗口（test_start=1996-08, test_end=2008-11, num_train=2838），且**口径=最佳val模型（命令链 train&&补测，见 SOP §4）**。0b基线全步MAE=23.87。
+- **⚠️ 当前基线 = `EXP-18-5b`（2026-10-10 明确标注）**：即在上述配置上把 `dropout`/`fc_dropout` 由 0.05 改为 **0.2**（Round 5 dropout 扫描胜者，改善 5.2%）。W1 全步 MAE **22.62**、step0 11.01、R² 0.789、E_r −24.4、滚动 MAE 50.41（**n_roll=148 整段测试期**）。主决策指标 W1+W2 平均全步 **21.33**。
+  - ⚠️ **SOP §4 那段"标准 ARGS"曾长期写着 `dropout 0.05`（Round 5 之前的 0b 配置）**，2026-10-10 已在 SOP 改为 0.2。教训：**凡"基线"描述必须写明是哪个实验 ID**，不写 ID 的一律视为不可信（见 SOP 坑 34）。
+  - ⚠️ **滚动口径必须连段长一起记**：W1 整段是 148 月（不是 70）。同一 checkpoint 在 70 月口径下是 30.32、148 月口径下是 41.63，差 40%。见 SOP 坑 32。
 - ⚠️ **五月 Baseline B（1867+ 数据，step0 MAE=13.02）与当前基线 EXP-14（1749+ 数据，step0 MAE=9.08）不可直接比较：** 两者数据范围（1867+ vs 1749+）、seq_len（132 vs 96）、n_heads（16 vs 8）、e_layers（3 vs 2）、d_ff（256 vs 2048）、patch_len（12 vs 16）、stride（6 vs 8）、dropout（0.05 vs 0.2）、epochs（50 vs 10）共 9 项参数不同。step0 的 13.02→9.08 说明 EXP-14 在自身配置下单步更优，但不可归因到任何一个具体参数变更，也不是严格意义上的"进步"。
 - 分阶段训练允许缩小模型（d_model 128~256）以适应阶段数据量
 - 所有修改需在独立 worktree 上进行，主分支只保留稳定版

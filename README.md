@@ -23,6 +23,8 @@
 
 ## 环境
 
-- Python 3.10 + PyTorch 1.11
-- 纯 CPU 训练
+- Python 3.10.18 + PyTorch 2.8.0+cu128，**NVIDIA RTX A6000（48 GB）**，无 venv/conda
+- 历史实验（2026-04 ~ 2026-09）跑在 Python 3.10 + PyTorch 1.11 **纯 CPU** 上；2026-10-10 换机后可比性断裂
+  （同配置跨环境差：全步 ≤4%、block ≤10.6%、滚动 ≤28%）——**滚动数只能同环境自比**
+- 实况与坑见 [`AGENTS.md`](AGENTS.md)「环境维护」节；数据口径与泄露核查见 [`project_docs/data_pipeline.md`](project_docs/data_pipeline.md)
 - `pip install -r requirements.txt`
