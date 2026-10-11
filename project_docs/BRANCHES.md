@@ -46,6 +46,12 @@
 > **顺序铁律**：先合并、后删标签。合并前"内容都在主线"这句话不成立——现在才成立。
 > **删 worktree ≠ 删提交**，但会连带删掉该目录里 gitignore 的 checkpoint（故 2a 先行）。
 
+**收敛第 1 步完成校验（2026-10-11）**：`git merge-base --is-ancestor` 对 6 条分支全 PASS
+（`env-fix-torch28-numpy2` / `env-newserver-2026-10` / `GPU-exp25` / `GPU-exp26` / `GPU-dropout-abl` / `GPU-basemodel-search`），
+即**主线已包含全部内容**；主线文档三查（`scripts/check_docs.py`）全 PASS。
+合并冲突两处均按"并集"处理：`result.txt`（两侧不同实验的行都保留）、`experiment_history.md`
+（索引表取文档线版本 + 从 `GPU-exp25` 补回 72 行详情节）。
+
 **主线命名建议**：`EXP-17-stage1` 是"阶段1 冻结"的历史名，作为长期主线容易误解；
 可选①把 `main` 对齐到同一提交（一次普通 merge，不用 force），以后日常看 `main`；
 可选②保留现名并在 `STATE.md` 写明。**待景修定。**
