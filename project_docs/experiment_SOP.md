@@ -146,7 +146,7 @@ python ../save_config.py EXP-XX --reason "一句话目的"
 
 ```bash
 # ⚠️ 2026-10-10 更新：ARGS 中的 dropout/fc_dropout 已由 0.05 改为 **0.2**，
-#    与原基线一致。当前基线 = **EXP-18-5b**（Round 5 dropout 扫描胜者：
+#    与原基线一致。当前基线见 project_docs/STATE.md（阶段1 定论 = EXP-18-5b，Round 5 dropout 扫描胜者：
 #    W1 全步 22.62 / step0 11.01 / R² 0.789 / E_r -24.4 / 滚动 50.41(148月)）。
 #    旧版此处写 0.05 是 Round 5 之前的 0b 配置，已作废——见坑清单 34。
 # 标准启动（命令链模式，经 launch 脚本）：

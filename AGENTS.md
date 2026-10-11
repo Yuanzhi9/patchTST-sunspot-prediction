@@ -3,6 +3,16 @@
 ## 项目主控文档
 **`project_docs/project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
 
+## ⚠️ 本分支定位（2026-10-11 景修批准建立）
+
+**本分支 = 纯正的 GPU 基模探索。** 目的：在**月均口径**上确定 GPU 环境的冻结基线配置。
+
+- 本轮只动"模型配置"类变量（`learning_rate` / `batch_size`，必要时回查 dropout 与早停口径）
+- 方法改进类变量（平滑口径 / 相位特征 / 非负约束 / 谷时分类 / scheduled sampling / 多配置集成）**一律冻结**
+- 计划书：`project_docs/plan_basemodel_search_2026-10-11.md`（**未批准执行**，等景修逐轮批）
+- 想法队列：`project_docs/plan_preregistration_2026-10-11.md`（冻结至基线定）
+- 分支来源：从 `GPU-dropout-abl` 切出（含 torch2.8/numpy2 代码修复），并 merge `env-newserver-2026-10`（文档线）取齐文档
+
 > **新来的 AI？** 先读 `project_docs/ONBOARDING.md`。3 分钟了解她是谁、项目做什么、今天踩了什么坑、怎么跟她沟通。
 
 ## 实验记录约定（2026-08-10 新增）
@@ -100,7 +110,8 @@
   - batch_size=16, train_epochs=10
   - （旧基线 d_model=512，2026-06-14 验证 d_model=128 泛化更好，全面优于 512）
 - **⚠️ 2026-08-14 阶段1基线更新**：EXP-17 系列起使用 seq_len=336, train_epochs=50, patience=100, features=MS, W1回测窗口（test_start=1996-08, test_end=2008-11, num_train=2838），且**口径=最佳val模型（命令链 train&&补测，见 SOP §4）**。0b基线全步MAE=23.87。
-- **⚠️ 当前基线 = `EXP-18-5b`（2026-10-10 明确标注）**：即在上述配置上把 `dropout`/`fc_dropout` 由 0.05 改为 **0.2**（Round 5 dropout 扫描胜者，改善 5.2%）。W1 全步 MAE **22.62**、step0 11.01、R² 0.789、E_r −24.4、滚动 MAE 50.41（**n_roll=148 整段测试期**）。主决策指标 W1+W2 平均全步 **21.33**。
+- **⚠️ 当前基线：见 `project_docs/STATE.md`（唯一事实源）。**（阶段1 定论配置为 `EXP-18-5b`：在上述配置上把 `dropout`/`fc_dropout` 由 0.05 改为 **0.2**；W1 全步 MAE 22.62、step0 11.01、R² 0.789、E_r −24.4、滚动 50.41（n_roll=148）；GPU 环境复核 = EXP-26。）
+  **本文件不复述基线定义**——凡"基线"必须写实验 ID（坑 34），定义只在 STATE.md 维护。
   - ⚠️ **SOP §4 那段"标准 ARGS"曾长期写着 `dropout 0.05`（Round 5 之前的 0b 配置）**，2026-10-10 已在 SOP 改为 0.2。教训：**凡"基线"描述必须写明是哪个实验 ID**，不写 ID 的一律视为不可信（见 SOP 坑 34）。
   - ⚠️ **滚动口径必须连段长一起记**：W1 整段是 148 月（不是 70）。同一 checkpoint 在 70 月口径下是 30.32、148 月口径下是 41.63，差 40%。见 SOP 坑 32。
 - ⚠️ **五月 Baseline B（1867+ 数据，step0 MAE=13.02）与当前基线 EXP-14（1749+ 数据，step0 MAE=9.08）不可直接比较：** 两者数据范围（1867+ vs 1749+）、seq_len（132 vs 96）、n_heads（16 vs 8）、e_layers（3 vs 2）、d_ff（256 vs 2048）、patch_len（12 vs 16）、stride（6 vs 8）、dropout（0.05 vs 0.2）、epochs（50 vs 10）共 9 项参数不同。step0 的 13.02→9.08 说明 EXP-14 在自身配置下单步更优，但不可归因到任何一个具体参数变更，也不是严格意义上的"进步"。

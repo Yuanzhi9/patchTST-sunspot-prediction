@@ -36,7 +36,7 @@
 
 | 文件 | 位置 | 改什么 |
 |------|------|--------|
-| `data_loader.py` | L237, L274-278 | scaler 类 + fit/transform 调用 |
+| `data_loader.py` | `Dataset_Custom.__read_data__` 内（scaler 类选择 + 切分逻辑 + `scaler.fit/transform` 三处） | scaler 类 + fit/transform 调用 |
 | `save_config.py` | `--scaler` / `--scaler_params` | CLI 参数默认值或传入值 |
 | `scripts/eval_metrics.py` | `SCALER_MAP` | 如果用了新 scaler 类，加到字典里 |
 | `roll_eval.py` | `load_data_enc3` | scaler 类 + 逆操作 |
