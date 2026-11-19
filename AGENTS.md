@@ -1,4 +1,4 @@
-# PatchTST 太阳黑子预测 项目 — AGENTS.md v2
+# PatchTST 太阳黑子预测 项目 — AGENTS.md v2.1
 
 ## 项目主控文档
 **`project_docs/project_roadmap.md`** — 所有阶段、任务、待办集合在此。本文件为项目规范和技术参考。
@@ -12,7 +12,7 @@
 - **状态与账本只在主线写、只在主线读**（见下方「分支与账本规范」）
 - 分支全貌与收敛记录：`project_docs/BRANCHES.md`；当前状态：`project_docs/STATE.md`
 - `main` = **临时遗留标签**（2026-08-10 冻结），景修 2026-10-11 决定暂不改名、先不管
-- 当前阶段：GPU 新环境重建基线 + 调参中（本轮只动模型配置类变量）
+- 当前阶段：2026-10 月均数据上的 24 月基线验证收口（`BASE-2026-11-M` 工作线）
 
 ## 分支与账本规范（方案 C，2026-10-11 景修批准）
 
@@ -45,7 +45,7 @@
 
 | 场景 | 开分支？ | 形态 |
 |---|---|---|
-| 调参 / 找基线 | 是 | 工作线（当前 = `GPU-basemodel-search`） |
+| 调参 / 找基线 | 是 | 工作线（当前 = `BASE-2026-11-M`；`GPU-basemodel-search` 保留为历史工作线） |
 | 训练口径改变（如平滑口径） | 是 | **平行线**：有自己的账本，数值与月均线不可比，不混进同一张表 |
 | 探索新方法（相位 / 非负 / 谷时分类 / scheduled sampling 等） | 是 | 短命方法分支，失败即丢，成功才合 |
 | 纯文档修订 | 否 | 直接在主线改 |
@@ -76,21 +76,18 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：GPU 新环境重建基线 + 调参中（2026-10-11）
+## 当前阶段：2026-10 月均数据 24 月基线（2026-11-19）
 
-- 阶段1（参数搜索+三窗口验证）✅、探索期（变换/loss/外推策略三系列 14 实验）✅、线B文献准备 ✅ 完成；
-  **判定标准 6 项仍待景修批注**（`project_docs/judgment_criteria_discussion_2026-08-15.md`），批注后才启动组合实验 C-1/C-2
-- 2026-10-10 换新云服务器（A6000 / torch 2.8），可比性断裂 → 新环境重跑 EXP-25~30：
-  EXP-25 作废（误用旧 ARGS）、EXP-26 复现 50.41（差 0.24%，证明段长是"30.32 vs 50.41"的全部原因）、
-  EXP-27~30 得三条修正（口径分裂只在 2/3 窗口成立；**do0.05 的滚动是高方差不是更好**；撤回"环境差异≤1%"）
-- **当前基线（GPU 环境）**＝EXP-18-5b 的配置在新环境的复核结果 **EXP-26**（W1 全步 22.87 / step0 11.78 / 滚动 50.29，148 月）
-- **用法口径＝block24 无重叠**（判据=minimax"最不易翻车"，EXP-23-R3；不是因为它平均最好）
-- **当前任务＝找 GPU 基线（调参）**；**新方法一律冻结**，想法队列见 `project_docs/plan_preregistration_2026-10-11.md`
-  （`GPU-dropout-abl` 分支）；还没扫过的调参维度：`learning_rate` / `batch_size` / `label_len` / epochs-patience
-- 跨环境比较：只用**全步**（≤4%）与 **block24**（≤10.6%）作辅证；**滚动数只能同环境自比**（≤28%）
-- 数据泄露：三种口径已核查**无泄露**，见 `project_docs/data_pipeline.md`「数据泄露核查」节
-- 未决：判定标准批注、文档对齐（A/B 类已做，C 类待定）、推送与合并（对齐后再合，目标 `EXP-17-stage1`）
-- 详见 `project_docs/project_roadmap.md`、`project_docs/exploration_analysis.md`
+- 当前工作线：`BASE-2026-11-M` / `/output/BASE-2026-11-M`；状态以 `project_docs/STATE.md` 为准。
+- 已完成 E00、G1、G2、G3，以及 lr / batch / dropout / heads / 多种子扫描；全部配置已有五折主曲线图。
+- 暂定候选：P36（`seq_len=132`、patch36/18、lr3e-4、bs32、do0.2、nh8）；
+  三 seed Full/Block24 = 26.83 / 26.46，正式 `BASE-2026-11-M` 尚未冻结。
+- 后续补强：lr3e-4 相对 1e-3 在三个 seed 均值上略优但不显著；batch128/256 在当前 50 epoch
+  配方下五折全败；seq132 等训练窗口数后仍 5/5 优于 seq336，说明历史长度与样本数都有贡献。
+- 原预案仍未完成：lr×batch 小复核、seed 2022/2023、稳定性辅图、最终全量训练与未来曲线。
+  `pred_len=132` 按预案留在基线冻结后另开。
+- 新方法仍冻结至基线定；block24 仍是当前用法口径；跨环境/跨口径边界不变。
+- 详见 `EXPERIMENT_B26M-followup_validation_2026-11-19.md`、`project_docs/experiment_history.md` Stage 10。
 
 ## 环境维护
 
@@ -111,17 +108,18 @@
 
 | 项目 | 状态 |
 |------|------|
-| 仓库位置 | `/output/patchTST-sunspot-prediction`（持久卷），当前分支 `EXP-17-stage1` |
+| 仓库位置 | 主线 worktree：`/output/patchTST-sunspot-prediction`；当前实验 worktree：`/output/BASE-2026-11-M` |
 | Git credential | `/openbayes/home/.git-credentials`（权限 600），helper = `store --file=...`。2026-10-10 重新生成，有效期至 **2027-01-08** |
 | ⚠️ 持久化陷阱 | `/root` 是容器临时层，重启即丢。真实配置在 `/openbayes/home/.gitconfig`，`/root/.gitconfig` 只是由平台生成、通过 `include` 引入。**重启后若 git 不认身份，跑一次 `git config --global include.path /openbayes/home/.gitconfig`**；仓库本地 `.git/config` 已冗余配置一份，不受影响 |
 | Token 获取 | https://github.com/settings/tokens → Generate new token (classic) → 勾选 `repo`（只读 token 能 clone 不能 push） |
 
 ## 项目目标（当前定位）
-使用深度学习模型探索太阳黑子数（SSN）预测的可行性边界，核心关注第 25、26 太阳活动周的完整曲线预测。M4 Waldmeier 参数化曲线（师兄代码）做物理方法对照基线。当前定位偏向"可行性边界研究"——系统刻画纯数据驱动方法在该问题上的能力上限和失效模式。待文献读完 + 导师确认后再定最终定位。
+使用深度学习模型探索太阳黑子数（SSN）预测的可行性边界，核心关注第 25、26 太阳活动周的完整曲线预测。M4 Waldmeier 参数化曲线（师兄代码）做物理方法对照基线。当前定位偏向"可行性边界研究"——系统刻画纯数据驱动方法在该问题上的能力上限和失效模式；文献准备已完成，最终表述待导师确认。
 
 ## 项目路径
 - 代码根目录：`PatchTST_supervised/`
-- **主训练入口（新实验必须用）**：`run_longExp.py`（原管线，运行时需 `PYTHONPATH=PatchTST_supervised`）
+- 传统窗口实验入口：`run_longExp.py`；**2026-11 顺序块五折实验入口**：`run_base_cv5.py`
+- 五折训练示例：`python3 -u run_base_cv5.py --cv_fold 1 --des B26M-... --use_gpu 1`
 - 快速校准工具（仅 EXP-13/14/15）：根目录 `run_sunspot_fixed.py`
 - 命令行版：`PatchTST_supervised/run_longExp.py`
 - 数据：`PatchTST_supervised/dataset/`
@@ -163,7 +161,7 @@
 ## 完整训练 baseline（2026-06-14 完成 d_model=512 vs 128 对比）
 - 全量数据（1749-2025，3321 月），10 epochs，参数全同仅 d_model 不同
 - d_model=512：MSE(z)=0.085, MAE(z)=0.141, RSE=0.316, MAE物理=25.27, RMSE物理=34.41, R²=0.539
-- **d_model=128 (EXP-14，当前主基线)**：MSE(z)=0.079, MAE(z)=0.125, RSE=0.304, MAE物理=23.87（全47步平均）, RMSE物理=33.29, R²=0.568
+- **d_model=128 (EXP-14，历史回归锚点)**：MSE(z)=0.079, MAE(z)=0.125, RSE=0.304, MAE物理=23.87（全47步平均）, RMSE物理=33.29, R²=0.568
   - step 0 单次 2 年预测物理 MAE=9.08（优于全步平均，说明模型在多窗口滑动评估中退化严重）
   - 峰值区域（SSN>150）误差均值 68.8（全步平均），MSE loss 压制峰值问题未因降参解决
 - 基线数据来源：`result.txt` line 64-68，npy 反算验证
@@ -225,13 +223,12 @@
 
 **之前 AGENTS.md 和 project_summary 中记录的「硬天花板 MAE≈19.30」是基于跨组比较得出的，可比性前提不成立，已废弃。**
 
-## 下一步（2026-08-15 更新）
+## 下一步（2026-11-19）
 
-1. 景修批注判定标准 6 项（`judgment_criteria_discussion_2026-08-15.md`）
-2. 批注后：回填 EXP-20~23 实验结论 → 组合实验 C-1/C-2（需景修重新预先批准，属新队列）
-3. 极小值专项评估（阶段3 前置）、优胜配置 W2/W3 验证
-4. 开学讨论：学姐（Xiong 数据）/ 学长（M4 对质 + block 策略）/ 导师（物理参数数据集方向）
-5. 阶段2：数据更新 2026.07 → 全量重训（配置待判定+组合实验后冻结）
-6. 阶段3：滚动/block 外推 25 周期极小值 + 26 周期完整曲线
+1. 决定是否把 P36 冻结为 `BASE-2026-11-M`。冻结前先处理原预案剩余复核。
+2. 补齐 lr×batch 小复核、seed 2022/2023 和稳定性辅图；不要把这些旧欠账冒充已完成。
+3. 冻结后做最终全量训练、2026-10 起未来 24 月曲线和独立未来顺序审计。
+4. `pred_len=132` 单独开轮次，不能与本次 24 月全步 MAE 横比。
+5. 推送需景修逐次明确授权；当前本地领先远端，不能写成已同步。
 
-纪律：预检表跑前完成（事后补写不算数）；坑清单 1-28 跑前回顾；主控文档顶部快照随进度同步更新。路线图见 `project_docs/project_roadmap.md`。
+纪律：预检表跑前完成；坑清单跑前回顾；主控文档顶部快照随进度同步更新。

@@ -25,6 +25,24 @@ PatchTST 主路径只消费 `seq_x`，`label_len` 并未进入模型前向；因
 训练目标、模型输入和评估口径不变；该修正允许短上下文组正常 collate。
 失败原始日志保留为 `logs/B26M-G3-S01-F1_prelabel-fix.log`。
 
+## 2026-11-19 等训练窗口数控制
+
+新增 CLI `--train_window_limit`（默认 0，保持旧行为）。当取值大于 0 时，
+`Dataset_BlockCV` 只对 train split 按原时间顺序等间隔保留指定数量的训练窗口；
+val/test 不受影响。这样可在较短 `seq_len` 产生更多训练窗口时，构造与长上下文
+配置相同的训练窗口数和每 epoch 优化步数。
+
+`cv_window_meta.json` 新增：
+
+- `n_train_windows`
+- `train_window_sampling.mode`
+- `train_window_sampling.limit`
+- `train_window_sampling.original_n_windows`
+
+验证：`B26M-SEQCTL-SL132-CAP336COUNT` 的 F1–F4 为 703 个训练窗口、F5 为 704 个，
+与 E00 对齐；F1 每 epoch 均为 43 步。正式结果见
+`EXPERIMENT_B26M-followup_validation_2026-11-19.md`。
+
 ## 未修改文件
 
 以下文件在本分支中保持原样：

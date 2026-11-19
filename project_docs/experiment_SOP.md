@@ -66,7 +66,9 @@
 
 ### 1. 实验前（5 分钟，不写完不跑）
 
-[ ] **训练入口脚本**：必须是 `run_longExp.py`（原管线）
+[ ] **训练入口脚本**：
+    → 传统固定窗口实验：`run_longExp.py`（原管线）
+    → 2026-11 顺序块五折实验：`run_base_cv5.py`（独立 CV5 管线，必须显式传 `--cv_fold`）
     → `run_sunspot_fixed.py` 仅为 EXP-13/14/15 快速校准，不做新实验
     → 运行时：`PYTHONPATH=PatchTST_supervised python3 run_longExp.py ...`
     → run_longExp.py 的 checkpoint 存 `./checkpoints/`（不是 `PatchTST_supervised/checkpoints/`）
@@ -114,8 +116,10 @@
 | enc_in | __ | | [ ] |
 | 其余... | __ | | [ ] |
 
-> ⚠️ **两个训练脚本的说明：**
-> `run_longExp.py`：**原管线。所有新实验必须用这个。**
+> ⚠️ **训练脚本的说明：**
+> `run_longExp.py`：传统固定窗口实验入口。
+> `run_base_cv5.py`：`BASE-2026-11-M` 顺序块五折专用入口；外层验证只打分一次，
+> 旧 `Dataset_Custom` / `Exp_Main` 不被它调用。两者不能混跑同一条结果链。
 > `run_sunspot_fixed.py`：仅 EXP-13/14/15 的快速校准工具。用它跑新实验 = EXP-16/16b 教训（两次作废）。不要踩同一个坑。
 
 [ ] 这个结论只能用在什么前提条件下？
@@ -137,6 +141,20 @@ python ../save_config.py EXP-XX --reason "一句话目的"
 → 输出 `configs/EXP-XX_YYYY-MM-DD.json`
 
 ### 4. 训练
+
+BASE-2026-11-M 顺序块五折训练示例（必须逐折串行）：
+
+```bash
+PYTHONPATH="./PatchTST_supervised" python3 -u run_base_cv5.py \
+  --cv_fold 1 --seq_len 132 --pred_len 24 --patch_len 36 --stride 18 \
+  --d_model 128 --n_heads 8 --e_layers 2 --d_ff 2048 \
+  --dropout 0.2 --fc_dropout 0.2 --train_epochs 50 --patience 100 \
+  --batch_size 32 --learning_rate 0.0003 --random_seed 2021 \
+  --des B26M-XXXX --use_gpu 1
+```
+
+如需等训练窗口数对照，额外传 `--train_window_limit N`；原始窗口数和采样方式会写入
+`cv_window_meta.json` 的 `train_window_sampling`。不要把该参数用于普通调参实验。
 
 > ⚠️ **2026-08-14 口径规则（必须遵守）**：正式实验统一使用**命令链模式**（train && 补测），
 > 正式评估对象 = **最佳 val 模型**（EarlyStopping 保存的 full_checkpoint.pth）。
@@ -211,6 +229,17 @@ PYTHONPATH=PatchTST_supervised python3 run_longExp.py \
 | 4 | 实验前没有跟导师对齐过定位 | 当前阶段标注"待与导师对齐"——GRC/A1 等方向是否要先搁置等导师反馈？ |
 
 ### 5. 评估（门禁——缺一个不算完成）
+
+BASE-2026-11-M 的五折实验使用：
+
+```bash
+python3 scripts/eval_cv5.py --des B26M-XXXX --seed 2021
+python3 scripts/plot_cv5.py --des B26M-XXXX --seed 2021
+```
+
+出图后必须检查 PNG/PDF 都存在，并确认图内 block24 MAE 与 `analysis/<des>_seed<N>/cv5_summary.csv` 一致。
+
+传统固定窗口实验继续使用下面的 `eval_metrics.py` 流程。
 
 ```bash
 python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
@@ -344,7 +373,7 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | d_ff 扫描 | 08.12 | 阶段1方案 | ✅ Round 3 已做：单调，维持 2048 | ✅ 完成 |
 | patch_len/stride 扫描 | 08.12 | 阶段1方案 | ✅ Round 1 已做：16 维持 | ✅ 完成 |
 | seq_len 对照 | 08.12 | 阶段1方案 | ✅ Round 0 已做：336 胜 | ✅ 完成 |
-| 多 seed 验证 | 08.12 | 阶段1方案 | 单种子限制，CPU 算力不足；三窗口交叉已做部分缓解 | ⬜ 若算力允许 |
+| 多 seed 验证 | 08.12 | 阶段1方案 | 历史阶段单种子限制；B26M P36/P24 已补 2019/2020，lr 有 P36 三 seed | 🟡 B26M seed2022/2023 未做 |
 | 误差分解（偏差/方差） | 08.14 | 阶段1价值 D 项 | 用现成 npy 可做 | ✅ 阶段1遗留任务 |
 | 与 M4 同口径对拍 | 08.14 | 阶段1价值 D 项 | — | ✅ 阶段1遗留任务 |
 | 滚动误差逐月演化 | 08.14 | 阶段1价值 D 项 | — | ✅ 阶段1遗留任务 |
@@ -368,7 +397,7 @@ python ../scripts/eval_metrics.py --config configs/EXP-XX_YYYY-MM-DD.json
 | **谷区加权 loss（低值加权）** | 10.11 | 谷值讨论（P6 备选） | **已评估，暂不尝试**（景修 10-11 决定）：①加权只改目标分布、不给新信息（谷区报错源于"这次极小期会特别长"在历史里几乎无先例：SSN≤3 连续段 76 段、中位 1 月、仅 2 段≥13 月）；②零和已有前例（wmse 峰改善 92% 但全步恶化 14.6%）；③**最大风险=加剧峰值压制**（峰值已被压 216→113）。替代候选=分位数回归 / 谷区上界约束（记录在 `plan_preregistration_2026-10-11.md`） | ✅ 已记录 |
 | **轨迹"稳/失控双分支"机理** | 10.11 | EXP-23-R3 | 块长扫描推翻"回填频率是主因"：block=2/3 有时优于 24 → 不是单调，而是"稳/失控"双分支；可用判据=minimax（block24 最坏值最小）→ 维持 block24 | ✅ 已回填 |
 | **多配置集成** | 10.11 | EXP-23-R3 引发 | 不同 dropout / 不同目标变换的模型各跑一条 block24 轨迹取中位数（失效模式不相关，可部署）。**冻结至基线找到后** | ⬜ 入队 |
-| 单种子解决·多种子重跑 | 08.20 | 图规范讨论 | 关键配置（基线5b/wmse_th/pow23）补 2-3 seed 重跑，得训练方差（mean±std）。想法级，方案可灵活调整 | ⬜ 判定批注后 |
+| 单种子解决·多种子重跑 | 08.20 | 图规范讨论 | 历史关键配置仍未补；B26M P36/P24 已完成 2019–2021，B26M lr 已完成 P36 三 seed | 🟡 原方案 seed2022/2023 未做 |
 | 单种子解决·bootstrap CI | 08.20 | 图规范讨论 | 对现有预测窗口做 bootstrap 重采样，得评估方差 95% CI。想法级，成本~30分钟 | ⬜ 画图时配套 |
 | **峰值指标升为并列主指标**（判定标准③的替代方案） | 10.10 | 判定标准讨论 | 待景修批注；完整思路见下方「专项说明 A」 | ⬜ 批注后定稿 |
 | **滚动数字必须记录段长** | 10.10 | 换机后复盘（坑 32） | `roll_eval.py` 默认值已修；**10-10 起的记录已逐条带段长**；历史记录里的旧滚动数（50.41/66.80/42.05/149.92/54.77）**尚未逐条补标**，混用风险仍在 | 🔜 补标 |

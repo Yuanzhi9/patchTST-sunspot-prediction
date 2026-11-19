@@ -7,6 +7,7 @@
 | 想看什么 | 打开 |
 |---------|------|
 | 项目规范、基线参数、红线 | [`AGENTS.md`](AGENTS.md) |
+| **当前状态（唯一事实源）** | [`project_docs/STATE.md`](project_docs/STATE.md) |
 | 实验操作规程（SOP） | [`project_docs/experiment_SOP.md`](project_docs/experiment_SOP.md) |
 | 全部实验历史 | [`project_docs/experiment_history.md`](project_docs/experiment_history.md) |
 | 项目路线图 | [`project_docs/project_roadmap.md`](project_docs/project_roadmap.md) |
@@ -28,3 +29,6 @@
   （同配置跨环境差：全步 ≤4%、block ≤10.6%、滚动 ≤28%）——**滚动数只能同环境自比**
 - 实况与坑见 [`AGENTS.md`](AGENTS.md)「环境维护」节；数据口径与泄露核查见 [`project_docs/data_pipeline.md`](project_docs/data_pipeline.md)
 - `pip install -r requirements.txt`
+
+2026-11 的 2026-10 月均数据顺序块五折实验使用 `run_base_cv5.py`；
+传统固定窗口实验仍使用 `run_longExp.py`。当前暂定候选与证据边界见 `STATE.md`。
