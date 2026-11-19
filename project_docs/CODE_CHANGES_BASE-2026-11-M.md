@@ -14,6 +14,17 @@
 | `scripts/eval_cv5.py` | `scripts/eval_metrics.py`、`scripts/plot_exp25_baseline.py` | 物理反归一化、MAE/RMSE/bias、峰谷分析思路 | 读取 CV5 元数据、构建无重叠曲线、五折汇总 | 评估与汇总 |
 | `scripts/plot_cv5.py` | `scripts/plot_exp25_baseline.py` | 学术图画法、颜色与标注 | 五折曲线、block24 轨迹、峰谷数值/时间标注 | 可视化检查 |
 
+## 2026-11-19 短上下文修正
+
+G3 `seq_len=1` 冒烟暴露：旧 `Dataset_Custom` 风格会返回
+`label_len + pred_len = 48 + 24` 个标签位置；当 `seq_len` 小于
+`label_len` 时，不同窗口的 `seq_y` 长度会不一致，DataLoader 无法 collate。
+
+PatchTST 主路径只消费 `seq_x`，`label_len` 并未进入模型前向；因此
+`Dataset_BlockCV` 对 BASE-2026-11-M 统一只返回 `pred_len` 个目标位置。
+训练目标、模型输入和评估口径不变；该修正允许短上下文组正常 collate。
+失败原始日志保留为 `logs/B26M-G3-S01-F1_prelabel-fix.log`。
+
 ## 未修改文件
 
 以下文件在本分支中保持原样：

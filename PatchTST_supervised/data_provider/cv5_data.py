@@ -162,7 +162,10 @@ class Dataset_BlockCV(Dataset):
         target_start = self.window_target_starts[index]
         seq_x = self.data[origin : origin + self.seq_len]
         seq_x_mark = self.data_stamp[origin : origin + self.seq_len]
-        y_start = target_start - self.label_len
+        # PatchTST consumes only seq_x; label_len is unused by this branch.
+        # Returning exactly pred_len targets also keeps seq_len=1/12/24 samples
+        # collatable when label_len would exceed the available context.
+        y_start = target_start
         y_end = target_start + self.pred_len
         seq_y = self.data[y_start:y_end]
         seq_y_mark = self.data_stamp[y_start:y_end]
