@@ -87,7 +87,7 @@ if __name__ == '__main__':
     parser.add_argument('--do_predict', action='store_true', help='whether to predict unseen future data')
 
     # optimization参数优化
-    parser.add_argument('--num_workers', type=int, default=10, help='data loader num workers')#子进程数
+    parser.add_argument('--num_workers', type=int, default=0, help='data loader num workers')#基线固定0，便于复现
     parser.add_argument('--itr', type=int, default=2, help='experiments times')#重复跑几轮；实验次数
     parser.add_argument('--train_epochs', type=int, default=5, help='train epochs')##要跑的轮数原来是100
     parser.add_argument('--batch_size', type=int, default=128, help='batch size of train input data')
