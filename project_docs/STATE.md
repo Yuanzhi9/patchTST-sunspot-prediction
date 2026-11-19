@@ -16,7 +16,7 @@
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 下一阶段基线 | `BASE-2026-11-M`（P36 待景修确认后启用）；其后再做平滑口径 | `plan_base_2026-11_monthly_cv5.md` |
 | 工作分支 | `BASE-2026-11-M`（2026-11-19 建） | `git worktree list`、`BRANCHES.md` |
-| 主线（合并目标） | **`EXP-17-stage1`** — 2026-10-11 已合并 `GPU-exp25` + 本次全部内容；`main` 标为**临时遗留**（等主线定名后再改名） | `BRANCHES.md` §四 |
+| 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 文档线（原） | `env-newserver-2026-10`（内容已并入主线；标签待归档） | git log |
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
 | 运行环境 | A6000 48G / torch 2.8.0+cu128 / numpy 2.2 / 无 venv | AGENTS.md 环境维护 |

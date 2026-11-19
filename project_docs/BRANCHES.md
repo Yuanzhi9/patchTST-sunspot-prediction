@@ -12,7 +12,7 @@
 |---|---|---|---|---|
 | **`EXP-17-stage1`** | `/output/patchTST-sunspot-prediction` | **唯一主线**：状态 + 账本 + 已定论结果（12 条线内容全并入） | ✅ 最新 | 🟢 **推荐入口** |
 | `GPU-basemodel-search` | `/output/GPU-basemodel` | 历史工作线：GPU 基模早期探索 | 保留备查；当前不再作为主工作线 | ⚪ 历史工作线 |
-| `BASE-2026-11-M` | `/output/BASE-2026-11-M` | **当前工作线**：2026-10 月均数据 24 月基线；顺序块五折 | `STATE.md`、`EXPERIMENT_B26M-followup_validation_2026-11-19.md` | 🟢 验证完成，本地提交待合并/授权推送 |
+| `BASE-2026-11-M` | `/output/BASE-2026-11-M` | **独立工作线**：2026-10 月均数据 24 月基线；顺序块五折 | `STATE.md`、`EXPERIMENT_B26M-followup_validation_2026-11-19.md` | 🟢 验证完成；暂不合并，等待推送 |
 | `main` | — | **临时/遗留标签**（2026-08-10 冻结） | ❌ 旧 | ⚪ 暂不管（景修 10-11 决定） |
 
 ## 二、已归档（2026-10-11 收敛时删除标签与 worktree；内容全部已在主线）
