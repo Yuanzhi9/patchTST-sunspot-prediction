@@ -19,8 +19,15 @@ BLACK = "#111111"
 GRAY = "#B7B7B7"
 
 
-def annotate_extrema(ax, records: list[dict], color: str, marker: str) -> None:
-    for i, rec in enumerate(records[:4]):
+def annotate_extrema(
+    ax,
+    records: list[dict],
+    color: str,
+    marker: str,
+    y_levels: list[float],
+    slot_offset: int,
+) -> None:
+    for i, rec in enumerate(records[:3]):
         x = pd.Timestamp(rec["date"])
         y = rec["true"]
         ax.scatter([x], [y], s=20, marker=marker, color=color, zorder=6)
@@ -28,10 +35,13 @@ def annotate_extrema(ax, records: list[dict], color: str, marker: str) -> None:
         ax.annotate(
             label,
             (x, y),
-            xytext=(4, 11 if i % 2 == 0 else -23),
-            textcoords="offset points",
+            xytext=(x, y_levels[(slot_offset + i) % len(y_levels)]),
+            textcoords="data",
             fontsize=5.5,
             color=color,
+            ha="left" if i % 2 == 0 else "right",
+            va="center",
+            bbox={"boxstyle": "round,pad=0.18", "fc": "white", "ec": color, "lw": 0.4, "alpha": 0.92},
             arrowprops={"arrowstyle": "-", "lw": 0.5, "color": color},
         )
 
@@ -60,13 +70,22 @@ def main() -> None:
         len(rows), 1, figsize=(12, 2.65 * len(rows)), dpi=300, squeeze=False
     )
     for ax, (metrics, curve) in zip(axes[:, 0], rows):
+        y_min = min(curve["true"].min(), curve["pred"].min())
+        y_max = max(curve["true"].max(), curve["pred"].max())
+        y_span = max(1.0, float(y_max - y_min))
+        label_levels = [
+            float(y_max + 0.16 * y_span),
+            float(y_max + 0.30 * y_span),
+            float(y_max + 0.44 * y_span),
+        ]
+        ax.set_ylim(float(y_min - 0.06 * y_span), float(y_max + 0.52 * y_span))
         ax.fill_between(
             curve["date"], curve["true"], curve["pred"], color=ORANGE, alpha=0.13, lw=0
         )
         ax.plot(curve["date"], curve["true"], color=BLACK, lw=1.25, label="Observed SSN")
         ax.plot(curve["date"], curve["pred"], color=BLUE, lw=1.15, ls="--", label="Predicted SSN")
-        annotate_extrema(ax, metrics["peaks"], ORANGE, "^")
-        annotate_extrema(ax, metrics["troughs"], BLUE, "v")
+        annotate_extrema(ax, metrics["peaks"], ORANGE, "^", label_levels, 0)
+        annotate_extrema(ax, metrics["troughs"], BLUE, "v", label_levels, 1)
         ax.set_title(
             f"Fold {metrics['fold']} outer validation "
             f"{metrics['outer_val']['start_date']}–{metrics['outer_val']['end_date']} | "
