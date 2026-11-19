@@ -34,3 +34,10 @@ PatchTST 主路径不使用 decoder 标签，因此 CV5 数据类统一只返回
 2. `seq_len=132 + patch=1/1` 虽优于更短上下文，但仍明显落后 G1 的 `132 + 16/8`。
 3. G3 只作机制诊断，不进入最终基线候选。
 4. S01 外层从块起点即可预测，因此窗口数与长上下文配置不同，只按每折等权汇总。
+
+## 图
+
+- `plots/B26M-G3-S01_cv5_curves_seed2021.{png,pdf}`
+- `plots/B26M-G3-S12_cv5_curves_seed2021.{png,pdf}`
+- `plots/B26M-G3-S24_cv5_curves_seed2021.{png,pdf}`
+- `plots/B26M-G3-S132_cv5_curves_seed2021.{png,pdf}`
