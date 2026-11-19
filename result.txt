@@ -565,3 +565,17 @@ B26M-G1-SL132-F3  dataset=2026-10  test=1860-03..1915-09  n=644  full_MAE=25.79 
 B26M-G1-SL132-F4  dataset=2026-10  test=1915-10..1971-04  n=644  full_MAE=26.94  full_RMSE=36.78  full_bias=-6.42  block24_MAE=28.10
 B26M-G1-SL132-F5  dataset=2026-10  test=1971-05..2026-10  n=643  full_MAE=25.63  full_RMSE=33.87  full_bias=+3.93  block24_MAE=26.37
 B26M-G1-SL132-SUMMARY  full_MAE_mean=27.82  full_MAE_std=3.17  full_MAE_worst=34.08  block24_MAE_mean=27.86  block24_MAE_std=3.28  block24_MAE_worst=34.06  vs_E00_full=-16.94%  vs_E00_block=-20.18%
+
+# [2026-11-19] B26M-G2：2026-10 数据，seq_len=336，patch/stride 对照；物理 SSN
+B26M-G2-P24-F1  dataset=2026-10  test=1749-01..1804-07  n=308  full_MAE=35.55  full_RMSE=47.93  full_bias=+7.89  block24_MAE=39.68
+B26M-G2-P24-F2  dataset=2026-10  test=1804-08..1860-02  n=644  full_MAE=30.64  full_RMSE=43.32  full_bias=-5.75  block24_MAE=30.81
+B26M-G2-P24-F3  dataset=2026-10  test=1860-03..1915-09  n=644  full_MAE=39.09  full_RMSE=50.19  full_bias=-6.08  block24_MAE=38.60
+B26M-G2-P24-F4  dataset=2026-10  test=1915-10..1971-04  n=644  full_MAE=30.43  full_RMSE=41.63  full_bias=-6.80  block24_MAE=32.34
+B26M-G2-P24-F5  dataset=2026-10  test=1971-05..2026-10  n=643  full_MAE=28.64  full_RMSE=36.91  full_bias=+4.35  block24_MAE=28.11
+B26M-G2-P24-SUMMARY  full_MAE_mean=32.87  full_MAE_std=3.86  full_MAE_worst=39.09  block24_MAE_mean=33.91  block24_MAE_std=4.50  block24_MAE_worst=39.68  vs_E00_full=-2.44%  vs_E00_block=-3.45%
+B26M-G2-P36-F1  dataset=2026-10  test=1749-01..1804-07  n=308  full_MAE=37.53  full_RMSE=50.79  full_bias=+9.20  block24_MAE=43.68
+B26M-G2-P36-F2  dataset=2026-10  test=1804-08..1860-02  n=644  full_MAE=30.80  full_RMSE=43.19  full_bias=-6.22  block24_MAE=30.76
+B26M-G2-P36-F3  dataset=2026-10  test=1860-03..1915-09  n=644  full_MAE=37.10  full_RMSE=47.29  full_bias=-5.40  block24_MAE=36.49
+B26M-G2-P36-F4  dataset=2026-10  test=1915-10..1971-04  n=644  full_MAE=29.58  full_RMSE=40.47  full_bias=-6.24  block24_MAE=31.40
+B26M-G2-P36-F5  dataset=2026-10  test=1971-05..2026-10  n=643  full_MAE=28.87  full_RMSE=37.28  full_bias=+3.20  block24_MAE=28.62
+B26M-G2-P36-SUMMARY  full_MAE_mean=32.78  full_MAE_std=3.76  full_MAE_worst=37.53  block24_MAE_mean=34.19  block24_MAE_std=5.40  block24_MAE_worst=43.68  vs_E00_full=-2.69%  vs_E00_block=-2.90%
