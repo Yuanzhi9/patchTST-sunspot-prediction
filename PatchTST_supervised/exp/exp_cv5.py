@@ -150,6 +150,9 @@ class Exp_CV5(Exp_Main):
         np.save(os.path.join(folder, "true.npy"), trues)
 
         meta = test_data.metadata()
+        train_data, _ = self._get_data("train")
+        meta["n_train_windows"] = len(train_data)
+        meta["train_window_sampling"] = train_data.metadata()["window_sampling"]
         meta["setting"] = setting
         meta["outer_evaluation_count"] = 1
         with open(os.path.join(folder, "cv_window_meta.json"), "w", encoding="utf-8") as f:

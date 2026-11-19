@@ -69,6 +69,12 @@ def parse_args():
     p.add_argument("--itr", type=int, default=1)
     p.add_argument("--train_epochs", type=int, default=50)
     p.add_argument("--batch_size", type=int, default=16)
+    p.add_argument(
+        "--train_window_limit",
+        type=int,
+        default=0,
+        help="If >0, deterministically retain this many training windows.",
+    )
     p.add_argument("--patience", type=int, default=100)
     p.add_argument("--learning_rate", type=float, default=1e-4)
     p.add_argument("--loss", type=str, default="mse")

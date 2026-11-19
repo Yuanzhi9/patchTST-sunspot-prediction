@@ -54,6 +54,7 @@ class Dataset_BlockCV(Dataset):
         timeenc: int = 1,
         freq: str = "m",
         target_transform: str = "",
+        train_window_limit: int = 0,
         scaler: StandardScaler | None = None,
     ) -> None:
         if flag not in {"train", "val", "test"}:
@@ -71,6 +72,7 @@ class Dataset_BlockCV(Dataset):
         self.timeenc = timeenc
         self.freq = freq
         self.target_transform = target_transform
+        self.train_window_limit = int(train_window_limit)
 
         self.df = pd.read_csv(Path(root_path) / data_path)
         required = {"date", "month_sin", "month_cos", target}
@@ -118,6 +120,20 @@ class Dataset_BlockCV(Dataset):
         self.window_target_starts: list[int] = []
         self.window_target_ends: list[int] = []
         self._build_windows()
+        self.original_n_windows = len(self.window_origins)
+        if self.flag == "train" and self.train_window_limit > 0:
+            if self.train_window_limit > self.original_n_windows:
+                raise ValueError("train_window_limit exceeds available training windows")
+            keep = np.unique(
+                np.rint(
+                    np.linspace(0, self.original_n_windows - 1, self.train_window_limit)
+                ).astype(int)
+            )
+            if len(keep) != self.train_window_limit:
+                raise RuntimeError("training-window subsample is not unique")
+            self.window_origins = [self.window_origins[i] for i in keep]
+            self.window_target_starts = [self.window_target_starts[i] for i in keep]
+            self.window_target_ends = [self.window_target_ends[i] for i in keep]
 
     def _append_window(self, target_start: int, target_end: int) -> None:
         origin = target_start - self.seq_len
@@ -202,6 +218,11 @@ class Dataset_BlockCV(Dataset):
             "feature_columns": ["month_sin", "month_cos", self.target],
             "target_transform": self.target_transform,
             "fold_spec": self.fold,
+            "window_sampling": {
+                "mode": "even" if self.train_window_limit > 0 and self.flag == "train" else "all",
+                "limit": self.train_window_limit,
+                "original_n_windows": self.original_n_windows,
+            },
         }
 
 
@@ -220,6 +241,7 @@ def build_cv5_data(args):
         timeenc=timeenc,
         freq=args.freq,
         target_transform=args.target_transform,
+        train_window_limit=args.train_window_limit,
     )
 
     train_set = Dataset_BlockCV(flag="train", **common)
