@@ -33,6 +33,8 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **B26M-G3** | 11.19 | Stage 10 | 短上下文诊断 patch=1/1 | seq 1/12/24/132,CV5,dataset=2026-10 | 38.88/34.85/32.76/30.86 | — | — | 短上下文落后；G1 seq132+16/8 仍最佳 | `EXPERIMENT_B26M-G3_short_context.md` | ✅ |
+| **B26M-tuning** | 11.19 | Stage 10 | lr/batch/dropout/heads/seed 批量调参 | seq132,P36/P24,lr3e-4,bs32,do0.2,seeds2019-2021 | **P36 三 seed 26.83±0.14** | — | — | 暂定候选 P36；Block 三 seed 26.46±0.35 | `EXPERIMENT_B26M-tuning_rounds.md` | ✅ |
 | **B26M-G2-P24** | 11.19 | Stage 10 | patch/stride 16/8→24/12（seq336） | sl336,p24/s12,MS,50ep,CV5,dataset=2026-10 | 32.87 ± 3.86 | — | — | Full −2.44%，Block −3.45%；未达 3% 主门槛，无稳定胜出 | `EXPERIMENT_B26M-G2_patch_scale.md` | ✅ |
 | **B26M-G2-P36** | 11.19 | Stage 10 | patch/stride 16/8→36/18（seq336） | sl336,p36/s18,MS,50ep,CV5,dataset=2026-10 | 32.78 ± 3.76 | — | — | Full −2.69%；Block 最差折 +5.74%，无稳定胜出 | 同上 | ✅ |
 | **B26M-G1-SL132** | 11.19 | Stage 10 | 历史长度 seq_len 336→132 | sl132,p16/s8,MS,50ep,CV5,dataset=2026-10 | **27.82 ± 3.17** | — | — | 五折全胜 E00；Full −16.94%，Block24 −20.18%；注意训练窗口数混杂 | `EXPERIMENT_B26M-G1-SL132.md` | ✅ |
@@ -1168,3 +1170,16 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
 | 36/18 | **32.78 ± 3.76** | 34.19 ± 5.40 | 候选，Block 最差折恶化 5.74% |
 
 结论：G2 无稳定胜者，保留 24/12 与 36/18。该轮固定 `seq_len=336`，不能直接回答 G1 winner `seq_len=132` 上的最优 patch。详见 `EXPERIMENT_B26M-G2_patch_scale.md`。
+
+### G3 与调参收口
+
+- G3 短上下文：S01/S12/S24/S132 的 Full MAE 分别为 38.88/34.85/32.76/30.86；全部落后 `seq132 + patch16/8`，不进入候选。
+- 交互复核后，P36/P24 在 seq132 上略优于 P16，但差异小于 3%。
+- learning rate：两套结构均选 3e-4。
+- batch size：两套结构均选 32。
+- dropout：维持 0.2。
+- n_heads：维持 8。
+- 三 seed：P36 Full 26.83 ± 0.14、Block 26.46 ± 0.35；P24 Full 27.11 ± 0.15、Block 27.15 ± 0.17。
+- 暂定候选：`BASE-2026-11-M-CAND-P36`，待景修确认后启用正式基线 ID。
+
+详见 `EXPERIMENT_B26M-G3_short_context.md` 与 `EXPERIMENT_B26M-tuning_rounds.md`。

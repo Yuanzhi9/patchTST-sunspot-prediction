@@ -8,7 +8,7 @@
 | 字段 | 值 | 证据指针 |
 |---|---|---|
 | 当前阶段 | 2026-10 新数据重建 24 月基线（顺序块五折调参） | `plan_base_2026-11_monthly_cv5.md` |
-| 当前任务 | E00/G1/G2 已完成；下一轮 G3 短上下文诊断，或先在 G1 winner 上复核 patch 交互 | `EXPERIMENT_B26M-G2_patch_scale.md` |
+| 当前任务 | 24 月调参轮次已完成；暂定候选 P36，待景修确认后冻结 `BASE-2026-11-M` | `EXPERIMENT_B26M-tuning_rounds.md` |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 下一阶段基线 | `BASE-2026-11-M`（2026-10 月均，五折冻结后启用）；其后再做平滑口径 | `plan_base_2026-11_monthly_cv5.md` |
 | 工作分支 | `BASE-2026-11-M`（2026-11-19 建） | `git worktree list`、`BRANCHES.md` |

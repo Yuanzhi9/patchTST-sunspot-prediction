@@ -579,3 +579,37 @@ B26M-G2-P36-F3  dataset=2026-10  test=1860-03..1915-09  n=644  full_MAE=37.10  f
 B26M-G2-P36-F4  dataset=2026-10  test=1915-10..1971-04  n=644  full_MAE=29.58  full_RMSE=40.47  full_bias=-6.24  block24_MAE=31.40
 B26M-G2-P36-F5  dataset=2026-10  test=1971-05..2026-10  n=643  full_MAE=28.87  full_RMSE=37.28  full_bias=+3.20  block24_MAE=28.62
 B26M-G2-P36-SUMMARY  full_MAE_mean=32.78  full_MAE_std=3.76  full_MAE_worst=37.53  block24_MAE_mean=34.19  block24_MAE_std=5.40  block24_MAE_worst=43.68  vs_E00_full=-2.69%  vs_E00_block=-2.90%
+
+# [2026-11-19] B26M-G3：短上下文诊断（patch=1/1，padding=None）；物理 SSN
+B26M-G3-S01-SUMMARY   full_MAE_mean=38.88  block24_MAE_mean=38.90
+B26M-G3-S12-SUMMARY   full_MAE_mean=34.85  block24_MAE_mean=36.27
+B26M-G3-S24-SUMMARY   full_MAE_mean=32.76  block24_MAE_mean=33.16
+B26M-G3-S132-SUMMARY  full_MAE_mean=30.86  block24_MAE_mean=30.32
+
+# [2026-11-19] G1 winner seq132 上的 patch 交互、learning rate、batch、dropout、heads、seeds；物理 SSN
+B26M-G2I-P24-SUMMARY  full_MAE_mean=27.57  block24_MAE_mean=27.65
+B26M-G2I-P36-SUMMARY  full_MAE_mean=27.40  block24_MAE_mean=27.31
+B26M-F-P16-LR3E4-BS32-SUMMARY  full_MAE_mean=27.30  block24_MAE_mean=27.51
+B26M-L-P24-3E5-SUMMARY  full_MAE_mean=28.46  block24_MAE_mean=28.48
+B26M-L-P24-3E4-SUMMARY  full_MAE_mean=26.94  block24_MAE_mean=26.43
+B26M-L-P24-1E3-SUMMARY  full_MAE_mean=27.06  block24_MAE_mean=27.55
+B26M-L-P36-3E5-SUMMARY  full_MAE_mean=28.43  block24_MAE_mean=28.37
+B26M-L-P36-3E4-SUMMARY  full_MAE_mean=27.38  block24_MAE_mean=26.85
+B26M-L-P36-1E3-SUMMARY  full_MAE_mean=27.36  block24_MAE_mean=26.56
+B26M-B-P24-BS8-SUMMARY   full_MAE_mean=27.05  block24_MAE_mean=27.20
+B26M-B-P24-BS32-SUMMARY  full_MAE_mean=26.96  block24_MAE_mean=26.96
+B26M-B-P24-BS64-SUMMARY  full_MAE_mean=27.42  block24_MAE_mean=27.55
+B26M-B-P36-BS8-SUMMARY   full_MAE_mean=27.52  block24_MAE_mean=27.87
+B26M-B-P36-BS32-SUMMARY  full_MAE_mean=27.00  block24_MAE_mean=26.85
+B26M-B-P36-BS64-SUMMARY  full_MAE_mean=27.05  block24_MAE_mean=26.82
+B26M-D-P24-DO01-SUMMARY  full_MAE_mean=27.07  block24_MAE_mean=26.89
+B26M-D-P24-DO03-SUMMARY  full_MAE_mean=27.22  block24_MAE_mean=27.44
+B26M-D-P36-DO01-SUMMARY  full_MAE_mean=27.00  block24_MAE_mean=26.57
+B26M-D-P36-DO03-SUMMARY  full_MAE_mean=27.25  block24_MAE_mean=27.18
+B26M-H-P24-NH4-SUMMARY  full_MAE_mean=26.93  block24_MAE_mean=26.89
+B26M-H-P36-NH4-SUMMARY  full_MAE_mean=27.01  block24_MAE_mean=26.78
+B26M-F-P24-SEED2019-SUMMARY  full_MAE_mean=27.26  block24_MAE_mean=27.28
+B26M-F-P24-SEED2020-SUMMARY  full_MAE_mean=27.10  block24_MAE_mean=27.20
+B26M-F-P36-SEED2019-SUMMARY  full_MAE_mean=26.77  block24_MAE_mean=26.35
+B26M-F-P36-SEED2020-SUMMARY  full_MAE_mean=26.74  block24_MAE_mean=26.18
+B26M-CAND-P36-3SEED-SUMMARY  full_MAE_mean=26.83  full_seed_std=0.14  block24_MAE_mean=26.46  block_seed_std=0.35
