@@ -64,7 +64,7 @@ branch:   GPU-basemodel-search     （从 GPU-dropout-abl 切出）
 |---|---|---|
 | 训练入口 | `run_longExp.py`（原管线） | 经 `scripts/launch_experiment.sh`；命令链 `train && 补测(--is_training 0)` |
 | 运行环境 | A6000 / torch 2.8.0+cu128 / numpy 2.2；`NVIDIA_TF32_OVERRIDE=0` | 关 TF32 |
-| 数据 | `sunspot_with_cycle.csv`（SILSO **月均未平滑**，1749-02 ~ 2025-10） | features = MS |
+| 数据 | `sunspot_with_cycle_monthly_2026-10.csv`（SILSO **月均未平滑**，1749-01 ~ 2026-10） | features = MS；旧实验仍用 2025-10 快照 |
 | 特征 | `month_sin, month_cos, ssn`，`enc_in=3` | `year_norm` / `cycle_phase` 列**未启用**（冻结） |
 | 结构参数 | seq_len 336 / label_len 48 / pred_len 24 / d_model 128 / n_heads 8 / e_layers 2 / d_ff 2048 / patch_len 16 / stride 8 | 沿用阶段1 定论 |
 | 正则 | head_dropout 0.0；dropout = fc_dropout = **0.2** | 基准值；第 3 轮回查 |

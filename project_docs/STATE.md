@@ -16,7 +16,7 @@
 | 文档线（原） | `env-newserver-2026-10`（内容已并入主线；标签待归档） | git log |
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
 | 运行环境 | A6000 48G / torch 2.8.0+cu128 / numpy 2.2 / 无 venv | AGENTS.md 环境维护 |
-| 数据口径 | SILSO **月均未平滑**，1749-02 ~ 2025-10 | data_pipeline.md |
+| 数据口径 | 当前官方快照：月均未平滑至 **2026-10**；13月平滑有效至 **2026-04**；历史实验结果仍基于 2025-10 快照 | data_pipeline.md §最新官方数据快照 |
 | 用法口径 | **block24 无重叠**（minimax 判据） | EXP-23-R3 |
 | 跨环境规则 | 全步 ≤4% 可用；block ≤10.6% 辅证；**滚动仅同环境** | EXP-23-R2 |
 | 泄露核查 | 三种口径**无泄露** | data_pipeline.md §数据泄露核查 |
