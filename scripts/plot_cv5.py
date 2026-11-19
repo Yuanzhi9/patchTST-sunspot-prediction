@@ -19,31 +19,36 @@ BLACK = "#111111"
 GRAY = "#B7B7B7"
 
 
-def annotate_extrema(
-    ax,
-    records: list[dict],
-    color: str,
-    marker: str,
-    y_levels: list[float],
-    slot_offset: int,
-) -> None:
-    for i, rec in enumerate(records[:3]):
+def mark_extrema(ax, records: list[dict], color: str, marker: str) -> None:
+    for rec in records[:2]:
         x = pd.Timestamp(rec["date"])
         y = rec["true"]
         ax.scatter([x], [y], s=20, marker=marker, color=color, zorder=6)
-        label = f"{rec['kind']} {rec['date']}\ntrue {rec['true']:.1f}, pred {rec['pred']:.1f}"
-        ax.annotate(
-            label,
-            (x, y),
-            xytext=(x, y_levels[(slot_offset + i) % len(y_levels)]),
-            textcoords="data",
-            fontsize=5.5,
-            color=color,
-            ha="left" if i % 2 == 0 else "right",
-            va="center",
-            bbox={"boxstyle": "round,pad=0.18", "fc": "white", "ec": color, "lw": 0.4, "alpha": 0.92},
-            arrowprops={"arrowstyle": "-", "lw": 0.5, "color": color},
+
+
+def add_extrema_box(ax, peaks: list[dict], troughs: list[dict]) -> None:
+    lines = ["Major extrema (true / pred)"]
+    for rec in peaks[:2]:
+        lines.append(
+            f"P {rec['date']}  {rec['true']:.1f} / {rec['pred']:.1f}"
         )
+    for rec in troughs[:2]:
+        lines.append(
+            f"T {rec['date']}  {rec['true']:.1f} / {rec['pred']:.1f}"
+        )
+    ax.text(
+        1.012,
+        0.98,
+        "\n".join(lines),
+        transform=ax.transAxes,
+        fontsize=5.8,
+        color="#333333",
+        ha="left",
+        va="top",
+        linespacing=1.55,
+        bbox={"boxstyle": "round,pad=0.32", "fc": "white", "ec": "#BBBBBB", "lw": 0.5},
+        clip_on=False,
+    )
 
 
 def main() -> None:
@@ -73,19 +78,15 @@ def main() -> None:
         y_min = min(curve["true"].min(), curve["pred"].min())
         y_max = max(curve["true"].max(), curve["pred"].max())
         y_span = max(1.0, float(y_max - y_min))
-        label_levels = [
-            float(y_max + 0.16 * y_span),
-            float(y_max + 0.30 * y_span),
-            float(y_max + 0.44 * y_span),
-        ]
-        ax.set_ylim(float(y_min - 0.06 * y_span), float(y_max + 0.52 * y_span))
+        ax.set_ylim(float(y_min - 0.07 * y_span), float(y_max + 0.10 * y_span))
         ax.fill_between(
             curve["date"], curve["true"], curve["pred"], color=ORANGE, alpha=0.13, lw=0
         )
         ax.plot(curve["date"], curve["true"], color=BLACK, lw=1.25, label="Observed SSN")
         ax.plot(curve["date"], curve["pred"], color=BLUE, lw=1.15, ls="--", label="Predicted SSN")
-        annotate_extrema(ax, metrics["peaks"], ORANGE, "^", label_levels, 0)
-        annotate_extrema(ax, metrics["troughs"], BLUE, "v", label_levels, 1)
+        mark_extrema(ax, metrics["peaks"], ORANGE, "^")
+        mark_extrema(ax, metrics["troughs"], BLUE, "v")
+        add_extrema_box(ax, metrics["peaks"], metrics["troughs"])
         ax.set_title(
             f"Fold {metrics['fold']} outer validation "
             f"{metrics['outer_val']['start_date']}–{metrics['outer_val']['end_date']} | "
@@ -113,7 +114,7 @@ def main() -> None:
         fontsize=6,
         color="#444444",
     )
-    fig.tight_layout(rect=[0, 0.02, 1, 0.98])
+    fig.subplots_adjust(left=0.055, right=0.80, top=0.95, bottom=0.035, hspace=0.48)
 
     out = Path(args.out or f"plots/{args.des}_cv5_curves_seed{args.seed}.png")
     out.parent.mkdir(parents=True, exist_ok=True)
