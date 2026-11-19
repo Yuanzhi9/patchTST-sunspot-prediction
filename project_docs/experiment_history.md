@@ -35,6 +35,9 @@
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
 | **B26M-G3** | 11.19 | Stage 10 | 短上下文诊断 patch=1/1 | seq 1/12/24/132,CV5,dataset=2026-10 | 38.88/34.85/32.76/30.86 | — | — | 短上下文落后；G1 seq132+16/8 仍最佳 | `EXPERIMENT_B26M-G3_short_context.md` | ✅ |
 | **B26M-tuning** | 11.19 | Stage 10 | lr/batch/dropout/heads/seed 批量调参 | seq132,P36/P24,lr3e-4,bs32,do0.2,seeds2019-2021 | **P36 三 seed 26.83±0.14** | — | — | 暂定候选 P36；Block 三 seed 26.46±0.35 | `EXPERIMENT_B26M-tuning_rounds.md` | ✅ |
+| **B26M-LV** | 11.19 | Stage 10 | P36 lr 3e-4 vs 1e-3 补 seed2019/2020 | seq132,P36,lr3e-4/1e-3,bs16,三 seed | **3e-4 三 seed 27.03** | — | — | 1e-3 为 27.30；Block 方向不完全一致 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` | ✅ |
+| **B26M-B2** | 11.19 | Stage 10 | P36 batch 128/256 补测 | seq132,P36,lr3e-4,BS128/256 | 28.01 / 28.98 | — | — | 均五折劣于 BS32；限于当前 50 epoch 配方 | 同上 | ✅ |
+| **B26M-SEQCTL** | 11.19 | Stage 10 | seq132 等训练窗口数控制 | sl132,p16/8,703/704 windows,lr1e-4,bs16 | 28.36 | — | — | 仍胜 seq336，但比完整 seq132 差 0.54 | 同上 | ✅ |
 | **B26M-G2-P24** | 11.19 | Stage 10 | patch/stride 16/8→24/12（seq336） | sl336,p24/s12,MS,50ep,CV5,dataset=2026-10 | 32.87 ± 3.86 | — | — | Full −2.44%，Block −3.45%；未达 3% 主门槛，无稳定胜出 | `EXPERIMENT_B26M-G2_patch_scale.md` | ✅ |
 | **B26M-G2-P36** | 11.19 | Stage 10 | patch/stride 16/8→36/18（seq336） | sl336,p36/s18,MS,50ep,CV5,dataset=2026-10 | 32.78 ± 3.76 | — | — | Full −2.69%；Block 最差折 +5.74%，无稳定胜出 | 同上 | ✅ |
 | **B26M-G1-SL132** | 11.19 | Stage 10 | 历史长度 seq_len 336→132 | sl132,p16/s8,MS,50ep,CV5,dataset=2026-10 | **27.82 ± 3.17** | — | — | 五折全胜 E00；Full −16.94%，Block24 −20.18%；注意训练窗口数混杂 | `EXPERIMENT_B26M-G1-SL132.md` | ✅ |
@@ -1183,3 +1186,16 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
 - 暂定候选：`BASE-2026-11-M-CAND-P36`，待景修确认后启用正式基线 ID。
 
 详见 `EXPERIMENT_B26M-G3_short_context.md` 与 `EXPERIMENT_B26M-tuning_rounds.md`。
+
+### B26M 后续参数验证
+
+- LR：P36 `3e-4` 三 seed Full 均值 27.03、Block 26.91；`1e-3` 为 27.30、27.15。
+  保留 `3e-4`，但单 seed 配对区间跨零。
+- Batch：128/256 的 Full 为 28.01/28.98，均五折劣于 batch32 的 27.00；
+  结论只限当前 50 epoch 与调度。
+- Seq 控制：seq132 仅保留与 seq336 相同的 703/704 个训练窗口后，Full 为 28.36；
+  仍 5/5 优于 seq336 的 33.62，但比完整窗口 seq132 的 27.82 差 0.54。
+- 结论：seq132 优势主要来自 sequence/token 结构，训练窗口数也有约 0.54 MAE 贡献；
+  不能把原 G1 全部差值只归因于历史长度。
+
+详见 `EXPERIMENT_B26M-followup_validation_2026-11-19.md`。

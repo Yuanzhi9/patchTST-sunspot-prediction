@@ -613,3 +613,47 @@ B26M-F-P24-SEED2020-SUMMARY  full_MAE_mean=27.10  block24_MAE_mean=27.20
 B26M-F-P36-SEED2019-SUMMARY  full_MAE_mean=26.77  block24_MAE_mean=26.35
 B26M-F-P36-SEED2020-SUMMARY  full_MAE_mean=26.74  block24_MAE_mean=26.18
 B26M-CAND-P36-3SEED-SUMMARY  full_MAE_mean=26.83  full_seed_std=0.14  block24_MAE_mean=26.46  block_seed_std=0.35
+
+# [2026-11-19] B26M 后续验证：P36 lr 跨 seed、batch 128/256、seq132 等窗口数控制；物理 SSN
+B26M-LV-P36-3E4-SEED2019-F1  full_MAE=32.72  full_RMSE=45.31  full_bias=+1.23  block24_MAE=32.49
+B26M-LV-P36-3E4-SEED2019-F2  full_MAE=25.81  full_RMSE=38.07  full_bias=-7.66  block24_MAE=25.64
+B26M-LV-P36-3E4-SEED2019-F3  full_MAE=24.52  full_RMSE=33.11  full_bias=+3.88  block24_MAE=23.71
+B26M-LV-P36-3E4-SEED2019-F4  full_MAE=26.46  full_RMSE=36.31  full_bias=-5.74  block24_MAE=26.47
+B26M-LV-P36-3E4-SEED2019-F5  full_MAE=24.68  full_RMSE=32.99  full_bias=+3.66  block24_MAE=25.18
+B26M-LV-P36-3E4-SEED2019-SUMMARY  full_MAE_mean=26.84  full_MAE_std=3.03  full_MAE_worst=32.72  block24_MAE_mean=26.70  block24_MAE_std=3.03  block24_MAE_worst=32.49
+B26M-LV-P36-1E3-SEED2019-F1  full_MAE=33.57  full_RMSE=46.08  full_bias=+3.14  block24_MAE=34.44
+B26M-LV-P36-1E3-SEED2019-F2  full_MAE=26.64  full_RMSE=38.07  full_bias=-6.50  block24_MAE=26.36
+B26M-LV-P36-1E3-SEED2019-F3  full_MAE=24.01  full_RMSE=32.69  full_bias=+0.12  block24_MAE=22.85
+B26M-LV-P36-1E3-SEED2019-F4  full_MAE=26.88  full_RMSE=36.71  full_bias=-7.05  block24_MAE=24.88
+B26M-LV-P36-1E3-SEED2019-F5  full_MAE=25.10  full_RMSE=33.94  full_bias=+0.94  block24_MAE=27.29
+B26M-LV-P36-1E3-SEED2019-SUMMARY  full_MAE_mean=27.24  full_MAE_std=3.33  full_MAE_worst=33.57  block24_MAE_mean=27.16  block24_MAE_std=3.94  block24_MAE_worst=34.44
+B26M-LV-P36-3E4-SEED2020-F1  full_MAE=33.58  full_RMSE=47.35  full_bias=-0.83  block24_MAE=34.41
+B26M-LV-P36-3E4-SEED2020-F2  full_MAE=26.00  full_RMSE=38.48  full_bias=-8.46  block24_MAE=25.65
+B26M-LV-P36-3E4-SEED2020-F3  full_MAE=24.37  full_RMSE=33.03  full_bias=+3.75  block24_MAE=23.75
+B26M-LV-P36-3E4-SEED2020-F4  full_MAE=27.84  full_RMSE=38.90  full_bias=-11.73  block24_MAE=26.79
+B26M-LV-P36-3E4-SEED2020-F5  full_MAE=24.42  full_RMSE=32.92  full_bias=+1.88  block24_MAE=25.40
+B26M-LV-P36-3E4-SEED2020-SUMMARY  full_MAE_mean=27.24  full_MAE_std=3.41  full_MAE_worst=33.58  block24_MAE_mean=27.20  block24_MAE_std=3.74  block24_MAE_worst=34.41
+B26M-LV-P36-1E3-SEED2020-F1  full_MAE=32.54  full_RMSE=45.69  full_bias=-1.44  block24_MAE=32.55
+B26M-LV-P36-1E3-SEED2020-F2  full_MAE=26.62  full_RMSE=39.32  full_bias=-8.03  block24_MAE=26.97
+B26M-LV-P36-1E3-SEED2020-F3  full_MAE=23.41  full_RMSE=31.34  full_bias=+3.18  block24_MAE=22.96
+B26M-LV-P36-1E3-SEED2020-F4  full_MAE=29.06  full_RMSE=39.08  full_bias=-2.86  block24_MAE=30.90
+B26M-LV-P36-1E3-SEED2020-F5  full_MAE=24.82  full_RMSE=33.14  full_bias=+6.05  block24_MAE=25.18
+B26M-LV-P36-1E3-SEED2020-SUMMARY  full_MAE_mean=27.29  full_MAE_std=3.24  full_MAE_worst=32.54  block24_MAE_mean=27.71  block24_MAE_std=3.55  block24_MAE_worst=32.55
+B26M-B2-P36-BS128-F1  full_MAE=33.77  full_RMSE=47.06  full_bias=+0.05  block24_MAE=33.39
+B26M-B2-P36-BS128-F2  full_MAE=27.38  full_RMSE=39.58  full_bias=-6.90  block24_MAE=27.48
+B26M-B2-P36-BS128-F3  full_MAE=25.66  full_RMSE=34.24  full_bias=+3.61  block24_MAE=25.01
+B26M-B2-P36-BS128-F4  full_MAE=27.28  full_RMSE=37.23  full_bias=-4.95  block24_MAE=28.50
+B26M-B2-P36-BS128-F5  full_MAE=25.95  full_RMSE=34.14  full_bias=+4.02  block24_MAE=26.01
+B26M-B2-P36-BS128-SUMMARY  full_MAE_mean=28.01  full_MAE_std=2.96  full_MAE_worst=33.77  block24_MAE_mean=28.08  block24_MAE_std=2.91  block24_MAE_worst=33.39
+B26M-B2-P36-BS256-F1  full_MAE=35.38  full_RMSE=49.08  full_bias=+0.40  block24_MAE=34.53
+B26M-B2-P36-BS256-F2  full_MAE=27.87  full_RMSE=39.74  full_bias=-6.03  block24_MAE=27.87
+B26M-B2-P36-BS256-F3  full_MAE=26.98  full_RMSE=35.85  full_bias=+4.73  block24_MAE=26.89
+B26M-B2-P36-BS256-F4  full_MAE=27.89  full_RMSE=37.90  full_bias=-4.80  block24_MAE=28.84
+B26M-B2-P36-BS256-F5  full_MAE=26.80  full_RMSE=35.10  full_bias=+4.58  block24_MAE=26.65
+B26M-B2-P36-BS256-SUMMARY  full_MAE_mean=28.98  full_MAE_std=3.23  full_MAE_worst=35.38  block24_MAE_mean=28.96  block24_MAE_std=2.89  block24_MAE_worst=34.53
+B26M-SEQCTL-SL132-CAP336COUNT-F1  full_MAE=34.31  full_RMSE=47.90  full_bias=-1.62  block24_MAE=32.97
+B26M-SEQCTL-SL132-CAP336COUNT-F2  full_MAE=27.14  full_RMSE=39.07  full_bias=-6.16  block24_MAE=26.69
+B26M-SEQCTL-SL132-CAP336COUNT-F3  full_MAE=26.19  full_RMSE=34.73  full_bias=+4.36  block24_MAE=25.73
+B26M-SEQCTL-SL132-CAP336COUNT-F4  full_MAE=27.69  full_RMSE=37.69  full_bias=-5.37  block24_MAE=29.56
+B26M-SEQCTL-SL132-CAP336COUNT-F5  full_MAE=26.46  full_RMSE=34.72  full_bias=+3.97  block24_MAE=26.79
+B26M-SEQCTL-SL132-CAP336COUNT-SUMMARY  full_MAE_mean=28.36  full_MAE_std=3.02  full_MAE_worst=34.31  block24_MAE_mean=28.35  block24_MAE_std=2.64  block24_MAE_worst=32.97
