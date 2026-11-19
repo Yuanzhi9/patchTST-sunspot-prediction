@@ -8,7 +8,7 @@
 | 字段 | 值 | 证据指针 |
 |---|---|---|
 | 当前阶段 | 2026-10 新数据重建 24 月基线（顺序块五折调参） | `plan_base_2026-11_monthly_cv5.md` |
-| 当前任务 | E00 新数据锚点 + 五折泄露审计；暂不批量调参 | `plan_base_2026-11_monthly_cv5.md` §八 |
+| 当前任务 | E00 已完成；待景修看基线图，下一轮 G1（seq_len=132） | `EXPERIMENT_B26M-E00.md` |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 下一阶段基线 | `BASE-2026-11-M`（2026-10 月均，五折冻结后启用）；其后再做平滑口径 | `plan_base_2026-11_monthly_cv5.md` |
 | 工作分支 | `BASE-2026-11-M`（2026-11-19 建） | `git worktree list`、`BRANCHES.md` |
