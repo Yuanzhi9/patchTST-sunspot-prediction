@@ -1,0 +1,11 @@
+{
+  "des": "B26M-G3-S01",
+  "seed": 2021,
+  "folds_found": 5,
+  "full_MAE_mean": 38.87559653703941,
+  "full_MAE_std": 4.156894298302793,
+  "full_MAE_worst": 45.44987285334624,
+  "block24_MAE_mean": 38.89673686934106,
+  "block24_MAE_std": 6.875835553843346,
+  "block24_MAE_worst": 51.831228968537886
+}
