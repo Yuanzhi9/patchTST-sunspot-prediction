@@ -15,8 +15,8 @@
 | p24 补强结论 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移；稳定性图已出 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` §p24 |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 下一阶段候选 | p24=`BASE-2026-11-M-CAND-P36`；p132 候选见 p132 工作线 STATE；均未冻结 | `/output/p132失效机制核查_2026-11-20.md` |
-| 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`（均本地，不推送） | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | `origin/BASE-2026-11-M` 已推送；分支独立保留、不合并主线 | `git ls-remote origin refs/heads/BASE-2026-11-M` |
+| 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
+| 远端状态 | 两个分支均已推送；分支不合并主线 | `git ls-remote origin refs/heads/BASE-2026-11-M refs/heads/BASE-2026-11-M-P132` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 文档线（原） | `env-newserver-2026-10`（内容已并入主线；标签待归档） | git log |
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
