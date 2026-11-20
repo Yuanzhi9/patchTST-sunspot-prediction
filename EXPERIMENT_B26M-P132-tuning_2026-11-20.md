@@ -114,6 +114,8 @@ direct-cycle MAE 最低，且与 P16 同 dropout 的均值几乎相同但峰值�
 - `analysis_p132/final_summary/p132_candidate_five_seed.{png,pdf}`
 - `analysis_p132/p24_vs_p132_seed2021/comparison_curves.{png,pdf}`
 - `analysis_p132/p24_vs_p132_five_seed/p24_vs_p132_five_seed.{png,pdf}`
+- `analysis_p132/update_cadence/p132_update_cadence_seed2021.{png,pdf,csv}`
+  （事后复用现有预测；12/24 月补真值曲线，不是新训练）
 
 ## 结论
 
