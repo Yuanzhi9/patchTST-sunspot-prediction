@@ -33,6 +33,7 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **B26M-P132** | 11.20 | Stage 11 | 直接 132 月输出独立调参 | seq132,p36/s18,lr1e-3,bs32,do0.3,CV5,seeds2019-2023 | cycle 41.12±1.25 | — | — | p132 最佳候选；p24 同日期曲线 26.48 明显更好 | `EXPERIMENT_B26M-P132-tuning_2026-11-20.md` | ✅ |
 | **B26M-G3** | 11.19 | Stage 10 | 短上下文诊断 patch=1/1 | seq 1/12/24/132,CV5,dataset=2026-10 | 38.88/34.85/32.76/30.86 | — | — | 短上下文落后；G1 seq132+16/8 仍最佳 | `EXPERIMENT_B26M-G3_short_context.md` | ✅ |
 | **B26M-tuning** | 11.19 | Stage 10 | lr/batch/dropout/heads/seed 批量调参 | seq132,P36/P24,lr3e-4,bs32,do0.2,seeds2019-2021 | **P36 三 seed 26.83±0.14** | — | — | 暂定候选 P36；Block 三 seed 26.46±0.35 | `EXPERIMENT_B26M-tuning_rounds.md` | ✅ |
 | **B26M-LV** | 11.19 | Stage 10 | P36 lr 3e-4 vs 1e-3 补 seed2019/2020 | seq132,P36,lr3e-4/1e-3,bs16,三 seed | **3e-4 三 seed 27.03** | — | — | 1e-3 为 27.30；Block 方向不完全一致 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` | ✅ |
@@ -1199,3 +1200,16 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
   不能把原 G1 全部差值只归因于历史长度。
 
 详见 `EXPERIMENT_B26M-followup_validation_2026-11-19.md`。
+
+## Stage 11：p132 直接整周期基线（2026-11-20）
+
+- 独立结构轮：seq132 的 P16/P24/P36 direct-cycle MAE 为 43.93/44.58/42.63；
+  seq336 全部 54.36–58.74，淘汰。
+- learning rate：P36 与 P16 均在 `1e-3` 最好；P36 为 42.27，P16 为 41.71。
+- 最终参数搜索选择 P36 + lr1e-3 + bs32 + dropout0.3 + heads8，seed2021 cycle MAE=40.99。
+- 五 seed：cycle MAE=41.12±1.25、full MAE=41.99±1.13、峰幅度误差=41.86±3.03。
+- p24/p132 五 seed 同日期（每折 624 月）比较：p24 curve MAE=26.48±0.25，
+  p132=41.32±1.21；p24 峰/谷幅度误差也更小。
+
+结论：p132 已独立找到最佳基线，但作为实际未来曲线策略明显落后于每 24 月更新真实历史的 p24 block24。
+详见 `EXPERIMENT_B26M-P132-tuning_2026-11-20.md`。
