@@ -21,8 +21,8 @@
 | p24 补强 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移 | `/output/BASE-2026-11-M/EXPERIMENT_B26M-dual-baseline_2026-11-20.md` |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 待验收候选 | p24=`BASE-2026-11-M-CAND-P36`；p132=`BASE-2026-11-M-P132-CAND-P36`；均未冻结 | `EXPERIMENT_B26M-P132-tuning_2026-11-20.md` |
-| 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132` | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | `origin/BASE-2026-11-M` 已推送；分支独立保留、不合并主线 | `git ls-remote origin refs/heads/BASE-2026-11-M` |
+| 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
+| 远端状态 | 两个分支均已推送；完整 PR132 结果与图片已同步 | `git ls-remote origin refs/heads/BASE-2026-11-M refs/heads/BASE-2026-11-M-P132` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 文档线（原） | `env-newserver-2026-10`（内容已并入主线；标签待归档） | git log |
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
@@ -35,5 +35,5 @@
 | 选模口径 | ⚠️ **未定死（残余不确定性）**：候选 = best-val 与 "val 单起点轨迹"；细粒度复评后两者基本打平（最坏 22.5% vs 20.9%，n=6 组单种子）→ 暂按**双轨并列报告** | `EXP-RULE-*_2026-10-11.md`、`discuss_2026-10-11_选模规则.md` |
 | p132 残余不确定性 | ①seed2022 的 cycle MAE 偏高 ②峰谷时间误差大 ③p132/p24 是不同更新策略 ④五折不等于未来顺序审计 | `EXPERIMENT_B26M-P132-tuning_2026-11-20.md` |
 | 冻结队列 | C 类六条：平滑 / 相位特征 / 非负约束 / 谷时分类 / scheduled sampling / 多配置集成 | `plan_preregistration_2026-10-11.md` |
-| 未决 | ①两条候选正式冻结 ②主任务选择 ③最终全量训练/未来曲线 ④顺序审计 ⑤推送授权 | `EXPERIMENT_B26M-P132-tuning_2026-11-20.md` |
+| 未决 | ①两条候选正式冻结 ②主任务选择 ③最终全量训练/未来曲线 ④顺序审计 | `EXPERIMENT_B26M-P132-tuning_2026-11-20.md` |
 | 最后核对 | 2026-11-20（AI 核对，景修待签） | — |
