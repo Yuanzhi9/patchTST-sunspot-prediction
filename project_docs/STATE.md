@@ -7,8 +7,11 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | 2026-10 月均数据的 24 月基线验证收口（顺序块五折） | `plan_base_2026-11_monthly_cv5.md` |
-| 当前任务 | B26M 主扫描与三项后续验证已完成；P36 为暂定候选，尚未冻结正式基线 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` |
+| 当前阶段 | 双基线：p24 补强收口；p132 独立结构与参数搜索 | `plan_dual_baseline_p24_p132_2026-11-20.md` |
+| 当前任务 | p132 使用独立 198 月内层验证搜索最佳直接整周期基线 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` |
+| p132 工作分支 | `BASE-2026-11-M-P132`（2026-11-20 从双基线预登记提交切出） | `git worktree list` |
+| p132 切分 | 外层五块同 p24；每训练块 inner train 469 / inner val 198 | `configs/cv5_folds_p132_2026-10.json` |
+| p132 结构轮 | seq132/336 × patch16/24/36；lr3e-4、bs32、do0.2、8 heads、seed2021 | `configs/scan_b26m_p132_structure_2026-11-20.json` |
 | 原预案缺口 | lr×batch 小复核、seed 2022/2023、稳定性辅图、最终全量训练/未来曲线仍未完成 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` §原预案完成情况 |
 | B26M 锚点 | E00 Full/Block=33.62/35.05；G1 seq132=27.82/27.86；完整结果见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
 | 暂定候选 | P36：seq132、p36/s18、lr3e-4、bs32、do0.2、nh8；3 seed Full/Block=26.83/26.46 | `EXPERIMENT_B26M-tuning_rounds.md` |
