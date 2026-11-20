@@ -1,0 +1,60 @@
+{
+  "series": "B26M-p24-supplement",
+  "created": "2026-11-20",
+  "purpose": "Complete the P36 lr x batch 2x2 across three seeds and add final-candidate seeds 2022/2023.",
+  "cv_file": "configs/cv5_folds_2026-10.json",
+  "folds": [1, 2, 3, 4, 5],
+  "fixed": {
+    "seq_len": 132,
+    "pred_len": 24,
+    "patch_len": 36,
+    "stride": 18,
+    "d_model": 128,
+    "n_heads": 8,
+    "e_layers": 2,
+    "d_ff": 2048,
+    "dropout": 0.2,
+    "fc_dropout": 0.2,
+    "train_epochs": 50,
+    "patience": 100,
+    "loss": "mse",
+    "features": "MS"
+  },
+  "jobs": [
+    {
+      "id": "B26M-LV2-P36-1E3-BS32-SEED2019",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "random_seed": 2019,
+      "variable": "lr=1e-3 x bs=32 interaction completion"
+    },
+    {
+      "id": "B26M-LV2-P36-1E3-BS32-SEED2020",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "random_seed": 2020,
+      "variable": "lr=1e-3 x bs=32 interaction completion"
+    },
+    {
+      "id": "B26M-LV2-P36-1E3-BS32-SEED2021",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "random_seed": 2021,
+      "variable": "lr=1e-3 x bs=32 interaction completion"
+    },
+    {
+      "id": "B26M-F-P36-SEED2022",
+      "learning_rate": 0.0003,
+      "batch_size": 32,
+      "random_seed": 2022,
+      "variable": "final candidate additional seed"
+    },
+    {
+      "id": "B26M-F-P36-SEED2023",
+      "learning_rate": 0.0003,
+      "batch_size": 32,
+      "random_seed": 2023,
+      "variable": "final candidate additional seed"
+    }
+  ]
+}
