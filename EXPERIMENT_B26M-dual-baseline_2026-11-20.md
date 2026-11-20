@@ -18,7 +18,7 @@
 
 - [x] 训练入口：`run_base_cv5.py`
 - [x] p24 fold：`configs/cv5_folds_2026-10.json`
-- [x] p132 fold：`configs/cv5_folds_p132_2026-10.json`（训练前生成）
+- [x] p132 fold：`configs/cv5_folds_p132_2026-10.json`（训练前生成；inner train 507 / inner val 160）
 - [x] 数据路径与 SHA256 由每次 config 自动记录
 - [x] features=MS，target=ssn，enc_in=3，num_workers=0
 - [x] p24 对照 ID：`B26M-F-P36-SEED2019`、`B26M-F-P36-SEED2020`、`B26M-B-P36-BS32`
@@ -58,8 +58,54 @@
 
 ## 训练与评估产物
 
-待运行后补充。
+### p24 补强完成
+
+共 5 个配置 × 5 折 = 25 次训练；每个配置均找到 5 个外层 fold 产物，无真实 Traceback/NaN/OOM。
+日志中的 `UnpicklingError` 字样来自项目既有的安全检查提示，随后以 `weights_only=False`
+成功加载自身 checkpoint，不是失败。
+
+#### lr × batch（P36、三 seed）
+
+| lr | batch | Full MAE mean ± seed std | Block24 MAE mean ± seed std |
+|---:|---:|---:|---:|
+| 3e-4 | 16 | 27.15 ± 0.28 | 26.91 ± 0.26 |
+| **3e-4** | **32** | **26.83 ± 0.14** | **26.46 ± 0.35** |
+| 1e-3 | 16 | 27.30 ± 0.06 | 27.14 ± 0.58 |
+| 1e-3 | 32 | 27.36 ± 0.54 | 27.56 ± 1.20 |
+
+结论：四格中 `lr=3e-4, batch=32` 在 Full 与 Block24 都最好；没有排序翻转。
+
+#### 最终候选五 seed
+
+| seed | Full MAE | Block24 MAE |
+|---:|---:|---:|
+| 2019 | 26.77 | 26.35 |
+| 2020 | 26.74 | 26.18 |
+| 2021 | 27.00 | 26.85 |
+| 2022 | 26.84 | 26.53 |
+| 2023 | 26.83 | 26.51 |
+| **五 seed** | **26.83 ± 0.10** | **26.48 ± 0.25** |
+
+五 seed 均值与三 seed 基本重合，未出现超过 3% 的变化。p24 最佳基线暂定为
+`BASE-2026-11-M-CAND-P36`。
+
+#### p24 图件
+
+- `plots/fig_p24_structure_stability_2026-11-20.{png,pdf}`
+- `plots/fig_p24_candidate_five_seed_stability_2026-11-20.{png,pdf}`
+- `analysis/p24_dual_summary/p24_lr_batch_heatmap.{png,pdf}`
+- `analysis/p24_dual_summary/p24_candidate_five_seed.{png,pdf}`
+
+### p132 预检与 smoke
+
+- 独立切分：inner train 507（末块 506）/ inner val 160。
+- `seq_len=132, pred_len=132`：训练 975 窗口，验证 116，F1 外层 404；
+- `seq_len=336, pred_len=132`：训练 159 窗口，验证 116，F1 外层 200；
+- 两者 1 epoch smoke 均有限值、shape=(N,132,1)，`steps/epoch` 分别为 30 与 4。
+
+> 早先 469/198 方案因 `seq_len=336` 每块只剩 2 个训练窗口、batch32 会得到 0 个 batch，
+> 在正式训练前废弃并改为 507/160。
 
 ## 结论
 
-待运行后补充。
+p24 双基线中的 p24 侧已完成补强：P36 + lr3e-4 + bs32 保持最佳。p132 结论待结构轮与后续参数轮完成后补充。

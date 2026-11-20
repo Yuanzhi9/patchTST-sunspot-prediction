@@ -657,3 +657,11 @@ B26M-SEQCTL-SL132-CAP336COUNT-F3  full_MAE=26.19  full_RMSE=34.73  full_bias=+4.
 B26M-SEQCTL-SL132-CAP336COUNT-F4  full_MAE=27.69  full_RMSE=37.69  full_bias=-5.37  block24_MAE=29.56
 B26M-SEQCTL-SL132-CAP336COUNT-F5  full_MAE=26.46  full_RMSE=34.72  full_bias=+3.97  block24_MAE=26.79
 B26M-SEQCTL-SL132-CAP336COUNT-SUMMARY  full_MAE_mean=28.36  full_MAE_std=3.02  full_MAE_worst=34.31  block24_MAE_mean=28.35  block24_MAE_std=2.64  block24_MAE_worst=32.97
+
+# [2026-11-20] B26M p24 补强：lr=1e-3 × batch=32 三 seed 与最终候选 seed2022/2023；物理 SSN
+B26M-LV2-P36-1E3-BS32-SEED2019-SUMMARY  full_MAE_mean=26.82  full_MAE_std=3.29  full_MAE_worst=33.26  block24_MAE_mean=26.26  block24_MAE_std=3.29  block24_MAE_worst=32.62
+B26M-LV2-P36-1E3-BS32-SEED2020-SUMMARY  full_MAE_mean=27.36  full_MAE_std=4.17  full_MAE_worst=35.54  block24_MAE_mean=27.80  block24_MAE_std=4.83  block24_MAE_worst=37.25
+B26M-LV2-P36-1E3-BS32-SEED2021-SUMMARY  full_MAE_mean=27.90  full_MAE_std=4.34  full_MAE_worst=35.99  block24_MAE_mean=28.63  block24_MAE_std=4.34  block24_MAE_worst=36.13
+B26M-F-P36-SEED2022-SUMMARY  full_MAE_mean=26.84  full_MAE_std=3.44  full_MAE_worst=33.51  block24_MAE_mean=26.53  block24_MAE_std=3.36  block24_MAE_worst=32.85
+B26M-F-P36-SEED2023-SUMMARY  full_MAE_mean=26.83  full_MAE_std=3.21  full_MAE_worst=33.03  block24_MAE_mean=26.51  block24_MAE_std=3.16  block24_MAE_worst=32.63
+B26M-CAND-P36-5SEED-SUMMARY  full_MAE_mean=26.83  full_seed_std=0.10  block24_MAE_mean=26.48  block_seed_std=0.25  evidence=analysis/p24_dual_summary

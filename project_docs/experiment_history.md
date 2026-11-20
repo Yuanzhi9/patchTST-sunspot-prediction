@@ -33,6 +33,8 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **B26M-LV2** | 11.20 | Stage 10 | 完成 P36 lr×batch 第四格 | seq132,p36/s18,lr1e-3,bs32,CV5,seeds2019-2021 | 26.82/27.36/27.90 | — | — | 三 seed Full=27.36；四格中仍以 lr3e-4/bs32 最好 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` | ✅ |
+| **B26M-F5** | 11.20 | Stage 10 | P36 最佳候选补 seed2022/2023 | seq132,p36/s18,lr3e-4,bs32,CV5 | **五 seed 26.83±0.10** | — | — | Block24=26.48±0.25；候选稳定性通过 | 同上 | ✅ |
 | **B26M-G3** | 11.19 | Stage 10 | 短上下文诊断 patch=1/1 | seq 1/12/24/132,CV5,dataset=2026-10 | 38.88/34.85/32.76/30.86 | — | — | 短上下文落后；G1 seq132+16/8 仍最佳 | `EXPERIMENT_B26M-G3_short_context.md` | ✅ |
 | **B26M-tuning** | 11.19 | Stage 10 | lr/batch/dropout/heads/seed 批量调参 | seq132,P36/P24,lr3e-4,bs32,do0.2,seeds2019-2021 | **P36 三 seed 26.83±0.14** | — | — | 暂定候选 P36；Block 三 seed 26.46±0.35 | `EXPERIMENT_B26M-tuning_rounds.md` | ✅ |
 | **B26M-LV** | 11.19 | Stage 10 | P36 lr 3e-4 vs 1e-3 补 seed2019/2020 | seq132,P36,lr3e-4/1e-3,bs16,三 seed | **3e-4 三 seed 27.03** | — | — | 1e-3 为 27.30；Block 方向不完全一致 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` | ✅ |
@@ -1199,3 +1201,22 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
   不能把原 G1 全部差值只归因于历史长度。
 
 详见 `EXPERIMENT_B26M-followup_validation_2026-11-19.md`。
+
+### B26M p24 双基线补强（2026-11-20）
+
+`lr × batch` 完整 2×2 三 seed：
+
+| lr | batch | Full MAE | Block24 MAE |
+|---:|---:|---:|---:|
+| 3e-4 | 16 | 27.15 ± 0.28 | 26.91 ± 0.26 |
+| **3e-4** | **32** | **26.83 ± 0.14** | **26.46 ± 0.35** |
+| 1e-3 | 16 | 27.30 ± 0.06 | 27.14 ± 0.58 |
+| 1e-3 | 32 | 27.36 ± 0.54 | 27.56 ± 1.20 |
+
+最终候选补 seed2022/2023 后，五 seed Full=26.83±0.10、Block24=26.48±0.25，
+与三 seed 基本重合。p24 最佳基线确定为 `BASE-2026-11-M-CAND-P36`。
+
+图件：`analysis/p24_dual_summary/p24_lr_batch_heatmap.{png,pdf}`、
+`analysis/p24_dual_summary/p24_candidate_five_seed.{png,pdf}`、
+`plots/fig_p24_structure_stability_2026-11-20.{png,pdf}`、
+`plots/fig_p24_candidate_five_seed_stability_2026-11-20.{png,pdf}`。

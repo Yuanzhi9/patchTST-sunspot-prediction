@@ -1,0 +1,11 @@
+{
+  "des": "B26M-F-P36-SEED2022",
+  "seed": 2022,
+  "folds_found": 5,
+  "full_MAE_mean": 26.83921773688234,
+  "full_MAE_std": 3.438561873783531,
+  "full_MAE_worst": 33.51232727275541,
+  "block24_MAE_mean": 26.53406740525756,
+  "block24_MAE_std": 3.361457173981187,
+  "block24_MAE_worst": 32.852312751249826
+}
