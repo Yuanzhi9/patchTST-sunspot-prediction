@@ -60,3 +60,22 @@ val/test 不受影响。这样可在较短 `seq_len` 产生更多训练窗口时
 4. 检查 scaler 拟合月数、训练/内层验证/外层验证窗口数和日期
 5. 单折完成后运行 `scripts/eval_cv5.py`
 6. 单折图通过后再跑五折 E00
+
+## 2026-11-20 p132 direct-cycle 扩展
+
+新增文件：
+
+- `configs/cv5_folds_p132_2026-10.json`：外层五块同 p24；inner train 507（末块 506），
+  inner val 160。该长度保证 `seq_len=336 + pred_len=132` 仍有 159 个训练窗口，避免零 batch。
+- `scripts/eval_p132_cv5.py`：物理反归一化、全 132 步诊断指标、逐提前期 MAE、
+  无重叠 direct-cycle 曲线、13 月平滑峰谷匹配。
+- `scripts/plot_p132_cv5.py`：五折 direct-cycle 主图、逐提前期与滑窗误差辅图。
+- `scripts/plot_stability_cv5.py`：通用 p24/p132 稳定性图。
+- `scripts/compare_p24_p132.py`：单 seed、同 fold/日期交集的 p24/p132 曲线比较。
+- `scripts/compare_p24_p132_multiseed.py`：五 seed 同日期比较与汇总。
+- `scripts/summarize_p132_search.py`：p132 参数搜索均值/最差折权衡图。
+
+验证：
+
+- p132 `seq_len=132/336` 均完成 1 epoch smoke；shape=(N,132,1)、有限值、正 batch。
+- p132 `seq_len=336` 训练窗口 159、验证 116、F1 外层 200。

@@ -1,0 +1,51 @@
+{
+  "series": "B26M-P132-final-parameters",
+  "created": "2026-11-20",
+  "purpose": "Tune batch/dropout/heads on the two surviving lr=1e-3 structures.",
+  "cv_file": "configs/cv5_folds_p132_2026-10.json",
+  "folds": [1, 2, 3, 4, 5],
+  "fixed": {
+    "seq_len": 132,
+    "pred_len": 132,
+    "label_len": 48,
+    "d_model": 128,
+    "e_layers": 2,
+    "d_ff": 2048,
+    "train_epochs": 50,
+    "patience": 100,
+    "random_seed": 2021,
+    "loss": "mse",
+    "features": "MS",
+    "learning_rate": 0.001
+  },
+  "candidates": [
+    {
+      "id": "B26M-P132-S132-P36-LR1E3",
+      "patch_len": 36,
+      "stride": 18,
+      "batch_size": 32,
+      "dropout": 0.2,
+      "n_heads": 8
+    },
+    {
+      "id": "B26M-P132-S132-P16-LR1E3",
+      "patch_len": 16,
+      "stride": 8,
+      "batch_size": 32,
+      "dropout": 0.2,
+      "n_heads": 8
+    }
+  ],
+  "jobs": [
+    {"id": "B26M-P132-S132-P36-LR1E3-BS16", "patch_len": 36, "stride": 18, "batch_size": 16, "dropout": 0.2, "n_heads": 8},
+    {"id": "B26M-P132-S132-P36-LR1E3-BS64", "patch_len": 36, "stride": 18, "batch_size": 64, "dropout": 0.2, "n_heads": 8},
+    {"id": "B26M-P132-S132-P36-LR1E3-DO01", "patch_len": 36, "stride": 18, "batch_size": 32, "dropout": 0.1, "n_heads": 8},
+    {"id": "B26M-P132-S132-P36-LR1E3-DO03", "patch_len": 36, "stride": 18, "batch_size": 32, "dropout": 0.3, "n_heads": 8},
+    {"id": "B26M-P132-S132-P36-LR1E3-NH4", "patch_len": 36, "stride": 18, "batch_size": 32, "dropout": 0.2, "n_heads": 4},
+    {"id": "B26M-P132-S132-P16-LR1E3-BS16", "patch_len": 16, "stride": 8, "batch_size": 16, "dropout": 0.2, "n_heads": 8},
+    {"id": "B26M-P132-S132-P16-LR1E3-BS64", "patch_len": 16, "stride": 8, "batch_size": 64, "dropout": 0.2, "n_heads": 8},
+    {"id": "B26M-P132-S132-P16-LR1E3-DO01", "patch_len": 16, "stride": 8, "batch_size": 32, "dropout": 0.1, "n_heads": 8},
+    {"id": "B26M-P132-S132-P16-LR1E3-DO03", "patch_len": 16, "stride": 8, "batch_size": 32, "dropout": 0.3, "n_heads": 8},
+    {"id": "B26M-P132-S132-P16-LR1E3-NH4", "patch_len": 16, "stride": 8, "batch_size": 32, "dropout": 0.2, "n_heads": 4}
+  ]
+}

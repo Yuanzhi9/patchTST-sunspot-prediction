@@ -1,0 +1,27 @@
+{
+  "series": "B26M-P132-final-seeds",
+  "created": "2026-11-20",
+  "purpose": "Five-seed robustness for the selected p132 candidate.",
+  "cv_file": "configs/cv5_folds_p132_2026-10.json",
+  "folds": [1, 2, 3, 4, 5],
+  "selected_candidate": {
+    "id": "B26M-P132-S132-P36-LR1E3-DO03",
+    "seq_len": 132,
+    "pred_len": 132,
+    "patch_len": 36,
+    "stride": 18,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "dropout": 0.3,
+    "fc_dropout": 0.3,
+    "n_heads": 8,
+    "epochs": 50,
+    "seed2021": "already complete"
+  },
+  "jobs": [
+    {"id": "B26M-P132-S132-P36-LR1E3-DO03-SEED2019", "random_seed": 2019},
+    {"id": "B26M-P132-S132-P36-LR1E3-DO03-SEED2020", "random_seed": 2020},
+    {"id": "B26M-P132-S132-P36-LR1E3-DO03-SEED2022", "random_seed": 2022},
+    {"id": "B26M-P132-S132-P36-LR1E3-DO03-SEED2023", "random_seed": 2023}
+  ]
+}
