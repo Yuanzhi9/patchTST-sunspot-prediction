@@ -78,10 +78,13 @@
 
 ## 当前阶段：p24/p132 双基线（2026-11-20）
 
-- p24 最佳基线：P36、seq132、p36/18、lr3e-4、bs32、do0.2、nh8；五 seed Full/Block=26.83/26.48。
-- p132 最佳基线：P36、seq132、p36/18、lr1e-3、bs32、do0.3、nh8；五 seed direct-cycle=41.12±1.25。
+- PR24 当前网格内候选：`PR24-SL132-PL36-S18-BS32-DO02`；五 seed Full/Block=26.83/26.48。
+- PR132 当前搜索网格内候选：`PR132-SL132-PL36-S18-BS32-DO03`；五 seed direct-cycle=41.12±1.25。
+  该点是 26 组配置中的最佳候选，不是全局最优；近邻配置与超过其未搜索的结构/损失维度见
+  `/output/p132失效机制核查_2026-11-20.md`。
 - p132 使用外层相同五折与独立 507/160 内层切分；主指标是无重叠 direct-cycle MAE。
-- 同日期五 seed 比较：p24 curve MAE=26.48，p132=41.32；p24 峰谷误差也更小。
+- 同日期五 seed 比较：p24 curve MAE=26.48，p132=41.32；p24 在 25/25 个 seed×fold 上更低。
+  第 1–4 折训练包含留出块之后的数据，属于未来感知五折，不是纯未来预报。
 - 两套配置均未正式冻结；最终全量训练、未来曲线与顺序审计待景修验收。
 - 新方法仍冻结至基线定；block24 仍是当前用法口径；跨环境/跨口径边界不变。
 - 详见 `EXPERIMENT_B26M-followup_validation_2026-11-19.md`、`project_docs/experiment_history.md` Stage 10。

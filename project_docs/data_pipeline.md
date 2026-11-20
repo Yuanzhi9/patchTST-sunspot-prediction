@@ -156,7 +156,9 @@ test = val 后至 test_end
 2. `label_len=48` 的 decoder 输入取自**输入窗口尾部**（过去 48 月），且 PatchTST 的 `forward(x)` 只消费 `x`，该输入实际未被使用。
 
 **未使用的列（不构成任何问题，但记录在案）**：`year_norm`、`cycle_phase` 两列存在于 CSV，当前 `enc_in=3` 未启用
-（`cols=['month_sin','month_cos'] + [target]`）。若要接入（物理先验方向），属改特征、需重训。
+（`cols=['month_sin','month_cos'] + [target]`）。其中 `cycle_phase` 由
+`sin(2π·(year-1749)/11)` 生成，是固定 11 年正弦**伪相位**，不是依据官方周期极小值得到的真实相位；
+保留旧列以保证数据快照可复现，新实验不得把它当作真实周期相位。若要接入真实物理先验，属改特征、需重训。
 
 ## 正式口径（2026-08-14 起）
 
