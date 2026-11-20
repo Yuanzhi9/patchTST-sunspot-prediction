@@ -1,6 +1,6 @@
 {
   "schema": "BASE-2026-11-M-cv5-v1",
-  "created_utc": "2026-11-20T01:58:28.394971+00:00",
+  "created_utc": "2026-11-20T02:03:18.270654+00:00",
   "data_csv": "PatchTST_supervised/dataset/sunspot_with_cycle_monthly_2026-10.csv",
   "data_sha256": "675f5ab2bc88ef7a92734b8d87d1fbc6f12be587f4f4f9652a6a7b58d4eff69c",
   "n_months": 3334,
@@ -8,7 +8,7 @@
   "end_date": "2026-10",
   "n_folds": 5,
   "split_rule": "sequential_equal_blocks_no_shuffle",
-  "inner_val_months": 198,
+  "inner_val_months": 160,
   "blocks": [
     {
       "block_id": 1,
@@ -72,16 +72,16 @@
           "end_date": "1860-02",
           "inner_train": {
             "start": 667,
-            "end": 1135,
-            "n_months": 469,
+            "end": 1173,
+            "n_months": 507,
             "start_date": "1804-08",
-            "end_date": "1843-08"
+            "end_date": "1846-10"
           },
           "inner_val": {
-            "start": 1136,
+            "start": 1174,
             "end": 1333,
-            "n_months": 198,
-            "start_date": "1843-09",
+            "n_months": 160,
+            "start_date": "1846-11",
             "end_date": "1860-02"
           }
         },
@@ -94,16 +94,16 @@
           "end_date": "1915-09",
           "inner_train": {
             "start": 1334,
-            "end": 1802,
-            "n_months": 469,
+            "end": 1840,
+            "n_months": 507,
             "start_date": "1860-03",
-            "end_date": "1899-03"
+            "end_date": "1902-05"
           },
           "inner_val": {
-            "start": 1803,
+            "start": 1841,
             "end": 2000,
-            "n_months": 198,
-            "start_date": "1899-04",
+            "n_months": 160,
+            "start_date": "1902-06",
             "end_date": "1915-09"
           }
         },
@@ -116,16 +116,16 @@
           "end_date": "1971-04",
           "inner_train": {
             "start": 2001,
-            "end": 2469,
-            "n_months": 469,
+            "end": 2507,
+            "n_months": 507,
             "start_date": "1915-10",
-            "end_date": "1954-10"
+            "end_date": "1957-12"
           },
           "inner_val": {
-            "start": 2470,
+            "start": 2508,
             "end": 2667,
-            "n_months": 198,
-            "start_date": "1954-11",
+            "n_months": 160,
+            "start_date": "1958-01",
             "end_date": "1971-04"
           }
         },
@@ -138,16 +138,16 @@
           "end_date": "2026-10",
           "inner_train": {
             "start": 2668,
-            "end": 3135,
-            "n_months": 468,
+            "end": 3173,
+            "n_months": 506,
             "start_date": "1971-05",
-            "end_date": "2010-04"
+            "end_date": "2013-06"
           },
           "inner_val": {
-            "start": 3136,
+            "start": 3174,
             "end": 3333,
-            "n_months": 198,
-            "start_date": "2010-05",
+            "n_months": 160,
+            "start_date": "2013-07",
             "end_date": "2026-10"
           }
         }
@@ -173,16 +173,16 @@
           "end_date": "1804-07",
           "inner_train": {
             "start": 0,
-            "end": 468,
-            "n_months": 469,
+            "end": 506,
+            "n_months": 507,
             "start_date": "1749-01",
-            "end_date": "1788-01"
+            "end_date": "1791-03"
           },
           "inner_val": {
-            "start": 469,
+            "start": 507,
             "end": 666,
-            "n_months": 198,
-            "start_date": "1788-02",
+            "n_months": 160,
+            "start_date": "1791-04",
             "end_date": "1804-07"
           }
         },
@@ -195,16 +195,16 @@
           "end_date": "1915-09",
           "inner_train": {
             "start": 1334,
-            "end": 1802,
-            "n_months": 469,
+            "end": 1840,
+            "n_months": 507,
             "start_date": "1860-03",
-            "end_date": "1899-03"
+            "end_date": "1902-05"
           },
           "inner_val": {
-            "start": 1803,
+            "start": 1841,
             "end": 2000,
-            "n_months": 198,
-            "start_date": "1899-04",
+            "n_months": 160,
+            "start_date": "1902-06",
             "end_date": "1915-09"
           }
         },
@@ -217,16 +217,16 @@
           "end_date": "1971-04",
           "inner_train": {
             "start": 2001,
-            "end": 2469,
-            "n_months": 469,
+            "end": 2507,
+            "n_months": 507,
             "start_date": "1915-10",
-            "end_date": "1954-10"
+            "end_date": "1957-12"
           },
           "inner_val": {
-            "start": 2470,
+            "start": 2508,
             "end": 2667,
-            "n_months": 198,
-            "start_date": "1954-11",
+            "n_months": 160,
+            "start_date": "1958-01",
             "end_date": "1971-04"
           }
         },
@@ -239,16 +239,16 @@
           "end_date": "2026-10",
           "inner_train": {
             "start": 2668,
-            "end": 3135,
-            "n_months": 468,
+            "end": 3173,
+            "n_months": 506,
             "start_date": "1971-05",
-            "end_date": "2010-04"
+            "end_date": "2013-06"
           },
           "inner_val": {
-            "start": 3136,
+            "start": 3174,
             "end": 3333,
-            "n_months": 198,
-            "start_date": "2010-05",
+            "n_months": 160,
+            "start_date": "2013-07",
             "end_date": "2026-10"
           }
         }
@@ -274,16 +274,16 @@
           "end_date": "1804-07",
           "inner_train": {
             "start": 0,
-            "end": 468,
-            "n_months": 469,
+            "end": 506,
+            "n_months": 507,
             "start_date": "1749-01",
-            "end_date": "1788-01"
+            "end_date": "1791-03"
           },
           "inner_val": {
-            "start": 469,
+            "start": 507,
             "end": 666,
-            "n_months": 198,
-            "start_date": "1788-02",
+            "n_months": 160,
+            "start_date": "1791-04",
             "end_date": "1804-07"
           }
         },
@@ -296,16 +296,16 @@
           "end_date": "1860-02",
           "inner_train": {
             "start": 667,
-            "end": 1135,
-            "n_months": 469,
+            "end": 1173,
+            "n_months": 507,
             "start_date": "1804-08",
-            "end_date": "1843-08"
+            "end_date": "1846-10"
           },
           "inner_val": {
-            "start": 1136,
+            "start": 1174,
             "end": 1333,
-            "n_months": 198,
-            "start_date": "1843-09",
+            "n_months": 160,
+            "start_date": "1846-11",
             "end_date": "1860-02"
           }
         },
@@ -318,16 +318,16 @@
           "end_date": "1971-04",
           "inner_train": {
             "start": 2001,
-            "end": 2469,
-            "n_months": 469,
+            "end": 2507,
+            "n_months": 507,
             "start_date": "1915-10",
-            "end_date": "1954-10"
+            "end_date": "1957-12"
           },
           "inner_val": {
-            "start": 2470,
+            "start": 2508,
             "end": 2667,
-            "n_months": 198,
-            "start_date": "1954-11",
+            "n_months": 160,
+            "start_date": "1958-01",
             "end_date": "1971-04"
           }
         },
@@ -340,16 +340,16 @@
           "end_date": "2026-10",
           "inner_train": {
             "start": 2668,
-            "end": 3135,
-            "n_months": 468,
+            "end": 3173,
+            "n_months": 506,
             "start_date": "1971-05",
-            "end_date": "2010-04"
+            "end_date": "2013-06"
           },
           "inner_val": {
-            "start": 3136,
+            "start": 3174,
             "end": 3333,
-            "n_months": 198,
-            "start_date": "2010-05",
+            "n_months": 160,
+            "start_date": "2013-07",
             "end_date": "2026-10"
           }
         }
@@ -375,16 +375,16 @@
           "end_date": "1804-07",
           "inner_train": {
             "start": 0,
-            "end": 468,
-            "n_months": 469,
+            "end": 506,
+            "n_months": 507,
             "start_date": "1749-01",
-            "end_date": "1788-01"
+            "end_date": "1791-03"
           },
           "inner_val": {
-            "start": 469,
+            "start": 507,
             "end": 666,
-            "n_months": 198,
-            "start_date": "1788-02",
+            "n_months": 160,
+            "start_date": "1791-04",
             "end_date": "1804-07"
           }
         },
@@ -397,16 +397,16 @@
           "end_date": "1860-02",
           "inner_train": {
             "start": 667,
-            "end": 1135,
-            "n_months": 469,
+            "end": 1173,
+            "n_months": 507,
             "start_date": "1804-08",
-            "end_date": "1843-08"
+            "end_date": "1846-10"
           },
           "inner_val": {
-            "start": 1136,
+            "start": 1174,
             "end": 1333,
-            "n_months": 198,
-            "start_date": "1843-09",
+            "n_months": 160,
+            "start_date": "1846-11",
             "end_date": "1860-02"
           }
         },
@@ -419,16 +419,16 @@
           "end_date": "1915-09",
           "inner_train": {
             "start": 1334,
-            "end": 1802,
-            "n_months": 469,
+            "end": 1840,
+            "n_months": 507,
             "start_date": "1860-03",
-            "end_date": "1899-03"
+            "end_date": "1902-05"
           },
           "inner_val": {
-            "start": 1803,
+            "start": 1841,
             "end": 2000,
-            "n_months": 198,
-            "start_date": "1899-04",
+            "n_months": 160,
+            "start_date": "1902-06",
             "end_date": "1915-09"
           }
         },
@@ -441,16 +441,16 @@
           "end_date": "2026-10",
           "inner_train": {
             "start": 2668,
-            "end": 3135,
-            "n_months": 468,
+            "end": 3173,
+            "n_months": 506,
             "start_date": "1971-05",
-            "end_date": "2010-04"
+            "end_date": "2013-06"
           },
           "inner_val": {
-            "start": 3136,
+            "start": 3174,
             "end": 3333,
-            "n_months": 198,
-            "start_date": "2010-05",
+            "n_months": 160,
+            "start_date": "2013-07",
             "end_date": "2026-10"
           }
         }
@@ -476,16 +476,16 @@
           "end_date": "1804-07",
           "inner_train": {
             "start": 0,
-            "end": 468,
-            "n_months": 469,
+            "end": 506,
+            "n_months": 507,
             "start_date": "1749-01",
-            "end_date": "1788-01"
+            "end_date": "1791-03"
           },
           "inner_val": {
-            "start": 469,
+            "start": 507,
             "end": 666,
-            "n_months": 198,
-            "start_date": "1788-02",
+            "n_months": 160,
+            "start_date": "1791-04",
             "end_date": "1804-07"
           }
         },
@@ -498,16 +498,16 @@
           "end_date": "1860-02",
           "inner_train": {
             "start": 667,
-            "end": 1135,
-            "n_months": 469,
+            "end": 1173,
+            "n_months": 507,
             "start_date": "1804-08",
-            "end_date": "1843-08"
+            "end_date": "1846-10"
           },
           "inner_val": {
-            "start": 1136,
+            "start": 1174,
             "end": 1333,
-            "n_months": 198,
-            "start_date": "1843-09",
+            "n_months": 160,
+            "start_date": "1846-11",
             "end_date": "1860-02"
           }
         },
@@ -520,16 +520,16 @@
           "end_date": "1915-09",
           "inner_train": {
             "start": 1334,
-            "end": 1802,
-            "n_months": 469,
+            "end": 1840,
+            "n_months": 507,
             "start_date": "1860-03",
-            "end_date": "1899-03"
+            "end_date": "1902-05"
           },
           "inner_val": {
-            "start": 1803,
+            "start": 1841,
             "end": 2000,
-            "n_months": 198,
-            "start_date": "1899-04",
+            "n_months": 160,
+            "start_date": "1902-06",
             "end_date": "1915-09"
           }
         },
@@ -542,16 +542,16 @@
           "end_date": "1971-04",
           "inner_train": {
             "start": 2001,
-            "end": 2469,
-            "n_months": 469,
+            "end": 2507,
+            "n_months": 507,
             "start_date": "1915-10",
-            "end_date": "1954-10"
+            "end_date": "1957-12"
           },
           "inner_val": {
-            "start": 2470,
+            "start": 2508,
             "end": 2667,
-            "n_months": 198,
-            "start_date": "1954-11",
+            "n_months": 160,
+            "start_date": "1958-01",
             "end_date": "1971-04"
           }
         }
