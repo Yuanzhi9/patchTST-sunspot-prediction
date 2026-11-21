@@ -1,0 +1,11 @@
+{
+  "des": "B26M-CAP-D64",
+  "seed": 2023,
+  "folds_found": 5,
+  "full_MAE_mean": 27.092877208953258,
+  "full_MAE_std": 3.032844790170114,
+  "full_MAE_worst": 32.79017821482072,
+  "block24_MAE_mean": 27.095779355870082,
+  "block24_MAE_std": 2.564690834524042,
+  "block24_MAE_worst": 31.26385660893989
+}

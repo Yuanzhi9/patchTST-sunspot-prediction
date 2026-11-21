@@ -1,0 +1,32 @@
+{
+  "curve": "analysis/cycle_holdout/SC24/p24_update_seed2023/p24_update_curve.csv",
+  "n_months": 132,
+  "raw_metrics": {
+    "mae": 15.434785276470762,
+    "rmse": 22.01927271220017,
+    "bias": -3.1369280497233083,
+    "r2": 0.7140656290623164,
+    "negative_months": 15
+  },
+  "smoothed": {
+    "smooth_window_months": 13,
+    "order": "peak_then_trough",
+    "peak": {
+      "true_date": "2014-04",
+      "true_value": 115.33076923076922,
+      "pred_date": "2014-01",
+      "pred_value": 103.65518775353065,
+      "amplitude_error": -11.675581477238566,
+      "time_error_months": -3
+    },
+    "trough": {
+      "true_date": "2019-06",
+      "true_value": 3.546153846153847,
+      "pred_date": "2019-06",
+      "pred_value": -1.206192603478065,
+      "amplitude_error": -4.752346449631911,
+      "time_error_months": 0
+    },
+    "amplitude_ratio": 0.7723310759098541
+  }
+}

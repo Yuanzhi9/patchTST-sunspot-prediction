@@ -30,8 +30,9 @@ from .data_loader import TARGET_TRANSFORMS
 
 def _load_fold(fold_spec_path: str | Path, fold_id: int) -> dict:
     spec = json.loads(Path(fold_spec_path).read_text(encoding="utf-8"))
-    if int(spec["n_folds"]) != 5:
-        raise ValueError("BASE-2026-11-M requires exactly five folds")
+    n_folds = int(spec["n_folds"])
+    if n_folds <= 0 or len(spec["folds"]) != n_folds:
+        raise ValueError("fold spec n_folds must match the number of fold records")
     for fold in spec["folds"]:
         if int(fold["fold"]) == int(fold_id):
             return fold

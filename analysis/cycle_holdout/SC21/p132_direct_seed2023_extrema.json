@@ -1,0 +1,32 @@
+{
+  "curve": "results/sunspot_PatchTST_cv5_ftMS_sl132_ll48_pl132_dm128_nh2_el2_df2048_p36_s18_B26M-P132-CHRONO-SC21_F1_seed2023/p132_curve.csv",
+  "n_months": 132,
+  "raw_metrics": {
+    "mae": 40.13513526916505,
+    "rmse": 49.172656941552404,
+    "bias": 14.849289321899416,
+    "r2": 0.6178267302513523,
+    "negative_months": 0
+  },
+  "smoothed": {
+    "smooth_window_months": 13,
+    "order": "peak_then_trough",
+    "peak": {
+      "true_date": "1989-06",
+      "true_value": 212.76923076923077,
+      "pred_date": "1991-05",
+      "pred_value": 201.7686532827524,
+      "amplitude_error": -11.000577486478363,
+      "time_error_months": 23
+    },
+    "trough": {
+      "true_date": "1996-08",
+      "true_value": 11.053846153846154,
+      "pred_date": "1996-09",
+      "pred_value": 38.52578706007738,
+      "amplitude_error": 27.471940906231225,
+      "time_error_months": 1
+    },
+    "amplitude_ratio": 0.7259592215500067
+  }
+}

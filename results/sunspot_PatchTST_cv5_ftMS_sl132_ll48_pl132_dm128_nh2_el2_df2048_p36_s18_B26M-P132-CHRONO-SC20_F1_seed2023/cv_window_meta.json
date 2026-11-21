@@ -1,0 +1,87 @@
+{
+  "fold": 1,
+  "flag": "test",
+  "seq_len": 132,
+  "label_len": 48,
+  "pred_len": 132,
+  "n_windows": 1,
+  "window_origins": [
+    2597
+  ],
+  "window_target_starts": [
+    2729
+  ],
+  "window_target_ends": [
+    2860
+  ],
+  "target_dates": [
+    {
+      "start": "1976-06",
+      "end": "1987-05"
+    }
+  ],
+  "scaler_mean": [
+    0.00019462826002334036,
+    0.00033710603494913017,
+    81.34877384196186
+  ],
+  "scaler_scale": [
+    0.7070379395688952,
+    0.707175508971806,
+    67.68749551361209
+  ],
+  "feature_columns": [
+    "month_sin",
+    "month_cos",
+    "ssn"
+  ],
+  "target_transform": "",
+  "fold_spec": {
+    "fold": 1,
+    "outer_val": {
+      "block_id": 1,
+      "start": 2729,
+      "end": 2860,
+      "n_months": 132,
+      "start_date": "1976-06",
+      "end_date": "1987-05"
+    },
+    "train_blocks": [
+      {
+        "block_id": 1,
+        "start": 0,
+        "end": 2728,
+        "n_months": 2729,
+        "start_date": "1749-01",
+        "end_date": "1976-05",
+        "inner_train": {
+          "start": 0,
+          "end": 2568,
+          "n_months": 2569,
+          "start_date": "1749-01",
+          "end_date": "1963-01"
+        },
+        "inner_val": {
+          "start": 2569,
+          "end": 2728,
+          "n_months": 160,
+          "start_date": "1963-02",
+          "end_date": "1976-05"
+        }
+      }
+    ]
+  },
+  "window_sampling": {
+    "mode": "all",
+    "limit": 0,
+    "original_n_windows": 1
+  },
+  "n_train_windows": 2306,
+  "train_window_sampling": {
+    "mode": "all",
+    "limit": 0,
+    "original_n_windows": 2306
+  },
+  "setting": "sunspot_PatchTST_cv5_ftMS_sl132_ll48_pl132_dm128_nh2_el2_df2048_p36_s18_B26M-P132-CHRONO-SC20_F1_seed2023",
+  "outer_evaluation_count": 1
+}

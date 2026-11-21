@@ -1,0 +1,11 @@
+{
+  "des": "B26M-CAP-E3",
+  "seed": 2023,
+  "folds_found": 5,
+  "full_MAE_mean": 26.700191763612185,
+  "full_MAE_std": 3.420107391765328,
+  "full_MAE_worst": 33.15262004757921,
+  "block24_MAE_mean": 26.035102665523358,
+  "block24_MAE_std": 3.2360362793587245,
+  "block24_MAE_worst": 32.23943768848073
+}

@@ -1,0 +1,11 @@
+{
+  "des": "B26M-CHRONO-SC24",
+  "seed": 2023,
+  "folds_found": 1,
+  "full_MAE_mean": 15.909911423721082,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 15.909911423721082,
+  "block24_MAE_mean": 16.90700589497884,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 16.90700589497884
+}

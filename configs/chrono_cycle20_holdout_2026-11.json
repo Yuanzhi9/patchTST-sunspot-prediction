@@ -1,0 +1,58 @@
+{
+  "schema": "BASE-2026-11-M-chronological-holdout-v1",
+  "created_utc": "2026-11-21T00:00:00+00:00",
+  "data_csv": "PatchTST_supervised/dataset/sunspot_with_cycle_monthly_2026-10.csv",
+  "data_sha256": "675f5ab2bc88ef7a92734b8d87d1fbc6f12be587f4f4f9652a6a7b58d4eff69c",
+  "n_months": 3334,
+  "start_date": "1749-01",
+  "end_date": "2026-10",
+  "n_folds": 1,
+  "split_rule": "single chronological holdout; no cross-validation",
+  "blocks": [
+    {
+      "block_id": 1,
+      "start": 0,
+      "end": 3333,
+      "n_months": 3334,
+      "start_date": "1749-01",
+      "end_date": "2026-10"
+    }
+  ],
+  "folds": [
+    {
+      "fold": 1,
+      "outer_val": {
+        "block_id": 1,
+        "start": 2729,
+        "end": 2860,
+        "n_months": 132,
+        "start_date": "1976-06",
+        "end_date": "1987-05"
+      },
+      "train_blocks": [
+        {
+          "block_id": 1,
+          "start": 0,
+          "end": 2728,
+          "n_months": 2729,
+          "start_date": "1749-01",
+          "end_date": "1976-05",
+          "inner_train": {
+            "start": 0,
+            "end": 2596,
+            "n_months": 2597,
+            "start_date": "1749-01",
+            "end_date": "1965-05"
+          },
+          "inner_val": {
+            "start": 2597,
+            "end": 2728,
+            "n_months": 132,
+            "start_date": "1965-06",
+            "end_date": "1976-05"
+          }
+        }
+      ]
+    }
+  ]
+}

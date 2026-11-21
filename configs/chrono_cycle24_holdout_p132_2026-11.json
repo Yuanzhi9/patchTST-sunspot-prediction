@@ -1,0 +1,21 @@
+{
+  "schema": "BASE-2026-11-M-chronological-holdout-p132-v1",
+  "created_utc": "2026-11-21T00:00:00+00:00",
+  "data_csv": "PatchTST_supervised/dataset/sunspot_with_cycle_monthly_2026-10.csv",
+  "data_sha256": "675f5ab2bc88ef7a92734b8d87d1fbc6f12be587f4f4f9652a6a7b58d4eff69c",
+  "n_months": 3334,
+  "start_date": "1749-01",
+  "end_date": "2026-10",
+  "n_folds": 1,
+  "split_rule": "single chronological holdout; p132 inner validation 160 months",
+  "blocks": [{"block_id": 1, "start": 0, "end": 3333, "n_months": 3334, "start_date": "1749-01", "end_date": "2026-10"}],
+  "folds": [{
+    "fold": 1,
+    "outer_val": {"block_id": 1, "start": 3120, "end": 3251, "n_months": 132, "start_date": "2009-01", "end_date": "2019-12"},
+    "train_blocks": [{
+      "block_id": 1, "start": 0, "end": 3119, "n_months": 3120, "start_date": "1749-01", "end_date": "2008-12",
+      "inner_train": {"start": 0, "end": 2959, "n_months": 2960, "start_date": "1749-01", "end_date": "1995-08"},
+      "inner_val": {"start": 2960, "end": 3119, "n_months": 160, "start_date": "1995-09", "end_date": "2008-12"}
+    }]
+  }]
+}

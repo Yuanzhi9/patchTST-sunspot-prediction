@@ -76,18 +76,22 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：p24/p132 双基线（2026-11-20）
+## 当前阶段：PR24 基线冻结与整周期盲测（2026-11-21）
 
 - 当前工作线：`BASE-2026-11-M` / `/output/BASE-2026-11-M`；状态以 `project_docs/STATE.md` 为准。
-- PR24 补强已完成：lr×batch 2×2 三 seed 无排序翻转；最终候选 seed2019–2023 五 seed
-  Full/Block24 = 26.83 / 26.48。规范名为 `PR24-SL132-PL36-S18-BS32-DO02`。
+- PR24 容量审计已完成。D64 五 seed 稳定更差；E3、D256 等小于 1% 的
+  单点波动未形成稳定改善。技术冻结版为
+  `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`，
+  五 seed Full/Block24 = 26.83 / 26.48。
 - p132 已在独立工作线 `BASE-2026-11-M-P132` 完成当前网格搜索与同日期比较；使用外层相同的五折与
   独立 507/160 内层切分，不把 p132 与 p24 的全步 MAE 直接横比。
-- 稳定性图已完成：逐提前期 MAE、全滑窗误差分布、lr×batch 热力图、五 seed 曲线。
-- 下一步：复核候选口径与主任务选择；正式冻结与最终全量训练仍待景修验收。
-  机制分析见 `/output/p132失效机制核查_2026-11-20.md`。
-- 新方法仍冻结至基线定；block24 仍是当前用法口径；跨环境/跨口径边界不变。
-- 详见 `EXPERIMENT_B26M-followup_validation_2026-11-19.md`、`project_docs/experiment_history.md` Stage 10。
+- SC20/SC21/SC24 已按时间顺序重新训练五 seed，比较 PR24 observed-update、
+  PR24 recursive block24 和 PR132 direct。五折只用于选参，没有替代盲测。
+- PR24 recursive 在 SC24 峰幅/谷时接近真实；SC20 强周期严重压低峰值。
+  PR132 direct 三周期均明显压低峰值。详见
+  `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md`。
+- 下一步：景修复核方法与图后，再决定是否用冻结参数训练截至 2026-10 的最终模型。
+  block24 仍是当前用法口径；跨环境/跨口径边界不变。
 
 ## 环境维护
 

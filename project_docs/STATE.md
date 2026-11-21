@@ -7,14 +7,14 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | 双基线参数证据完成；等待景修验收 | `/output/p132失效机制核查_2026-11-20.md` |
-| 当前任务 | p132 在独立工作线完成搜索与比较；本文件只保留 p24 视角并引用其权威记录 | `/output/验收报告_2026-11-20_p24_p132双基线.md` |
-| p24 原预案缺口 | lr×batch、seed2022/2023、稳定性辅图已完成；仅剩冻结后的全量训练/未来曲线 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` |
+| 当前阶段 | PR24 容量审计与三周期时间顺序留出盲测完成；当前未来 Cycle25/26 预测待做 | `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md` |
+| 当前任务 | 基于冻结 PR24 准备当前未来预测方案；不从盲测结果回改参数 | `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md` |
+| p24 原预案缺口 | 容量审计完成；参数搜索范围收口；剩余仅最终全量训练和当前未来预测 | `EXPERIMENT_B26M-capacity-audit_2026-11-21.md` |
 | B26M 锚点 | E00 Full/Block=33.62/35.05；G1 seq132=27.82/27.86；完整结果见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
-| PR24 当前网格内候选 | `PR24-SL132-PL36-S18-BS32-DO02`；五 seed Full/Block=26.83/26.48 | `analysis/p24_dual_summary/candidate_five_seed_detail.csv`、`project_docs/NAMING.md` |
+| PR24 技术冻结基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；五 seed Full/Block=26.83/26.48 | `project_docs/PR24_BASELINE_FREEZE_2026-11-21.md` |
 | p24 补强结论 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移；稳定性图已出 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` §p24 |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
-| 下一阶段候选 | p24=`BASE-2026-11-M-CAND-P36`；p132 候选见 p132 工作线 STATE；均未冻结 | `/output/p132失效机制核查_2026-11-20.md` |
+| 时间顺序盲测 | SC20/21/24 各 5 seed；PR24 recursive block24 MAE=42.39/28.23/14.48，PR132 direct=52.15/38.84/29.82 | `analysis/cycle_holdout/cycle_holdout_aggregate.csv` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
 | 远端状态 | 两个分支均已推送；分支不合并主线 | `git ls-remote origin refs/heads/BASE-2026-11-M refs/heads/BASE-2026-11-M-P132` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
@@ -30,4 +30,4 @@
 | B26M 残余不确定性 | ①lr=3e-4 仅三 seed 略优 ②batch 结论限当前 50 epoch 调度 ③seq 效应已部分隔离但仍有结构混杂 ④五折不等于未来顺序审计 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` |
 | 冻结队列 | C 类六条：平滑 / 相位特征 / 非负约束 / 谷时分类 / scheduled sampling / 多配置集成 | `plan_preregistration_2026-10-11.md` |
 | 未决 | ①候选口径复核 ②主任务选择 ③正式冻结 ④最终全量训练/未来曲线 | `/output/p132失效机制核查_2026-11-20.md` |
-| 最后核对 | 2026-11-20（AI 核对，景修待签） | — |
+| 最后核对 | 2026-11-21（容量审计 + 完整周期盲测完成，待景修复核） | `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md` |

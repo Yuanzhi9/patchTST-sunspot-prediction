@@ -1,0 +1,2 @@
+fold,cycle_MAE,cycle_RMSE,cycle_bias,full_MAE,full_RMSE,full_bias,peak_abs_amp,peak_abs_time,trough_abs_amp,trough_abs_time,n_cycle_windows
+1,24.314196898720482,31.98921881355003,20.258453155286382,24.314196898720482,31.98921881355003,20.258453155286382,31.074430025540877,5.0,69.56325331467848,72.0,1

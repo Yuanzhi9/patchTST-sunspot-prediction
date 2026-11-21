@@ -15,6 +15,9 @@
 | `BASE-2026-11-M` | `/output/BASE-2026-11-M` | **独立工作线**：2026-10 月均数据 24 月基线；顺序块五折 | `STATE.md`、`EXPERIMENT_B26M-followup_validation_2026-11-19.md` | 🟢 已验证并推送；暂不合并 |
 | `BASE-2026-11-M-P132` | `/output/BASE-2026-11-M-P132` | **双基线 p132 工作线**：直接 132 月输出；独立 507/160 内层切分 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md`、`STATE.md` | 🟢 已推送；等待验收；不合并 |
 | `BASE-2026-11-M-P132-publish` | `/tmp/p132-publish` | PR132 完整结果的分批传输镜像；最终内容树与 `BASE-2026-11-M-P132` 一致 | Git tree `af2491f` 对拍 | 🟡 传输辅助分支；不并入研究主线 |
+| `P132-publish-core` | `/tmp/p132-publish-core` | PR132 GitHub API 上传失败后的最小核心证据传输尝试 | 仅用于传输审计 | ⚪ 临时辅助分支；不并入研究主线 |
+| `P132-publish-one` | `/tmp/p132-publish-one` | PR132 单文件传输诊断分支 | 仅用于定位 408 | ⚪ 临时辅助分支；不并入研究主线 |
+| `P132-publish-safe` | `/tmp/p132-publish-safe` | PR132 安全快照传输诊断分支 | 仅用于定位 408 | ⚪ 临时辅助分支；不并入研究主线 |
 | `main` | — | **临时/遗留标签**（2026-08-10 冻结） | ❌ 旧 | ⚪ 暂不管（景修 10-11 决定） |
 
 ## 二、已归档（2026-10-11 收敛时删除标签与 worktree；内容全部已在主线）

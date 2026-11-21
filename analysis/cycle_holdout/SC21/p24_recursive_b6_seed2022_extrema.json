@@ -1,0 +1,32 @@
+{
+  "curve": "analysis/cycle_holdout/SC21/p24_update_seed2022/p24_recursive_b6_curve.csv",
+  "n_months": 132,
+  "raw_metrics": {
+    "mae": 39.30717339882278,
+    "rmse": 48.28036558688959,
+    "bias": 1.1533610479466891,
+    "r2": 0.6315707875282084,
+    "negative_months": 10
+  },
+  "smoothed": {
+    "smooth_window_months": 13,
+    "order": "peak_then_trough",
+    "peak": {
+      "true_date": "1989-06",
+      "true_value": 212.76923076923077,
+      "pred_date": "1990-11",
+      "pred_value": 217.29424940886443,
+      "amplitude_error": 4.525018639633657,
+      "time_error_months": 17
+    },
+    "trough": {
+      "true_date": "1996-08",
+      "true_value": 11.053846153846154,
+      "pred_date": "1996-09",
+      "pred_value": -9.5954356971171,
+      "amplitude_error": -20.649281850963256,
+      "time_error_months": 1
+    },
+    "amplitude_ratio": 0.9286587061412152
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "folds": [
+    {
+      "fold": 1,
+      "cycle_MAE": 50.127652324329716,
+      "cycle_RMSE": 67.38312169274847,
+      "cycle_bias": -38.28234370838513,
+      "full_MAE": 50.127652324329716,
+      "full_RMSE": 67.38312169274847,
+      "full_bias": -38.28234370838513,
+      "peak_abs_amp": 122.61054605337289,
+      "peak_abs_time": 10.0,
+      "trough_abs_amp": null,
+      "trough_abs_time": null,
+      "n_cycle_windows": 1
+    }
+  ],
+  "cycle_MAE": {
+    "mean": 50.127652324329716,
+    "std": null,
+    "worst": 50.127652324329716
+  },
+  "cycle_RMSE": {
+    "mean": 67.38312169274847,
+    "std": null,
+    "worst": 67.38312169274847
+  },
+  "cycle_bias": {
+    "mean": -38.28234370838513,
+    "std": null,
+    "worst": -38.28234370838513
+  },
+  "full_MAE": {
+    "mean": 50.127652324329716,
+    "std": null,
+    "worst": 50.127652324329716
+  },
+  "full_RMSE": {
+    "mean": 67.38312169274847,
+    "std": null,
+    "worst": 67.38312169274847
+  },
+  "full_bias": {
+    "mean": -38.28234370838513,
+    "std": null,
+    "worst": -38.28234370838513
+  },
+  "peak_abs_amp": {
+    "mean": 122.61054605337289,
+    "std": null,
+    "worst": 122.61054605337289
+  },
+  "peak_abs_time": {
+    "mean": 10.0,
+    "std": null,
+    "worst": 10.0
+  },
+  "trough_abs_amp": {
+    "mean": null,
+    "std": null,
+    "worst": null
+  },
+  "trough_abs_time": {
+    "mean": null,
+    "std": null,
+    "worst": null
+  },
+  "n_cycle_windows": {
+    "mean": 1.0,
+    "std": null,
+    "worst": 1.0
+  }
+}

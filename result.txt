@@ -665,3 +665,12 @@ B26M-LV2-P36-1E3-BS32-SEED2021-SUMMARY  full_MAE_mean=27.90  full_MAE_std=4.34  
 B26M-F-P36-SEED2022-SUMMARY  full_MAE_mean=26.84  full_MAE_std=3.44  full_MAE_worst=33.51  block24_MAE_mean=26.53  block24_MAE_std=3.36  block24_MAE_worst=32.85
 B26M-F-P36-SEED2023-SUMMARY  full_MAE_mean=26.83  full_MAE_std=3.21  full_MAE_worst=33.03  block24_MAE_mean=26.51  block24_MAE_std=3.16  block24_MAE_worst=32.63
 B26M-CAND-P36-5SEED-SUMMARY  full_MAE_mean=26.83  full_seed_std=0.10  block24_MAE_mean=26.48  block_seed_std=0.25  evidence=analysis/p24_dual_summary
+
+# [2026-11-21] PR24 容量审计；五折仅用于参数选择
+B26M-PR24-CAPACITY-AUDIT  baseline_full=26.8333  baseline_block24=26.4824  best_single_seed=E3_full26.7922_block26.2532  E3_5seed_full=26.7608_block24=26.3937  D64_5seed_full=27.1203_block24=27.1161  D16_full=28.3488_block24=28.0267  decision=D128-E2-F2048保留  evidence=analysis/p24_capacity/capacity_audit_summary.csv
+
+# [2026-11-21] PR24 三周期时间顺序留出盲测；每周期 5 seed，重新训练，不使用五折代替测试
+B26M-CHRONO-SC20-SUMMARY  p24_update_MAE=25.2728  p24_recursive24_MAE=42.3922  p132_direct_MAE=52.1452  true_peak=1979-12/231.71  true_trough=1986-03/13.59  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv
+B26M-CHRONO-SC21-SUMMARY  p24_update_MAE=26.3012  p24_recursive24_MAE=28.2303  p132_direct_MAE=38.8359  true_peak=1989-06/212.77  true_trough=1996-08/11.05  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv
+B26M-CHRONO-SC24-SUMMARY  p24_update_MAE=14.7792  p24_recursive24_MAE=14.4829  p132_direct_MAE=29.8226  true_peak=2014-04/115.33  true_trough=2019-12/1.94  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv
+B26M-CHRONO-RESULT  recursive24峰时绝对误差=4.8/10.8/8.0月  recursive24峰幅误差=-88.80/+20.03/-0.65  recursive24谷时绝对误差=6.0/0.8/0.0月  PR132峰幅误差=-121.78/-12.97/+28.00  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv

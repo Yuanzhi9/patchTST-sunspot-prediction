@@ -1,0 +1,87 @@
+{
+  "fold": 1,
+  "flag": "test",
+  "seq_len": 132,
+  "label_len": 48,
+  "pred_len": 132,
+  "n_windows": 1,
+  "window_origins": [
+    2988
+  ],
+  "window_target_starts": [
+    3120
+  ],
+  "window_target_ends": [
+    3251
+  ],
+  "target_dates": [
+    {
+      "start": "2009-01",
+      "end": "2019-12"
+    }
+  ],
+  "scaler_mean": [
+    0.0007993329066839139,
+    -0.0007993329066839786,
+    83.78476351351351
+  ],
+  "scaler_scale": [
+    0.7071063293924785,
+    0.7071063293924785,
+    68.55941549969843
+  ],
+  "feature_columns": [
+    "month_sin",
+    "month_cos",
+    "ssn"
+  ],
+  "target_transform": "",
+  "fold_spec": {
+    "fold": 1,
+    "outer_val": {
+      "block_id": 1,
+      "start": 3120,
+      "end": 3251,
+      "n_months": 132,
+      "start_date": "2009-01",
+      "end_date": "2019-12"
+    },
+    "train_blocks": [
+      {
+        "block_id": 1,
+        "start": 0,
+        "end": 3119,
+        "n_months": 3120,
+        "start_date": "1749-01",
+        "end_date": "2008-12",
+        "inner_train": {
+          "start": 0,
+          "end": 2959,
+          "n_months": 2960,
+          "start_date": "1749-01",
+          "end_date": "1995-08"
+        },
+        "inner_val": {
+          "start": 2960,
+          "end": 3119,
+          "n_months": 160,
+          "start_date": "1995-09",
+          "end_date": "2008-12"
+        }
+      }
+    ]
+  },
+  "window_sampling": {
+    "mode": "all",
+    "limit": 0,
+    "original_n_windows": 1
+  },
+  "n_train_windows": 2697,
+  "train_window_sampling": {
+    "mode": "all",
+    "limit": 0,
+    "original_n_windows": 2697
+  },
+  "setting": "sunspot_PatchTST_cv5_ftMS_sl132_ll48_pl132_dm128_nh2_el2_df2048_p36_s18_B26M-P132-CHRONO-SC24_F1_seed2020",
+  "outer_evaluation_count": 1
+}

@@ -1,0 +1,13 @@
+ fold test_start test_end  n_windows  full_MAE  full_RMSE  full_bias  block24_MAE  block24_RMSE  block24_bias
+    1    2009-01  2019-12        109 15.531662  21.539854   1.484467    15.673785     21.305439     -0.145283
+{
+  "des": "B26M-CHRONO-SC24",
+  "seed": 2021,
+  "folds_found": 1,
+  "full_MAE_mean": 15.53166165308121,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 15.53166165308121,
+  "block24_MAE_mean": 15.673784904479982,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 15.673784904479982
+}

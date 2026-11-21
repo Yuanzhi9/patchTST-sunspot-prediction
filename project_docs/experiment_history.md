@@ -1220,3 +1220,26 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
 `analysis/p24_dual_summary/p24_candidate_five_seed.{png,pdf}`、
 `plots/fig_p24_structure_stability_2026-11-20.{png,pdf}`、
 `plots/fig_p24_candidate_five_seed_stability_2026-11-20.{png,pdf}`。
+
+### B26M 容量审计与完整周期盲测（2026-11-21）
+
+容量审计补测 `d_model=16/32/64/256`、`e_layers=1/3`、`d_ff=512/1024`。
+当前 `D128/E2/F2048` 五 seed Full/Block24 为 26.83/26.48；E3 为
+26.76/26.39，差异不足 1% 且 seed 内方向不一致，未达到换模门槛。
+因此 `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`
+冻结为技术基线，见 `project_docs/PR24_BASELINE_FREEZE_2026-11-21.md`。
+
+随后在 SC20/SC21/SC24 三个完整周期上按时间顺序重新训练五个 seed，
+不使用五折测试替代未来预测。三种方法为：PR24 observed-update block24、
+PR24 recursive block24、PR132 direct。
+
+| 周期 | PR24 更新 | PR24 递归24 | PR132 direct |
+|---|---:|---:|---:|
+| SC20 | 25.27 | 42.39 | 52.15 |
+| SC21 | 26.30 | 28.23 | 38.84 |
+| SC24 | 14.78 | 14.48 | 29.82 |
+
+递归 block24 的峰时绝对误差为 4.8/10.8/8.0 月，峰幅误差为
+-88.80/+20.03/-0.65 SSN；强周期 SC20 明显压低峰值，弱周期 SC24 接近真实。
+PR132 direct 在三个周期都压低峰值。详见
+`EXPERIMENT_B26M-cycle-holdout_2026-11-21.md`。
