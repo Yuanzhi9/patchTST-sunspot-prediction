@@ -34,8 +34,9 @@
 ### Push
 
 - 已按景修的附条件授权完成 push。
-- 当前远端 `BASE-2026-11-M`：`791fd29`
-- 本地与远端已同步。
+- 主体提交 `791fd29` 已成功推送；push 后的文档同步也已继续推送。
+- 当前 authoritative commit 用 `git rev-parse HEAD` 与
+  `git ls-remote origin refs/heads/BASE-2026-11-M` 查询，二者应一致。
 - 以后若有新提交，仍需单独审核授权，不得自动 force push/rebase/合并。
 
 ### 未来预测审核
@@ -103,5 +104,5 @@
 - [ ] 已确认没有运行中实验
 - [ ] 已审核 2026-10 未来预测和峰幅偏低风险
 - [ ] 已审核容量细化最终保留 D128
-- [x] push 已完成（`791fd29`）
+- [x] push 已完成；以 `git status --short --branch` 无 ahead/behind 为准
 - [ ] 已确认未来预测是否作为正式基线结果
