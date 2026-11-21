@@ -1,0 +1,2 @@
+[AI 2026-10-10] checkpoint 含非张量对象（UnpicklingError），按项目自身产物处理，使用 weights_only=False 加载：full_checkpoint.pth
+analysis/gaussian_s36/causal/SC21/p24_update_seed2020/p24_recursive_curve.csv

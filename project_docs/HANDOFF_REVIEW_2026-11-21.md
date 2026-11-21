@@ -1,0 +1,93 @@
+# 2026-11-21 离场交接与明日审核
+
+> 状态：本地工作已完成并等待景修复核；未执行 git push。
+
+## 明天先做什么
+
+1. 审核 PR24 非负基线报告与五张图。
+2. 审核 Gaussian σ=3.6 causal 结果，确认它只作辅助诊断，不替换 raw 主基线。
+3. 明确批准或拒绝 push 当前本地提交。
+4. 只有审核通过后，才进入真正的 Cycle 25 谷值和 Cycle 26 峰值预测。
+
+## 当前运行状态
+
+- 没有后台训练、推理或评估进程。
+- 已完成实验不需要重跑。
+- Gaussian centered 回顾性上界实验尚未启动；是否继续由景修决定。
+
+## 持久化位置
+
+- `/output` 是 CephFS 持久挂载，不是容器临时层。
+- `/openbayes/home` 是指向 `/output` 的符号链接。
+- 项目：`/openbayes/home/BASE-2026-11-M`
+- Gaussian causal：`/openbayes/home/BASE-2026-11-M/analysis/gaussian_s36/causal`
+- PR24 非负能力检验：
+  `/openbayes/home/BASE-2026-11-M/analysis/pr24_nonnegative_holdout`
+- 独立 safety snapshot：
+  `/openbayes/home/p24_review_snapshot_2026-11-21`
+
+## 需要审核后批准的动作
+
+### Push
+
+- 当前分支：`BASE-2026-11-M`
+- 远端：`origin/BASE-2026-11-M`
+- 今日完成前已有 6 个本地提交尚未 push；今日会再形成本地提交。
+- 景修明确回复“批准 push BASE-2026-11-M”后，才执行：
+
+```bash
+git push origin BASE-2026-11-M
+```
+
+不得自动 rebase、reset、force push 或合并其他分支。
+
+### 真正未来预测
+
+- 当前 PR24 能力边界：谷时相对可用，峰时和峰幅不稳定。
+- 真实 Cycle 25/26 预测属于下一步新任务；本日没有提前生成。
+- 景修审核后需明确批准预测协议、起报日期、非负版本和不确定性表达方式。
+
+## PR24 非负能力检验图件
+
+1. `analysis/pr24_nonnegative_holdout/pr24_nonnegative_profiles_2026-11-21.png`
+2. `analysis/pr24_nonnegative_holdout/pr24_nonnegative_extrema_errors_2026-11-21.png`
+3. `analysis/pr24_nonnegative_holdout/pr24_nonnegative_metric_distributions_2026-11-21.png`
+4. `analysis/pr24_nonnegative_holdout/pr24_nonnegative_leadtime_mae_2026-11-21.png`
+5. `analysis/pr24_nonnegative_holdout/pr24_nonnegative_peak_response_2026-11-21.png`
+
+对应 PDF 同名存在。
+
+## Gaussian σ=3.6 图件状态
+
+- causal 重训有逐 seed 曲线 CSV 和峰谷 JSON，但当前没有生成合并的总图。
+- 原因是景修随后明确“只到测试 1 的图会重点检查”，并决定先完成 PR24
+  非负基线检验；Gaussian 只保留为辅助实验。
+- 原始留档完整，可随时无重训重画。
+
+## 今日关键结论
+
+- PR24 clip0 recursive MAE：SC20 `42.39`、SC21 `28.20`、SC24 `14.45`。
+- R²：`0.562 / 0.806 / 0.784`。
+- 相对 persistence 技巧分：`+0.176 / +0.306 / +0.579`。
+- 谷时：SC21/SC24 五 seed 全部命中 ±6 月，SC20 为 3/5。
+- 峰时：SC20 为 3/5，SC21/SC24 各 1/5。
+- 峰幅：`-88.80 / +20.03 / -0.65`，跨周期不稳定。
+- 结论：PR24 可作曲线轮廓和谷时基线；当前不能稳定承担 Cycle 26 峰值点预测。
+
+## 关键文件
+
+- `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md`
+- `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md`
+- `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md`
+- `project_docs/LITERATURE_2026-11-21_sunspot_smoothing_usage.md`
+- `project_docs/STATE.md`
+- `diary/2026-11-21.md`
+
+## 审核签发
+
+- [ ] 已检查 PR24 图与统计口径
+- [ ] 已确认 nonnegative = physical inverse 后 clip0
+- [ ] 已确认 Gaussian causal 不替换 raw 主基线
+- [ ] 已确认没有运行中实验
+- [ ] 已批准 push
+- [ ] 已批准进入真实 Cycle 25/26 预测

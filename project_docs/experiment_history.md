@@ -33,6 +33,8 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **B26M-PR24-NONNEG** | 11.21 | Stage 10 | raw→clip0 正式非负门禁 + 三周期五 seed 丰富统计 | PR24 recursive24, SC20/21/24, seeds2019-2023 | 42.39/28.20/14.45 | — | 0.562/0.806/0.784 | 非负成立；谷时 SC21/24 稳定，峰时仅 SC20 3/5 命中 ±6 月；`analysis/pr24_nonnegative_holdout/` | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` | 复用已有 |
+| **B26M-GAUSS36-CAUSAL** | 11.21 | Stage 10 | raw→causal Gaussian σ=3.6 同参重训 | PR24, SC20/21/24, seeds2019-2023 | 37.36/22.34/13.58（配对平滑真值） | — | 0.658/0.871/0.807 | 负值减少但未全消；强周期峰幅仍压低；centered 暂停 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` | ✅ |
 | **B26M-LV2** | 11.20 | Stage 10 | 完成 P36 lr×batch 第四格 | seq132,p36/s18,lr1e-3,bs32,CV5,seeds2019-2021 | 26.82/27.36/27.90 | — | — | 三 seed Full=27.36；四格中仍以 lr3e-4/bs32 最好 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` | ✅ |
 | **B26M-F5** | 11.20 | Stage 10 | P36 最佳候选补 seed2022/2023 | seq132,p36/s18,lr3e-4,bs32,CV5 | **五 seed 26.83±0.10** | — | — | Block24=26.48±0.25；候选稳定性通过 | 同上 | ✅ |
 | **B26M-G3** | 11.19 | Stage 10 | 短上下文诊断 patch=1/1 | seq 1/12/24/132,CV5,dataset=2026-10 | 38.88/34.85/32.76/30.86 | — | — | 短上下文落后；G1 seq132+16/8 仍最佳 | `EXPERIMENT_B26M-G3_short_context.md` | ✅ |

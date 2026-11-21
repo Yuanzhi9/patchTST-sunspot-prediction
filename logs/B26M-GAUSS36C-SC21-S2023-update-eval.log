@@ -1,0 +1,13 @@
+ fold test_start test_end  n_windows  full_MAE  full_RMSE  full_bias  block24_MAE  block24_RMSE  block24_bias
+    1    1986-04  1997-03        109 22.712738  30.675587  10.804773    22.440422     30.184876      9.101556
+{
+  "des": "B26M-GAUSS36C-SC21",
+  "seed": 2023,
+  "folds_found": 1,
+  "full_MAE_mean": 22.712738442331503,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 22.712738442331503,
+  "block24_MAE_mean": 22.440422092014114,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 22.440422092014114
+}

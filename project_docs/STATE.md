@@ -7,16 +7,16 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | PR24 容量审计与三周期时间顺序留出盲测完成；当前未来 Cycle25/26 预测待做 | `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md` |
-| 当前任务 | 基于冻结 PR24 准备当前未来预测方案；不从盲测结果回改参数 | `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md` |
+| 当前阶段 | PR24 非负基线能力检验完成；进入真实 Cycle25/26 预测前的解释与门禁收口 | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` |
+| 当前任务 | 基于 PR24 clip0 recursive24 的真实能力边界准备 Cycle25/26 预测；不从盲测回改参数 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | p24 原预案缺口 | 容量审计完成；参数搜索范围收口；剩余仅最终全量训练和当前未来预测 | `EXPERIMENT_B26M-capacity-audit_2026-11-21.md` |
 | B26M 锚点 | E00 Full/Block=33.62/35.05；G1 seq132=27.82/27.86；完整结果见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
-| PR24 参数冻结基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；预测交付待非负门禁 | `project_docs/PR24_BASELINE_FREEZE_2026-11-21.md` |
+| PR24 参数冻结基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；正式输出采用物理反变换后 clip0 | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` |
 | p24 补强结论 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移；稳定性图已出 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` §p24 |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 时间顺序盲测 | SC20/21/24 各 5 seed；PR24 recursive block24 MAE=42.39/28.23/14.48，PR132 direct=52.15/38.84/29.82 | `analysis/cycle_holdout/cycle_holdout_aggregate.csv` |
-| 非负门禁 | raw 预测存在物理负值；未处理前禁止把结果称为正式可交付基线 | `analysis/negative_smoothing/negative_summary.csv` |
-| 平滑路线待做 | 13月平滑/ Gaussian σ=3.6 先做目标侧实验；居中平滑不能直接作为业务输入 | `project_docs/ANALYSIS_2026-11-21_negative_smoothing_cycle_dependence.md` |
+| 非负能力检验 | raw/clip0 双口径完成；clip0 负值=0；recursive MAE=42.39/28.20/14.45，峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
+| Gaussian σ=3.6 | causal 三周期×五 seed 完成；centered 回顾上界暂停；causal 未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
 | 远端状态 | 两个分支均已推送；分支不合并主线 | `git ls-remote origin refs/heads/BASE-2026-11-M refs/heads/BASE-2026-11-M-P132` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |

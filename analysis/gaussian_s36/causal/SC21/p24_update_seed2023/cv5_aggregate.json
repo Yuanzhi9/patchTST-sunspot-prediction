@@ -1,0 +1,11 @@
+{
+  "des": "B26M-GAUSS36C-SC21",
+  "seed": 2023,
+  "folds_found": 1,
+  "full_MAE_mean": 22.712738442331503,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 22.712738442331503,
+  "block24_MAE_mean": 22.440422092014114,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 22.440422092014114
+}

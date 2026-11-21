@@ -1,0 +1,32 @@
+{
+  "curve": "analysis/gaussian_s36/causal/SC21/p24_update_seed2020/p24_recursive_curve.csv",
+  "n_months": 132,
+  "raw_metrics": {
+    "mae": 22.284244717714557,
+    "rmse": 25.82537477388526,
+    "bias": 20.116687682998982,
+    "r2": 0.8854041433478083,
+    "negative_months": 0
+  },
+  "smoothed": {
+    "smooth_window_months": 13,
+    "order": "peak_then_trough",
+    "peak": {
+      "true_date": "1989-11",
+      "true_value": 209.19637533830135,
+      "pred_date": "1990-05",
+      "pred_value": 234.9116782331468,
+      "amplitude_error": 25.71530289484545,
+      "time_error_months": 6
+    },
+    "trough": {
+      "true_date": "1996-09",
+      "true_value": 11.793195122107468,
+      "pred_date": "1996-09",
+      "pred_value": 21.13356732219091,
+      "amplitude_error": 9.340372200083442,
+      "time_error_months": 0
+    },
+    "amplitude_ratio": 1.07444310111337
+  }
+}

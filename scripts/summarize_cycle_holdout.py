@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -22,11 +23,33 @@ SEEDS = (2019, 2020, 2021, 2022, 2023)
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base", default=str(BASE))
+    parser.add_argument(
+        "--methods",
+        default=",".join(METHODS),
+        help="comma-separated method prefixes",
+    )
+    parser.add_argument(
+        "--seeds",
+        default=",".join(str(seed) for seed in SEEDS),
+        help="comma-separated integer seeds",
+    )
+    parser.add_argument(
+        "--output-prefix",
+        default="cycle_holdout",
+        help="prefix for detail/aggregate output files",
+    )
+    args = parser.parse_args()
+    base = Path(args.base)
+    methods = tuple(value for value in args.methods.split(",") if value)
+    seeds = tuple(int(value) for value in args.seeds.split(",") if value)
+
     rows = []
     for cycle in CYCLES:
-        for method in METHODS:
-            for seed in SEEDS:
-                path = BASE / cycle / f"{method}_seed{seed}_extrema.json"
+        for method in methods:
+            for seed in seeds:
+                path = base / cycle / f"{method}_seed{seed}_extrema.json"
                 if not path.exists():
                     continue
                 payload = json.loads(path.read_text(encoding="utf-8"))
@@ -63,7 +86,7 @@ def main() -> None:
     if not rows:
         raise SystemExit("no cycle holdout extrema results found")
     detail = pd.DataFrame(rows).sort_values(["cycle", "method", "seed"])
-    detail.to_csv(BASE / "cycle_holdout_seed_detail.csv", index=False)
+    detail.to_csv(base / f"{args.output_prefix}_seed_detail.csv", index=False)
 
     numeric = [
         "raw_MAE",
@@ -87,13 +110,13 @@ def main() -> None:
         else column
         for column in aggregate.columns
     ]
-    aggregate.to_csv(BASE / "cycle_holdout_aggregate.csv", index=False)
-    (BASE / "cycle_holdout_aggregate.json").write_text(
+    aggregate.to_csv(base / f"{args.output_prefix}_aggregate.csv", index=False)
+    (base / f"{args.output_prefix}_aggregate.json").write_text(
         aggregate.to_json(orient="records", indent=2),
         encoding="utf-8",
     )
     print(aggregate.to_string(index=False))
-    print(BASE / "cycle_holdout_aggregate.csv")
+    print(base / f"{args.output_prefix}_aggregate.csv")
 
 
 if __name__ == "__main__":
