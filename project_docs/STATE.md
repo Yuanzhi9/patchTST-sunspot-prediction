@@ -7,9 +7,9 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | PR24 非负基线能力检验完成；进入真实 Cycle25/26 预测前的解释与门禁收口 | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` |
-| 当前任务 | 基于 PR24 clip0 recursive24 的真实能力边界准备 Cycle25/26 预测；不从盲测回改参数 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
-| p24 原预案缺口 | 容量审计完成；参数搜索范围收口；剩余仅最终全量训练和当前未来预测 | `EXPERIMENT_B26M-capacity-audit_2026-11-21.md` |
+| 当前阶段 | PR24 容量细化、非负能力检验和 2026-10 起报未来预测均完成；等待景修复核 | `project_docs/REPORT_2026-11-21_PR24_future_forecast_2026-10.md` |
+| 当前任务 | 审核预测图、峰谷范围和文献对照；确认后 push；不从未来预测回改基线 | `project_docs/HANDOFF_REVIEW_2026-11-21.md` |
+| p24 原预案缺口 | 中间容量审计完成；D160 五 seed 未稳定超过 D128；继续使用 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | B26M 锚点 | E00 Full/Block=33.62/35.05；G1 seq132=27.82/27.86；完整结果见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
 | PR24 参数冻结基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；正式输出采用物理反变换后 clip0 | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` |
 | p24 补强结论 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移；稳定性图已出 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` §p24 |
@@ -18,7 +18,7 @@
 | 非负能力检验 | raw/clip0 双口径完成；clip0 负值=0；recursive MAE=42.39/28.20/14.45，峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | Gaussian σ=3.6 | causal 三周期×五 seed 完成；centered 回顾上界暂停；causal 未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | 两个分支均已推送；分支不合并主线 | `git ls-remote origin refs/heads/BASE-2026-11-M refs/heads/BASE-2026-11-M-P132` |
+| 远端状态 | P132 分支已推送；`BASE-2026-11-M` 有本地提交待景修审核后 push；分支不合并主线 | `git status --short --branch` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 文档线（原） | `env-newserver-2026-10`（内容已并入主线；标签待归档） | git log |
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
@@ -31,5 +31,6 @@
 | 选模口径 | ⚠️ **未定死（残余不确定性）**：候选 = best-val 与 "val 单起点轨迹"；细粒度复评后两者基本打平（最坏 22.5% vs 20.9%，n=6 组单种子）→ 暂按**双轨并列报告** | `EXP-RULE-*_2026-10-11.md`、`discuss_2026-10-11_选模规则.md` |
 | B26M 残余不确定性 | ①lr=3e-4 仅三 seed 略优 ②batch 结论限当前 50 epoch 调度 ③seq 效应已部分隔离但仍有结构混杂 ④五折不等于未来顺序审计 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` |
 | 冻结队列 | C 类六条：平滑 / 相位特征 / 非负约束 / 谷时分类 / scheduled sampling / 多配置集成 | `plan_preregistration_2026-10-11.md` |
-| 未决 | ①候选口径复核 ②主任务选择 ③正式冻结 ④最终全量训练/未来曲线 | `/output/p132失效机制核查_2026-11-20.md` |
-| 最后核对 | 2026-11-21（容量审计 + 完整周期盲测完成，待景修复核） | `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md` |
+| 未来预测 | 起报 2026-10；SC25 谷 2030-10（范围 2030-07–10）；SC26 峰 2035-06（范围 2035-02–12），13m 峰值 104.82（101.68–108.58） | `analysis/pr24_future_forecast/` |
+| 未决 | 景修审核预测与文档；push 授权；是否继续 centered Gaussian；是否接受当前峰幅偏低风险 | `project_docs/HANDOFF_REVIEW_2026-11-21.md` |
+| 最后核对 | 2026-11-21（容量细化、非负能力检验、未来预测与文档收口完成） | `project_docs/REPORT_2026-11-21_PR24_future_forecast_2026-10.md` |

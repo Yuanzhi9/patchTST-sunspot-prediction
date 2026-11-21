@@ -1,0 +1,11 @@
+{
+  "des": "B26M-CAPR-D144",
+  "seed": 2023,
+  "folds_found": 5,
+  "full_MAE_mean": 27.216526904918528,
+  "full_MAE_std": 2.9949353895486692,
+  "full_MAE_worst": 32.67427228298038,
+  "block24_MAE_mean": 27.315905715180303,
+  "block24_MAE_std": 3.2372683683919488,
+  "block24_MAE_worst": 32.45537297797925
+}

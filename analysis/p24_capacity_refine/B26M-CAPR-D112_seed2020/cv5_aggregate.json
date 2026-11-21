@@ -1,0 +1,11 @@
+{
+  "des": "B26M-CAPR-D112",
+  "seed": 2020,
+  "folds_found": 5,
+  "full_MAE_mean": 26.98334599365175,
+  "full_MAE_std": 3.028887936719465,
+  "full_MAE_worst": 32.60363645733645,
+  "block24_MAE_mean": 27.137835104660827,
+  "block24_MAE_std": 3.4307462019021946,
+  "block24_MAE_worst": 33.05562513958324
+}

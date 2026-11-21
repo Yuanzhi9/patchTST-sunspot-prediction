@@ -33,6 +33,8 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **FINAL-PR24-2026-10** | 11.21 | Stage 10 | 全历史固定 50ep、五 seed、block24 递归未来预测 | raw 1749-2026-10；clip0；origin 2026-10；horizon168 | — | — | — | SC25谷中位2030-10；SC26峰中位2035-06；13m峰值104.82（101.68–108.58） | `EXPERIMENT_B26M-pr24-future-2026-10.md` | ✅ |
+| **B26M-CAPR五seed** | 11.21 | Stage 10 | D112/D144/D160 中间容量补五 seed | CV5, seq132,p36/s18,E2,F2048,50ep | D112 26.896；D144 26.933；D160 26.871 | — | — | 均未稳定超过 D128（26.83）；保留 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` | ✅ |
 | **B26M-PR24-NONNEG** | 11.21 | Stage 10 | raw→clip0 正式非负门禁 + 三周期五 seed 丰富统计 | PR24 recursive24, SC20/21/24, seeds2019-2023 | 42.39/28.20/14.45 | — | 0.562/0.806/0.784 | 非负成立；谷时 SC21/24 稳定，峰时仅 SC20 3/5 命中 ±6 月；`analysis/pr24_nonnegative_holdout/` | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` | 复用已有 |
 | **B26M-GAUSS36-CAUSAL** | 11.21 | Stage 10 | raw→causal Gaussian σ=3.6 同参重训 | PR24, SC20/21/24, seeds2019-2023 | 37.36/22.34/13.58（配对平滑真值） | — | 0.658/0.871/0.807 | 负值减少但未全消；强周期峰幅仍压低；centered 暂停 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` | ✅ |
 | **B26M-LV2** | 11.20 | Stage 10 | 完成 P36 lr×batch 第四格 | seq132,p36/s18,lr1e-3,bs32,CV5,seeds2019-2021 | 26.82/27.36/27.90 | — | — | 三 seed Full=27.36；四格中仍以 lr3e-4/bs32 最好 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` | ✅ |
@@ -787,7 +789,7 @@ npy 文件路径（✓ 服务器可查）：
 
 ### 结论
 
-**run_longExp.py 原管线复现成功。** step0=11.21 优于原始 Baseline B（13.02，1867+ 数据），说明 seq=132 + nh16 + el3 的架构在更宽数据上也有效。但滚动=36.37 差于原始 B（33.13）——1749+ 的宽 range（0-398）拉大 scaler std，在自回归累积时放大了误差。峰值-85.5 与 EXP-14（-75.8）同量级，是 StandardScaler + 宽数据范围的系统性压制，非训练轮数可解。
+**run_longExp.py 原管线复现成功。** step0=11.21 优于原始 Baseline B（13.02，1867+ 数据），说明 seq=132 + nh16 + el3 的架构在更宽数据上也有效。但滚动=36.37 差于原始 B（33.13）。峰值-85.5 与 EXP-14（-75.8）同量级。2026-11-21 复核后，不再把该现象单独归因于 StandardScaler；Scaler 是线性可逆变换，峰幅问题需结合任务权重、外推和模型能力解释。
 
 **配置文件**：见 project_docs/EXP-16c_experiment.md。checkpoint 在 `checkpoints/sunspot_...EXP-16c_0/`（run_longExp.py 路径，非 PatchTST_supervised/checkpoints/）。
 
@@ -986,7 +988,7 @@ W1+W2 平均全步 = 21.33（较初始基线 23.87 改善 10.6%）。
 ### 核心结论
 
 1. 调参有效但有限：唯一实质改善来自 dropout（5.2%），其余维度在基线附近饱和
-2. **峰值压制是系统性瓶颈**：三窗口 150+ 段 MAE 28-57，滚动峰值低估 -25 至 -131（W3 预测 85.4 vs 真实 216）。印证 MSE loss + StandardScaler 对高值的压制，参数不可解
+2. **峰值压制是系统性瓶颈**：三窗口 150+ 段 MAE 28-57，滚动峰值低估 -25 至 -131（W3 预测 85.4 vs 真实 216）。已支持的是任务/MSE 权重和外推困难；2026-11-21 复核不再把 StandardScaler 单独列为成因，参数搜索不足以单独解决
 3. 极小值接缝处最弱（W2 step0=36）
 4. 阶段2计划：数据更新到 2026.07 后用全部数据+此配置重新训练（不调参）；阶段3滚动外推
 

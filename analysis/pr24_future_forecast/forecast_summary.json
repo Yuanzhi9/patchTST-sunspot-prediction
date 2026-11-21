@@ -1,0 +1,76 @@
+{
+  "created_utc": "2026-11-21T13:52:22+00:00",
+  "experiment_id": "FINAL-PR24-2026-10",
+  "origin": "2026-10",
+  "data_csv": "PatchTST_supervised/dataset/sunspot_with_cycle_monthly_2026-10.csv",
+  "data_sha256": "675f5ab2bc88ef7a92734b8d87d1fbc6f12be587f4f4f9652a6a7b58d4eff69c",
+  "formal_forecast": "clip0 recursive block24",
+  "training_protocol": "all-history fixed-epoch retrain; no validation early stopping",
+  "d_model": 128,
+  "epochs": 50,
+  "seeds": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "horizon": 168,
+  "checkpoints": [
+    "/output/BASE-2026-11-M/checkpoints/FINAL-PR24-2026-10_d128_seed2019/full_checkpoint.pth",
+    "/output/BASE-2026-11-M/checkpoints/FINAL-PR24-2026-10_d128_seed2020/full_checkpoint.pth",
+    "/output/BASE-2026-11-M/checkpoints/FINAL-PR24-2026-10_d128_seed2021/full_checkpoint.pth",
+    "/output/BASE-2026-11-M/checkpoints/FINAL-PR24-2026-10_d128_seed2022/full_checkpoint.pth",
+    "/output/BASE-2026-11-M/checkpoints/FINAL-PR24-2026-10_d128_seed2023/full_checkpoint.pth"
+  ],
+  "extrema_aggregate": [
+    {
+      "quantity": "cycle25_trough_smoothed",
+      "mean": 0.33996229905348296,
+      "std": 0.5105388536717136,
+      "median": 0.11674675574669034,
+      "min": 0.0,
+      "max": 1.3458087627704283
+    },
+    {
+      "quantity": "cycle25_trough_raw",
+      "mean": 0.0,
+      "std": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    {
+      "quantity": "cycle26_peak_smoothed",
+      "mean": 105.00625997690054,
+      "std": 2.210652080871211,
+      "median": 104.8167478121244,
+      "min": 101.68373166597806,
+      "max": 108.5832050030048
+    },
+    {
+      "quantity": "cycle26_peak_raw",
+      "mean": 106.402880859375,
+      "std": 2.712283431976325,
+      "median": 106.9527359008789,
+      "min": 101.4197006225586,
+      "max": 109.68550109863281
+    },
+    {
+      "quantity": "months_to_trough",
+      "mean": 47.0,
+      "std": 1.2649110640673518,
+      "median": 48.0,
+      "min": 45.0,
+      "max": 48.0
+    },
+    {
+      "quantity": "months_to_peak",
+      "mean": 105.6,
+      "std": 3.878143885933063,
+      "median": 104.0,
+      "min": 100.0,
+      "max": 110.0
+    }
+  ]
+}

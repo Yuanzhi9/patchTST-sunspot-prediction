@@ -1,0 +1,159 @@
+Args in CV5 experiment:
+Namespace(is_training=1, model_id='sunspot', model='PatchTST', root_path='./PatchTST_supervised/dataset/', data_path='sunspot_with_cycle_monthly_2026-10.csv', features='MS', target='ssn', freq='m', target_transform='', cv_file='configs/cv5_folds_2026-10.json', cv_fold=1, seq_len=132, label_len=48, pred_len=24, enc_in=3, dec_in=5, c_out=1, d_model=112, n_heads=8, e_layers=2, d_layers=1, d_ff=2048, moving_avg=25, factor=1, distil=True, dropout=0.2, fc_dropout=0.2, head_dropout=0.0, patch_len=36, stride=18, padding_patch='end', revin=1, affine=0, subtract_last=0, decomposition=0, kernel_size=25, individual=0, embed_type=0, embed='timeF', activation='gelu', output_attention=False, do_predict=False, num_workers=0, itr=1, train_epochs=50, batch_size=32, train_window_limit=0, patience=100, learning_rate=0.0003, loss='mse', wmse_alpha=1.0, lradj='type3', pct_start=0.3, use_amp=False, random_seed=2022, des='B26M-CAPR-D112', checkpoints='./checkpoints/', results_root='./results', config_root='./configs', use_gpu=True, gpu=0, use_multi_gpu=False, devices='0', test_flop=False)
+config: ./configs/B26M-CAPR-D112_F1_20261121_132741.json
+setting: sunspot_PatchTST_cv5_ftMS_sl132_ll48_pl24_dm112_nh8_el2_df2048_p36_s18_B26M-CAPR-D112_F1_seed2022
+Use GPU: cuda:0
+start training: fold=1 train_windows=1519 inner_val_windows=436
+Validation loss decreased (inf --> 0.530143).  Saving model ...
+Epoch: 1, Steps: 47 | Train Loss: 0.9573103 Inner Val Loss: 0.5301428 Best: 0.5301428 | 0.841s
+Updating learning rate to 0.0003
+Validation loss decreased (0.530143 --> 0.246414).  Saving model ...
+Epoch: 2, Steps: 47 | Train Loss: 0.5175380 Inner Val Loss: 0.2464143 Best: 0.2464143 | 0.413s
+Updating learning rate to 0.0003
+Validation loss decreased (0.246414 --> 0.195839).  Saving model ...
+Epoch: 3, Steps: 47 | Train Loss: 0.3212289 Inner Val Loss: 0.1958394 Best: 0.1958394 | 0.408s
+Updating learning rate to 0.0003
+Validation loss decreased (0.195839 --> 0.194798).  Saving model ...
+Epoch: 4, Steps: 47 | Train Loss: 0.2891922 Inner Val Loss: 0.1947976 Best: 0.1947976 | 0.402s
+Updating learning rate to 0.00027
+Validation loss decreased (0.194798 --> 0.182143).  Saving model ...
+Epoch: 5, Steps: 47 | Train Loss: 0.2794909 Inner Val Loss: 0.1821431 Best: 0.1821431 | 0.395s
+Updating learning rate to 0.000243
+Validation loss decreased (0.182143 --> 0.177268).  Saving model ...
+Epoch: 6, Steps: 47 | Train Loss: 0.2726226 Inner Val Loss: 0.1772681 Best: 0.1772681 | 0.388s
+Updating learning rate to 0.0002187
+EarlyStopping counter: 1 out of 100
+Epoch: 7, Steps: 47 | Train Loss: 0.2637400 Inner Val Loss: 0.1949331 Best: 0.1772681 | 0.412s
+Updating learning rate to 0.00019683
+EarlyStopping counter: 2 out of 100
+Epoch: 8, Steps: 47 | Train Loss: 0.2628599 Inner Val Loss: 0.1934827 Best: 0.1772681 | 0.392s
+Updating learning rate to 0.000177147
+Validation loss decreased (0.177268 --> 0.175691).  Saving model ...
+Epoch: 9, Steps: 47 | Train Loss: 0.2552398 Inner Val Loss: 0.1756907 Best: 0.1756907 | 0.398s
+Updating learning rate to 0.0001594323
+EarlyStopping counter: 1 out of 100
+Epoch: 10, Steps: 47 | Train Loss: 0.2538867 Inner Val Loss: 0.1992134 Best: 0.1756907 | 0.300s
+Updating learning rate to 0.00014348907
+EarlyStopping counter: 2 out of 100
+Epoch: 11, Steps: 47 | Train Loss: 0.2490237 Inner Val Loss: 0.1828320 Best: 0.1756907 | 0.354s
+Updating learning rate to 0.00012914016300000003
+EarlyStopping counter: 3 out of 100
+Epoch: 12, Steps: 47 | Train Loss: 0.2473224 Inner Val Loss: 0.1796734 Best: 0.1756907 | 0.385s
+Updating learning rate to 0.00011622614670000002
+EarlyStopping counter: 4 out of 100
+Epoch: 13, Steps: 47 | Train Loss: 0.2458110 Inner Val Loss: 0.1789017 Best: 0.1756907 | 0.394s
+Updating learning rate to 0.00010460353203000003
+EarlyStopping counter: 5 out of 100
+Epoch: 14, Steps: 47 | Train Loss: 0.2382027 Inner Val Loss: 0.1771435 Best: 0.1756907 | 0.393s
+Updating learning rate to 9.414317882700001e-05
+EarlyStopping counter: 6 out of 100
+Epoch: 15, Steps: 47 | Train Loss: 0.2399104 Inner Val Loss: 0.1803256 Best: 0.1756907 | 0.394s
+Updating learning rate to 8.472886094430003e-05
+Validation loss decreased (0.175691 --> 0.165438).  Saving model ...
+Epoch: 16, Steps: 47 | Train Loss: 0.2371901 Inner Val Loss: 0.1654384 Best: 0.1654384 | 0.387s
+Updating learning rate to 7.625597484987001e-05
+EarlyStopping counter: 1 out of 100
+Epoch: 17, Steps: 47 | Train Loss: 0.2342522 Inner Val Loss: 0.1667503 Best: 0.1654384 | 0.401s
+Updating learning rate to 6.863037736488302e-05
+EarlyStopping counter: 2 out of 100
+Epoch: 18, Steps: 47 | Train Loss: 0.2323296 Inner Val Loss: 0.1672370 Best: 0.1654384 | 0.390s
+Updating learning rate to 6.176733962839471e-05
+EarlyStopping counter: 3 out of 100
+Epoch: 19, Steps: 47 | Train Loss: 0.2341131 Inner Val Loss: 0.1715736 Best: 0.1654384 | 0.398s
+Updating learning rate to 5.559060566555524e-05
+EarlyStopping counter: 4 out of 100
+Epoch: 20, Steps: 47 | Train Loss: 0.2322630 Inner Val Loss: 0.1694174 Best: 0.1654384 | 0.403s
+Updating learning rate to 5.003154509899973e-05
+Validation loss decreased (0.165438 --> 0.164836).  Saving model ...
+Epoch: 21, Steps: 47 | Train Loss: 0.2301261 Inner Val Loss: 0.1648360 Best: 0.1648360 | 0.401s
+Updating learning rate to 4.502839058909975e-05
+EarlyStopping counter: 1 out of 100
+Epoch: 22, Steps: 47 | Train Loss: 0.2292258 Inner Val Loss: 0.1649739 Best: 0.1648360 | 0.302s
+Updating learning rate to 4.052555153018978e-05
+EarlyStopping counter: 2 out of 100
+Epoch: 23, Steps: 47 | Train Loss: 0.2279929 Inner Val Loss: 0.1688099 Best: 0.1648360 | 0.304s
+Updating learning rate to 3.64729963771708e-05
+EarlyStopping counter: 3 out of 100
+Epoch: 24, Steps: 47 | Train Loss: 0.2286437 Inner Val Loss: 0.1659991 Best: 0.1648360 | 0.374s
+Updating learning rate to 3.282569673945372e-05
+EarlyStopping counter: 4 out of 100
+Epoch: 25, Steps: 47 | Train Loss: 0.2267147 Inner Val Loss: 0.1697289 Best: 0.1648360 | 0.391s
+Updating learning rate to 2.954312706550835e-05
+EarlyStopping counter: 5 out of 100
+Epoch: 26, Steps: 47 | Train Loss: 0.2261874 Inner Val Loss: 0.1803641 Best: 0.1648360 | 0.396s
+Updating learning rate to 2.6588814358957517e-05
+EarlyStopping counter: 6 out of 100
+Epoch: 27, Steps: 47 | Train Loss: 0.2258419 Inner Val Loss: 0.1697538 Best: 0.1648360 | 0.398s
+Updating learning rate to 2.3929932923061764e-05
+EarlyStopping counter: 7 out of 100
+Epoch: 28, Steps: 47 | Train Loss: 0.2272085 Inner Val Loss: 0.1718250 Best: 0.1648360 | 0.357s
+Updating learning rate to 2.1536939630755587e-05
+EarlyStopping counter: 8 out of 100
+Epoch: 29, Steps: 47 | Train Loss: 0.2242486 Inner Val Loss: 0.1679705 Best: 0.1648360 | 0.303s
+Updating learning rate to 1.938324566768003e-05
+Validation loss decreased (0.164836 --> 0.162816).  Saving model ...
+Epoch: 30, Steps: 47 | Train Loss: 0.2217527 Inner Val Loss: 0.1628158 Best: 0.1628158 | 0.306s
+Updating learning rate to 1.7444921100912026e-05
+EarlyStopping counter: 1 out of 100
+Epoch: 31, Steps: 47 | Train Loss: 0.2206535 Inner Val Loss: 0.1675636 Best: 0.1628158 | 0.303s
+Updating learning rate to 1.5700428990820825e-05
+EarlyStopping counter: 2 out of 100
+Epoch: 32, Steps: 47 | Train Loss: 0.2215038 Inner Val Loss: 0.1669871 Best: 0.1628158 | 0.308s
+Updating learning rate to 1.4130386091738745e-05
+EarlyStopping counter: 3 out of 100
+Epoch: 33, Steps: 47 | Train Loss: 0.2205063 Inner Val Loss: 0.1682968 Best: 0.1628158 | 0.303s
+Updating learning rate to 1.271734748256487e-05
+EarlyStopping counter: 4 out of 100
+Epoch: 34, Steps: 47 | Train Loss: 0.2205409 Inner Val Loss: 0.1693685 Best: 0.1628158 | 0.302s
+Updating learning rate to 1.1445612734308383e-05
+EarlyStopping counter: 5 out of 100
+Epoch: 35, Steps: 47 | Train Loss: 0.2186612 Inner Val Loss: 0.1661396 Best: 0.1628158 | 0.300s
+Updating learning rate to 1.0301051460877545e-05
+EarlyStopping counter: 6 out of 100
+Epoch: 36, Steps: 47 | Train Loss: 0.2221223 Inner Val Loss: 0.1693424 Best: 0.1628158 | 0.300s
+Updating learning rate to 9.27094631478979e-06
+EarlyStopping counter: 7 out of 100
+Epoch: 37, Steps: 47 | Train Loss: 0.2215516 Inner Val Loss: 0.1659703 Best: 0.1628158 | 0.331s
+Updating learning rate to 8.343851683310812e-06
+EarlyStopping counter: 8 out of 100
+Epoch: 38, Steps: 47 | Train Loss: 0.2204090 Inner Val Loss: 0.1675190 Best: 0.1628158 | 0.392s
+Updating learning rate to 7.50946651497973e-06
+EarlyStopping counter: 9 out of 100
+Epoch: 39, Steps: 47 | Train Loss: 0.2217651 Inner Val Loss: 0.1685203 Best: 0.1628158 | 0.387s
+Updating learning rate to 6.758519863481758e-06
+EarlyStopping counter: 10 out of 100
+Epoch: 40, Steps: 47 | Train Loss: 0.2219500 Inner Val Loss: 0.1659994 Best: 0.1628158 | 0.389s
+Updating learning rate to 6.082667877133582e-06
+EarlyStopping counter: 11 out of 100
+Epoch: 41, Steps: 47 | Train Loss: 0.2201981 Inner Val Loss: 0.1689689 Best: 0.1628158 | 0.357s
+Updating learning rate to 5.4744010894202246e-06
+EarlyStopping counter: 12 out of 100
+Epoch: 42, Steps: 47 | Train Loss: 0.2179122 Inner Val Loss: 0.1669329 Best: 0.1628158 | 0.391s
+Updating learning rate to 4.926960980478202e-06
+EarlyStopping counter: 13 out of 100
+Epoch: 43, Steps: 47 | Train Loss: 0.2198247 Inner Val Loss: 0.1653535 Best: 0.1628158 | 0.391s
+Updating learning rate to 4.434264882430382e-06
+EarlyStopping counter: 14 out of 100
+Epoch: 44, Steps: 47 | Train Loss: 0.2184099 Inner Val Loss: 0.1676349 Best: 0.1628158 | 0.392s
+Updating learning rate to 3.9908383941873435e-06
+EarlyStopping counter: 15 out of 100
+Epoch: 45, Steps: 47 | Train Loss: 0.2196767 Inner Val Loss: 0.1667553 Best: 0.1628158 | 0.388s
+Updating learning rate to 3.5917545547686093e-06
+EarlyStopping counter: 16 out of 100
+Epoch: 46, Steps: 47 | Train Loss: 0.2190894 Inner Val Loss: 0.1665831 Best: 0.1628158 | 0.393s
+Updating learning rate to 3.2325790992917485e-06
+EarlyStopping counter: 17 out of 100
+Epoch: 47, Steps: 47 | Train Loss: 0.2168728 Inner Val Loss: 0.1677438 Best: 0.1628158 | 0.374s
+Updating learning rate to 2.9093211893625737e-06
+EarlyStopping counter: 18 out of 100
+Epoch: 48, Steps: 47 | Train Loss: 0.2207518 Inner Val Loss: 0.1666264 Best: 0.1628158 | 0.376s
+Updating learning rate to 2.6183890704263165e-06
+EarlyStopping counter: 19 out of 100
+Epoch: 49, Steps: 47 | Train Loss: 0.2211660 Inner Val Loss: 0.1660919 Best: 0.1628158 | 0.382s
+Updating learning rate to 2.356550163383685e-06
+EarlyStopping counter: 20 out of 100
+Epoch: 50, Steps: 47 | Train Loss: 0.2193870 Inner Val Loss: 0.1675484 Best: 0.1628158 | 0.383s
+Updating learning rate to 2.1208951470453164e-06
+>>>>>>>testing outer fold 1: sunspot_PatchTST_cv5_ftMS_sl132_ll48_pl24_dm112_nh8_el2_df2048_p36_s18_B26M-CAPR-D112_F1_seed2022<<<<<<<
+[AI 2026-10-10] checkpoint 含非张量对象（UnpicklingError），按项目自身产物处理，使用 weights_only=False 加载：full_checkpoint.pth
+saved outer fold: pred=(512, 24, 1) true=(512, 24, 1) target=./results/sunspot_PatchTST_cv5_ftMS_sl132_ll48_pl24_dm112_nh8_el2_df2048_p36_s18_B26M-CAPR-D112_F1_seed2022
