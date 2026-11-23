@@ -76,7 +76,7 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：PR24 参考基线验收与周期条件模型设计（2026-11-23）
+## 当前阶段：A0 双口径与周期条件模型筛查（2026-11-23）
 
 - 当前工作线：`BASE-2026-11-M` / `/output/BASE-2026-11-M`；状态以 `project_docs/STATE.md` 为准。
 - PR24 容量审计已完成。D64 五 seed 稳定更差；E3、D256 等小于 1% 的
@@ -95,8 +95,16 @@
 - 当前 Pipeline 的 SSN 输出只依赖 SSN 自己的 channel-independent 分支；
   `month_sin`、`month_cos` 等附加通道不会自动进入 SSN 预测。周期特征接入前
   必须先设计显式 fusion。
-- 下一步：先验证周期级幅度/时间信号，再讨论两阶段极值条件曲线、
-  scheduled sampling / rollout loss 和 aa/F10.7/极区磁场接入。
+- A0 raw/13m 已完成同日期、同切分、五 seed 对照。raw Full/Block24=
+  26.913/27.331；13m=16.439/17.903。13m 更易学，但中心平滑当前端点
+  无法用于 2026-10 真实预测。见
+  `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`。
+- 周期上下文已完成 leave-one-cycle-out 初筛：峰幅有弱信号，峰时/谷时未稳定
+  超过中位数；历史硬分三组反而使峰幅误差变大。F10.7 已清洗至 2026-10，
+  WSO 有效月值止于 2025-12，aa 待 ISGI 邮箱。见
+  `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md`。
+- 下一步：先定周期级幅度/时间模型是否保留，再设计显式 fusion、两阶段极值条件
+  曲线、scheduled sampling / rollout loss 和 aa 覆盖期对照。
   block24 仍是当前参考推理口径；跨环境/跨口径边界不变。
 
 ## 环境维护
@@ -235,10 +243,10 @@
 
 ## 下一步（2026-11-23）
 
-1. 设计并预登记“周期级幅度/时间特征表 + leave-one-cycle-out”验证；
+1. 决定周期级 Ridge/RF 初筛是否进入正式方法线；
 2. 修复 PatchTST channel-independent 无法利用周期上下文的问题；
 3. 比较两阶段极值条件曲线、scheduled sampling/rollout loss 与当前 block24；
-4. 接入 aa 做单变量实验；F10.7/极区磁场只在缩短训练段的对照中使用；
+4. 接入 aa 做单变量实验；F10.7/极区磁场只在与控制相同的缩短训练段中使用；
 5. 后续每次 push 仍需明确授权。
 
 纪律：预检表跑前完成；坑清单跑前回顾；主控文档顶部快照随进度同步更新。

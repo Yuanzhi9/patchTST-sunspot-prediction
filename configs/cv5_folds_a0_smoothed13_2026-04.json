@@ -1,0 +1,561 @@
+{
+  "schema": "BASE-2026-11-M-cv5-v1",
+  "created_utc": "2026-11-23T04:43:22.201348+00:00",
+  "data_csv": "PatchTST_supervised/dataset/sunspot_a0_smoothed13_1749-07_2026-04.csv",
+  "data_sha256": "b46bb59b67142b73caa0dd530c3d38970dcd627857f97f24425c04d0955474e8",
+  "n_months": 3322,
+  "start_date": "1749-07",
+  "end_date": "2026-04",
+  "n_folds": 5,
+  "split_rule": "sequential_equal_blocks_no_shuffle",
+  "inner_val_months": 132,
+  "blocks": [
+    {
+      "block_id": 1,
+      "start": 0,
+      "end": 664,
+      "n_months": 665,
+      "start_date": "1749-07",
+      "end_date": "1804-11"
+    },
+    {
+      "block_id": 2,
+      "start": 665,
+      "end": 1329,
+      "n_months": 665,
+      "start_date": "1804-12",
+      "end_date": "1860-04"
+    },
+    {
+      "block_id": 3,
+      "start": 1330,
+      "end": 1993,
+      "n_months": 664,
+      "start_date": "1860-05",
+      "end_date": "1915-08"
+    },
+    {
+      "block_id": 4,
+      "start": 1994,
+      "end": 2657,
+      "n_months": 664,
+      "start_date": "1915-09",
+      "end_date": "1970-12"
+    },
+    {
+      "block_id": 5,
+      "start": 2658,
+      "end": 3321,
+      "n_months": 664,
+      "start_date": "1971-01",
+      "end_date": "2026-04"
+    }
+  ],
+  "folds": [
+    {
+      "fold": 1,
+      "outer_val": {
+        "block_id": 1,
+        "start": 0,
+        "end": 664,
+        "n_months": 665,
+        "start_date": "1749-07",
+        "end_date": "1804-11"
+      },
+      "train_blocks": [
+        {
+          "block_id": 2,
+          "start": 665,
+          "end": 1329,
+          "n_months": 665,
+          "start_date": "1804-12",
+          "end_date": "1860-04",
+          "inner_train": {
+            "start": 665,
+            "end": 1197,
+            "n_months": 533,
+            "start_date": "1804-12",
+            "end_date": "1849-04"
+          },
+          "inner_val": {
+            "start": 1198,
+            "end": 1329,
+            "n_months": 132,
+            "start_date": "1849-05",
+            "end_date": "1860-04"
+          }
+        },
+        {
+          "block_id": 3,
+          "start": 1330,
+          "end": 1993,
+          "n_months": 664,
+          "start_date": "1860-05",
+          "end_date": "1915-08",
+          "inner_train": {
+            "start": 1330,
+            "end": 1861,
+            "n_months": 532,
+            "start_date": "1860-05",
+            "end_date": "1904-08"
+          },
+          "inner_val": {
+            "start": 1862,
+            "end": 1993,
+            "n_months": 132,
+            "start_date": "1904-09",
+            "end_date": "1915-08"
+          }
+        },
+        {
+          "block_id": 4,
+          "start": 1994,
+          "end": 2657,
+          "n_months": 664,
+          "start_date": "1915-09",
+          "end_date": "1970-12",
+          "inner_train": {
+            "start": 1994,
+            "end": 2525,
+            "n_months": 532,
+            "start_date": "1915-09",
+            "end_date": "1959-12"
+          },
+          "inner_val": {
+            "start": 2526,
+            "end": 2657,
+            "n_months": 132,
+            "start_date": "1960-01",
+            "end_date": "1970-12"
+          }
+        },
+        {
+          "block_id": 5,
+          "start": 2658,
+          "end": 3321,
+          "n_months": 664,
+          "start_date": "1971-01",
+          "end_date": "2026-04",
+          "inner_train": {
+            "start": 2658,
+            "end": 3189,
+            "n_months": 532,
+            "start_date": "1971-01",
+            "end_date": "2015-04"
+          },
+          "inner_val": {
+            "start": 3190,
+            "end": 3321,
+            "n_months": 132,
+            "start_date": "2015-05",
+            "end_date": "2026-04"
+          }
+        }
+      ]
+    },
+    {
+      "fold": 2,
+      "outer_val": {
+        "block_id": 2,
+        "start": 665,
+        "end": 1329,
+        "n_months": 665,
+        "start_date": "1804-12",
+        "end_date": "1860-04"
+      },
+      "train_blocks": [
+        {
+          "block_id": 1,
+          "start": 0,
+          "end": 664,
+          "n_months": 665,
+          "start_date": "1749-07",
+          "end_date": "1804-11",
+          "inner_train": {
+            "start": 0,
+            "end": 532,
+            "n_months": 533,
+            "start_date": "1749-07",
+            "end_date": "1793-11"
+          },
+          "inner_val": {
+            "start": 533,
+            "end": 664,
+            "n_months": 132,
+            "start_date": "1793-12",
+            "end_date": "1804-11"
+          }
+        },
+        {
+          "block_id": 3,
+          "start": 1330,
+          "end": 1993,
+          "n_months": 664,
+          "start_date": "1860-05",
+          "end_date": "1915-08",
+          "inner_train": {
+            "start": 1330,
+            "end": 1861,
+            "n_months": 532,
+            "start_date": "1860-05",
+            "end_date": "1904-08"
+          },
+          "inner_val": {
+            "start": 1862,
+            "end": 1993,
+            "n_months": 132,
+            "start_date": "1904-09",
+            "end_date": "1915-08"
+          }
+        },
+        {
+          "block_id": 4,
+          "start": 1994,
+          "end": 2657,
+          "n_months": 664,
+          "start_date": "1915-09",
+          "end_date": "1970-12",
+          "inner_train": {
+            "start": 1994,
+            "end": 2525,
+            "n_months": 532,
+            "start_date": "1915-09",
+            "end_date": "1959-12"
+          },
+          "inner_val": {
+            "start": 2526,
+            "end": 2657,
+            "n_months": 132,
+            "start_date": "1960-01",
+            "end_date": "1970-12"
+          }
+        },
+        {
+          "block_id": 5,
+          "start": 2658,
+          "end": 3321,
+          "n_months": 664,
+          "start_date": "1971-01",
+          "end_date": "2026-04",
+          "inner_train": {
+            "start": 2658,
+            "end": 3189,
+            "n_months": 532,
+            "start_date": "1971-01",
+            "end_date": "2015-04"
+          },
+          "inner_val": {
+            "start": 3190,
+            "end": 3321,
+            "n_months": 132,
+            "start_date": "2015-05",
+            "end_date": "2026-04"
+          }
+        }
+      ]
+    },
+    {
+      "fold": 3,
+      "outer_val": {
+        "block_id": 3,
+        "start": 1330,
+        "end": 1993,
+        "n_months": 664,
+        "start_date": "1860-05",
+        "end_date": "1915-08"
+      },
+      "train_blocks": [
+        {
+          "block_id": 1,
+          "start": 0,
+          "end": 664,
+          "n_months": 665,
+          "start_date": "1749-07",
+          "end_date": "1804-11",
+          "inner_train": {
+            "start": 0,
+            "end": 532,
+            "n_months": 533,
+            "start_date": "1749-07",
+            "end_date": "1793-11"
+          },
+          "inner_val": {
+            "start": 533,
+            "end": 664,
+            "n_months": 132,
+            "start_date": "1793-12",
+            "end_date": "1804-11"
+          }
+        },
+        {
+          "block_id": 2,
+          "start": 665,
+          "end": 1329,
+          "n_months": 665,
+          "start_date": "1804-12",
+          "end_date": "1860-04",
+          "inner_train": {
+            "start": 665,
+            "end": 1197,
+            "n_months": 533,
+            "start_date": "1804-12",
+            "end_date": "1849-04"
+          },
+          "inner_val": {
+            "start": 1198,
+            "end": 1329,
+            "n_months": 132,
+            "start_date": "1849-05",
+            "end_date": "1860-04"
+          }
+        },
+        {
+          "block_id": 4,
+          "start": 1994,
+          "end": 2657,
+          "n_months": 664,
+          "start_date": "1915-09",
+          "end_date": "1970-12",
+          "inner_train": {
+            "start": 1994,
+            "end": 2525,
+            "n_months": 532,
+            "start_date": "1915-09",
+            "end_date": "1959-12"
+          },
+          "inner_val": {
+            "start": 2526,
+            "end": 2657,
+            "n_months": 132,
+            "start_date": "1960-01",
+            "end_date": "1970-12"
+          }
+        },
+        {
+          "block_id": 5,
+          "start": 2658,
+          "end": 3321,
+          "n_months": 664,
+          "start_date": "1971-01",
+          "end_date": "2026-04",
+          "inner_train": {
+            "start": 2658,
+            "end": 3189,
+            "n_months": 532,
+            "start_date": "1971-01",
+            "end_date": "2015-04"
+          },
+          "inner_val": {
+            "start": 3190,
+            "end": 3321,
+            "n_months": 132,
+            "start_date": "2015-05",
+            "end_date": "2026-04"
+          }
+        }
+      ]
+    },
+    {
+      "fold": 4,
+      "outer_val": {
+        "block_id": 4,
+        "start": 1994,
+        "end": 2657,
+        "n_months": 664,
+        "start_date": "1915-09",
+        "end_date": "1970-12"
+      },
+      "train_blocks": [
+        {
+          "block_id": 1,
+          "start": 0,
+          "end": 664,
+          "n_months": 665,
+          "start_date": "1749-07",
+          "end_date": "1804-11",
+          "inner_train": {
+            "start": 0,
+            "end": 532,
+            "n_months": 533,
+            "start_date": "1749-07",
+            "end_date": "1793-11"
+          },
+          "inner_val": {
+            "start": 533,
+            "end": 664,
+            "n_months": 132,
+            "start_date": "1793-12",
+            "end_date": "1804-11"
+          }
+        },
+        {
+          "block_id": 2,
+          "start": 665,
+          "end": 1329,
+          "n_months": 665,
+          "start_date": "1804-12",
+          "end_date": "1860-04",
+          "inner_train": {
+            "start": 665,
+            "end": 1197,
+            "n_months": 533,
+            "start_date": "1804-12",
+            "end_date": "1849-04"
+          },
+          "inner_val": {
+            "start": 1198,
+            "end": 1329,
+            "n_months": 132,
+            "start_date": "1849-05",
+            "end_date": "1860-04"
+          }
+        },
+        {
+          "block_id": 3,
+          "start": 1330,
+          "end": 1993,
+          "n_months": 664,
+          "start_date": "1860-05",
+          "end_date": "1915-08",
+          "inner_train": {
+            "start": 1330,
+            "end": 1861,
+            "n_months": 532,
+            "start_date": "1860-05",
+            "end_date": "1904-08"
+          },
+          "inner_val": {
+            "start": 1862,
+            "end": 1993,
+            "n_months": 132,
+            "start_date": "1904-09",
+            "end_date": "1915-08"
+          }
+        },
+        {
+          "block_id": 5,
+          "start": 2658,
+          "end": 3321,
+          "n_months": 664,
+          "start_date": "1971-01",
+          "end_date": "2026-04",
+          "inner_train": {
+            "start": 2658,
+            "end": 3189,
+            "n_months": 532,
+            "start_date": "1971-01",
+            "end_date": "2015-04"
+          },
+          "inner_val": {
+            "start": 3190,
+            "end": 3321,
+            "n_months": 132,
+            "start_date": "2015-05",
+            "end_date": "2026-04"
+          }
+        }
+      ]
+    },
+    {
+      "fold": 5,
+      "outer_val": {
+        "block_id": 5,
+        "start": 2658,
+        "end": 3321,
+        "n_months": 664,
+        "start_date": "1971-01",
+        "end_date": "2026-04"
+      },
+      "train_blocks": [
+        {
+          "block_id": 1,
+          "start": 0,
+          "end": 664,
+          "n_months": 665,
+          "start_date": "1749-07",
+          "end_date": "1804-11",
+          "inner_train": {
+            "start": 0,
+            "end": 532,
+            "n_months": 533,
+            "start_date": "1749-07",
+            "end_date": "1793-11"
+          },
+          "inner_val": {
+            "start": 533,
+            "end": 664,
+            "n_months": 132,
+            "start_date": "1793-12",
+            "end_date": "1804-11"
+          }
+        },
+        {
+          "block_id": 2,
+          "start": 665,
+          "end": 1329,
+          "n_months": 665,
+          "start_date": "1804-12",
+          "end_date": "1860-04",
+          "inner_train": {
+            "start": 665,
+            "end": 1197,
+            "n_months": 533,
+            "start_date": "1804-12",
+            "end_date": "1849-04"
+          },
+          "inner_val": {
+            "start": 1198,
+            "end": 1329,
+            "n_months": 132,
+            "start_date": "1849-05",
+            "end_date": "1860-04"
+          }
+        },
+        {
+          "block_id": 3,
+          "start": 1330,
+          "end": 1993,
+          "n_months": 664,
+          "start_date": "1860-05",
+          "end_date": "1915-08",
+          "inner_train": {
+            "start": 1330,
+            "end": 1861,
+            "n_months": 532,
+            "start_date": "1860-05",
+            "end_date": "1904-08"
+          },
+          "inner_val": {
+            "start": 1862,
+            "end": 1993,
+            "n_months": 132,
+            "start_date": "1904-09",
+            "end_date": "1915-08"
+          }
+        },
+        {
+          "block_id": 4,
+          "start": 1994,
+          "end": 2657,
+          "n_months": 664,
+          "start_date": "1915-09",
+          "end_date": "1970-12",
+          "inner_train": {
+            "start": 1994,
+            "end": 2525,
+            "n_months": 532,
+            "start_date": "1915-09",
+            "end_date": "1959-12"
+          },
+          "inner_val": {
+            "start": 2526,
+            "end": 2657,
+            "n_months": 132,
+            "start_date": "1960-01",
+            "end_date": "1970-12"
+          }
+        }
+      ]
+    }
+  ]
+}

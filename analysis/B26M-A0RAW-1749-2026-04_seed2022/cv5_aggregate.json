@@ -1,0 +1,11 @@
+{
+  "des": "B26M-A0RAW-1749-2026-04",
+  "seed": 2022,
+  "folds_found": 5,
+  "full_MAE_mean": 27.052395160850995,
+  "full_MAE_std": 3.205769673858072,
+  "full_MAE_worst": 33.2096693701526,
+  "block24_MAE_mean": 27.593415213605233,
+  "block24_MAE_std": 3.677366752934739,
+  "block24_MAE_worst": 33.78188663251473
+}

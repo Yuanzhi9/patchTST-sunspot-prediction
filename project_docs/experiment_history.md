@@ -33,6 +33,8 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **B26M-A0** | 11.23 | Stage 10 | 同日期对照 raw 与官方 13m 平滑 SSN | 1749-07–2026-04；SL132/PL24/P36/S18/D128/E2/F2048；五 seed | raw 26.913±0.122；13m 16.439±0.251 | — | — | 平滑目标更易学但仍属回顾口径；raw 继续作主数据 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` | ✅ |
+| **CYCLE-SCREEN** | 11.23 | Stage 10 | SSN 周期上下文 + F10.7/WSO 数据初筛 | 24 个完整周期；leave-one-cycle-out | 峰幅 raw RF 55.73 对中位 59.24 | — | — | 峰幅弱信号；峰时/谷时未过中位数；硬波动分组无效 | `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` | — |
 | **PR24-BASELINE-ACCEPT** | 11.23 | Stage 10 | 景修验收 D128 为 reference baseline；完成文献三联图与长时距方案审查 | PR24 recursive24；SC20/21/24；raw/clip0 | — | — | — | 可作改进对照；不可宣称 SC26 峰幅已校准；下一步验证周期级极值与 fusion | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` | — |
 | **FINAL-PR24-2026-10** | 11.21 | Stage 10 | 全历史固定 50ep、五 seed、block24 递归未来预测 | raw 1749-2026-10；clip0；origin 2026-10；horizon168 | — | — | — | SC25谷中位2030-10；SC26峰中位2035-06；13m峰值104.82（101.68–108.58） | `EXPERIMENT_B26M-pr24-future-2026-10.md` | ✅ |
 | **B26M-CAPR五seed** | 11.21 | Stage 10 | D112/D144/D160 中间容量补五 seed | CV5, seq132,p36/s18,E2,F2048,50ep | D112 26.896；D144 26.933；D160 26.871 | — | — | 均未稳定超过 D128（26.83）；保留 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` | ✅ |
@@ -1250,3 +1252,24 @@ PR24 recursive block24、PR132 direct。
 -88.80/+20.03/-0.65 SSN；强周期 SC20 明显压低峰值，弱周期 SC24 接近真实。
 PR132 direct 在三个周期都压低峰值。详见
 `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md`。
+
+### A0 raw / 13m 平滑口径与周期上下文初筛（2026-11-23）
+
+A0 两个口径统一到 1749-07–2026-04，共 3322 月；五折日期和 PR24 参数固定，
+只改变 SSN 序列口径。两口径各训练 25 个 fold×seed。
+
+| 口径 | Full MAE | Block24 MAE | Normalized MAE |
+|---|---:|---:|---:|
+| raw | 26.913 ± 0.122 | 27.331 ± 0.284 | 0.4003 |
+| 13m smoothed | 16.439 ± 0.251 | 17.903 ± 0.400 | 0.2632 |
+
+13m 平滑版误差更低，且按目标标准差缩放后仍更低；但当前 pipeline 是同序列
+输入+目标，中心平滑只到 2026-04，因此它是回顾性基线，不是 2026-10 可部署输入。
+详见 `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`。
+
+周期上下文表由 1749 起的 SSN 因果构造 25 个周期，24 个有完整下一周期目标。
+leave-one-cycle-out 初筛中，峰幅有一点信号：raw RF MAE 55.73，气候中位数
+59.24；13m reduced Ridge 45.81，气候中位数 47.29。峰时和目标谷时没有稳定
+超过中位数。按当前可见波动硬分三组的快速 pilot 使峰幅 MAE 变差，因此不作为
+正式基线，后续只考虑因果软门控。F10.7 与 WSO 数据清洗和覆盖范围见
+`project_docs/DATA_QUALITY_2026-11-23_external_indices.md`。

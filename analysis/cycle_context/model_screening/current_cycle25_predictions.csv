@@ -1,0 +1,17 @@
+target,feature_set,model,prediction
+target_peak_smooth,reduced,ridge,142.0630912675341
+target_peak_smooth,reduced,random_forest,142.5890799827097
+target_peak_smooth,full,ridge,130.38568630951346
+target_peak_smooth,full,random_forest,142.92625545633874
+target_peak_raw,reduced,ridge,206.09029767756036
+target_peak_raw,reduced,random_forest,202.69326765012755
+target_peak_raw,full,ridge,188.04640724551285
+target_peak_raw,full,random_forest,201.02056573981565
+target_months_to_min,reduced,ridge,49.19744336777242
+target_months_to_min,reduced,random_forest,56.93946562326563
+target_months_to_min,full,ridge,47.32141956039203
+target_months_to_min,full,random_forest,57.97198434343437
+target_months_to_peak,reduced,ridge,106.10201842165682
+target_months_to_peak,reduced,random_forest,104.55544537684533
+target_months_to_peak,full,ridge,105.708392590008
+target_months_to_peak,full,random_forest,105.92856641136645

@@ -674,3 +674,10 @@ B26M-CHRONO-SC20-SUMMARY  p24_update_MAE=25.2728  p24_recursive24_MAE=42.3922  p
 B26M-CHRONO-SC21-SUMMARY  p24_update_MAE=26.3012  p24_recursive24_MAE=28.2303  p132_direct_MAE=38.8359  true_peak=1989-06/212.77  true_trough=1996-08/11.05  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv
 B26M-CHRONO-SC24-SUMMARY  p24_update_MAE=14.7792  p24_recursive24_MAE=14.4829  p132_direct_MAE=29.8226  true_peak=2014-04/115.33  true_trough=2019-12/1.94  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv
 B26M-CHRONO-RESULT  recursive24峰时绝对误差=4.8/10.8/8.0月  recursive24峰幅误差=-88.80/+20.03/-0.65  recursive24谷时绝对误差=6.0/0.8/0.0月  PR132峰幅误差=-121.78/-12.97/+28.00  evidence=analysis/cycle_holdout/cycle_holdout_aggregate.csv
+
+# [2026-11-23] A0 原始/13 月平滑同日期五 seed；1749-07–2026-04；物理目标
+B26M-A0-RAW-SUMMARY  full_MAE_mean=26.9129  full_MAE_std=0.1220  block24_MAE_mean=27.3306  block24_MAE_std=0.2844  normalized_MAE=0.4003  normalized_RMSE=0.5554  evidence=analysis/a0_raw_vs_smoothed/a0_raw_smoothed_summary.csv
+B26M-A0-SMOOTH13-SUMMARY  full_MAE_mean=16.4389  full_MAE_std=0.2506  block24_MAE_mean=17.9029  block24_MAE_std=0.3997  normalized_MAE=0.2632  normalized_RMSE=0.3858  evidence=analysis/a0_raw_vs_smoothed/a0_raw_smoothed_summary.csv
+
+# [2026-11-23] 周期级极值初筛；仅 24 个完整周期，不作正式新基线
+B26M-CYCLE-SCREEN  peak_raw_best=random_forest_reduced_MAE55.7271  peak_raw_climatology_MAE59.2417  peak_smooth_best=ridge_reduced_MAE45.8085  peak_smooth_climatology_MAE47.2946  peak_time_and_trough_time=not_better_than_median  evidence=analysis/cycle_context/model_screening/cycle_model_screening_summary.csv

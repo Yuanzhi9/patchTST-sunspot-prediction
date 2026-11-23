@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-11-23T04:50:43+00:00",
+  "f107": {
+    "url": "https://www.ngdc.noaa.gov/stp/space-weather/solar-data/solar-features/solar-radio/noontime-flux/penticton/penticton_observed/penticton_solflux-monthly-average.txt",
+    "daily_url_pattern": "https://www.ngdc.noaa.gov/stp/space-weather/solar-data/solar-features/solar-radio/noontime-flux/penticton/pent_noontime-flux_{year}.txt",
+    "coverage": [
+      "1947-02-01",
+      "2026-10-01"
+    ],
+    "rows": 957,
+    "missing_months": 3,
+    "sha256": "d50f57845c0ae00ed8c1af1d3d2313f1abd122754dce8ecb2a3f13e31e867ac3"
+  },
+  "wso_polar": {
+    "url": "http://wso.stanford.edu/Polar.html",
+    "coverage": [
+      "1976-05-31",
+      "2026-07-18"
+    ],
+    "valid_10day_rows": 1795,
+    "last_valid_10day": "2026-01-09",
+    "monthly_rows": 606,
+    "monthly_missing": 15,
+    "sha256": "8d3280fb9a465944c86ca9d8bf701ea024461257f99b200e0eaf3e78c271b562"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "des": "B26M-A0SMOOTH13-1749-2026-04",
+  "seed": 2020,
+  "folds_found": 5,
+  "full_MAE_mean": 16.2269723148682,
+  "full_MAE_std": 2.461601565287524,
+  "full_MAE_worst": 20.81366374501995,
+  "block24_MAE_mean": 17.55265004183708,
+  "block24_MAE_std": 3.0841623778255607,
+  "block24_MAE_worst": 21.984853977145573
+}

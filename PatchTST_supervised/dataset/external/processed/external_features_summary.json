@@ -1,0 +1,14 @@
+{
+  "rows": 3334,
+  "start": "1749-01-01",
+  "end": "2026-10-01",
+  "f107_valid": 954,
+  "f107_first": "1947-02-01",
+  "f107_last": "2026-10-01",
+  "f107_missing_after_1947": 3,
+  "polar_valid": 591,
+  "polar_first": "1976-06-01",
+  "polar_last": "2025-12-01",
+  "polar_missing_after_1976": 15,
+  "aa_present": false
+}

@@ -7,11 +7,12 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | 景修已验收 PR24 reference baseline；容量、非负、未来预测和文献三联图均完成 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
-| 当前任务 | 设计周期级幅度/时间特征验证与显式 fusion；本轮只预登记，不直接改模型 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §3、§7 |
+| 当前阶段 | PR24 reference baseline 已验收；A0 raw/13m 五 seed、周期上下文和外部数据初筛完成 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`、`project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` |
+| 当前任务 | 先决定周期级幅度/时间模型是否保留；下一批正式实验用纯 SSN 周期上下文，再接 aa 与同覆盖期对照 | `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` |
 | p24 原预案缺口 | 中间容量审计完成；D160 五 seed 未稳定超过 D128；继续使用 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | B26M 锚点 | E00 Full/Block=33.62/35.05；G1 seq132=27.82/27.86；完整结果见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
 | PR24 参考基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；正式输出采用物理反变换后 clip0。可作改进对照，不宣称峰幅已校准 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
+| A0 口径对照 | 同日期 raw 五 seed Full/Block24=26.913/27.331；13m=16.439/17.903；归一化误差 0.400/0.263 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
 | p24 补强结论 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移；稳定性图已出 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` §p24 |
 | 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 时间顺序盲测 | SC20/21/24 各 5 seed；PR24 recursive block24 MAE=42.39/28.23/14.48，PR132 direct=52.15/38.84/29.82 | `analysis/cycle_holdout/cycle_holdout_aggregate.csv` |
@@ -24,7 +25,8 @@
 | 分支登记表 | 分支太多时先看 `BRANCHES.md`；**收敛计划待景修批** | `project_docs/BRANCHES.md` |
 | 命名规范 | `PR24`/`PR132` 表示 prediction length；`PL36` 表示 patch length | `project_docs/NAMING.md` |
 | 运行环境 | 当前 RTX 5090 32G；11.21 及更早记录为 A6000 48G；torch 2.8.0+cu128 / numpy 2.2 / 无 venv | `nvidia-smi`（2026-11-23）、AGENTS.md 环境维护 |
-| 数据口径 | 当前官方快照：月均未平滑至 **2026-10**；13月平滑有效至 **2026-04**；历史实验结果仍基于 2025-10 快照 | `plan_base_2026-11_monthly_cv5.md` §一、data_pipeline.md |
+| 数据口径 | 当前官方快照：raw 至 **2026-10**；13m 有效至 **2026-04**；A0 对照两端统一截到 **2026-04** | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`、`data_pipeline.md` |
+| 外部数据 | F10.7 已清洗至 2026-10；WSO 有效月值止于 2025-12；aa 待 ISGI 邮箱；周期上下文 25 条 | `project_docs/DATA_QUALITY_2026-11-23_external_indices.md` |
 | 用法口径 | **block24 无重叠**（minimax 判据） | EXP-23-R3 |
 | 跨环境规则 | 全步 ≤4% 可用；block ≤10.6% 辅证；**滚动仅同环境** | EXP-23-R2 |
 | 泄露核查 | 三种口径**无泄露** | data_pipeline.md §数据泄露核查 |
@@ -34,5 +36,5 @@
 | 未来预测 | 起报 2026-10；SC25 谷 2030-10（范围 2030-07–10）；SC26 峰 2035-06（范围 2035-02–12），13m 峰值 104.82（101.68–108.58） | `analysis/pr24_future_forecast/` |
 | 文献对照 | 三联图已完成；峰时与文献一致，raw 峰幅约 106.95，处于文献高估计 150–181 的低端 | `analysis/literature_comparison/`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §6 |
 | 长时距备选 | 当前已测方案中 block24 recursive 最稳；下一步比较周期极值条件曲线与 rollout-aware 训练 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §4 |
-| 未决 | 周期特征如何接入 channel-independent PatchTST；aa/F10.7/极区磁场取舍；是否继续 centered Gaussian | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §5、§7 |
-| 最后核对 | 2026-11-23（基线验收、文献三联图、文档矛盾修正与远端同步） | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
+| 未决 | 周期特征如何显式 fusion；硬分组已由 pilot 否定，是否试因果软门控；aa 下载与覆盖期门槛 | `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` |
+| 最后核对 | 2026-11-23（A0 五 seed、周期/外部数据初筛；新增结果尚未推送） | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
