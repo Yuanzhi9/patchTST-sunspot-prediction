@@ -21,7 +21,7 @@
 | 非负能力检验 | raw/clip0 完成；clip0 负值=0；峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | Gaussian σ=3.6 | causal 三周期×五 seed 完成；未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132 独立；8 条 worktree/分支登记全部保留，未清场 | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | `BASE-2026-11-M` 已同步调研归档；P132 独立保留、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
+| 远端状态 | `BASE-2026-11-M` 已同步调研归档与沟通规则；P132 独立保留、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留 | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 命名规范 | `PR24`/`PR132` 表示 prediction length；`PL36` 表示 patch length | `project_docs/NAMING.md` |
 | 运行环境 | RTX 5090 32G；torch 2.8.0+cu128 / numpy 2.2 / 无 venv；历史 A6000 结果不可直接横比 | `AGENTS.md` 环境维护 |
@@ -37,4 +37,4 @@
 | 文献对照 | 峰时与文献接近；raw 峰幅约 106.95，处于高估计 150–181 的低端 | `analysis/literature_comparison/` |
 | 长时距备选 | block24 仍最稳；主峰候选按 forecast origin 比较，P2 残差审计未启动 | `project_docs/RESEARCH_2026-11-23_peak_amplitude_time_evidence.md` |
 | 未决 | R1B-NEXT 未运行；RF/R1A 保留；时间模型仅在峰幅与泄漏门通过后启动 | `project_docs/PLAN_2026-11-24_R1B_NEXT.md` |
-| 最后核对 | 2026-11-23 调研与明日计划已归档；本地提交待推送 | `diary/2026-11-23.md` |
+| 最后核对 | 2026-11-23 调研、明日计划与沟通规则均已归档并推送 | `diary/2026-11-23.md` |
