@@ -1,0 +1,12 @@
+{
+  "origin": "2026-10",
+  "smoothing": "centered 13-month on observed history plus each forecast path",
+  "trough_date": "2030-10",
+  "trough_value": 0.1167467557466903,
+  "peak_date": "2035-06",
+  "peak_value": 104.8167478121244,
+  "seed_peak_range": [
+    101.68373166597806,
+    108.5832050030048
+  ]
+}

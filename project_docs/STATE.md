@@ -7,7 +7,7 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | E1、R1、T1 均完成；R1-A Oracle 通过，其余部署路径失败 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
+| 当前阶段 | E1、R1、T1 与平滑尺度复核完成；R1-A Oracle 通过，其余部署路径失败 | `project_docs/ANALYSIS_2026-11-23_smoothed_prediction_comparison.md` |
 | 当前任务 | 停止 E1b/R1-B/T1 扩展；下一步需重新设计幅度信息或训练目标 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |
 | p24 原预案缺口 | 中间容量审计完成；D160 五 seed 未稳定超过 D128；继续使用 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | 当前基线（月均） | PR24 `D128` reference；历史锚点 E00/G1 见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |

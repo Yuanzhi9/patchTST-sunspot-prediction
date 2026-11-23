@@ -1,0 +1,19 @@
+cycle  method  mae_mean  mae_std  rmse_mean  r2_mean  seeds
+ SC20    pr24 41.718526 1.486161  51.105702 0.554252      5
+ SC20 r1a_h24 24.367640 1.711744  30.509493 0.840829      5
+ SC21    pr24 23.095774 2.028052  27.452807 0.859185      5
+ SC21 r1a_h24 20.591899 2.477871  25.253374 0.879488      5
+ SC24    pr24 11.011934 0.825545  13.265460 0.868507      5
+ SC24 r1a_h24 11.014517 0.636685  13.317019 0.867894      5
+{
+  "origin": "2026-10",
+  "smoothing": "centered 13-month on observed history plus each forecast path",
+  "trough_date": "2030-10",
+  "trough_value": 0.1167467557466903,
+  "peak_date": "2035-06",
+  "peak_value": 104.8167478121244,
+  "seed_peak_range": [
+    101.68373166597806,
+    108.5832050030048
+  ]
+}

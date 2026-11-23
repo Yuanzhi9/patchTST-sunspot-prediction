@@ -113,3 +113,12 @@ python3 -u scripts/eval_constrained_peak_2026-11-23.py 2>&1 \
 
 图：`analysis/r1a_constrained_peak/r1a_profiles.png`、
 `analysis/r1a_constrained_peak/r1a_kernel_sensitivity.png`。
+
+补充的 13 月平滑对照：
+
+- SC20 PR24 41.719→R1-A 24.368；
+- SC21 23.096→20.592；
+- SC24 11.012→11.015。
+
+平滑尺度没有改变结论。详见
+`project_docs/ANALYSIS_2026-11-23_smoothed_prediction_comparison.md`。
