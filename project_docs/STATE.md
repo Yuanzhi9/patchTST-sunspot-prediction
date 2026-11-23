@@ -8,7 +8,7 @@
 | 字段 | 值 | 证据指针 |
 |---|---|---|
 | 当前阶段 | E1、R1、T1 与平滑尺度复核完成；R1-A Oracle 通过，其余部署路径失败 | `project_docs/ANALYSIS_2026-11-23_smoothed_prediction_comparison.md` |
-| 当前任务 | R1B-RAW 已完成；继续 R1-B 需先重建可在 raw/13m 两口径稳定的幅度模型 | `EXPERIMENT_B26M-R1B-RAW_2026-11-23.md` |
+| 当前任务 | R1B 继续；先做双峰标签审计，再做 raw/13m 分离的幅度模型与可选第二峰/残差 | `project_docs/PLAN_2026-11-23_double_peak_and_r1b_series.md` |
 | p24 原预案缺口 | 中间容量审计完成；D160 五 seed 未稳定超过 D128；继续使用 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | 当前基线（月均） | PR24 `D128` reference；历史锚点 E00/G1 见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
 | PR24 参考基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；正式输出采用物理反变换后 clip0。可作改进对照，不宣称峰幅已校准 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
