@@ -1,0 +1,97 @@
+{
+  "primary_definition": "raw monthly maximum",
+  "secondary_definition": "13-month centered smoothed maximum",
+  "half_width_months": 24,
+  "methods": {
+    "oracle_raw": {
+      "raw_peak_improved": {
+        "SC20": 1,
+        "SC21": 1,
+        "SC24": 1
+      },
+      "curve_mae_change_pct": {
+        "SC20": -28.493525336550245,
+        "SC21": 16.51770152145556,
+        "SC24": 23.915255111022564
+      },
+      "raw_peak_time_not_worse": {
+        "SC20": 1,
+        "SC21": 1,
+        "SC24": 1
+      },
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 5,
+        "SC24": 5
+      },
+      "gate": {
+        "raw_peak_improved_two_cycles": true,
+        "curve_mae_no_cycle_worse_10pct": false,
+        "raw_peak_time_not_worse_two_cycles": true,
+        "two_cycles_4of5_seed_peak_improved": true
+      },
+      "passed": false
+    },
+    "ridge_raw": {
+      "raw_peak_improved": {
+        "SC20": 1,
+        "SC21": 0,
+        "SC24": 0
+      },
+      "curve_mae_change_pct": {
+        "SC20": -23.62156259549296,
+        "SC21": -2.8590780267617752,
+        "SC24": 87.96042346869254
+      },
+      "raw_peak_time_not_worse": {
+        "SC20": 1,
+        "SC21": 1,
+        "SC24": 1
+      },
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 0,
+        "SC24": 0
+      },
+      "gate": {
+        "raw_peak_improved_two_cycles": false,
+        "curve_mae_no_cycle_worse_10pct": false,
+        "raw_peak_time_not_worse_two_cycles": true,
+        "two_cycles_4of5_seed_peak_improved": false
+      },
+      "passed": false
+    },
+    "random_forest_raw": {
+      "raw_peak_improved": {
+        "SC20": 1,
+        "SC21": 1,
+        "SC24": 0
+      },
+      "curve_mae_change_pct": {
+        "SC20": -25.078778572922268,
+        "SC21": 2.7696035223662174,
+        "SC24": 96.86993464065013
+      },
+      "raw_peak_time_not_worse": {
+        "SC20": 1,
+        "SC21": 1,
+        "SC24": 1
+      },
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 4,
+        "SC24": 0
+      },
+      "gate": {
+        "raw_peak_improved_two_cycles": true,
+        "curve_mae_no_cycle_worse_10pct": false,
+        "raw_peak_time_not_worse_two_cycles": true,
+        "two_cycles_4of5_seed_peak_improved": true
+      },
+      "passed": false
+    }
+  },
+  "oracle_passed": false,
+  "deployable_passed": false,
+  "decision": "r1b_raw_needs_new_amplitude_model"
+}

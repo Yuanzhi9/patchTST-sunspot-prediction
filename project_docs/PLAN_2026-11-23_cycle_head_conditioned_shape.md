@@ -1,7 +1,7 @@
 # 周期头 + 条件轮廓模型实验预登记
 
 > 日期：2026-11-23  
-> 状态：E1a/R1-A Oracle 成功；E1b/R1-B 失败；T1 scheduled sampling 失败
+> 状态：E1a/R1-A Oracle 成功；R1B-RAW 已完成；T1 失败；下一步转向新幅度模型
 > 主目标：Cycle 25 谷值与时间、Cycle 26 峰值与时间，曲线轮廓为次主目标  
 > 当前 baseline：`PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`
 
@@ -308,6 +308,7 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
 5. R1-A Oracle 局部峰修正；
 6. R1-B 用 Ridge/RF 峰幅驱动同一修正。
 7. T1-v2 block-level scheduled sampling 三周期 seed2021 筛选。
+8. R1B-RAW raw 峰值目标复核。
 
 判定：
 
@@ -321,6 +322,8 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
   不能用于部署。
 - T1-v2 失败：只有 SC21 MAE 改善 `9.14%`；SC20 恶化 `1.50%`，SC24 仅改善
   `2.01%`，未达到 2/3 周期改善 5% 的门槛。
+- R1B-RAW：Oracle raw 可命中峰幅但 SC21/SC24 曲线恶化；Ridge/RF raw 目标
+  对 SC24 预测 200.8/208.2，严重高估真值 146.1。
 
 当前停止点：
 

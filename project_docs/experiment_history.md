@@ -33,6 +33,7 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **R1B-RAW** | 11.23 | Stage 10 | 以 raw 月均峰值为目标做局部重构 | PR24+raw-peak Ridge/RF；SC20/21/24；五seed | Oracle 30.31/32.86/17.91；Ridge 32.38/27.39/27.16 | — | — | Oracle可命中raw峰但改变轮廓；Ridge/RF SC24严重高估 | `EXPERIMENT_B26M-R1B-RAW_2026-11-23.md` | 无训练 |
 | **T1V2-SCHEDULED** | 11.23 | Stage 10 | block-level scheduled sampling vs teacher forcing | SC20/21/24；两连续24月块；seed2021；checkpoint≥ep25 | SC20 38.22→38.80；SC21 34.67→31.50；SC24 13.16→12.90 | — | — | 仅SC21改善≥5%；不扩五seed、不跑T2 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` | ✅ |
 | **R1B-PRED-PEAK** | 11.23 | Stage 10 | Ridge/RF预测峰幅驱动局部重构 | PR24+周期上下文LOOCV；SC20/21/24；五seed | ridge 39.04/28.18/17.95；RF 41.76/27.77/20.13 | — | — | 13m主口径下SC24高估；raw口径Ridge SC24峰幅近真值但峰时仍错 | `EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` | 复用已有 |
 | **R1A-ORACLE-PEAK** | 11.23 | Stage 10 | 峰局部 raised-cosine 修正，谷区不动 | PR24 recursive；H=24主设定；SC20/21/24；五seed | 30.18/26.78/14.44 | — | — | 强/中周期改善，谷区不变；仅Oracle上界 | `EXPERIMENT_B26M-CONSTRAINED-PEAK_2026-11-23.md` | 无训练 |
@@ -1310,3 +1311,8 @@ T1-v2 在 SMOKE 发现选模早于干预后，预登记“teacher/scheduled 均�
 起选最佳 rollout checkpoint”并重跑。seed2021 的 SC20/21/24 MAE 为：
 teacher `38.221/34.668/13.159`，scheduled `38.796/31.500/12.895`；
 只有 SC21 改善超过 5%，未达 2/3 周期门槛。按预登记停止，不运行 T2 rollout loss。
+
+R1B-RAW 进一步把局部重构目标改为 raw 月均峰值。Oracle raw 可精确命中峰幅，
+但 SC21/SC24 曲线 MAE 分别恶化 `16.5%/23.9%`。周期上下文 Ridge-raw/RF-raw
+对 SC24 预测峰幅为 `200.8/208.2`，真值 `146.1`，均严重高估；
+因而 R1-B 系列值得继续，但当前 Ridge/RF 不是可用幅度模型。
