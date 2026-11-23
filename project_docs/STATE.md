@@ -21,7 +21,7 @@
 | 非负能力检验 | raw/clip0 双口径完成；clip0 负值=0；recursive MAE=42.39/28.20/14.45，峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | Gaussian σ=3.6 | causal 三周期×五 seed 完成；centered 回顾上界暂停；causal 未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | `BASE-2026-11-M` 已同步至 `acdb4b0`；P132 独立已推送、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
+| 远端状态 | `BASE-2026-11-M` 已同步远端；P132 独立已推送、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 命名规范 | `PR24`/`PR132` 表示 prediction length；`PL36` 表示 patch length | `project_docs/NAMING.md` |
 | 运行环境 | 当前 RTX 5090 32G；11.21 及更早记录为 A6000 48G；torch 2.8.0+cu128 / numpy 2.2 / 无 venv | `nvidia-smi`（2026-11-23）、AGENTS.md 环境维护 |
