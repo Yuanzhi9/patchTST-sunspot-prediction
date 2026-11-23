@@ -4,6 +4,9 @@
 > 正式模型：`PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`  
 > 正式输出：物理反变换后 `clip0`，block24 递归，预测到 2040-10
 
+> 2026-11-23 验收：本结果作为条件参考预测保存。D128 已接受为后续改进的
+> reference baseline，但峰幅仍位于文献低端，不能作为已校准的 SC26 峰值点值。
+
 ## 结论
 
 PR24 非负基线给出的条件是：
@@ -75,4 +78,6 @@ PR24 三周期检验中强周期峰值严重低估的事实，不能把 104.82 �
 - `analysis/pr24_future_forecast/future_nonnegative_diagnostics.csv`
 - `analysis/pr24_future_forecast/pr24_future_profiles_2026-10.png`
 - `analysis/pr24_future_forecast/pr24_future_extrema_2026-10.png`
+- `analysis/literature_comparison/pr24_vs_literature_sc26_2026-11-23.png`
+- `analysis/literature_comparison/pr24_vs_literature_sc26_2026-11-23.pdf`
 - `logs/FINAL-PR24-2026-10.log`

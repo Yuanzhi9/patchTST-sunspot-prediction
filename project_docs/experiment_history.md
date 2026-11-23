@@ -33,6 +33,7 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **PR24-BASELINE-ACCEPT** | 11.23 | Stage 10 | 景修验收 D128 为 reference baseline；完成文献三联图与长时距方案审查 | PR24 recursive24；SC20/21/24；raw/clip0 | — | — | — | 可作改进对照；不可宣称 SC26 峰幅已校准；下一步验证周期级极值与 fusion | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` | — |
 | **FINAL-PR24-2026-10** | 11.21 | Stage 10 | 全历史固定 50ep、五 seed、block24 递归未来预测 | raw 1749-2026-10；clip0；origin 2026-10；horizon168 | — | — | — | SC25谷中位2030-10；SC26峰中位2035-06；13m峰值104.82（101.68–108.58） | `EXPERIMENT_B26M-pr24-future-2026-10.md` | ✅ |
 | **B26M-CAPR五seed** | 11.21 | Stage 10 | D112/D144/D160 中间容量补五 seed | CV5, seq132,p36/s18,E2,F2048,50ep | D112 26.896；D144 26.933；D160 26.871 | — | — | 均未稳定超过 D128（26.83）；保留 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` | ✅ |
 | **B26M-PR24-NONNEG** | 11.21 | Stage 10 | raw→clip0 正式非负门禁 + 三周期五 seed 丰富统计 | PR24 recursive24, SC20/21/24, seeds2019-2023 | 42.39/28.20/14.45 | — | 0.562/0.806/0.784 | 非负成立；谷时 SC21/24 稳定，峰时仅 SC20 3/5 命中 ±6 月；`analysis/pr24_nonnegative_holdout/` | `EXPERIMENT_B26M-pr24-nonnegative-holdout_2026-11-21.md` | 复用已有 |
@@ -1232,6 +1233,8 @@ block 在谷值时间定位上系统性优于滚动（±3月 vs +9/无谷）；�
 26.76/26.39，差异不足 1% 且 seed 内方向不一致，未达到换模门槛。
 因此 `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`
 冻结为技术基线，见 `project_docs/PR24_BASELINE_FREEZE_2026-11-21.md`。
+2026-11-23 景修验收后，该配置正式作为后续改进的 PR24 reference baseline；
+峰幅能力限制和采纳门槛见 `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md`。
 
 随后在 SC20/SC21/SC24 三个完整周期上按时间顺序重新训练五个 seed，
 不使用五折测试替代未来预测。三种方法为：PR24 observed-update block24、

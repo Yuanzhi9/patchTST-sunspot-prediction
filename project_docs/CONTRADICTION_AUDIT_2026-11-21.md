@@ -14,6 +14,7 @@
 | PR24 未来预测尚未生成 | 用户后续明确要求继续执行 | 已完成 2026-10 起报五 seed 预测与图件 |
 | 当前候选尚未冻结 | 已有五 seed 稳定性、容量审计、非负能力检验 | ONBOARDING 和 STATE 已更新为 D128 技术冻结、clip0 正式输出 |
 | 两个分支均已推送 | 当前 `BASE-2026-11-M` 新增本地提交尚未 push | STATE 改为“待景修审核后 push” |
+| 2026-11-23 复核发现 ONBOARDING、AGENTS、路线图仍残留“最终训练/未来曲线未完成”和“B7 待执行” | 与已完成的预测产物和 11.21 日记冲突 | 2026-11-23 统一改为“PR24 reference baseline 已验收”，B7 标完成，并新增 B8/B9 |
 
 ## 保留但没有冲突的历史内容
 
@@ -30,10 +31,13 @@
 - 2026-10 未来预测：`analysis/pr24_future_forecast/`
 - 状态：`project_docs/STATE.md`
 - 交接：`project_docs/HANDOFF_REVIEW_2026-11-21.md`
+- 基线验收与长时距方法：`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md`
+- 文献三联图：`analysis/literature_comparison/`
 
 ## 当前检查
 
-- 文档指针检查：通过；
+- 2026-11-23 文档指针检查：通过；
 - Stage 唯一性检查：通过；
 - 本轮训练/评估进程：无；
-- 持久化快照：`/openbayes/home/p24_review_snapshot_2026-11-21`。
+- 持久化快照：`/openbayes/home/p24_review_snapshot_2026-11-21`；
+- 当前状态与验收结论：`project_docs/STATE.md`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md`。

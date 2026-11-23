@@ -76,13 +76,15 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：PR24 基线冻结与整周期盲测（2026-11-21）
+## 当前阶段：PR24 参考基线验收与周期条件模型设计（2026-11-23）
 
 - 当前工作线：`BASE-2026-11-M` / `/output/BASE-2026-11-M`；状态以 `project_docs/STATE.md` 为准。
 - PR24 容量审计已完成。D64 五 seed 稳定更差；E3、D256 等小于 1% 的
   单点波动未形成稳定改善。技术冻结版为
   `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`，
   五 seed Full/Block24 = 26.83 / 26.48。
+- 景修已于 2026-11-23 验收通过：当前模型作为 **PR24 reference baseline**
+  用于后续改进的同口径比较；它不承担“已校准 SC26 峰幅预测”的结论。
 - p132 已在独立工作线 `BASE-2026-11-M-P132` 完成当前网格搜索与同日期比较；使用外层相同的五折与
   独立 507/160 内层切分，不把 p132 与 p24 的全步 MAE 直接横比。
 - SC20/SC21/SC24 已按时间顺序重新训练五 seed，比较 PR24 observed-update、
@@ -90,8 +92,12 @@
 - PR24 recursive 在 SC24 峰幅/谷时接近真实；SC20 强周期严重压低峰值。
   PR132 direct 三周期均明显压低峰值。详见
   `EXPERIMENT_B26M-cycle-holdout_2026-11-21.md`。
-- 下一步：景修复核方法与图后，再决定是否用冻结参数训练截至 2026-10 的最终模型。
-  block24 仍是当前用法口径；跨环境/跨口径边界不变。
+- 当前 Pipeline 的 SSN 输出只依赖 SSN 自己的 channel-independent 分支；
+  `month_sin`、`month_cos` 等附加通道不会自动进入 SSN 预测。周期特征接入前
+  必须先设计显式 fusion。
+- 下一步：先验证周期级幅度/时间信号，再讨论两阶段极值条件曲线、
+  scheduled sampling / rollout loss 和 aa/F10.7/极区磁场接入。
+  block24 仍是当前参考推理口径；跨环境/跨口径边界不变。
 
 ## 环境维护
 
@@ -99,12 +105,12 @@
 
 | 项目 | 当前值 |
 |------|--------|
-| 机器 | 新云服务器；GPU = NVIDIA RTX A6000（48 GB），CUDA 可用 |
+| 机器 | 当前运行环境（2026-11-23）：NVIDIA RTX 5090 32 GB，CUDA 可用；2026-11-21 及更早文档记录的是 A6000 48 GB，跨 GPU 重跑须标注环境 |
 | Python | 3.10.18（`/usr/local/bin/python3`）。**无 venv/conda 虚拟环境**，直接用系统解释器 |
 | PyTorch | 2.8.0+cu128（旧环境：1.11，纯 CPU。换机后不再适用） |
 | 其他依赖 | numpy 2.2.6、pandas 2.3.2、scipy 1.15.3、scikit-learn 1.7.2、matplotlib 3.10.6、tqdm |
 | 依赖缺口 | `einops`/`pyraformer`/`tvm`/`fbm`（Pyraformer、FEDformer 对照基线用）、`pmdarima`（`models/Stat_models.py`，该模块未被主路径引用）、`ptflops`（`utils/tools.py` 内惰性调用）。**主训练路径 `run_longExp.py` 不需要这些** |
-| ⚠️ 可比性断裂 | torch 2.8 vs 1.11、GPU vs CPU 同时变了。**在本机重跑得到的数值不能直接与 `result.txt` 的历史基线对比**，需按 SOP 重新建立基线 |
+| ⚠️ 可比性断裂 | torch 2.8 vs 1.11、GPU vs CPU、A6000 vs 5090 都可能改变数值。**跨环境重跑不能直接与历史结果对比**，需按 SOP 标注环境 |
 | ⚠️ 全局环境污染 | 系统解释器同时承载 pdf/docx skill 等工具的依赖。**装任何新包前先确认它不会升级 numpy / torch**，否则会静默改变实验环境 |
 | torch.load 兼容 | torch ≥2.6 默认 `weights_only=True`。部分脚本已改（`check_pred.py`、`manual_inference.py` 等），`roll_eval.py:85` 和 `Formers/*/exp/exp_main.py` 仍是默认值，可能加载失败 |
 
@@ -227,12 +233,12 @@
 
 **之前 AGENTS.md 和 project_summary 中记录的「硬天花板 MAE≈19.30」是基于跨组比较得出的，可比性前提不成立，已废弃。**
 
-## 下一步（2026-11-20）
+## 下一步（2026-11-23）
 
-1. 复核 p132 候选口径、峰谷指标和“最佳参数”表述。
-2. 决定主任务继续 p24，还是追加 p132 的架构/信息层对照。
-3. 由景修验收正式 ID 与主任务选择。
-4. 正式冻结后再做最终全量训练、未来曲线和通用推理顺序审计。
-5. 两个工作线已按景修授权推送；后续每次推送仍需明确授权。
+1. 设计并预登记“周期级幅度/时间特征表 + leave-one-cycle-out”验证；
+2. 修复 PatchTST channel-independent 无法利用周期上下文的问题；
+3. 比较两阶段极值条件曲线、scheduled sampling/rollout loss 与当前 block24；
+4. 接入 aa 做单变量实验；F10.7/极区磁场只在缩短训练段的对照中使用；
+5. 后续每次 push 仍需明确授权。
 
 纪律：预检表跑前完成；坑清单跑前回顾；主控文档顶部快照随进度同步更新。
