@@ -8,13 +8,13 @@
 | 字段 | 值 | 证据指针 |
 |---|---|---|
 | 当前阶段 | E1、R1、T1 与平滑尺度复核完成；R1-A Oracle 通过，其余部署路径失败 | `project_docs/ANALYSIS_2026-11-23_smoothed_prediction_comparison.md` |
-| 当前任务 | 停止 E1b/R1-B/T1 扩展；下一步需重新设计幅度信息或训练目标 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |
+| 当前任务 | 先冻结 raw/13m 峰值主口径，再决定 R1-B 与下一轮幅度模型 | `project_docs/ANALYSIS_2026-11-23_peak_definition_raw_vs_smoothed.md` |
 | p24 原预案缺口 | 中间容量审计完成；D160 五 seed 未稳定超过 D128；继续使用 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | 当前基线（月均） | PR24 `D128` reference；历史锚点 E00/G1 见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
 | PR24 参考基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；正式输出采用物理反变换后 clip0。可作改进对照，不宣称峰幅已校准 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
 | A0 口径对照 | 同日期 raw 五 seed Full/Block24=26.913/27.331；13m=16.439/17.903；归一化误差 0.400/0.263 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
 | E1 Oracle | 幅值上界平均改善 13.61% 但谷值恶化；FiLM amp 使 SC24 恶化 49.03%，安全门槛失败 | `EXPERIMENT_B26M-ORACLE-AMP_2026-11-23.md`、`EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` |
-| R1 局部峰重构 | Oracle H24：30.181/26.784/14.436，谷区不变；Ridge/RF驱动使 SC24 恶化 | `EXPERIMENT_B26M-CONSTRAINED-PEAK_2026-11-23.md`、`EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` |
+| R1 局部峰重构 | Oracle H24 通过；13m 口径 Ridge/RF 破坏 SC24，但 raw 口径 Ridge SC24 峰仅差1.16 | `project_docs/ANALYSIS_2026-11-23_peak_definition_raw_vs_smoothed.md` |
 | T1 scheduled sampling | seed2021 仅 SC21 改善9.14%；2/3门槛失败，不扩五seed、不跑T2 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |
 | 时间顺序盲测 | SC20/21/24 各 5 seed；PR24 recursive block24 MAE=42.39/28.23/14.48，PR132 direct=52.15/38.84/29.82 | `analysis/cycle_holdout/cycle_holdout_aggregate.csv` |
 | 非负能力检验 | raw/clip0 双口径完成；clip0 负值=0；recursive MAE=42.39/28.20/14.45，峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
@@ -36,5 +36,5 @@
 | 未来预测 | 起报 2026-10；SC25 谷 2030-10（范围 2030-07–10）；SC26 峰 2035-06（范围 2035-02–12），13m 峰值 104.82（101.68–108.58） | `analysis/pr24_future_forecast/` |
 | 文献对照 | 三联图已完成；峰时与文献一致，raw 峰幅约 106.95，处于文献高估计 150–181 的低端 | `analysis/literature_comparison/`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §6 |
 | 长时距备选 | 当前已测方案中 block24 recursive 最稳；下一步比较周期极值条件曲线与 rollout-aware 训练 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §4 |
-| 未决 | 需要更准的周期幅度信息或新的极值训练目标；T2 暂不启动；aa 已可做覆盖期对照 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
+| 未决 | 峰值主口径未冻结：SC24 raw=146.1、13m=115.33；T2暂不启动；aa已就绪 | `project_docs/ANALYSIS_2026-11-23_peak_definition_raw_vs_smoothed.md` |
 | 最后核对 | 2026-11-23（E1、R1、T1、aa 清洗；最新结果尚未推送） | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |

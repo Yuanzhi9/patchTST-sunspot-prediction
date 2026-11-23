@@ -89,12 +89,18 @@ Oracle 仍通过全部门槛，`deployable_passed=false`。
 
 ## 结论
 
-1. R1-A 局部修正机制有效，但当前 Ridge/RF 峰幅预测误差过大，收益无法稳定兑现。
-2. SC24 的 PR24 峰幅本来已接近真值，周期模型反而预测为 141/154，局部重构会
-   主动破坏好结果。
-3. 不采用 Ridge/RF 驱动正式峰幅重构，也不拿 Ridge 在 SC20 的局部收益替代
-   全周期评价。
-4. R1 路线保留为 Oracle 上界与后续“更准幅度模型”的接口；当前转向独立测试
-   block-level scheduled sampling。
+原结论按 13 月平滑峰值评价。后续核对发现 SC24 的 raw 月均峰值为 146.1，
+而 13m 峰值为 115.331；Ridge 预测的 141.333 接近 raw，却高于 13m。
+
+更正后的结论：
+
+1. 在项目已登记的 13m 主口径下，Ridge/RF 仍不合格，SC24 分别高估 26.00/39.07。
+2. 在 raw 月均峰值口径下，Ridge 对 SC24 的误差仅 -1.16，用户指出的“峰值其实
+   差不多高，主要错在时间”成立。
+3. 但 Ridge/RF 在 SC20/SC21 的 raw 峰值仍严重偏低，当前幅度模型不能整体采用。
+4. 峰时没有被本轮局部修正改变，SC24 仍提前约 5–8 月。
+5. 下一步必须先确认最终峰值主口径，再判断 R1-B；不能只写“全面失败”。
+
+分口径复核：`project_docs/ANALYSIS_2026-11-23_peak_definition_raw_vs_smoothed.md`。
 
 图：`analysis/r1b_constrained_peak_predicted/r1b_mae.png`。

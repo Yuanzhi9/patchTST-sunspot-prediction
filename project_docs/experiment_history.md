@@ -34,7 +34,7 @@
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
 | **T1V2-SCHEDULED** | 11.23 | Stage 10 | block-level scheduled sampling vs teacher forcing | SC20/21/24；两连续24月块；seed2021；checkpoint≥ep25 | SC20 38.22→38.80；SC21 34.67→31.50；SC24 13.16→12.90 | — | — | 仅SC21改善≥5%；不扩五seed、不跑T2 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` | ✅ |
-| **R1B-PRED-PEAK** | 11.23 | Stage 10 | Ridge/RF预测峰幅驱动局部重构 | PR24+周期上下文LOOCV；SC20/21/24；五seed | ridge 39.04/28.18/17.95；RF 41.76/27.77/20.13 | — | — | SC24恶化24%-39%；部署失败 | `EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` | 复用已有 |
+| **R1B-PRED-PEAK** | 11.23 | Stage 10 | Ridge/RF预测峰幅驱动局部重构 | PR24+周期上下文LOOCV；SC20/21/24；五seed | ridge 39.04/28.18/17.95；RF 41.76/27.77/20.13 | — | — | 13m主口径下SC24高估；raw口径Ridge SC24峰幅近真值但峰时仍错 | `EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` | 复用已有 |
 | **R1A-ORACLE-PEAK** | 11.23 | Stage 10 | 峰局部 raised-cosine 修正，谷区不动 | PR24 recursive；H=24主设定；SC20/21/24；五seed | 30.18/26.78/14.44 | — | — | 强/中周期改善，谷区不变；仅Oracle上界 | `EXPERIMENT_B26M-CONSTRAINED-PEAK_2026-11-23.md` | 无训练 |
 | **SMOOTH-CMP** | 11.23 | Stage 10 | raw/13m平滑尺度对照 | R1-A 五seed + 未来PR24五seed | R1-A 13m MAE 24.37/20.59/11.02 | — | — | SC20/21平滑收益保留，SC24无实质变化 | `project_docs/ANALYSIS_2026-11-23_smoothed_prediction_comparison.md` | 无训练 |
 | **E1B-ORACLE-FUSION** | 11.23 | Stage 10 | FiLM 接入 Oracle 峰幅/峰时，seed2021 筛选 | SC20/21/24；cond none/amp/time/both | amp：SC20 40.49→36.66、SC21 30.59→28.49、SC24 13.40→19.97 | — | — | SC24 恶化49%，最差周期安全门槛失败；不扩五 seed、不进E3 | `EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` | ✅ |
