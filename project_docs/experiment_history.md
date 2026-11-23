@@ -1303,9 +1303,12 @@ R1-A 用 H=24 的 raised-cosine 核只修正峰附近，核在谷区严格为 0�
 Oracle 真实峰幅下 SC20/21/24 MAE 为 `30.181/26.784/14.436`，相对 PR24
 改善 `28.81%/5.01%/0.11%`，谷幅和谷时完全不变。H=12/24/36 敏感性方向一致。
 
-R1-B 把 Oracle 峰幅换成周期上下文 Ridge/RF 预测。Ridge 的周期改善为
-`+7.92%/+0.07%/-24.21%`，RF 为 `+1.50%/+1.51%/-39.31%`；
-两者都破坏 SC24，部署门槛失败。结论是局部重构器有效，但当前峰幅预测器不够准。
+R1-B 把 Oracle 峰幅换成周期上下文 Ridge/RF 预测。该批以 13m 峰为目标：
+Ridge 的曲线 MAE 变化为 `+7.92%/+0.07%/-24.21%`，RF 为
+`+1.50%/+1.51%/-39.31%`。13m 口径下 SC24 被显著改坏。
+但 SC24 raw 峰=146.1、13m 峰=115.33；Ridge 的 SC24 raw 峰 144.94，
+raw 口径下几乎命中。因此不能把该批写成“全面失败”，详见下段 R1B-RAW 与
+`project_docs/ANALYSIS_2026-11-23_peak_definition_raw_vs_smoothed.md`。
 
 T1-v2 在 SMOKE 发现选模早于干预后，预登记“teacher/scheduled 均从第25 epoch
 起选最佳 rollout checkpoint”并重跑。seed2021 的 SC20/21/24 MAE 为：

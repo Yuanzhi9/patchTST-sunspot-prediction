@@ -162,10 +162,11 @@
 - 👤 导师已汇报（08-14）：无具体技术指导，方向=加物理参数数据集再处理；开学与学姐学长深入讨论
 - 📋 判定标准 6 项待她批注（`judgment_criteria_discussion_2026-08-15.md`）——批注前所有"最佳"是 AI 暂定
 - 📋 批注后：回填 EXP-20~23 结论 → 组合实验 C-1/C-2（需她重新预先批准）→ 极小值专项评估 → W2/W3 验证
-- ✅ B26M PR24 已验收为 reference baseline，容量细化、非负能力检验、
-  全历史重训、未来曲线和文献三联图均已完成
-- 🔜 待讨论：周期级幅度/时间模型、显式特征 fusion、两阶段极值条件曲线、
-  scheduled sampling/rollout loss、aa/F10.7/极区磁场接入
+- ✅ B26M PR24 已验收为 reference baseline；A0、周期上下文、E1、R1、T1
+  和 aa 数据清洗均已完成。
+- 🔜 当前：R1B 主峰幅度系列与双峰标签审计已预登记；raw/13m 峰值口径必须分开。
+  T2 rollout loss 暂停；aa 已就绪，F10.7/WSO 只做同覆盖期对照或历史诊断。
 - ⚠️ 种子限制：历史实验多为 seed=2021；B26M P36/P24 已补 2019/2020，lr 有 P36 三 seed，但仍不是未来外推置信区间
 - 🔑 GitHub token 有效期至 2027-01-08；每次 push 仍须单独授权
-- 🌿 当前实验 worktree 是 `/output/BASE-2026-11-M`；主线仍是 `EXP-17-stage1`；`BASE` 独立保留、不合并，并已推送远端
+- 🌿 当前实验 worktree 是 `/output/BASE-2026-11-M`；主线仍是 `EXP-17-stage1`；
+  `BASE` 独立保留、不合并；本轮文档修正完成后再同步远端

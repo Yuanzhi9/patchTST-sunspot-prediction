@@ -281,7 +281,7 @@ AI 和人在跑实验前共同对照 SOP §1（可证伪假设/预尸检/单变�
 | B5 | p24/p132 同日期曲线与峰谷比较 | ✅ 11.21 完成 |
 | B5b | A0 raw/13m 同日期五 seed + 周期上下文/外部数据初筛 | ✅ 11.23 完成，未推送 |
 | B5c | E1a/E1b Oracle 条件诊断与预尸检 | ✅ 11.23 完成；E1b 安全失败，不扩五 seed |
-| B5d | R1-A/R1-B 局部峰重构 | ✅ 11.23 完成；Oracle通过，Ridge/RF幅度模型失败 |
+| B5d | R1-A/R1-B 局部峰重构 | ✅ 11.23 完成；13m口径失败，raw口径SC24 Ridge接近但峰时仍错 |
 | B5d-raw | R1B-RAW raw峰值目标复核 | ✅ 11.23 完成；SC24 Ridge/RF严重过调，需新幅度模型 |
 | B5e | T1-v2 block scheduled sampling | ✅ 11.23 完成；seed2021筛选失败，不跑T2 |
 | B6 | PR24 reference baseline 正式验收 | ✅ 11.23 景修验收；P132 不作主基线 |

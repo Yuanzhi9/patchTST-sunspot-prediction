@@ -691,7 +691,7 @@ B26M-E1B-MODE-SCREEN  time=0/3_cycles_MAE_improved_5pct  both=1/3  condition_tim
 
 # [2026-11-23] R1 局部峰重构：Oracle 通过，预测峰幅部署失败
 B26M-R1A-ORACLE-PEAK  H=24  SC20_MAE=42.392->30.181(+28.81%)  SC21=28.198->26.784(+5.01%)  SC24=14.452->14.436(+0.11%)  trough_unchanged=true  decision=pass_oracle  evidence=analysis/r1a_constrained_peak/decision.json
-B26M-R1B-PREDICTED-PEAK  ridge_improvement=+7.92%/+0.07%/-24.21%  rf_improvement=+1.50%/+1.51%/-39.31%  max_cycle_safety_fail=true  decision=stop_predicted_peak_reconstruction  evidence=analysis/r1b_constrained_peak_predicted/decision.json
+B26M-R1B-PREDICTED-PEAK  target=13m_peak  ridge_improvement=+7.92%/+0.07%/-24.21%  rf_improvement=+1.50%/+1.51%/-39.31%  max_cycle_safety_fail=true_under_13m  raw_SC24_Ridge=144.942_vs_true146.1  decision=freeze_definition_before_adoption  evidence=analysis/r1b_constrained_peak_predicted/decision.json
 
 # [2026-11-23] 峰值口径复核：13m 主口径 vs raw 月均峰值
 B26M-PEAK-DEFINITION  SC24_true_raw=146.1@2014-02  SC24_true_13m=115.331@2014-04  SC24_ridge_raw=144.942(error=-1.158)  SC24_ridge_13m=141.333(error=+26.002)  decision=freeze_peak_definition_before_next_model  evidence=analysis/peak_definition_comparison/peak_definition_summary.json
