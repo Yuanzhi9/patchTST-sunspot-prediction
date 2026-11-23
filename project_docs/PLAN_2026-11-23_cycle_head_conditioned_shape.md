@@ -1,7 +1,7 @@
 # 周期头 + 条件轮廓模型实验预登记
 
 > 日期：2026-11-23  
-> 状态：E1a/R1-A Oracle 成功；R1B-RAW 已完成；T1 失败；下一步转向新幅度模型
+> 状态：R1-A保留；R1B多周期双轨待审；RF保留候选；双峰残差方案待零训练审计
 > 主目标：Cycle 25 谷值与时间、Cycle 26 峰值与时间，曲线轮廓为次主目标  
 > 当前 baseline：`PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`
 
@@ -309,6 +309,9 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
 6. R1-B 用 Ridge/RF 峰幅驱动同一修正。
 7. T1-v2 block-level scheduled sampling 三周期 seed2021 筛选。
 8. R1B-RAW raw 峰值目标复核。
+9. R1B-MULTI raw/13m 双轨扩周期验证。
+10. 双峰标签稳定性审计。
+11. GRC/N-BEATS/CRC 残差文献与方案评审。
 
 判定：
 
@@ -318,24 +321,23 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
 - 不扩展 E1b 五 seed，不进入 E3。
 - R1-A Oracle 通过：SC20/21 MAE 改善 `28.81%/5.01%`，SC24 基本不变，
   谷区完全保持；
-- R1-B 失败：Ridge/RF 预测峰幅使 SC24 MAE 恶化 `24.21%/39.31%`，
-  不能用于部署。
+- R1-B 的 13m 旧结果不合格，但 raw/13m 必须双轨；RF 保留为主峰幅度候选。
 - T1-v2 失败：只有 SC21 MAE 改善 `9.14%`；SC20 恶化 `1.50%`，SC24 仅改善
   `2.01%`，未达到 2/3 周期改善 5% 的门槛。
 - R1B-RAW：Oracle raw 可命中峰幅但 SC21/SC24 曲线恶化；Ridge/RF raw 目标
   对 SC24 预测 200.8/208.2，严重高估真值 146.1。
+- R1B-MULTI：W0 在时间顺序扩测中优于气候中位数，W1/aa 无稳定增量；
+  当前 SC26 候选 raw 约 181–206、13m 约 127–140，待审。
+- 双峰审计：9/24 stable double、14/24 ambiguous，不启动硬分类或双峰训练。
 
 当前停止点：
 
 - `analysis/e1_oracle_amplitude/`
 - `analysis/e1b_oracle_conditioning/`
 
-下一步必须二选一后再启动：
-
-1. R1-A Oracle 作为后续更准幅度模型的接口，暂不接 Ridge/RF；
-2. T1 已失败，按预登记不启动 T2 rollout loss。
-
-不得直接接 aa/F10.7/WSO 或生成新的 SC25/SC26 正式预测。
+下一步：先审 R1B raw/13m 双轨，继续 RF/R1A 受控主峰方案；主峰稳定后只做
+零训练峰区残差审计。T2、双峰训练、aa/F10.7/WSO 深度接入和新的正式未来预测
+均未启动。
 
 ## 9. 文献依据
 

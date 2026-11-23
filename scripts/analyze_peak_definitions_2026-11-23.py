@@ -97,13 +97,16 @@ def main() -> None:
         json.dumps(
             {
                 "conclusion": (
-                    "R1-B is rejected by the project's primary 13-month peak "
-                    "definition. Under the raw monthly maximum definition, Ridge "
-                    "is close to SC24 truth, so the previous unconditional wording "
-                    "was too strong."
+                    "Raw monthly maximum and 13-month centered maximum are both "
+                    "formal targets. Ridge is close to SC24 only under the raw "
+                    "definition; the same prediction is far above truth under the "
+                    "13-month definition. The two tracks must be reported separately."
                 ),
-                "primary_project_definition": "13-month centered smoothed peak",
-                "alternate_definition": "raw monthly maximum",
+                "reporting_contract": (
+                    "dual track: raw monthly maximum and 13-month centered maximum"
+                ),
+                "raw_definition": "raw monthly maximum",
+                "smooth_definition": "13-month centered smoothed maximum",
                 "aggregate": aggregate.to_dict(orient="records"),
             },
             indent=2,
@@ -124,6 +127,12 @@ def main() -> None:
     }
     x = np.arange(4)
     shown_methods = ("pr24", "oracle", "ridge", "random_forest")
+    method_labels = (
+        "PR24\nbaseline",
+        "R1-A Oracle\n13m target",
+        "Ridge\npred. peak",
+        "RF\npred. peak",
+    )
     for col, cycle in enumerate(CYCLES):
         subset = aggregate.loc[aggregate["cycle"] == cycle].set_index("method")
         true_raw = float(subset.loc["pr24", "true_raw_peak_mean"])
@@ -142,15 +151,43 @@ def main() -> None:
             )
             ax.errorbar(x, values, yerr=errors, fmt="none", color="black", capsize=3, lw=0.8)
             ax.axhline(true_value, color="black", lw=1.0, ls="--")
-            ax.set_xticks(x, ("PR24", "R1-A", "Ridge", "RF"), rotation=20)
-            ax.set_title(f"{cycle} | {'raw peak' if prefix == 'raw' else '13m peak'}", loc="left", fontsize=9)
+            ax.text(
+                0.98,
+                0.95,
+                f"truth = {true_value:.1f}",
+                transform=ax.transAxes,
+                ha="right",
+                va="top",
+                fontsize=8,
+            )
+            for position, value, error in zip(x, values, errors):
+                ax.text(
+                    position,
+                    value + error + 3.0,
+                    f"{value:.1f}\nΔ {value - true_value:+.1f}",
+                    ha="center",
+                    va="bottom",
+                    fontsize=7,
+                )
+            ax.set_ylim(0, max([true_value, *values]) * 1.28)
+            ax.set_xticks(x, method_labels, rotation=0, fontsize=7)
+            target_label = (
+                "raw monthly maximum"
+                if prefix == "raw"
+                else "13-month centered maximum"
+            )
+            ax.set_title(
+                f"{cycle} | {target_label}",
+                loc="left",
+                fontsize=9,
+            )
             ax.grid(axis="y", color="#DDDDDD", lw=0.5)
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             if col == 0:
                 ax.set_ylabel("Peak SSN")
     fig.suptitle(
-        "Peak definition audit | dashed line = observed target peak",
+        "Peak definition audit | bars = predicted value, dashed = truth, Δ = prediction - truth",
         x=0.01,
         ha="left",
         fontsize=11,

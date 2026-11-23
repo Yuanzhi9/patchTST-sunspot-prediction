@@ -1,7 +1,8 @@
 {
-  "conclusion": "R1-B is rejected by the project's primary 13-month peak definition. Under the raw monthly maximum definition, Ridge is close to SC24 truth, so the previous unconditional wording was too strong.",
-  "primary_project_definition": "13-month centered smoothed peak",
-  "alternate_definition": "raw monthly maximum",
+  "conclusion": "Raw monthly maximum and 13-month centered maximum are both formal targets. Ridge is close to SC24 only under the raw definition; the same prediction is far above truth under the 13-month definition. The two tracks must be reported separately.",
+  "reporting_contract": "dual track: raw monthly maximum and 13-month centered maximum",
+  "raw_definition": "raw monthly maximum",
+  "smooth_definition": "13-month centered smoothed maximum",
   "aggregate": [
     {
       "cycle": "SC20",

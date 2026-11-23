@@ -1,7 +1,7 @@
 # 双峰轮廓与 R1B 幅度系列实验计划
 
 > 日期：2026-11-23
-> 状态：方案已确认；双峰标签审计可启动，双峰训练未启动
+> 状态：双轨峰值口径；R1B扩周期与双峰审计完成待审核；双峰训练/Gerçeker暂缓
 > 主目标：Cycle 25 谷值/时间、Cycle 26 峰值/时间；完整轮廓次之
 
 ## 1. 研究问题
@@ -44,7 +44,10 @@ RQ4：W 效应、aa 等前兆能否提供下一周期峰幅信息？
 
 ### P1：R1B 幅度模型重构
 
-raw 峰与 13m 峰必须分开训练，禁止交叉使用。
+raw 峰与 13m 峰必须分开训练、分开评价、并列报告。两者都是正式比较口径，
+不预先冻结单一主口径；最终由景修审核两套结果后决定采用哪一种或同时报告。
+Ridge/RF 都保留为峰幅候选，尤其是 RF 的拔高效果继续研究；不因跨周期误差
+不稳定而先删除候选。
 
 目标表示优先试验：
 
@@ -88,22 +91,43 @@ p_second = P(存在显著第二峰 | 起报时可见信息)
 #### P2-B：低维残差模型
 
 ```text
-y(t) = B(t) + r(t)
+y_raw(t) = B(t) + sum_k beta_k phi_k(t)
 ```
 
-`B(t)` 是单峰平滑主轮廓，`r(t)` 只允许在峰区活动，并由低维基函数表示：
+`B(t)` 是 R1A 注入主峰后的平滑主轮廓；`phi_k(t)` 是只在预测主峰两侧
+±H 月内活动的紧支撑基函数，并满足：
 
-- 单个 Gaussian/Laplace bump；
-- 2–3 个基函数；
-- PCA 前 2–3 个周期形状主成分。
+- `phi_k(t_peak)=0`，不直接改写主峰幅度；
+- `phi_k(t_peak±H)=0`，不改变峰区外下降段和谷区；
+- 第二峰幅度必须低于主峰；
+- 无第二峰证据时，第二峰系数可以精确为 0。
+
+第一版最多使用三类低维基函数：
+
+- 峰区展宽/收窄基，表达尖峰或平顶；
+- 左右不对称基，表达主峰前后肩部；
+- 第二峰/峰间凹陷基，表达 Gnevyshev gap；
+
+PCA 前 2–3 个周期形状主成分只作为固定基函数的对照，不与自由第二峰同时加入。
 
 残差必须定义为：
 
 ```text
-forecast-origin residual = observed - forecast-time base contour
+r_fold(t) = observed(t) - forecast_from_fold_origin(t)
 ```
 
 不能复用 best-fit residual。
+
+残差系数必须经过选择性部署门：
+
+```text
+只有当验证折证明主峰、谷值和净误差不退化时，才部署修正
+```
+
+记录 non-degradation rate。该设计来自 GRC、N-BEATS basis expansion 与
+CRC selective deployment 的组合；详见
+`project_docs/RESEARCH_2026-11-23_peak_residual_correction.md` 和
+`project_docs/EVALUATION_2026-11-23_constrained_peak_residual.md`。
 
 #### P2-C：Gerçeker 相似轨迹对照
 
@@ -120,6 +144,12 @@ forecast-origin residual = observed - forecast-time base contour
 扩展验证：SC18、SC19、SC22、SC23。
 
 先做固定超参数的时间顺序验证，再做 leave-one-cycle-out 辅助检查。
+
+### P4：T2 复审时机
+
+T1-v2 只在 seed2021 筛选，且未达到 2/3 周期改善门槛，因此暂不直接启动
+rollout loss。但这不构成对 T2 的永久否决。T2 使用固定的多块展开损失，
+与 T1 的随机输入混合不是同一机制；等 R1B 幅度实验完成后重新审核一次。
 
 ## 4. 指标
 
@@ -140,6 +170,7 @@ forecast-origin residual = observed - forecast-time base contour
 - 双峰概率模型应优于按历史频率随机猜；
 - 第二峰时间应优于固定放在主峰后 N 月；
 - 双峰残差不得降低主峰幅度和时间精度。
+- 残差部署门应提高 non-degradation rate，而不是只在平均 MAE 上略好。
 
 ## 6. 预尸检
 
@@ -157,14 +188,15 @@ forecast-origin residual = observed - forecast-time base contour
 并行阶段（只做数据审计，不训练深度模型）：
 
 1. P0 双峰标签审计；
-2. P1 的历史周期、raw/13m 标签和特征覆盖准备。
+2. P1 的全部历史周期、raw/13m 双轨幅度模型。
 
 串行阶段：
 
-3. 先完成 P1 R1B 主峰幅度模型；
+3. 先完成 P1 R1B 主峰幅度模型，由景修审核 raw/13m 双轨结果；
 4. 主峰通过后，再做 P2-A/P2-B 条件双峰与残差；
 5. P2-C Gerçeker 相似轨迹作为独立可部署对照；
-6. 通过门槛后才生成未来曲线并更新文献三联图。
+6. T2 rollout loss 在 P1 完成后复审；
+7. 通过门槛后才生成未来曲线并更新文献三联图。
 
 并行只针对不依赖未来训练结果的数据审计。双峰形状模型不得与 R1B
 主峰模型同时开始，避免主峰错误和第二峰错误无法归因。

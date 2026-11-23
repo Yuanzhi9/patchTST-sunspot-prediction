@@ -78,6 +78,20 @@
 - E7 补充/批注：＿＿＿
 - 新图想法：＿＿＿
 
+### 2026-11-23 新增：双口径、R1B 多周期与双峰审计
+
+| 图 | 文件 | 故事问题 | 审核要点 |
+|---|---|---|---|
+| 峰值口径 | `analysis/peak_definition_comparison/peak_definition_comparison.png` | 同一预测在 raw 与 13m 两种峰值定义下差多少？ | 柱上直接标预测值和 Δ；R1A Oracle 总体最稳，RF/Ridge 有拔高但不稳定 |
+| R1B 多周期 | `analysis/r1b_multicycle/r1b_multicycle_validation_curves.png` | W0 是否有峰幅信号，W1/aa 是否有增量？ | 四个面板；每个真实点标 true 值；横轴为上下文→目标周期 |
+| 双峰稳定 | `analysis/double_peak_audit/double_peak_stability.png` | 历史双峰对平滑窗口和 prominence 阈值是否稳定？ | 黑格=双峰；只有 9/24 stable double，14/24 ambiguous |
+
+对应脚本：
+
+- `scripts/analyze_peak_definitions_2026-11-23.py`
+- `scripts/plot_r1b_multicycle_2026-11-23.py`
+- `scripts/audit_double_peaks_2026-11-23.py`
+
 ### 已完成的历史图
 
 | 图 | 文件 | 状态 |

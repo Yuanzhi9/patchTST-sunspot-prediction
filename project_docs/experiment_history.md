@@ -33,9 +33,11 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **R1B-MULTI** | 11.23 | Stage 10 | 周期级峰幅 raw/13m 双轨扩周期 | 24 周期 LOOCV；目标 19–24 顺序扩测；W0/W1/W1-AA-control/W2-AA | raw W0-RF 44.70；13m 38.63 | — | — | W0 优于中位数；W1/aa 无稳定增量；RF 保留候选 | `EXPERIMENT_B26M-R1B-MULTICYCLE_2026-11-23.md` | 无训练 |
+| **DOUBLE-PEAK-AUDIT** | 11.23 | Stage 10 | 双峰标签稳定性审计 | 24 周期；raw/13/17/21m × prominence 3/5/10 | — | — | — | 9 stable double、1 single、14 ambiguous；禁止硬分类 | `EXPERIMENT_B26M-DOUBLE-PEAK-AUDIT_2026-11-23.md` | 无训练 |
 | **R1B-RAW** | 11.23 | Stage 10 | 以 raw 月均峰值为目标做局部重构 | PR24+raw-peak Ridge/RF；SC20/21/24；五seed | Oracle 30.31/32.86/17.91；Ridge 32.38/27.39/27.16 | — | — | Oracle可命中raw峰但改变轮廓；Ridge/RF SC24严重高估 | `EXPERIMENT_B26M-R1B-RAW_2026-11-23.md` | 无训练 |
 | **T1V2-SCHEDULED** | 11.23 | Stage 10 | block-level scheduled sampling vs teacher forcing | SC20/21/24；两连续24月块；seed2021；checkpoint≥ep25 | SC20 38.22→38.80；SC21 34.67→31.50；SC24 13.16→12.90 | — | — | 仅SC21改善≥5%；不扩五seed、不跑T2 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` | ✅ |
-| **R1B-PRED-PEAK** | 11.23 | Stage 10 | Ridge/RF预测峰幅驱动局部重构 | PR24+周期上下文LOOCV；SC20/21/24；五seed | ridge 39.04/28.18/17.95；RF 41.76/27.77/20.13 | — | — | 13m主口径下SC24高估；raw口径Ridge SC24峰幅近真值但峰时仍错 | `EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` | 复用已有 |
+| **R1B-PRED-PEAK** | 11.23 | Stage 10 | Ridge/RF预测峰幅驱动局部重构 | PR24+周期上下文LOOCV；SC20/21/24；五seed | ridge 39.04/28.18/17.95；RF 41.76/27.77/20.13 | — | — | 13m口径SC24高估；raw Ridge接近但峰时错；RF保留候选 | `EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` | 复用已有 |
 | **R1A-ORACLE-PEAK** | 11.23 | Stage 10 | 峰局部 raised-cosine 修正，谷区不动 | PR24 recursive；H=24主设定；SC20/21/24；五seed | 30.18/26.78/14.44 | — | — | 强/中周期改善，谷区不变；仅Oracle上界 | `EXPERIMENT_B26M-CONSTRAINED-PEAK_2026-11-23.md` | 无训练 |
 | **SMOOTH-CMP** | 11.23 | Stage 10 | raw/13m平滑尺度对照 | R1-A 五seed + 未来PR24五seed | R1-A 13m MAE 24.37/20.59/11.02 | — | — | SC20/21平滑收益保留，SC24无实质变化 | `project_docs/ANALYSIS_2026-11-23_smoothed_prediction_comparison.md` | 无训练 |
 | **E1B-ORACLE-FUSION** | 11.23 | Stage 10 | FiLM 接入 Oracle 峰幅/峰时，seed2021 筛选 | SC20/21/24；cond none/amp/time/both | amp：SC20 40.49→36.66、SC21 30.59→28.49、SC24 13.40→19.97 | — | — | SC24 恶化49%，最差周期安全门槛失败；不扩五 seed、不进E3 | `EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` | ✅ |
@@ -1319,3 +1321,37 @@ R1B-RAW 进一步把局部重构目标改为 raw 月均峰值。Oracle raw 可�
 但 SC21/SC24 曲线 MAE 分别恶化 `16.5%/23.9%`。周期上下文 Ridge-raw/RF-raw
 对 SC24 预测峰幅为 `200.8/208.2`，真值 `146.1`，均严重高估；
 因而 R1-B 系列值得继续，但当前 Ridge/RF 不是可用幅度模型。
+
+### R1B 多周期双轨与双峰审计（2026-11-23）
+
+R1B-MULTI 把周期级峰幅模型扩展到 24 个完整周期的 LOOCV，并在目标周期
+SC19–SC24 上做严格时间顺序扩测。raw 和 13m 分开训练、分开评价。
+
+时间顺序扩测结果：raw W0-RF MAE `44.70`，气候中位数 `61.63`，三个时间块
+全部改善；13m W0-RF `38.63` 对 `49.53`，两个时间块改善。说明现有 SSN
+周期上下文含峰幅弱信号，但绝对误差仍大。
+
+W1 的上升速率、峰后斜率等特征没有稳定增量：raw/13m 扩测 MAE 反而变为
+`56.98/54.68`。aa 的 W2 相对同覆盖期 W1-control 也没有稳定增量：raw 仅改善
+`0.10 SSN`，13m 恶化 `0.78 SSN`。RF 因此继续保留为峰幅候选，但当前不能作为
+已校准点预测。
+
+当前 SC26 候选约为 raw `181–206`、13m `127–140`，仍未接成完整月曲线。
+R1A Oracle 不受影响，继续作为局部峰值注入器；问题主要在峰幅供给器。
+
+双峰审计对 SC1–24 使用四类序列口径和三个 prominence 阈值，共 12 个配置。
+结果：9 个 stable double（SC2、7、12、14、16、18、22、23、24）、1 个
+stable single、14 个 ambiguous；没有任何周期在全部配置中保持不变。
+因此不启动硬分类或双峰 PatchTST。
+
+同日完成峰区残差文献评审，形成“RF/R1A 锁定主峰 + 1–3 个紧支撑峰区基函数
+ + forecast-origin residual + selective deployment”的待验证方案。该方案
+尚未运行，下一步只做零训练表示审计。
+
+证据：
+
+- `analysis/r1b_multicycle/`
+- `analysis/double_peak_audit/`
+- `project_docs/RESEARCH_2026-11-23_double_peak_modeling_options.md`
+- `project_docs/RESEARCH_2026-11-23_peak_residual_correction.md`
+- `project_docs/EVALUATION_2026-11-23_constrained_peak_residual.md`

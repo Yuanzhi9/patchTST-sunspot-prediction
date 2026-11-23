@@ -694,7 +694,7 @@ B26M-R1A-ORACLE-PEAK  H=24  SC20_MAE=42.392->30.181(+28.81%)  SC21=28.198->26.78
 B26M-R1B-PREDICTED-PEAK  target=13m_peak  ridge_improvement=+7.92%/+0.07%/-24.21%  rf_improvement=+1.50%/+1.51%/-39.31%  max_cycle_safety_fail=true_under_13m  raw_SC24_Ridge=144.942_vs_true146.1  decision=freeze_definition_before_adoption  evidence=analysis/r1b_constrained_peak_predicted/decision.json
 
 # [2026-11-23] 峰值口径复核：13m 主口径 vs raw 月均峰值
-B26M-PEAK-DEFINITION  SC24_true_raw=146.1@2014-02  SC24_true_13m=115.331@2014-04  SC24_ridge_raw=144.942(error=-1.158)  SC24_ridge_13m=141.333(error=+26.002)  decision=freeze_peak_definition_before_next_model  evidence=analysis/peak_definition_comparison/peak_definition_summary.json
+B26M-PEAK-DEFINITION  SC24_true_raw=146.1@2014-02  SC24_true_13m=115.331@2014-04  SC24_ridge_raw=144.942(error=-1.158)  SC24_ridge_13m=141.333(error=+26.002)  decision=dual_track_no_single_freeze  evidence=analysis/peak_definition_comparison/peak_definition_summary.json
 
 # [2026-11-23] R1B-RAW：raw 峰值目标局部重构
 B26M-R1B-RAW  oracle_raw_peak=exact  SC20_curve_MAE=42.392->30.313  SC21=28.198->32.856  SC24=14.452->17.909  ridge_raw_SC24_peak=200.805(true146.1)  rf_raw_SC24_peak=208.183  decision=r1b_series_continue_new_amplitude_model  evidence=analysis/r1b_raw_peak/raw_peak_decision.json
@@ -704,3 +704,11 @@ B26M-T1V2-SCREEN  SC20_MAE=38.221->38.796(-1.50%)  SC21=34.668->31.500(+9.14%)  
 
 # [2026-11-23] raw/13m 平滑尺度复核；R1-A 仍为 Oracle
 B26M-SMOOTH-COMPARE  R1A_13m_MAE=24.368/20.592/11.015  PR24_13m_MAE=41.719/23.096/11.012  SC24_difference≈0  future_13m_peak=104.82[101.68,108.58]  evidence=analysis/smoothed_comparison/
+
+# [2026-11-23] R1B 多周期 raw/13m 双轨；W0 有信号，W1/aa 无稳定增量
+B26M-R1B-MULTI-W0  raw_expanding_MAE=44.70(median61.63,3/3_blocks)  smooth_expanding_MAE=38.63(median49.53,2/3_blocks)  decision=retain_RF_candidate  evidence=analysis/r1b_multicycle/decision.json
+B26M-R1B-MULTI-ABLATION  raw_W1-W0_MAE=+12.28  smooth_W1-W0=+16.05  raw_W2-W1=+0.57_LOOCV/-0.10_expanding  smooth_W2-W1=+0.30_LOOCV/+0.78_expanding  decision=no_stable_W1_or_aa_increment  evidence=analysis/r1b_multicycle/validation_summary.csv
+B26M-R1B-MULTI-SC26  raw_candidate=181-206  13m_candidate=127-140  status=pending_review_no_monthly_curve  evidence=analysis/r1b_multicycle/current_predictions.csv
+
+# [2026-11-23] 双峰标签稳定性；标签不足以硬分类
+B26M-DOUBLE-PEAK-AUDIT  cycles=24  stable_double=9  stable_single=1  ambiguous=14  all_config_consistent_cycles=0  stable_double_cycles=2,7,12,14,16,18,22,23,24  decision=no_hard_classifier  evidence=analysis/double_peak_audit/summary.json
