@@ -37,4 +37,4 @@
 | 文献对照 | 三联图已完成；峰时与文献一致，raw 峰幅约 106.95，处于文献高估计 150–181 的低端 | `analysis/literature_comparison/`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §6 |
 | 长时距备选 | 当前已测方案中 block24 recursive 最稳；下一步比较周期极值条件曲线与 rollout-aware 训练 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §4 |
 | 未决 | 需要更准的周期幅度信息或新的极值训练目标；T2 暂不启动；aa 已可做覆盖期对照 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
-| 最后核对 | 2026-11-23（E1、R1、T1；最新结果尚未推送） | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |
+| 最后核对 | 2026-11-23（E1、R1、T1、aa 清洗；最新结果尚未推送） | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |
