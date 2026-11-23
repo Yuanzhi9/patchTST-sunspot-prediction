@@ -21,7 +21,7 @@
 | 非负能力检验 | raw/clip0 双口径完成；clip0 负值=0；recursive MAE=42.39/28.20/14.45，峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | Gaussian σ=3.6 | causal 三周期×五 seed 完成；centered 回顾上界暂停；causal 未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132=`BASE-2026-11-M-P132`；两分支均独立保留 | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | 本地领先远端9个提交，完成本轮文档审计后推送；P132 已推送、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
+| 远端状态 | `BASE-2026-11-M` 已同步至 `acdb4b0`；P132 独立已推送、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留、暂不合并（景修 2026-11-19 决定） | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 命名规范 | `PR24`/`PR132` 表示 prediction length；`PL36` 表示 patch length | `project_docs/NAMING.md` |
 | 运行环境 | 当前 RTX 5090 32G；11.21 及更早记录为 A6000 48G；torch 2.8.0+cu128 / numpy 2.2 / 无 venv | `nvidia-smi`（2026-11-23）、AGENTS.md 环境维护 |
@@ -37,4 +37,4 @@
 | 文献对照 | 三联图已完成；峰时与文献一致，raw 峰幅约 106.95，处于文献高估计 150–181 的低端 | `analysis/literature_comparison/`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §6 |
 | 长时距备选 | 当前已测方案中 block24 recursive 最稳；下一步比较周期极值条件曲线与 rollout-aware 训练 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §4 |
 | 未决 | 峰值主口径待冻结；R1B扩周期幅度模型优先；双峰模型待P0；T2暂停 | `project_docs/PLAN_2026-11-23_double_peak_and_r1b_series.md` |
-| 最后核对 | 2026-11-23（E1、R1、T1、aa 清洗；最新结果尚未推送） | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |
+| 最后核对 | 2026-11-23（峰值口径、E1/R1/T1、aa、双峰计划；已推送） | `EXPERIMENT_B26M-R1B-RAW_2026-11-23.md` |
