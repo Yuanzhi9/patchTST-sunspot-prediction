@@ -7,7 +7,7 @@
 | 字段 | 值 | 证据指针 |
 |---|---|---|
 | 当前阶段 | 双峰审计、R1B 多周期双轨、RF 保留、残差方案评审完成；只差主峰方案收敛 | `project_docs/RESEARCH_2026-11-23_double_peak_modeling_options.md` |
-| 当前任务 | 先审 R1B raw/13m 双轨并继续主峰；P2 零训练峰区残差审计未启动 | `project_docs/PLAN_2026-11-23_double_peak_and_r1b_series.md` |
+| 当前任务 | 下一批 R1B-NEXT：先过五项泄漏审计，再做 W0 目标表示/单特征消融；未运行 | `project_docs/PLAN_2026-11-24_R1B_NEXT.md` |
 | 当前基线（月均） | PR24 `D128` reference；D112/D144/D160 未稳定超过；历史锚点见账本 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | PR24 参考基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；物理反变换后 clip0，不宣称峰幅已校准 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
 | A0 口径对照 | raw Full/Block24=26.913/27.331；13m=16.439/17.903；归一化误差 0.400/0.263 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
@@ -21,7 +21,7 @@
 | 非负能力检验 | raw/clip0 完成；clip0 负值=0；峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | Gaussian σ=3.6 | causal 三周期×五 seed 完成；未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
 | 工作分支 | p24=`BASE-2026-11-M`；p132 独立；8 条 worktree/分支登记全部保留，未清场 | `git worktree list`、`BRANCHES.md` |
-| 远端状态 | `BASE-2026-11-M` 已同步今日收尾批次；P132 独立保留、不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
+| 远端状态 | `BASE-2026-11-M` 远端为 `ed49300`；本次调研归档本地待推；P132 不合并 | `git status --short --branch`、`git ls-remote origin refs/heads/BASE-2026-11-M` |
 | 主线与分流 | **`EXP-17-stage1`** 仍是主线；`BASE-2026-11-M` 独立保留 | `BRANCHES.md`、`diary/2026-11-19.md` |
 | 命名规范 | `PR24`/`PR132` 表示 prediction length；`PL36` 表示 patch length | `project_docs/NAMING.md` |
 | 运行环境 | RTX 5090 32G；torch 2.8.0+cu128 / numpy 2.2 / 无 venv；历史 A6000 结果不可直接横比 | `AGENTS.md` 环境维护 |
@@ -35,6 +35,6 @@
 | 冻结队列 | 平滑 / 相位特征 / 非负约束 / 谷时分类 / scheduled sampling / 多配置集成 | `plan_preregistration_2026-10-11.md` |
 | 未来预测 | 旧 PR24 基线：SC25 谷 2030-10；SC26 峰 2035-06；raw 106.95，13m 104.82；非新定稿 | `analysis/pr24_future_forecast/` |
 | 文献对照 | 峰时与文献接近；raw 峰幅约 106.95，处于高估计 150–181 的低端 | `analysis/literature_comparison/` |
-| 长时距备选 | block24 recursive 仍最稳；下一步是主峰稳定后的零训练峰区残差审计 | `project_docs/RESEARCH_2026-11-23_peak_residual_correction.md` |
-| 未决 | raw/13m 最终报告待景修审核；RF/R1A 保留；双峰训练和 T2 均暂停 | `EXPERIMENT_B26M-R1B-MULTICYCLE_2026-11-23.md` |
-| 最后核对 | 2026-11-23 收尾：文档四查、脚本编译、图重生成通过；未推送 | `diary/2026-11-23.md` |
+| 长时距备选 | block24 仍最稳；主峰候选按 forecast origin 比较，P2 残差审计未启动 | `project_docs/RESEARCH_2026-11-23_peak_amplitude_time_evidence.md` |
+| 未决 | R1B-NEXT 未运行；RF/R1A 保留；时间模型仅在峰幅与泄漏门通过后启动 | `project_docs/PLAN_2026-11-24_R1B_NEXT.md` |
+| 最后核对 | 2026-11-23 调研与明日计划已归档；本地提交待推送 | `diary/2026-11-23.md` |
