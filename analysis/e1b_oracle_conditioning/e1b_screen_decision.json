@@ -1,0 +1,48 @@
+{
+  "baseline": "none",
+  "screen_seed": 2021,
+  "gate": {
+    "cycles_mae_improved_5pct_min": 2,
+    "cycles_peak_time_not_worse_min": 2,
+    "max_single_cycle_degradation_pct": 10.0
+  },
+  "preregistration_note": "The original E1b screen gate omitted the parent-plan per-cycle 10% degradation guard. safety_pass enforces that parent rule.",
+  "passed_modes": [],
+  "best_mode": null,
+  "proceed_to_five_seed": false,
+  "summary": [
+    {
+      "mode": "amp",
+      "cycles_mae_improved_5pct": 2,
+      "mean_mae_improvement_pct": -10.898246832871976,
+      "cycles_peak_time_not_worse": 3,
+      "condition_sensitivity_pass": true,
+      "max_cycle_degradation_pct": 49.02602910688828,
+      "screen_rules_pass": true,
+      "safety_pass": false,
+      "screen_pass": false
+    },
+    {
+      "mode": "both",
+      "cycles_mae_improved_5pct": 1,
+      "mean_mae_improvement_pct": -50.34747739191766,
+      "cycles_peak_time_not_worse": 2,
+      "condition_sensitivity_pass": false,
+      "max_cycle_degradation_pct": 115.71786424525573,
+      "screen_rules_pass": false,
+      "safety_pass": false,
+      "screen_pass": false
+    },
+    {
+      "mode": "time",
+      "cycles_mae_improved_5pct": 0,
+      "mean_mae_improvement_pct": -98.51952918782972,
+      "cycles_peak_time_not_worse": 2,
+      "condition_sensitivity_pass": false,
+      "max_cycle_degradation_pct": 245.73155414485242,
+      "screen_rules_pass": false,
+      "safety_pass": false,
+      "screen_pass": false
+    }
+  ]
+}

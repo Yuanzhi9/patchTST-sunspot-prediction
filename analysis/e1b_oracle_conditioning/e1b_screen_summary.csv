@@ -1,0 +1,4 @@
+mode,cycles_mae_improved_5pct,mean_mae_improvement_pct,cycles_peak_time_not_worse,condition_sensitivity_pass,max_cycle_degradation_pct,screen_rules_pass,safety_pass,screen_pass
+amp,2,-10.898246832871976,3,True,49.02602910688828,True,False,False
+both,1,-50.34747739191766,2,False,115.71786424525573,False,False,False
+time,0,-98.51952918782972,2,False,245.73155414485242,False,False,False

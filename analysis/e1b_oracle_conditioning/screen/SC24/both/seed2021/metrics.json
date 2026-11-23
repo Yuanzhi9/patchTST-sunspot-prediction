@@ -1,0 +1,89 @@
+{
+  "cycle": "SC24",
+  "cond_mode": "both",
+  "seed": 2021,
+  "setting": "B26M-E1B-SC24-both-S2021",
+  "raw": {
+    "curve": {
+      "mae": 28.9113846219036,
+      "rmse": 37.30798630971556,
+      "bias": 25.226466354677097,
+      "r2": 0.17914955112101838,
+      "negative_months": 0
+    },
+    "extrema": {
+      "smooth_window_months": 13,
+      "order": "peak_then_trough",
+      "peak": {
+        "true_date": "2014-04",
+        "true_value": 115.33076923076922,
+        "pred_date": "2012-09",
+        "pred_value": 143.3383809806035,
+        "amplitude_error": 28.00761174983427,
+        "time_error_months": -19
+      },
+      "trough": {
+        "true_date": "2019-06",
+        "true_value": 3.5461538461538464,
+        "pred_date": "2019-02",
+        "pred_value": 26.141507369891222,
+        "amplitude_error": 22.595353523737376,
+        "time_error_months": -4
+      },
+      "amplitude_ratio": 1.0059957597365337
+    }
+  },
+  "clip0": {
+    "curve": {
+      "mae": 28.9113846219036,
+      "rmse": 37.30798630971556,
+      "bias": 25.226466354677097,
+      "r2": 0.17914955112101838,
+      "negative_months": 0
+    },
+    "extrema": {
+      "smooth_window_months": 13,
+      "order": "peak_then_trough",
+      "peak": {
+        "true_date": "2014-04",
+        "true_value": 115.33076923076922,
+        "pred_date": "2012-09",
+        "pred_value": 143.3383809806035,
+        "amplitude_error": 28.00761174983427,
+        "time_error_months": -19
+      },
+      "trough": {
+        "true_date": "2019-06",
+        "true_value": 3.5461538461538464,
+        "pred_date": "2019-02",
+        "pred_value": 26.141507369891222,
+        "amplitude_error": 22.595353523737376,
+        "time_error_months": -4
+      },
+      "amplitude_ratio": 1.0059957597365337
+    }
+  },
+  "checkpoint": "checkpoints/B26M-E1B-SC24-both-S2021/full_checkpoint.pth",
+  "config": "configs/B26M-E1B-SC24-both-S2021_20261123_060129.json",
+  "curve": "analysis/e1b_oracle_conditioning/screen/SC24/both/seed2021/recursive_curve.csv",
+  "cond_stats": {
+    "mean": [
+      5.137789249420166,
+      -14.469114303588867
+    ],
+    "scale": [
+      0.35924723744392395,
+      40.17771530151367
+    ]
+  },
+  "n_train_windows": 2833,
+  "n_val_windows": 109,
+  "n_parameters": 1246618,
+  "condition_sensitivity": {
+    "amp_peak_delta_for_two_std": 123.11524458320247,
+    "time_peak_index_delta_for_two_std": 0,
+    "amp_sensitive": true,
+    "time_sensitive": false,
+    "pass": false
+  }
+}

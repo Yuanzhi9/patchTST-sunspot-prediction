@@ -1,0 +1,64 @@
+method  oracle_amplitude  pr24_clip0  improvement_pct
+cycle                                                
+SC20           30.543581   42.392217        27.950025
+SC21           24.482020   28.198187        13.178742
+SC24           14.495698   14.452436        -0.299342
+       improved_seeds  n_seeds
+cycle                         
+SC20                5        5
+SC21                5        5
+SC24                3        5
+cycle
+SC20    118.177435
+SC21    -38.429462
+SC24      2.372478
+{
+  "gate_definition": {
+    "cycles_improved_min": 2,
+    "mean_improvement_pct_min": 5.0,
+    "improved_cycle_seeds_min": 4,
+    "max_cycles_trough_abs_worse_gt_25pct": 1
+  },
+  "cycles_improved": 2,
+  "mean_improvement_pct": 13.609808487106358,
+  "seed_gate_pass": true,
+  "trough_fail_count": 1,
+  "passed": true,
+  "decision": "proceed_to_e1b",
+  "mae_by_cycle": {
+    "SC20": {
+      "baseline": 42.3922165572108,
+      "oracle_amplitude": 30.5435812895649,
+      "improvement_pct": 27.95002533461648
+    },
+    "SC21": {
+      "baseline": 28.198186608228127,
+      "oracle_amplitude": 24.48202041838977,
+      "improvement_pct": 13.178741744882256
+    },
+    "SC24": {
+      "baseline": 14.452435783066438,
+      "oracle_amplitude": 14.495697938205845,
+      "improvement_pct": -0.2993416181796611
+    }
+  },
+  "seed_gate": {
+    "SC20": {
+      "improved_seeds": 5,
+      "n_seeds": 5
+    },
+    "SC21": {
+      "improved_seeds": 5,
+      "n_seeds": 5
+    },
+    "SC24": {
+      "improved_seeds": 3,
+      "n_seeds": 5
+    }
+  },
+  "trough_abs_worse_pct": {
+    "SC20": 118.1774347717485,
+    "SC21": -38.42946184324641,
+    "SC24": 2.3724780970663395
+  }
+}

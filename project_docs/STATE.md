@@ -7,14 +7,14 @@
 
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | PR24 reference baseline 已验收；A0 raw/13m 五 seed、周期上下文和外部数据初筛完成 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`、`project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` |
-| 当前任务 | 先决定周期级幅度/时间模型是否保留；下一批正式实验用纯 SSN 周期上下文，再接 aa 与同覆盖期对照 | `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` |
+| 当前阶段 | A0/周期上下文完成；E1 Oracle 阶段完成，FiLM 安全门槛失败 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
+| 当前任务 | E1 停止扩展；仅可在受约束幅值/谷值重构与独立 scheduled sampling 间择一 | `EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` |
 | p24 原预案缺口 | 中间容量审计完成；D160 五 seed 未稳定超过 D128；继续使用 D128 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
-| B26M 锚点 | E00 Full/Block=33.62/35.05；G1 seq132=27.82/27.86；完整结果见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
+| 当前基线（月均） | PR24 `D128` reference；历史锚点 E00/G1 见账本 | `result.txt`、`project_docs/experiment_history.md` Stage 10 |
 | PR24 参考基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；正式输出采用物理反变换后 clip0。可作改进对照，不宣称峰幅已校准 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
 | A0 口径对照 | 同日期 raw 五 seed Full/Block24=26.913/27.331；13m=16.439/17.903；归一化误差 0.400/0.263 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
+| E1 Oracle | 幅值上界平均改善 13.61% 但谷值恶化；FiLM amp 使 SC24 恶化 49.03%，安全门槛失败 | `EXPERIMENT_B26M-ORACLE-AMP_2026-11-23.md`、`EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` |
 | p24 补强结论 | lr×batch 2×2 无排序翻转；seed2022/2023 未造成五 seed 漂移；稳定性图已出 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md` §p24 |
-| 当前基线（月均） | 旧配置 EXP-18-5b / GPU 复核 EXP-26；仅作历史锚点，数据为 2025-10 | experiment_history：EXP-18-5b 行、EXP-26 行 |
 | 时间顺序盲测 | SC20/21/24 各 5 seed；PR24 recursive block24 MAE=42.39/28.23/14.48，PR132 direct=52.15/38.84/29.82 | `analysis/cycle_holdout/cycle_holdout_aggregate.csv` |
 | 非负能力检验 | raw/clip0 双口径完成；clip0 负值=0；recursive MAE=42.39/28.20/14.45，峰时仍不稳定 | `project_docs/REPORT_2026-11-21_PR24_nonnegative_baseline.md` |
 | Gaussian σ=3.6 | causal 三周期×五 seed 完成；centered 回顾上界暂停；causal 未解决强周期峰幅压制 | `EXPERIMENT_B26M-gaussian-s36_2026-11-21.md` |
@@ -36,5 +36,5 @@
 | 未来预测 | 起报 2026-10；SC25 谷 2030-10（范围 2030-07–10）；SC26 峰 2035-06（范围 2035-02–12），13m 峰值 104.82（101.68–108.58） | `analysis/pr24_future_forecast/` |
 | 文献对照 | 三联图已完成；峰时与文献一致，raw 峰幅约 106.95，处于文献高估计 150–181 的低端 | `analysis/literature_comparison/`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §6 |
 | 长时距备选 | 当前已测方案中 block24 recursive 最稳；下一步比较周期极值条件曲线与 rollout-aware 训练 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §4 |
-| 未决 | 周期特征如何显式 fusion；硬分组已由 pilot 否定，是否试因果软门控；aa 下载与覆盖期门槛 | `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` |
-| 最后核对 | 2026-11-23（A0 五 seed、周期/外部数据初筛；新增结果尚未推送） | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
+| 未决 | FiLM 已失败；下一步在受约束幅值/谷值重构与 scheduled sampling 间选择；aa 待下载 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
+| 最后核对 | 2026-11-23（A0、E1a/E1b；最新结果尚未推送） | `EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` |

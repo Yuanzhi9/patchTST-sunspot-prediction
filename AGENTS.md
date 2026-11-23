@@ -76,7 +76,7 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：A0 双口径与周期条件模型筛查（2026-11-23）
+## 当前阶段：E1 Oracle 条件诊断完成（2026-11-23）
 
 - 当前工作线：`BASE-2026-11-M` / `/output/BASE-2026-11-M`；状态以 `project_docs/STATE.md` 为准。
 - PR24 容量审计已完成。D64 五 seed 稳定更差；E3、D256 等小于 1% 的
@@ -103,8 +103,10 @@
   超过中位数；历史硬分三组反而使峰幅误差变大。F10.7 已清洗至 2026-10，
   WSO 有效月值止于 2025-12，aa 待 ISGI 邮箱。见
   `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md`。
-- 下一步：先定周期级幅度/时间模型是否保留，再设计显式 fusion、两阶段极值条件
-  曲线、scheduled sampling / rollout loss 和 aa 覆盖期对照。
+- E1a Oracle 峰幅缩放平均改善 13.61%，但强周期谷值恶化；E1b FiLM 的 `amp`
+  在 SC24 恶化 49.03%，安全门槛失败。不扩五 seed，不进入 E3。
+- 下一步只能二选一：设计“受约束幅值/谷值重构”，或在当前基线上独立测试
+  scheduled sampling / rollout loss；aa 下载后另做覆盖期对照。
   block24 仍是当前参考推理口径；跨环境/跨口径边界不变。
 
 ## 环境维护

@@ -33,6 +33,8 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **E1B-ORACLE-FUSION** | 11.23 | Stage 10 | FiLM 接入 Oracle 峰幅/峰时，seed2021 筛选 | SC20/21/24；cond none/amp/time/both | amp：SC20 40.49→36.66、SC21 30.59→28.49、SC24 13.40→19.97 | — | — | SC24 恶化49%，最差周期安全门槛失败；不扩五 seed、不进E3 | `EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` | ✅ |
+| **E1A-ORACLE-AMP** | 11.23 | Stage 10 | 零训练 Oracle 峰幅缩放上界 | PR24 recursive block24；SC20/21/24；五 seed | 30.54/24.48/14.50 | — | — | 平均改善13.61%；峰时有价值、谷值未解决；仅可作上界 | `EXPERIMENT_B26M-ORACLE-AMP_2026-11-23.md` | 无训练 |
 | **B26M-A0** | 11.23 | Stage 10 | 同日期对照 raw 与官方 13m 平滑 SSN | 1749-07–2026-04；SL132/PL24/P36/S18/D128/E2/F2048；五 seed | raw 26.913±0.122；13m 16.439±0.251 | — | — | 平滑目标更易学但仍属回顾口径；raw 继续作主数据 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` | ✅ |
 | **CYCLE-SCREEN** | 11.23 | Stage 10 | SSN 周期上下文 + F10.7/WSO 数据初筛 | 24 个完整周期；leave-one-cycle-out | 峰幅 raw RF 55.73 对中位 59.24 | — | — | 峰幅弱信号；峰时/谷时未过中位数；硬波动分组无效 | `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md` | — |
 | **PR24-BASELINE-ACCEPT** | 11.23 | Stage 10 | 景修验收 D128 为 reference baseline；完成文献三联图与长时距方案审查 | PR24 recursive24；SC20/21/24；raw/clip0 | — | — | — | 可作改进对照；不可宣称 SC26 峰幅已校准；下一步验证周期级极值与 fusion | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` | — |
@@ -1273,3 +1275,19 @@ leave-one-cycle-out 初筛中，峰幅有一点信号：raw RF MAE 55.73，气�
 超过中位数。按当前可见波动硬分三组的快速 pilot 使峰幅 MAE 变差，因此不作为
 正式基线，后续只考虑因果软门控。F10.7 与 WSO 数据清洗和覆盖范围见
 `project_docs/DATA_QUALITY_2026-11-23_external_indices.md`。
+
+### E1 Oracle 条件阶段（2026-11-23）
+
+预登记和预尸检见
+`project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md`。
+
+E1a 对已有 PR24 recursive block24 五 seed 曲线做不可部署的 Oracle 峰幅缩放。
+SC20/SC21/SC24 的 MAE 分别从 `42.39/28.20/14.45` 变为
+`30.54/24.48/14.50`，三周期平均改善 `13.61%`；峰时不变。SC20 谷幅误差由
+`+15.20` 增至 `+33.16`，说明幅度条件有价值，但纯乘法会恶化谷区。
+
+E1b 使用显式 FiLM 条件网络比较 `none/amp/time/both`，每模式先在
+SC20/21/24 上跑 seed2021。`amp` 使 SC20/21 MAE 改善 `9.46%/6.88%`，
+但使 SC24 恶化 `49.03%`，违反最差周期不得恶化超过 10% 的安全门槛。
+`time` 和 `both` 的条件扰动方向不稳定且多个周期严重恶化。最终不扩五 seed、
+不进入 E3；后续只能尝试“受约束幅值/谷值重构”或独立测试 scheduled sampling。

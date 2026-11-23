@@ -1,0 +1,75 @@
+cycle mode  seed                  setting       mae      rmse        r2  negative_months  peak_amplitude_error  peak_time_error_months  trough_amplitude_error  trough_time_error_months  condition_sensitivity_pass  amp_peak_delta  time_peak_index_delta
+ SC20 none  2021 B26M-E1B-SC20-none-S2021 40.490918 53.022398  0.591756                0            -84.736673                       6                5.004695                         8                        True        0.000000                      0
+ SC20  amp  2021  B26M-E1B-SC20-amp-S2021 36.662418 48.095462  0.664101                0            -70.402162                       0               15.159508                         2                        True       63.429568                      0
+ SC20 time  2021 B26M-E1B-SC20-time-S2021 43.342977 53.546542  0.583645                0            -80.742369                       2               31.061995                        -2                        True        0.000000                      2
+ SC20 both  2021 B26M-E1B-SC20-both-S2021 33.164475 41.134293  0.754298                0            -49.303891                      -1               26.143253                         0                       False       97.161857                     -2
+ SC21 none  2021 B26M-E1B-SC21-none-S2021 30.592498 37.946727  0.772406                0             40.013240                       8               -7.991807                         1                        True        0.000000                      0
+ SC21  amp  2021  B26M-E1B-SC21-amp-S2021 28.488932 34.149339  0.815678                0             29.619208                       7                4.140130                         1                        True       80.478547                      0
+ SC21 time  2021 B26M-E1B-SC21-time-S2021 43.680987 55.720672  0.509267                0             54.160578                       0               18.583561                         1                       False        0.000000                     -2
+ SC21 both  2021 B26M-E1B-SC21-both-S2021 46.934584 56.858552  0.489019                0             59.956087                       2               23.824301                         1                        True      268.364155                      1
+ SC24 none  2021 B26M-E1B-SC24-none-S2021 13.402406 18.154548  0.805629                0             -5.072708                      -7               -0.175217                         0                        True        0.000000                      0
+ SC24  amp  2021  B26M-E1B-SC24-amp-S2021 19.973074 23.641102  0.670393                0              2.133589                      -6                8.494384                         0                        True       40.782236                      0
+ SC24 time  2021 B26M-E1B-SC24-time-S2021 46.336348 56.339733 -0.871932                0             58.398517                     -22               43.763365                       -20                       False        0.000000                      0
+ SC24 both  2021 B26M-E1B-SC24-both-S2021 28.911385 37.307986  0.179150                0             28.007612                     -19               22.595354                        -4                       False      123.115245                      0
+cycle mode  mae_baseline  mae_candidate  mae_improvement_pct  peak_time_abs_baseline  peak_time_abs_candidate
+ SC20  amp     40.490918      36.662418             9.455207                       6                        0
+ SC21  amp     30.592498      28.488932             6.876082                       8                        7
+ SC24  amp     13.402406      19.973074           -49.026029                       7                        6
+ SC20 time     40.490918      43.342977            -7.043701                       6                        2
+ SC21 time     30.592498      43.680987           -42.783332                       8                        0
+ SC24 time     13.402406      46.336348          -245.731554                       7                       22
+ SC20 both     40.490918      33.164475            18.094041                       6                        1
+ SC21 both     30.592498      46.934584           -53.418609                       8                        2
+ SC24 both     13.402406      28.911385          -115.717864                       7                       19
+mode  cycles_mae_improved_5pct  mean_mae_improvement_pct  cycles_peak_time_not_worse  condition_sensitivity_pass  max_cycle_degradation_pct  screen_rules_pass  safety_pass  screen_pass
+ amp                         2                -10.898247                           3                        True                  49.026029               True        False        False
+both                         1                -50.347477                           2                       False                 115.717864              False        False        False
+time                         0                -98.519529                           2                       False                 245.731554              False        False        False
+{
+  "baseline": "none",
+  "screen_seed": 2021,
+  "gate": {
+    "cycles_mae_improved_5pct_min": 2,
+    "cycles_peak_time_not_worse_min": 2,
+    "max_single_cycle_degradation_pct": 10.0
+  },
+  "preregistration_note": "The original E1b screen gate omitted the parent-plan per-cycle 10% degradation guard. safety_pass enforces that parent rule.",
+  "passed_modes": [],
+  "best_mode": null,
+  "proceed_to_five_seed": false,
+  "summary": [
+    {
+      "mode": "amp",
+      "cycles_mae_improved_5pct": 2,
+      "mean_mae_improvement_pct": -10.898246832871976,
+      "cycles_peak_time_not_worse": 3,
+      "condition_sensitivity_pass": true,
+      "max_cycle_degradation_pct": 49.02602910688828,
+      "screen_rules_pass": true,
+      "safety_pass": false,
+      "screen_pass": false
+    },
+    {
+      "mode": "both",
+      "cycles_mae_improved_5pct": 1,
+      "mean_mae_improvement_pct": -50.34747739191766,
+      "cycles_peak_time_not_worse": 2,
+      "condition_sensitivity_pass": false,
+      "max_cycle_degradation_pct": 115.71786424525573,
+      "screen_rules_pass": false,
+      "safety_pass": false,
+      "screen_pass": false
+    },
+    {
+      "mode": "time",
+      "cycles_mae_improved_5pct": 0,
+      "mean_mae_improvement_pct": -98.51952918782972,
+      "cycles_peak_time_not_worse": 2,
+      "condition_sensitivity_pass": false,
+      "max_cycle_degradation_pct": 245.73155414485242,
+      "screen_rules_pass": false,
+      "safety_pass": false,
+      "screen_pass": false
+    }
+  ]
+}

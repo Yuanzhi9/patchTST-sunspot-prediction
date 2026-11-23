@@ -681,3 +681,10 @@ B26M-A0-SMOOTH13-SUMMARY  full_MAE_mean=16.4389  full_MAE_std=0.2506  block24_MA
 
 # [2026-11-23] 周期级极值初筛；仅 24 个完整周期，不作正式新基线
 B26M-CYCLE-SCREEN  peak_raw_best=random_forest_reduced_MAE55.7271  peak_raw_climatology_MAE59.2417  peak_smooth_best=ridge_reduced_MAE45.8085  peak_smooth_climatology_MAE47.2946  peak_time_and_trough_time=not_better_than_median  evidence=analysis/cycle_context/model_screening/cycle_model_screening_summary.csv
+
+# [2026-11-23] E1a Oracle 峰幅条件：不可部署上界；五 seed
+B26M-E1A-ORACLE-AMP  SC20_MAE=42.392217->30.543581(+27.95%)  SC21_MAE=28.198187->24.482020(+13.18%)  SC24_MAE=14.452436->14.495698(-0.30%)  mean_improvement=13.61%  SC20_trough_error=+15.20->+33.16  decision=proceed_with_trough_constraint  evidence=analysis/e1_oracle_amplitude/oracle_amplitude_decision.json
+
+# [2026-11-23] E1b Oracle FiLM 条件：seed2021 安全门槛失败，不扩五 seed
+B26M-E1B-AMP-SAFETY-FAIL  SC20_MAE_improvement=9.46%  SC21=6.88%  SC24=-49.03%  max_cycle_degradation=49.03%  condition_sensitivity=pass  decision=no_E3  evidence=analysis/e1b_oracle_conditioning/e1b_screen_decision.json
+B26M-E1B-MODE-SCREEN  time=0/3_cycles_MAE_improved_5pct  both=1/3  condition_time_direction_unstable=true  proceed_to_five_seed=false  evidence=analysis/e1b_oracle_conditioning/e1b_screen_summary.csv
