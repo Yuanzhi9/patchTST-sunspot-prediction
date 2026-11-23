@@ -7,6 +7,7 @@ coverage and validity fields.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
@@ -22,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EXTERNAL = ROOT / "PatchTST_supervised/dataset/external"
 RAW_F107 = EXTERNAL / "raw/f107"
 RAW_WSO = EXTERNAL / "raw/wso_polar"
+RAW_AA = EXTERNAL / "raw/aa"
 PROCESSED = EXTERNAL / "processed"
 
 F107_MONTHLY_URL = (
@@ -41,7 +43,9 @@ NOAA_SOLAR_CYCLE_URL = (
 WSO_POLAR_URL = "http://wso.stanford.edu/Polar.html"
 
 
-def download(url: str, path: Path) -> bytes:
+def download(url: str, path: Path, refresh: bool = False) -> bytes:
+    if path.exists() and not refresh:
+        return path.read_bytes()
     path.parent.mkdir(parents=True, exist_ok=True)
     with urllib.request.urlopen(url, timeout=60) as response:
         payload = response.read()
@@ -94,14 +98,20 @@ def parse_f107_daily(payload: bytes) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def build_f107() -> pd.DataFrame:
-    monthly_payload = download(F107_MONTHLY_URL, RAW_F107 / "penticton_monthly.txt")
+def build_f107(refresh: bool = False) -> pd.DataFrame:
+    monthly_payload = download(
+        F107_MONTHLY_URL, RAW_F107 / "penticton_monthly.txt", refresh=refresh
+    )
     monthly = parse_f107_monthly(monthly_payload)
 
     daily_frames = []
     for year in range(2015, 2027):
         url = F107_DAILY_URL.format(year=year)
-        payload = download(url, RAW_F107 / f"pent_noontime-flux_{year}.txt")
+        payload = download(
+            url,
+            RAW_F107 / f"pent_noontime-flux_{year}.txt",
+            refresh=refresh,
+        )
         daily_frames.append(parse_f107_daily(payload))
     daily = pd.concat(daily_frames, ignore_index=True)
     daily["year"] = daily["date"].dt.year
@@ -126,7 +136,11 @@ def build_f107() -> pd.DataFrame:
 
     # The NCEI daily archive ends in September 2026. Extend only the monthly
     # value from the official SWPC JSON, preserving its source label.
-    noaa_payload = download(NOAA_SOLAR_CYCLE_URL, RAW_F107 / "swpc_observed_solar_cycle.json")
+    noaa_payload = download(
+        NOAA_SOLAR_CYCLE_URL,
+        RAW_F107 / "swpc_observed_solar_cycle.json",
+        refresh=refresh,
+    )
     noaa = pd.DataFrame(json.loads(noaa_payload))
     noaa = noaa.loc[noaa["time-tag"] >= "2026-10", ["time-tag", "f10.7"]].copy()
     noaa = noaa.loc[noaa["f10.7"] > 0].rename(columns={"time-tag": "month", "f10.7": "f107_observed"})
@@ -242,8 +256,8 @@ def parse_wso_polar(payload: bytes) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values("date")
 
 
-def build_wso() -> tuple[pd.DataFrame, pd.DataFrame]:
-    payload = download(WSO_POLAR_URL, RAW_WSO / "Polar.html")
+def build_wso(refresh: bool = False) -> tuple[pd.DataFrame, pd.DataFrame]:
+    payload = download(WSO_POLAR_URL, RAW_WSO / "Polar.html", refresh=refresh)
     ten_day = parse_wso_polar(payload)
     ten_day["year"] = ten_day["date"].dt.year
     ten_day["month"] = ten_day["date"].dt.month
@@ -267,17 +281,113 @@ def build_wso() -> tuple[pd.DataFrame, pd.DataFrame]:
     return ten_day, monthly
 
 
+def parse_aa_iaga(payload: bytes) -> pd.DataFrame:
+    rows = []
+    for line in payload.decode("ascii", errors="replace").splitlines():
+        fields = line.split()
+        if not fields or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", fields[0]):
+            continue
+        if len(fields) < 2:
+            raise ValueError(f"malformed aa record: {line}")
+        if len(fields) < 4 or fields[3] in {"999", "-", ""}:
+            value = np.nan
+        else:
+            value = float(fields[3])
+        rows.append(
+            {
+                "datetime": pd.Timestamp(f"{fields[0]} {fields[1]}"),
+                "aa": value,
+            }
+        )
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        raise ValueError("no aa records parsed")
+    return frame.sort_values("datetime").reset_index(drop=True)
+
+
+def build_aa() -> tuple[pd.DataFrame, pd.DataFrame, Path]:
+    candidates = sorted(RAW_AA.glob("*IAGA2002.dat"))
+    if len(candidates) != 1:
+        raise ValueError(f"expected one aa IAGA2002 raw file, found {len(candidates)}")
+    raw_path = candidates[0]
+    three_hour = parse_aa_iaga(raw_path.read_bytes())
+    three_hour["date"] = three_hour["datetime"].dt.normalize()
+    three_hour["year"] = three_hour["datetime"].dt.year
+    three_hour["month"] = three_hour["datetime"].dt.month
+
+    daily = (
+        three_hour.groupby("date", as_index=False)
+        .agg(
+            aa_daily_mean=("aa", "mean"),
+            aa_daily_max=("aa", "max"),
+            n_3h=("aa", "count"),
+        )
+    )
+    daily["coverage"] = daily["n_3h"] / 8.0
+    daily.loc[daily["n_3h"] < 7, ["aa_daily_mean", "aa_daily_max"]] = np.nan
+
+    monthly = (
+        three_hour.groupby(["year", "month"], as_index=False)
+        .agg(
+            aa_mean=("aa", "mean"),
+            aa_max=("aa", "max"),
+            n_3h=("aa", "count"),
+        )
+        .assign(
+            date=lambda frame: pd.to_datetime(
+                dict(year=frame["year"], month=frame["month"], day=1)
+            )
+        )
+    )
+    monthly["expected_3h"] = [
+        8 * monthrange(int(year), int(month))[1]
+        for year, month in zip(monthly["year"], monthly["month"])
+    ]
+    monthly["coverage"] = monthly["n_3h"] / monthly["expected_3h"]
+    monthly.loc[monthly["coverage"] < 0.8, ["aa_mean", "aa_max"]] = np.nan
+    quantiles = (
+        three_hour.dropna(subset=["aa"])
+        .groupby(["year", "month"])["aa"]
+        .quantile(0.9)
+    )
+    monthly["aa_p90"] = [
+        float(quantiles.loc[(int(year), int(month))])
+        if coverage >= 0.8 and (int(year), int(month)) in quantiles.index
+        else np.nan
+        for year, month, coverage in zip(
+            monthly["year"], monthly["month"], monthly["coverage"]
+        )
+    ]
+    monthly["missing"] = monthly["aa_mean"].isna().astype(int)
+    monthly = monthly[
+        ["date", "aa_mean", "aa_max", "aa_p90", "n_3h", "coverage", "missing"]
+    ]
+    return daily, monthly, raw_path
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Re-download F10.7/WSO sources instead of using cached raw files.",
+    )
+    args = parser.parse_args()
     PROCESSED.mkdir(parents=True, exist_ok=True)
-    f107 = build_f107()
-    polar_10day, polar_monthly = build_wso()
+    f107 = build_f107(refresh=args.refresh)
+    polar_10day, polar_monthly = build_wso(refresh=args.refresh)
+    aa_daily, aa_monthly, aa_raw_path = build_aa()
 
     f107_path = PROCESSED / "f107_monthly_1947_2026.csv"
     polar_path = PROCESSED / "wso_polar_10day_1976_2026.csv"
     polar_monthly_path = PROCESSED / "wso_polar_monthly_1976_2026.csv"
+    aa_daily_path = PROCESSED / "aa_daily_1869_2026.csv"
+    aa_monthly_path = PROCESSED / "aa_monthly_1869_2026.csv"
     f107.to_csv(f107_path, index=False)
     polar_10day.to_csv(polar_path, index=False)
     polar_monthly.to_csv(polar_monthly_path, index=False)
+    aa_daily.to_csv(aa_daily_path, index=False)
+    aa_monthly.to_csv(aa_monthly_path, index=False)
 
     manifest = {
         "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -304,6 +414,18 @@ def main() -> None:
             "monthly_rows": len(polar_monthly),
             "monthly_missing": int(polar_monthly["missing"].sum()),
             "sha256": sha256(polar_monthly_path.read_bytes()),
+        },
+        "aa": {
+            "raw_file": str(aa_raw_path.relative_to(ROOT)),
+            "raw_sha256": sha256(aa_raw_path.read_bytes()),
+            "daily_rows": len(aa_daily),
+            "monthly_rows": len(aa_monthly),
+            "monthly_missing": int(aa_monthly["missing"].sum()),
+            "coverage": [
+                str(aa_monthly["date"].min().date()),
+                str(aa_monthly["date"].max().date()),
+            ],
+            "monthly_sha256": sha256(aa_monthly_path.read_bytes()),
         },
     }
     (PROCESSED / "external_indices_manifest.json").write_text(

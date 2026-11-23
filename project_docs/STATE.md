@@ -26,7 +26,7 @@
 | 命名规范 | `PR24`/`PR132` 表示 prediction length；`PL36` 表示 patch length | `project_docs/NAMING.md` |
 | 运行环境 | 当前 RTX 5090 32G；11.21 及更早记录为 A6000 48G；torch 2.8.0+cu128 / numpy 2.2 / 无 venv | `nvidia-smi`（2026-11-23）、AGENTS.md 环境维护 |
 | 数据口径 | 当前官方快照：raw 至 **2026-10**；13m 有效至 **2026-04**；A0 对照两端统一截到 **2026-04** | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`、`data_pipeline.md` |
-| 外部数据 | F10.7 已清洗至 2026-10；WSO 有效月值止于 2025-12；aa 待 ISGI 邮箱；周期上下文 25 条 | `project_docs/DATA_QUALITY_2026-11-23_external_indices.md` |
+| 外部数据 | aa 有效月值至 2026-10；F10.7 至 2026-10；WSO 有效月值止于 2025-12；周期上下文 25 条 | `project_docs/DATA_QUALITY_2026-11-23_external_indices.md` |
 | 用法口径 | **block24 无重叠**（minimax 判据） | EXP-23-R3 |
 | 跨环境规则 | 全步 ≤4% 可用；block ≤10.6% 辅证；**滚动仅同环境** | EXP-23-R2 |
 | 泄露核查 | 三种口径**无泄露** | data_pipeline.md §数据泄露核查 |
@@ -36,5 +36,5 @@
 | 未来预测 | 起报 2026-10；SC25 谷 2030-10（范围 2030-07–10）；SC26 峰 2035-06（范围 2035-02–12），13m 峰值 104.82（101.68–108.58） | `analysis/pr24_future_forecast/` |
 | 文献对照 | 三联图已完成；峰时与文献一致，raw 峰幅约 106.95，处于文献高估计 150–181 的低端 | `analysis/literature_comparison/`、`project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §6 |
 | 长时距备选 | 当前已测方案中 block24 recursive 最稳；下一步比较周期极值条件曲线与 rollout-aware 训练 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` §4 |
-| 未决 | 需要更准的周期幅度信息或新的极值训练目标；T2 暂不启动；aa 待下载 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
+| 未决 | 需要更准的周期幅度信息或新的极值训练目标；T2 暂不启动；aa 已可做覆盖期对照 | `project_docs/PLAN_2026-11-23_cycle_head_conditioned_shape.md` |
 | 最后核对 | 2026-11-23（E1、R1、T1；最新结果尚未推送） | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` |

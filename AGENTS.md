@@ -101,7 +101,7 @@
   `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md`。
 - 周期上下文已完成 leave-one-cycle-out 初筛：峰幅有弱信号，峰时/谷时未稳定
   超过中位数；历史硬分三组反而使峰幅误差变大。F10.7 已清洗至 2026-10，
-  WSO 有效月值止于 2025-12，aa 待 ISGI 邮箱。见
+  WSO 有效月值止于 2025-12，aa 已清洗至 2026-10。见
   `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md`。
 - E1a Oracle 峰幅缩放平均改善 13.61%，但强周期谷值恶化；E1b FiLM 的 `amp`
   在 SC24 恶化 49.03%，安全门槛失败。不扩五 seed，不进入 E3。

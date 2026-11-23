@@ -10,5 +10,8 @@
   "polar_first": "1976-06-01",
   "polar_last": "2025-12-01",
   "polar_missing_after_1976": 15,
-  "aa_present": false
+  "aa_present": true,
+  "aa_valid": 1894,
+  "aa_first": "1869-01-01",
+  "aa_last": "2026-10-01"
 }

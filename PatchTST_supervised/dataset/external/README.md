@@ -9,6 +9,7 @@ tables.
 - `raw/f107/`: NCEI Penticton/Ottawa nonontime flux files and one SWPC JSON
   snapshot used to extend the monthly value through 2026-10.
 - `raw/wso_polar/`: WSO `Polar.html` snapshot.
+- `raw/aa/`: ISGI aa IAGA-2002-like 3-hour data.
 - `processed/`: monthly/10-day tables with explicit missing and coverage fields.
 
 ## Rules
@@ -20,7 +21,9 @@ tables.
    parameters with monthly SSN.
 4. F10.7 observed flux is retained separately from adjusted/absolute values.
 5. WSO polar field keeps north, south, and averaged values separately.
-6. Data acquisition and processing are reproducible via
+6. aa uses the official missing marker 999; 3-hour, daily and monthly coverage
+   are recorded, and long missing periods are not interpolated.
+7. Data acquisition and processing are reproducible via
    `scripts/build_external_indices.py`.
 
 ## Sources
@@ -28,5 +31,6 @@ tables.
 - F10.7: NOAA NCEI, Penticton/Ottawa nonontime flux archive.
 - Recent F10.7 monthly extension: NOAA SWPC observed solar-cycle indices JSON.
 - Polar field: Wilcox Solar Observatory, Stanford University.
+- aa: International Service of Geomagnetic Indices (ISGI).
 
 The local SSN source and license are documented under `../SILSO/README.md`.
