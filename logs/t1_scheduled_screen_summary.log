@@ -1,0 +1,55 @@
+cycle      mode  seed                        setting       mae      rmse       r2  negative_months  peak_amplitude_error  peak_time_error_months  trough_amplitude_error  trough_time_error_months
+ SC20   teacher  2021   B26M-T1V2-SC20-teacher-S2021 38.221127 49.690845 0.641447                0            -79.946138                       5                9.800543                         8
+ SC20 scheduled  2021 B26M-T1V2-SC20-scheduled-S2021 38.796103 49.512225 0.644020                0            -80.003182                       4               15.620178                         8
+ SC21   teacher  2021   B26M-T1V2-SC21-teacher-S2021 34.668482 43.414609 0.702090                0             46.716804                       9                4.706249                         1
+ SC21 scheduled  2021 B26M-T1V2-SC21-scheduled-S2021 31.500275 38.778125 0.762323                0             38.821040                       8                7.596859                         1
+ SC24   teacher  2021   B26M-T1V2-SC24-teacher-S2021 13.158827 18.096135 0.806878                0             -2.621154                     -10                0.181722                         0
+ SC24 scheduled  2021 B26M-T1V2-SC24-scheduled-S2021 12.894698 17.710337 0.815025                0             -6.728470                     -10                1.730171                         0
+cycle  teacher_mae  scheduled_mae  mae_improvement_pct  peak_abs_before  peak_abs_after  peak_time_abs_before  peak_time_abs_after
+ SC20    38.221127      38.796103            -1.504340        79.946138       80.003182                     5                    4
+ SC21    34.668482      31.500275             9.138580        46.716804       38.821040                     9                    8
+ SC24    13.158827      12.894698             2.007231         2.621154        6.728470                    10                   10
+{
+  "baseline": "teacher",
+  "candidate": "scheduled",
+  "seed": 2021,
+  "gate": {
+    "two_cycles_mae_improve_5pct": false,
+    "no_cycle_degrade_over_10pct": true,
+    "two_cycles_peak_not_double_worse": true
+  },
+  "passed": false,
+  "decision": "stop_before_T2",
+  "gains": [
+    {
+      "cycle": "SC20",
+      "teacher_mae": 38.221126646226686,
+      "scheduled_mae": 38.79610252895928,
+      "mae_improvement_pct": -1.5043404870153356,
+      "peak_abs_before": 79.94613785775533,
+      "peak_abs_after": 80.00318163547772,
+      "peak_time_abs_before": 5,
+      "peak_time_abs_after": 4
+    },
+    {
+      "cycle": "SC21",
+      "teacher_mae": 34.66848232709563,
+      "scheduled_mae": 31.500275162071762,
+      "mae_improvement_pct": 9.138580498367283,
+      "peak_abs_before": 46.71680407625831,
+      "peak_abs_after": 38.82103969832406,
+      "peak_time_abs_before": 9,
+      "peak_time_abs_after": 8
+    },
+    {
+      "cycle": "SC24",
+      "teacher_mae": 13.15882652668832,
+      "scheduled_mae": 12.89469844384877,
+      "mae_improvement_pct": 2.007231285433053,
+      "peak_abs_before": 2.6211540743261565,
+      "peak_abs_after": 6.728469592068166,
+      "peak_time_abs_before": 10,
+      "peak_time_abs_after": 10
+    }
+  ]
+}

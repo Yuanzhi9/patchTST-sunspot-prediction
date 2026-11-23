@@ -76,7 +76,7 @@
 - 涉及方向：DL+sunspot 预测、物理综述（Hathaway/Petrovay）、GRC 残差校正、PatchTST/DLinear 原文、ARIMA 中文等
 - 新实验前 Ctrl+F 搜索关键词 → 找到对应的详注 → 了解别人做到什么精度、踩了什么坑
 
-## 当前阶段：E1 Oracle 条件诊断完成（2026-11-23）
+## 当前阶段：R1 局部重构与 T1 训练策略筛查（2026-11-23）
 
 - 当前工作线：`BASE-2026-11-M` / `/output/BASE-2026-11-M`；状态以 `project_docs/STATE.md` 为准。
 - PR24 容量审计已完成。D64 五 seed 稳定更差；E3、D256 等小于 1% 的
@@ -105,8 +105,11 @@
   `project_docs/RESEARCH_2026-11-23_cycle_amplitude_regimes.md`。
 - E1a Oracle 峰幅缩放平均改善 13.61%，但强周期谷值恶化；E1b FiLM 的 `amp`
   在 SC24 恶化 49.03%，安全门槛失败。不扩五 seed，不进入 E3。
-- 下一步只能二选一：设计“受约束幅值/谷值重构”，或在当前基线上独立测试
-  scheduled sampling / rollout loss；aa 下载后另做覆盖期对照。
+- R1-A Oracle 局部峰修正通过：SC20/21 MAE 改善 28.81%/5.01%，谷区不变；
+  R1-B 用 Ridge/RF 峰幅驱动后使 SC24 恶化 24%-39%，部署路径失败。
+- T1-v2 block-level scheduled sampling 仅 SC21 改善 9.14%，未达 2/3 周期门槛；
+  不扩五 seed，不启动 T2 rollout loss。
+- 下一步：重新设计周期幅度信息或极值训练目标；外部数据接入继续暂缓。
   block24 仍是当前参考推理口径；跨环境/跨口径边界不变。
 
 ## 环境维护
@@ -245,10 +248,10 @@
 
 ## 下一步（2026-11-23）
 
-1. 决定周期级 Ridge/RF 初筛是否进入正式方法线；
-2. 修复 PatchTST channel-independent 无法利用周期上下文的问题；
-3. 比较两阶段极值条件曲线、scheduled sampling/rollout loss 与当前 block24；
-4. 接入 aa 做单变量实验；F10.7/极区磁场只在与控制相同的缩短训练段中使用；
+1. 解释 R1-A 上界与 R1-B 部署损失之间的差距；
+2. 重新设计周期幅度信息和极值训练目标；
+3. T2 rollout loss 暂停，除非重新预登记；
+4. aa/F10.7/极区磁场接入继续等待幅度表示问题明确；
 5. 后续每次 push 仍需明确授权。
 
 纪律：预检表跑前完成；坑清单跑前回顾；主控文档顶部快照随进度同步更新。

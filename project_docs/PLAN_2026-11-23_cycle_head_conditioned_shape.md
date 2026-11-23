@@ -1,7 +1,7 @@
 # 周期头 + 条件轮廓模型实验预登记
 
 > 日期：2026-11-23  
-> 状态：E0/E1a 完成；E1b seed2021 安全门槛失败并停止扩展；后续待定  
+> 状态：E1a/R1-A Oracle 成功；E1b/R1-B 失败；T1 scheduled sampling 失败
 > 主目标：Cycle 25 谷值与时间、Cycle 26 峰值与时间，曲线轮廓为次主目标  
 > 当前 baseline：`PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`
 
@@ -305,6 +305,9 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
 2. E1a 零训练 Oracle 幅值校正；
 3. E1b `none/amp/time/both` seed2021 筛选；
 4. E1a/E1b 汇总、图、日志和结论。
+5. R1-A Oracle 局部峰修正；
+6. R1-B 用 Ridge/RF 峰幅驱动同一修正。
+7. T1-v2 block-level scheduled sampling 三周期 seed2021 筛选。
 
 判定：
 
@@ -312,6 +315,12 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
 - E1b FiLM 安全门槛失败：`amp` 在 SC24 MAE 恶化 `49.03%`，
   `time/both` 更差且条件扰动方向不稳定；
 - 不扩展 E1b 五 seed，不进入 E3。
+- R1-A Oracle 通过：SC20/21 MAE 改善 `28.81%/5.01%`，SC24 基本不变，
+  谷区完全保持；
+- R1-B 失败：Ridge/RF 预测峰幅使 SC24 MAE 恶化 `24.21%/39.31%`，
+  不能用于部署。
+- T1-v2 失败：只有 SC21 MAE 改善 `9.14%`；SC20 恶化 `1.50%`，SC24 仅改善
+  `2.01%`，未达到 2/3 周期改善 5% 的门槛。
 
 当前停止点：
 
@@ -320,8 +329,8 @@ corrected_i(t) = max(raw_prediction_i(t) * scale_i, 0)
 
 下一步必须二选一后再启动：
 
-1. 做“预测幅度 + 受约束幅值/谷值重构”，不使用本轮 FiLM；
-2. 先做 scheduled sampling / rollout loss 的独立 baseline 实验。
+1. R1-A Oracle 作为后续更准幅度模型的接口，暂不接 Ridge/RF；
+2. T1 已失败，按预登记不启动 T2 rollout loss。
 
 不得直接接 aa/F10.7/WSO 或生成新的 SC25/SC26 正式预测。
 

@@ -1,0 +1,77 @@
+{
+  "cycle": "SC20",
+  "mode": "teacher",
+  "seed": 2021,
+  "setting": "B26M-T1V2-SC20-teacher-S2021",
+  "train_windows": 2418,
+  "val_windows": 85,
+  "test_windows": 85,
+  "raw": {
+    "curve": {
+      "mae": 38.221126646226686,
+      "rmse": 49.690844593744636,
+      "bias": -24.24545143541531,
+      "r2": 0.6414468452368696,
+      "negative_months": 0
+    },
+    "extrema": {
+      "smooth_window_months": 13,
+      "order": "peak_then_trough",
+      "peak": {
+        "true_date": "1979-12",
+        "true_value": 231.7076923076923,
+        "pred_date": "1980-05",
+        "pred_value": 151.76155444993697,
+        "amplitude_error": -79.94613785775533,
+        "time_error_months": 5
+      },
+      "trough": {
+        "true_date": "1986-03",
+        "true_value": 13.592307692307692,
+        "pred_date": "1986-11",
+        "pred_value": 23.392850375792325,
+        "amplitude_error": 9.800542683484633,
+        "time_error_months": 8
+      },
+      "amplitude_ratio": 0.5227892308387717
+    }
+  },
+  "clip0": {
+    "curve": {
+      "mae": 38.221126646226686,
+      "rmse": 49.690844593744636,
+      "bias": -24.24545143541531,
+      "r2": 0.6414468452368696,
+      "negative_months": 0
+    },
+    "extrema": {
+      "smooth_window_months": 13,
+      "order": "peak_then_trough",
+      "peak": {
+        "true_date": "1979-12",
+        "true_value": 231.7076923076923,
+        "pred_date": "1980-05",
+        "pred_value": 151.76155444993697,
+        "amplitude_error": -79.94613785775533,
+        "time_error_months": 5
+      },
+      "trough": {
+        "true_date": "1986-03",
+        "true_value": 13.592307692307692,
+        "pred_date": "1986-11",
+        "pred_value": 23.392850375792325,
+        "amplitude_error": 9.800542683484633,
+        "time_error_months": 8
+      },
+      "amplitude_ratio": 0.5227892308387717
+    }
+  },
+  "scheduled_max_probability": 0.3,
+  "scheduled_warmup_epochs": 10,
+  "min_checkpoint_epoch": 25,
+  "selected_checkpoint_epoch": 37,
+  "second_block_weight": 0.5,
+  "checkpoint": "checkpoints/B26M-T1V2-SC20-teacher-S2021/full_checkpoint.pth",
+  "config": "configs/B26M-T1V2-SC20-teacher-S2021_20261123_062340.json",
+  "curve": "analysis/t1_scheduled_sampling_v2/screen/SC20/teacher/seed2021/recursive_curve.csv"
+}

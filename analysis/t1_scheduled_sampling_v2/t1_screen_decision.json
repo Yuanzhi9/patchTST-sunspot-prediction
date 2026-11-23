@@ -1,0 +1,44 @@
+{
+  "baseline": "teacher",
+  "candidate": "scheduled",
+  "seed": 2021,
+  "gate": {
+    "two_cycles_mae_improve_5pct": false,
+    "no_cycle_degrade_over_10pct": true,
+    "two_cycles_peak_not_double_worse": true
+  },
+  "passed": false,
+  "decision": "stop_before_T2",
+  "gains": [
+    {
+      "cycle": "SC20",
+      "teacher_mae": 38.221126646226686,
+      "scheduled_mae": 38.79610252895928,
+      "mae_improvement_pct": -1.5043404870153356,
+      "peak_abs_before": 79.94613785775533,
+      "peak_abs_after": 80.00318163547772,
+      "peak_time_abs_before": 5,
+      "peak_time_abs_after": 4
+    },
+    {
+      "cycle": "SC21",
+      "teacher_mae": 34.66848232709563,
+      "scheduled_mae": 31.500275162071762,
+      "mae_improvement_pct": 9.138580498367283,
+      "peak_abs_before": 46.71680407625831,
+      "peak_abs_after": 38.82103969832406,
+      "peak_time_abs_before": 9,
+      "peak_time_abs_after": 8
+    },
+    {
+      "cycle": "SC24",
+      "teacher_mae": 13.15882652668832,
+      "scheduled_mae": 12.89469844384877,
+      "mae_improvement_pct": 2.007231285433053,
+      "peak_abs_before": 2.6211540743261565,
+      "peak_abs_after": 6.728469592068166,
+      "peak_time_abs_before": 10,
+      "peak_time_abs_after": 10
+    }
+  ]
+}

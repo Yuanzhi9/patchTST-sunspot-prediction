@@ -1,0 +1,102 @@
+cycle        method  mae_mean  rmse_mean  bias_mean  r2_mean  negative_months_mean  peak_amplitude_error_mean  peak_time_error_months_mean  trough_amplitude_error_mean  trough_time_error_months_mean  amplitude_ratio_mean  mae_std  rmse_std  bias_std   r2_std  negative_months_std  peak_amplitude_error_std  peak_time_error_months_std  trough_amplitude_error_std  trough_time_error_months_std  amplitude_ratio_std  seeds
+ SC20        oracle 30.181088  39.234982 -11.793855 0.776266                   0.0               0.000000e+00                          4.8                    15.200888                            6.0              0.830188 1.155826  1.304647  1.754001 0.014860                  0.0              2.009718e-14                    2.280351                    4.670513                      2.121320             0.017526      5
+ SC20          pr24 42.392217  54.926552 -28.931482 0.561729                   0.0              -8.880263e+01                          4.8                    15.200888                            6.0              0.483630 1.143916  1.241066  1.656851 0.019647                  0.0              1.964490e+00                    2.280351                    4.670513                      2.121320             0.024348      5
+ SC20 random_forest 41.758239  54.019462 -28.290699 0.576132                   0.0              -8.548226e+01                          4.8                    15.200888                            6.0              0.496563 0.962948  1.042391  1.754001 0.016422                  0.0              2.131628e-14                    2.280351                    4.670513                      2.121320             0.020040      5
+ SC20         ridge 39.036644  50.247136 -25.482110 0.633233                   0.0              -7.092890e+01                          4.8                    15.200888                            6.0              0.553291 0.959464  1.100815  1.754001 0.016128                  0.0              1.588822e-14                    2.280351                    4.670513                      2.121320             0.019505      5
+ SC21        oracle 26.784241  33.304745  13.230753 0.823457                   0.0               0.000000e+00                         11.8                     3.506696                            0.8              0.764024 2.421782  3.112887  1.726037 0.032849                  0.0              0.000000e+00                    4.086563                    6.262365                      0.447214             0.029371      5
+ SC21          pr24 28.198187  34.936085  17.114703 0.806360                   0.0               2.003494e+01                         10.8                     3.506696                            0.8              0.837752 2.076302  2.398239  3.624443 0.026304                  0.0              1.109620e+01                    3.962323                    6.262365                      0.447214             0.024962      5
+ SC21 random_forest 27.771259  35.149770   6.802024 0.803617                   0.0              -2.951438e+01                         16.0                     3.506696                            0.8              0.654208 2.347376  2.952827  1.722159 0.032718                  0.0              1.305350e-14                    7.874008                    6.262365                      0.447214             0.022139      5
+ SC21         ridge 28.178829  35.685417   6.064925 0.797729                   0.0              -3.134678e+01                         17.0                     3.506696                            0.8              0.644655 2.288030  2.803520  1.767392 0.031509                  0.0              3.097184e-14                    8.774964                    6.262365                      0.447214             0.019175      5
+ SC24        oracle 14.435993  19.158793   9.001226 0.783470                   0.0              -2.842171e-15                         -8.0                     2.511417                            0.0              0.807216 0.518614  0.356633  1.146228 0.008007                  0.0              6.355287e-15                    1.581139                    2.320717                      0.000000             0.007131      5
+ SC24          pr24 14.452436  19.128423   8.874884 0.784052                   0.0              -6.546752e-01                         -8.0                     2.511417                            0.0              0.802706 0.602793  0.590540  1.612922 0.013242                  0.0              2.716612e+00                    1.581139                    2.320717                      0.000000             0.025434      5
+ SC24 random_forest 20.133961  28.148750  16.540838 0.532482                   0.0               3.906827e+01                         -8.0                     2.511417                            0.0              1.084548 0.666405  0.708256  1.146228 0.023434                  0.0              2.009718e-14                    1.581139                    2.320717                      0.000000             0.007932      5
+ SC24         ridge 17.951339  24.452087  14.019225 0.647206                   0.0               2.600193e+01                         -8.0                     2.511417                            0.0              0.990511 0.658032  0.627104  1.146228 0.017996                  0.0              1.507289e-14                    1.581139                    2.320717                      0.000000             0.008565      5
+{
+  "input_peak_predictions": {
+    "ridge": {
+      "SC20": 160.77879241962788,
+      "SC21": 181.4224504139801,
+      "SC24": 141.33270418564408
+    },
+    "random_forest": {
+      "SC20": 146.22543038572553,
+      "SC21": 183.25485071087024,
+      "SC24": 154.39903497502505
+    }
+  },
+  "cycles_used": {
+    "SC20": 20,
+    "SC21": 21,
+    "SC24": 23
+  },
+  "half_width_months": 24,
+  "methods": {
+    "oracle": {
+      "mae_improvement_pct": {
+        "SC20": 28.805119703203236,
+        "SC21": 5.014315654184248,
+        "SC24": 0.11376829554237773
+      },
+      "peak_improved_cycles": 3,
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 5,
+        "SC24": 3
+      },
+      "gate": {
+        "two_cycles_mae_improve_5pct": true,
+        "no_cycle_degrade_over_10pct": true,
+        "peak_improved_two_cycles": true,
+        "trough_unchanged": true,
+        "at_least_two_cycles_with_4of5_seed_improvement": true
+      },
+      "passed": true
+    },
+    "ridge": {
+      "mae_improvement_pct": {
+        "SC20": 7.915539320372053,
+        "SC21": 0.06865003269733143,
+        "SC24": -24.209783069712525
+      },
+      "peak_improved_cycles": 1,
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 3,
+        "SC24": 0
+      },
+      "gate": {
+        "two_cycles_mae_improve_5pct": false,
+        "no_cycle_degrade_over_10pct": false,
+        "peak_improved_two_cycles": false,
+        "trough_unchanged": true,
+        "at_least_two_cycles_with_4of5_seed_improvement": false
+      },
+      "passed": false
+    },
+    "random_forest": {
+      "mae_improvement_pct": {
+        "SC20": 1.4955056983117272,
+        "SC21": 1.5140262609409254,
+        "SC24": -39.31188734489554
+      },
+      "peak_improved_cycles": 1,
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 3,
+        "SC24": 0
+      },
+      "gate": {
+        "two_cycles_mae_improve_5pct": false,
+        "no_cycle_degrade_over_10pct": false,
+        "peak_improved_two_cycles": false,
+        "trough_unchanged": true,
+        "at_least_two_cycles_with_4of5_seed_improvement": false
+      },
+      "passed": false
+    }
+  },
+  "oracle_upper_bound_passed": true,
+  "deployable_passed": false,
+  "passed": false,
+  "decision": "stop_predicted_peak_reconstruction"
+}

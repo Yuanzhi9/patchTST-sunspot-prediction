@@ -33,6 +33,9 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **T1V2-SCHEDULED** | 11.23 | Stage 10 | block-level scheduled sampling vs teacher forcing | SC20/21/24；两连续24月块；seed2021；checkpoint≥ep25 | SC20 38.22→38.80；SC21 34.67→31.50；SC24 13.16→12.90 | — | — | 仅SC21改善≥5%；不扩五seed、不跑T2 | `EXPERIMENT_B26M-SCHEDULED-SAMPLING_2026-11-23.md` | ✅ |
+| **R1B-PRED-PEAK** | 11.23 | Stage 10 | Ridge/RF预测峰幅驱动局部重构 | PR24+周期上下文LOOCV；SC20/21/24；五seed | ridge 39.04/28.18/17.95；RF 41.76/27.77/20.13 | — | — | SC24恶化24%-39%；部署失败 | `EXPERIMENT_B26M-CONSTRAINED-PEAK-PREDICTED_2026-11-23.md` | 复用已有 |
+| **R1A-ORACLE-PEAK** | 11.23 | Stage 10 | 峰局部 raised-cosine 修正，谷区不动 | PR24 recursive；H=24主设定；SC20/21/24；五seed | 30.18/26.78/14.44 | — | — | 强/中周期改善，谷区不变；仅Oracle上界 | `EXPERIMENT_B26M-CONSTRAINED-PEAK_2026-11-23.md` | 无训练 |
 | **E1B-ORACLE-FUSION** | 11.23 | Stage 10 | FiLM 接入 Oracle 峰幅/峰时，seed2021 筛选 | SC20/21/24；cond none/amp/time/both | amp：SC20 40.49→36.66、SC21 30.59→28.49、SC24 13.40→19.97 | — | — | SC24 恶化49%，最差周期安全门槛失败；不扩五 seed、不进E3 | `EXPERIMENT_B26M-ORACLE-FUSION_2026-11-23.md` | ✅ |
 | **E1A-ORACLE-AMP** | 11.23 | Stage 10 | 零训练 Oracle 峰幅缩放上界 | PR24 recursive block24；SC20/21/24；五 seed | 30.54/24.48/14.50 | — | — | 平均改善13.61%；峰时有价值、谷值未解决；仅可作上界 | `EXPERIMENT_B26M-ORACLE-AMP_2026-11-23.md` | 无训练 |
 | **B26M-A0** | 11.23 | Stage 10 | 同日期对照 raw 与官方 13m 平滑 SSN | 1749-07–2026-04；SL132/PL24/P36/S18/D128/E2/F2048；五 seed | raw 26.913±0.122；13m 16.439±0.251 | — | — | 平滑目标更易学但仍属回顾口径；raw 继续作主数据 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` | ✅ |
@@ -1291,3 +1294,18 @@ SC20/21/24 上跑 seed2021。`amp` 使 SC20/21 MAE 改善 `9.46%/6.88%`，
 但使 SC24 恶化 `49.03%`，违反最差周期不得恶化超过 10% 的安全门槛。
 `time` 和 `both` 的条件扰动方向不稳定且多个周期严重恶化。最终不扩五 seed、
 不进入 E3；后续只能尝试“受约束幅值/谷值重构”或独立测试 scheduled sampling。
+
+### R1 局部峰重构与 T1 scheduled sampling（2026-11-23）
+
+R1-A 用 H=24 的 raised-cosine 核只修正峰附近，核在谷区严格为 0。
+Oracle 真实峰幅下 SC20/21/24 MAE 为 `30.181/26.784/14.436`，相对 PR24
+改善 `28.81%/5.01%/0.11%`，谷幅和谷时完全不变。H=12/24/36 敏感性方向一致。
+
+R1-B 把 Oracle 峰幅换成周期上下文 Ridge/RF 预测。Ridge 的周期改善为
+`+7.92%/+0.07%/-24.21%`，RF 为 `+1.50%/+1.51%/-39.31%`；
+两者都破坏 SC24，部署门槛失败。结论是局部重构器有效，但当前峰幅预测器不够准。
+
+T1-v2 在 SMOKE 发现选模早于干预后，预登记“teacher/scheduled 均从第25 epoch
+起选最佳 rollout checkpoint”并重跑。seed2021 的 SC20/21/24 MAE 为：
+teacher `38.221/34.668/13.159`，scheduled `38.796/31.500/12.895`；
+只有 SC21 改善超过 5%，未达 2/3 周期门槛。按预登记停止，不运行 T2 rollout loss。

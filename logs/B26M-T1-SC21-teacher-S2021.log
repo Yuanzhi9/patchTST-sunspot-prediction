@@ -1,0 +1,97 @@
+start B26M-T1-SC21-teacher-S2021 mode=teacher seed=2021 train=2536 val=85 test=85
+Validation loss decreased (inf --> 1.463214).  Saving model ...
+Epoch 1/50 p=0.000 train=1.2920505 rollout_val=1.4632137 best=1.4632137
+Updating learning rate to 0.0003
+Validation loss decreased (1.463214 --> 0.944674).  Saving model ...
+Epoch 2/50 p=0.000 train=0.6527564 rollout_val=0.9446736 best=0.9446736
+Updating learning rate to 0.0003
+Validation loss decreased (0.944674 --> 0.840244).  Saving model ...
+Epoch 3/50 p=0.000 train=0.4952449 rollout_val=0.8402444 best=0.8402444
+Updating learning rate to 0.0003
+EarlyStopping counter: 1 out of 100
+Epoch 4/50 p=0.000 train=0.4647705 rollout_val=0.8791821 best=0.8402444
+Updating learning rate to 0.00027
+EarlyStopping counter: 2 out of 100
+Epoch 5/50 p=0.000 train=0.4490535 rollout_val=0.8545423 best=0.8402444
+Updating learning rate to 0.000243
+EarlyStopping counter: 3 out of 100
+Epoch 6/50 p=0.000 train=0.4296382 rollout_val=0.9457343 best=0.8402444
+Updating learning rate to 0.0002187
+Validation loss decreased (0.840244 --> 0.796547).  Saving model ...
+Epoch 7/50 p=0.000 train=0.4119842 rollout_val=0.7965470 best=0.7965470
+Updating learning rate to 0.00019683
+Validation loss decreased (0.796547 --> 0.774537).  Saving model ...
+Epoch 8/50 p=0.000 train=0.4069498 rollout_val=0.7745367 best=0.7745367
+Updating learning rate to 0.000177147
+Validation loss decreased (0.774537 --> 0.766238).  Saving model ...
+Epoch 9/50 p=0.000 train=0.3951089 rollout_val=0.7662376 best=0.7662376
+Updating learning rate to 0.0001594323
+Validation loss decreased (0.766238 --> 0.764247).  Saving model ...
+Epoch 10/50 p=0.000 train=0.3871415 rollout_val=0.7642475 best=0.7642475
+Updating learning rate to 0.00014348907
+EarlyStopping counter: 1 out of 100
+Epoch 11/50 p=0.000 train=0.3820911 rollout_val=0.8071056 best=0.7642475
+Updating learning rate to 0.00012914016300000003
+EarlyStopping counter: 2 out of 100
+Epoch 12/50 p=0.000 train=0.3725592 rollout_val=0.8830043 best=0.7642475
+Updating learning rate to 0.00011622614670000002
+EarlyStopping counter: 3 out of 100
+Epoch 13/50 p=0.000 train=0.3679012 rollout_val=0.8025562 best=0.7642475
+Updating learning rate to 0.00010460353203000003
+Validation loss decreased (0.764247 --> 0.737800).  Saving model ...
+Epoch 14/50 p=0.000 train=0.3646500 rollout_val=0.7378003 best=0.7378003
+Updating learning rate to 9.414317882700001e-05
+EarlyStopping counter: 1 out of 100
+Epoch 15/50 p=0.000 train=0.3614895 rollout_val=0.7942633 best=0.7378003
+Updating learning rate to 8.472886094430003e-05
+EarlyStopping counter: 2 out of 100
+Epoch 16/50 p=0.000 train=0.3543516 rollout_val=0.8302437 best=0.7378003
+Updating learning rate to 7.625597484987001e-05
+EarlyStopping counter: 3 out of 100
+Epoch 17/50 p=0.000 train=0.3551040 rollout_val=0.7556754 best=0.7378003
+Updating learning rate to 6.863037736488302e-05
+EarlyStopping counter: 4 out of 100
+Epoch 18/50 p=0.000 train=0.3524999 rollout_val=0.7681646 best=0.7378003
+Updating learning rate to 6.176733962839471e-05
+EarlyStopping counter: 5 out of 100
+Epoch 19/50 p=0.000 train=0.3475696 rollout_val=0.8178573 best=0.7378003
+Updating learning rate to 5.559060566555524e-05
+EarlyStopping counter: 6 out of 100
+Epoch 20/50 p=0.000 train=0.3458546 rollout_val=0.8938766 best=0.7378003
+Updating learning rate to 5.003154509899973e-05
+EarlyStopping counter: 7 out of 100
+Epoch 21/50 p=0.000 train=0.3431480 rollout_val=0.8717232 best=0.7378003
+Updating learning rate to 4.502839058909975e-05
+EarlyStopping counter: 8 out of 100
+Epoch 22/50 p=0.000 train=0.3435216 rollout_val=0.8128541 best=0.7378003
+Updating learning rate to 4.052555153018978e-05
+EarlyStopping counter: 9 out of 100
+Epoch 23/50 p=0.000 train=0.3404416 rollout_val=0.8528250 best=0.7378003
+Updating learning rate to 3.64729963771708e-05
+EarlyStopping counter: 10 out of 100
+Epoch 24/50 p=0.000 train=0.3390728 rollout_val=0.8024247 best=0.7378003
+Updating learning rate to 3.282569673945372e-05
+EarlyStopping counter: 11 out of 100
+Epoch 25/50 p=0.000 train=0.3346604 rollout_val=0.8099780 best=0.7378003
+Updating learning rate to 2.954312706550835e-05
+EarlyStopping counter: 12 out of 100
+Epoch 26/50 p=0.000 train=0.3309719 rollout_val=0.8616692 best=0.7378003
+Updating learning rate to 2.6588814358957517e-05
+EarlyStopping counter: 13 out of 100
+Epoch 27/50 p=0.000 train=0.3316893 rollout_val=0.8284371 best=0.7378003
+Updating learning rate to 2.3929932923061764e-05
+EarlyStopping counter: 14 out of 100
+Epoch 28/50 p=0.000 train=0.3309026 rollout_val=0.8683608 best=0.7378003
+Updating learning rate to 2.1536939630755587e-05
+Traceback (most recent call last):
+  File "/output/BASE-2026-11-M/run_scheduled_sampling.py", line 324, in <module>
+    main()
+  File "/output/BASE-2026-11-M/run_scheduled_sampling.py", line 208, in main
+    loss.backward()
+  File "/usr/local/lib/python3.10/site-packages/torch/_tensor.py", line 647, in backward
+    torch.autograd.backward(
+  File "/usr/local/lib/python3.10/site-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/usr/local/lib/python3.10/site-packages/torch/autograd/graph.py", line 829, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+KeyboardInterrupt

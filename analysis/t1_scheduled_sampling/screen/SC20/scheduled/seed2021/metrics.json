@@ -1,0 +1,75 @@
+{
+  "cycle": "SC20",
+  "mode": "scheduled",
+  "seed": 2021,
+  "setting": "B26M-T1-SC20-scheduled-S2021",
+  "train_windows": 2418,
+  "val_windows": 85,
+  "test_windows": 85,
+  "raw": {
+    "curve": {
+      "mae": 41.90959203391301,
+      "rmse": 54.8829305516156,
+      "bias": -29.3898695440888,
+      "r2": 0.5626034258022277,
+      "negative_months": 0
+    },
+    "extrema": {
+      "smooth_window_months": 13,
+      "order": "peak_then_trough",
+      "peak": {
+        "true_date": "1979-12",
+        "true_value": 231.7076923076923,
+        "pred_date": "1980-05",
+        "pred_value": 140.3442288449641,
+        "amplitude_error": -91.36346346272819,
+        "time_error_months": 5
+      },
+      "trough": {
+        "true_date": "1986-03",
+        "true_value": 13.592307692307692,
+        "pred_date": "1986-11",
+        "pred_value": 24.318248662703372,
+        "amplitude_error": 10.72594097039568,
+        "time_error_months": 8
+      },
+      "amplitude_ratio": 0.48294452243462094
+    }
+  },
+  "clip0": {
+    "curve": {
+      "mae": 41.90959203391301,
+      "rmse": 54.8829305516156,
+      "bias": -29.3898695440888,
+      "r2": 0.5626034258022277,
+      "negative_months": 0
+    },
+    "extrema": {
+      "smooth_window_months": 13,
+      "order": "peak_then_trough",
+      "peak": {
+        "true_date": "1979-12",
+        "true_value": 231.7076923076923,
+        "pred_date": "1980-05",
+        "pred_value": 140.3442288449641,
+        "amplitude_error": -91.36346346272819,
+        "time_error_months": 5
+      },
+      "trough": {
+        "true_date": "1986-03",
+        "true_value": 13.592307692307692,
+        "pred_date": "1986-11",
+        "pred_value": 24.318248662703372,
+        "amplitude_error": 10.72594097039568,
+        "time_error_months": 8
+      },
+      "amplitude_ratio": 0.48294452243462094
+    }
+  },
+  "scheduled_max_probability": 0.3,
+  "scheduled_warmup_epochs": 10,
+  "second_block_weight": 0.5,
+  "checkpoint": "checkpoints/B26M-T1-SC20-scheduled-S2021/full_checkpoint.pth",
+  "config": "configs/B26M-T1-SC20-scheduled-S2021_20261123_062111.json",
+  "curve": "analysis/t1_scheduled_sampling/screen/SC20/scheduled/seed2021/recursive_curve.csv"
+}

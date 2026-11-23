@@ -1,0 +1,157 @@
+start B26M-T1V2-SC24-scheduled-S2021 mode=scheduled seed=2021 train=2809 val=85 test=85
+Epoch 1/50 p=0.000 train=1.2293826 rollout_val=0.3156619 best=inf
+Updating learning rate to 0.0003
+Epoch 2/50 p=0.000 train=0.6030147 rollout_val=0.2829534 best=inf
+Updating learning rate to 0.0003
+Epoch 3/50 p=0.000 train=0.4670391 rollout_val=0.2849442 best=inf
+Updating learning rate to 0.0003
+Epoch 4/50 p=0.000 train=0.4385838 rollout_val=0.3194015 best=inf
+Updating learning rate to 0.00027
+Epoch 5/50 p=0.000 train=0.4220834 rollout_val=0.2779128 best=inf
+Updating learning rate to 0.000243
+Epoch 6/50 p=0.000 train=0.4104986 rollout_val=0.2736649 best=inf
+Updating learning rate to 0.0002187
+Epoch 7/50 p=0.000 train=0.3948144 rollout_val=0.2681117 best=inf
+Updating learning rate to 0.00019683
+Epoch 8/50 p=0.000 train=0.3896444 rollout_val=0.2560436 best=inf
+Updating learning rate to 0.000177147
+Epoch 9/50 p=0.000 train=0.3773977 rollout_val=0.2694138 best=inf
+Updating learning rate to 0.0001594323
+Epoch 10/50 p=0.000 train=0.3795283 rollout_val=0.2436447 best=inf
+Updating learning rate to 0.00014348907
+Epoch 11/50 p=0.007 train=0.3705304 rollout_val=0.2519310 best=inf
+Updating learning rate to 0.00012914016300000003
+Epoch 12/50 p=0.015 train=0.3610208 rollout_val=0.2582724 best=inf
+Updating learning rate to 0.00011622614670000002
+Epoch 13/50 p=0.022 train=0.3586299 rollout_val=0.2411943 best=inf
+Updating learning rate to 0.00010460353203000003
+Epoch 14/50 p=0.030 train=0.3583414 rollout_val=0.2429915 best=inf
+Updating learning rate to 9.414317882700001e-05
+Epoch 15/50 p=0.037 train=0.3513319 rollout_val=0.2468261 best=inf
+Updating learning rate to 8.472886094430003e-05
+Epoch 16/50 p=0.045 train=0.3476037 rollout_val=0.2445637 best=inf
+Updating learning rate to 7.625597484987001e-05
+Epoch 17/50 p=0.052 train=0.3488400 rollout_val=0.2468915 best=inf
+Updating learning rate to 6.863037736488302e-05
+Epoch 18/50 p=0.060 train=0.3462616 rollout_val=0.2503988 best=inf
+Updating learning rate to 6.176733962839471e-05
+Epoch 19/50 p=0.068 train=0.3417744 rollout_val=0.2384785 best=inf
+Updating learning rate to 5.559060566555524e-05
+Epoch 20/50 p=0.075 train=0.3374686 rollout_val=0.2406966 best=inf
+Updating learning rate to 5.003154509899973e-05
+Epoch 21/50 p=0.083 train=0.3367717 rollout_val=0.2354573 best=inf
+Updating learning rate to 4.502839058909975e-05
+Epoch 22/50 p=0.090 train=0.3343175 rollout_val=0.2466885 best=inf
+Updating learning rate to 4.052555153018978e-05
+Epoch 23/50 p=0.098 train=0.3337189 rollout_val=0.2380135 best=inf
+Updating learning rate to 3.64729963771708e-05
+Epoch 24/50 p=0.105 train=0.3379668 rollout_val=0.2317974 best=inf
+Updating learning rate to 3.282569673945372e-05
+Validation loss decreased (inf --> 0.231043).  Saving model ...
+Epoch 25/50 p=0.112 train=0.3348579 rollout_val=0.2310433 best=0.2310433
+Updating learning rate to 2.954312706550835e-05
+EarlyStopping counter: 1 out of 100
+Epoch 26/50 p=0.120 train=0.3313402 rollout_val=0.2400668 best=0.2310433
+Updating learning rate to 2.6588814358957517e-05
+EarlyStopping counter: 2 out of 100
+Epoch 27/50 p=0.128 train=0.3323334 rollout_val=0.2403327 best=0.2310433
+Updating learning rate to 2.3929932923061764e-05
+EarlyStopping counter: 3 out of 100
+Epoch 28/50 p=0.135 train=0.3295641 rollout_val=0.2378852 best=0.2310433
+Updating learning rate to 2.1536939630755587e-05
+Validation loss decreased (0.231043 --> 0.230942).  Saving model ...
+Epoch 29/50 p=0.142 train=0.3312938 rollout_val=0.2309421 best=0.2309421
+Updating learning rate to 1.938324566768003e-05
+EarlyStopping counter: 1 out of 100
+Epoch 30/50 p=0.150 train=0.3290083 rollout_val=0.2371374 best=0.2309421
+Updating learning rate to 1.7444921100912026e-05
+EarlyStopping counter: 2 out of 100
+Epoch 31/50 p=0.158 train=0.3255626 rollout_val=0.2396885 best=0.2309421
+Updating learning rate to 1.5700428990820825e-05
+EarlyStopping counter: 3 out of 100
+Epoch 32/50 p=0.165 train=0.3312232 rollout_val=0.2383006 best=0.2309421
+Updating learning rate to 1.4130386091738745e-05
+EarlyStopping counter: 4 out of 100
+Epoch 33/50 p=0.172 train=0.3320068 rollout_val=0.2330414 best=0.2309421
+Updating learning rate to 1.271734748256487e-05
+EarlyStopping counter: 5 out of 100
+Epoch 34/50 p=0.180 train=0.3327994 rollout_val=0.2369841 best=0.2309421
+Updating learning rate to 1.1445612734308383e-05
+EarlyStopping counter: 6 out of 100
+Epoch 35/50 p=0.188 train=0.3294487 rollout_val=0.2371930 best=0.2309421
+Updating learning rate to 1.0301051460877545e-05
+EarlyStopping counter: 7 out of 100
+Epoch 36/50 p=0.195 train=0.3284803 rollout_val=0.2393354 best=0.2309421
+Updating learning rate to 9.27094631478979e-06
+EarlyStopping counter: 8 out of 100
+Epoch 37/50 p=0.203 train=0.3247386 rollout_val=0.2392498 best=0.2309421
+Updating learning rate to 8.343851683310812e-06
+EarlyStopping counter: 9 out of 100
+Epoch 38/50 p=0.210 train=0.3255491 rollout_val=0.2350880 best=0.2309421
+Updating learning rate to 7.50946651497973e-06
+EarlyStopping counter: 10 out of 100
+Epoch 39/50 p=0.217 train=0.3327273 rollout_val=0.2360203 best=0.2309421
+Updating learning rate to 6.758519863481758e-06
+EarlyStopping counter: 11 out of 100
+Epoch 40/50 p=0.225 train=0.3347484 rollout_val=0.2335208 best=0.2309421
+Updating learning rate to 6.082667877133582e-06
+EarlyStopping counter: 12 out of 100
+Epoch 41/50 p=0.232 train=0.3289890 rollout_val=0.2346842 best=0.2309421
+Updating learning rate to 5.4744010894202246e-06
+EarlyStopping counter: 13 out of 100
+Epoch 42/50 p=0.240 train=0.3376078 rollout_val=0.2353901 best=0.2309421
+Updating learning rate to 4.926960980478202e-06
+EarlyStopping counter: 14 out of 100
+Epoch 43/50 p=0.247 train=0.3276107 rollout_val=0.2368282 best=0.2309421
+Updating learning rate to 4.434264882430382e-06
+EarlyStopping counter: 15 out of 100
+Epoch 44/50 p=0.255 train=0.3353829 rollout_val=0.2367298 best=0.2309421
+Updating learning rate to 3.9908383941873435e-06
+EarlyStopping counter: 16 out of 100
+Epoch 45/50 p=0.263 train=0.3388240 rollout_val=0.2350476 best=0.2309421
+Updating learning rate to 3.5917545547686093e-06
+EarlyStopping counter: 17 out of 100
+Epoch 46/50 p=0.270 train=0.3342589 rollout_val=0.2353837 best=0.2309421
+Updating learning rate to 3.2325790992917485e-06
+EarlyStopping counter: 18 out of 100
+Epoch 47/50 p=0.278 train=0.3273815 rollout_val=0.2366063 best=0.2309421
+Updating learning rate to 2.9093211893625737e-06
+EarlyStopping counter: 19 out of 100
+Epoch 48/50 p=0.285 train=0.3363847 rollout_val=0.2355874 best=0.2309421
+Updating learning rate to 2.6183890704263165e-06
+EarlyStopping counter: 20 out of 100
+Epoch 49/50 p=0.292 train=0.3286821 rollout_val=0.2352575 best=0.2309421
+Updating learning rate to 2.356550163383685e-06
+EarlyStopping counter: 21 out of 100
+Epoch 50/50 p=0.300 train=0.3401230 rollout_val=0.2357479 best=0.2309421
+Updating learning rate to 2.1208951470453164e-06
+{
+  "curve": {
+    "mae": 12.89469844384877,
+    "rmse": 17.710336962315015,
+    "bias": 4.736510027749661,
+    "r2": 0.8150245591081263,
+    "negative_months": 0
+  },
+  "extrema": {
+    "smooth_window_months": 13,
+    "order": "peak_then_trough",
+    "peak": {
+      "true_date": "2014-04",
+      "true_value": 115.33076923076922,
+      "pred_date": "2013-06",
+      "pred_value": 108.60229963870106,
+      "amplitude_error": -6.728469592068166,
+      "time_error_months": -10
+    },
+    "trough": {
+      "true_date": "2019-06",
+      "true_value": 3.5461538461538464,
+      "pred_date": "2019-06",
+      "pred_value": 5.276324947566307,
+      "amplitude_error": 1.7301711014124606,
+      "time_error_months": 0
+    },
+    "amplitude_ratio": 0.7582908670627714
+  }
+}

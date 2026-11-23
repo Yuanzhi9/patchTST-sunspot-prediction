@@ -1,0 +1,89 @@
+{
+  "input_peak_predictions": {
+    "ridge": {
+      "SC20": 160.77879241962788,
+      "SC21": 181.4224504139801,
+      "SC24": 141.33270418564408
+    },
+    "random_forest": {
+      "SC20": 146.22543038572553,
+      "SC21": 183.25485071087024,
+      "SC24": 154.39903497502505
+    }
+  },
+  "cycles_used": {
+    "SC20": 20,
+    "SC21": 21,
+    "SC24": 23
+  },
+  "half_width_months": 24,
+  "methods": {
+    "oracle": {
+      "mae_improvement_pct": {
+        "SC20": 28.805119703203236,
+        "SC21": 5.014315654184248,
+        "SC24": 0.11376829554237773
+      },
+      "peak_improved_cycles": 3,
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 5,
+        "SC24": 3
+      },
+      "gate": {
+        "two_cycles_mae_improve_5pct": true,
+        "no_cycle_degrade_over_10pct": true,
+        "peak_improved_two_cycles": true,
+        "trough_unchanged": true,
+        "at_least_two_cycles_with_4of5_seed_improvement": true
+      },
+      "passed": true
+    },
+    "ridge": {
+      "mae_improvement_pct": {
+        "SC20": 7.915539320372053,
+        "SC21": 0.06865003269733143,
+        "SC24": -24.209783069712525
+      },
+      "peak_improved_cycles": 1,
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 3,
+        "SC24": 0
+      },
+      "gate": {
+        "two_cycles_mae_improve_5pct": false,
+        "no_cycle_degrade_over_10pct": false,
+        "peak_improved_two_cycles": false,
+        "trough_unchanged": true,
+        "at_least_two_cycles_with_4of5_seed_improvement": false
+      },
+      "passed": false
+    },
+    "random_forest": {
+      "mae_improvement_pct": {
+        "SC20": 1.4955056983117272,
+        "SC21": 1.5140262609409254,
+        "SC24": -39.31188734489554
+      },
+      "peak_improved_cycles": 1,
+      "improved_seeds": {
+        "SC20": 5,
+        "SC21": 3,
+        "SC24": 0
+      },
+      "gate": {
+        "two_cycles_mae_improve_5pct": false,
+        "no_cycle_degrade_over_10pct": false,
+        "peak_improved_two_cycles": false,
+        "trough_unchanged": true,
+        "at_least_two_cycles_with_4of5_seed_improvement": false
+      },
+      "passed": false
+    }
+  },
+  "oracle_upper_bound_passed": true,
+  "deployable_passed": false,
+  "passed": false,
+  "decision": "stop_predicted_peak_reconstruction"
+}
