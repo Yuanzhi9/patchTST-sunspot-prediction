@@ -6,8 +6,8 @@
 > **更新时机**：① 每个实验收尾（跑后五件事的第五件）② 换分支/换环境 ③ 一轮讨论定了决策。
 | 字段 | 值 | 证据指针 |
 |---|---|---|
-| 当前阶段 | 双峰审计、R1B 多周期双轨、RF 保留、残差方案评审完成；只差主峰方案收敛 | `project_docs/RESEARCH_2026-11-23_double_peak_modeling_options.md` |
-| 当前任务 | 下一批 R1B-NEXT：先过五项泄漏审计，再做 W0 目标表示/单特征消融；未运行 | `project_docs/PLAN_2026-11-24_R1B_NEXT.md` |
+| 当前阶段 | R1B-NEXT 审计完成；截断/目标盲区/13m清单通过，未来污染待景修审核 | `EXPERIMENT_B26M-R1B-NEXT_2026-11-24.md` |
+| 当前任务 | R1B-NEXT 审计待定性；W0×Ridge/RF×log/raw/ratio 已对称跑完，未设主口径 | `EXPERIMENT_B26M-R1B-NEXT_2026-11-24.md` |
 | 当前基线（月均） | PR24 `D128` reference；D112/D144/D160 未稳定超过；历史锚点见账本 | `EXPERIMENT_B26M-capacity-refine_2026-11-21.md` |
 | PR24 参考基线 | `PR24-SL132-PL36-S18-D128-H8-E2-F2048-DO02-FC02-LR3E4-BS32`；物理反变换后 clip0，不宣称峰幅已校准 | `project_docs/PR24_BASELINE_ACCEPTANCE_2026-11-23.md` |
 | A0 口径对照 | raw Full/Block24=26.913/27.331；13m=16.439/17.903；归一化误差 0.400/0.263 | `EXPERIMENT_B26M-A0-raw-vs-smoothed_2026-11-23.md` |
@@ -29,12 +29,12 @@
 | 外部数据 | aa/F10.7 至 2026-10；WSO 有效月值止于 2025-12；周期上下文 25 条 | `project_docs/DATA_QUALITY_2026-11-23_external_indices.md` |
 | 用法口径 | **block24 无重叠**（minimax 判据） | EXP-23-R3 |
 | 跨环境规则 | 全步 ≤4% 可用；block ≤10.6% 辅证；**滚动仅同环境** | EXP-23-R2 |
-| 泄露核查 | 三种口径**无泄露** | `data_pipeline.md` §数据泄露核查 |
+| R1B-NEXT 审计 | 四项基线精确复现；未来污染使名义起报点后移31月，待定性 | `analysis/r1b_next/leakage_audit_summary.json` |
 | 选模口径 | ⚠️ 未定死：best-val 与 val 单起点轨迹基本打平，双轨并列报告 | `EXP-RULE-*_2026-10-11.md` |
 | B26M 残余不确定性 | lr 仅三 seed 略优；batch/seq 结论限当前配方；五折不等于未来顺序审计 | `EXPERIMENT_B26M-followup_validation_2026-11-19.md` |
 | 冻结队列 | 平滑 / 相位特征 / 非负约束 / 谷时分类 / scheduled sampling / 多配置集成 | `plan_preregistration_2026-10-11.md` |
 | 未来预测 | 旧 PR24 基线：SC25 谷 2030-10；SC26 峰 2035-06；raw 106.95，13m 104.82；非新定稿 | `analysis/pr24_future_forecast/` |
 | 文献对照 | 峰时与文献接近；raw 峰幅约 106.95，处于高估计 150–181 的低端 | `analysis/literature_comparison/` |
 | 长时距备选 | block24 仍最稳；主峰候选按 forecast origin 比较，P2 残差审计未启动 | `project_docs/RESEARCH_2026-11-23_peak_amplitude_time_evidence.md` |
-| 未决 | R1B-NEXT 未运行；RF/R1A 保留；时间模型仅在峰幅与泄漏门通过后启动 | `project_docs/PLAN_2026-11-24_R1B_NEXT.md` |
-| 最后核对 | 2026-11-23 调研、明日计划与沟通规则均已归档并推送 | `diary/2026-11-23.md` |
+| 未决 | 景修审核 future-poisoning 含义与 RF 去留；不得从六周期结果自动选主模型 | `EXPERIMENT_B26M-R1B-NEXT_2026-11-24.md` |
+| 最后核对 | 2026-11-24 R1B-NEXT 审计与W0性能图、报告、账本均已落盘 | `diary/2026-11-24.md` |

@@ -1,0 +1,268 @@
+{
+  "status": "exploratory_completed_pending_review",
+  "review_notice": "No candidate is designated as primary. Results are symmetric descriptive comparisons under the retrospective origin design.",
+  "target_cycles": [
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "seeds": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "candidates": [
+    {
+      "candidate_id": "A0",
+      "model": "median",
+      "representation": "physical"
+    },
+    {
+      "candidate_id": "A1",
+      "model": "ridge",
+      "representation": "log1p"
+    },
+    {
+      "candidate_id": "A2",
+      "model": "ridge",
+      "representation": "raw"
+    },
+    {
+      "candidate_id": "A3",
+      "model": "ridge",
+      "representation": "ratio"
+    },
+    {
+      "candidate_id": "A4",
+      "model": "random_forest",
+      "representation": "log1p"
+    },
+    {
+      "candidate_id": "A5",
+      "model": "random_forest",
+      "representation": "raw"
+    },
+    {
+      "candidate_id": "A6",
+      "model": "random_forest",
+      "representation": "ratio"
+    }
+  ],
+  "summary": [
+    {
+      "target_kind": "raw",
+      "candidate_id": "A2",
+      "model": "ridge",
+      "representation": "raw",
+      "n_target_cycles": 6,
+      "mae": 38.72359288512734,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": 0.3694937386410744,
+      "cycles_improved": 5,
+      "cycles_majority_seeds_improved": 5,
+      "worst_cycle_relative_degradation": 1.0893320784024452,
+      "bias": -1.080986708924172
+    },
+    {
+      "target_kind": "raw",
+      "candidate_id": "A1",
+      "model": "ridge",
+      "representation": "log1p",
+      "n_target_cycles": 6,
+      "mae": 40.98101811199377,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": 0.33273783264053547,
+      "cycles_improved": 4,
+      "cycles_majority_seeds_improved": 4,
+      "worst_cycle_relative_degradation": 0.3415341062778034,
+      "bias": -13.594274141986745
+    },
+    {
+      "target_kind": "raw",
+      "candidate_id": "A4",
+      "model": "random_forest",
+      "representation": "log1p",
+      "n_target_cycles": 6,
+      "mae": 44.70270853129371,
+      "mae_seed_std": 1.4572724030417077,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": 0.27214043096943735,
+      "cycles_improved": 3,
+      "cycles_majority_seeds_improved": 3,
+      "worst_cycle_relative_degradation": 0.5644948363140939,
+      "bias": -10.627931309240832
+    },
+    {
+      "target_kind": "raw",
+      "candidate_id": "A5",
+      "model": "random_forest",
+      "representation": "raw",
+      "n_target_cycles": 6,
+      "mae": 45.22030147759651,
+      "mae_seed_std": 1.1255417658006683,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": 0.2637128660364203,
+      "cycles_improved": 5,
+      "cycles_majority_seeds_improved": 5,
+      "worst_cycle_relative_degradation": 1.3301620637592853,
+      "bias": 3.132794572032912
+    },
+    {
+      "target_kind": "raw",
+      "candidate_id": "A3",
+      "model": "ridge",
+      "representation": "ratio",
+      "n_target_cycles": 6,
+      "mae": 52.555766247718054,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": 0.14427517642792834,
+      "cycles_improved": 3,
+      "cycles_majority_seeds_improved": 3,
+      "worst_cycle_relative_degradation": 1.6518162961012455,
+      "bias": 16.57475031118709
+    },
+    {
+      "target_kind": "raw",
+      "candidate_id": "A0",
+      "model": "median",
+      "representation": "physical",
+      "n_target_cycles": 6,
+      "mae": 61.41666666666665,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": 0.0,
+      "cycles_improved": 0,
+      "cycles_majority_seeds_improved": 0,
+      "worst_cycle_relative_degradation": 0.0,
+      "bias": 3.5833333333333286
+    },
+    {
+      "target_kind": "raw",
+      "candidate_id": "A6",
+      "model": "random_forest",
+      "representation": "ratio",
+      "n_target_cycles": 6,
+      "mae": 63.260183815273706,
+      "mae_seed_std": 2.1079287491685417,
+      "mae_reference_climatology": 61.41666666666665,
+      "improvement_vs_climatology": -0.03001656144272005,
+      "cycles_improved": 4,
+      "cycles_majority_seeds_improved": 4,
+      "worst_cycle_relative_degradation": 1.9000952174134034,
+      "bias": 11.985257621882768
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A1",
+      "model": "ridge",
+      "representation": "log1p",
+      "n_target_cycles": 6,
+      "mae": 34.44934928522901,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": 0.30391833579486743,
+      "cycles_improved": 4,
+      "cycles_majority_seeds_improved": 4,
+      "worst_cycle_relative_degradation": 1.4705279349824016,
+      "bias": -19.370691988637418
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A2",
+      "model": "ridge",
+      "representation": "raw",
+      "n_target_cycles": 6,
+      "mae": 34.652982378546035,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": 0.29980373666819743,
+      "cycles_improved": 5,
+      "cycles_majority_seeds_improved": 5,
+      "worst_cycle_relative_degradation": 2.1081059872212853,
+      "bias": -10.426373282379606
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A5",
+      "model": "random_forest",
+      "representation": "raw",
+      "n_target_cycles": 6,
+      "mae": 35.675093029897475,
+      "mae_seed_std": 1.0090134515422076,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": 0.27915102484761267,
+      "cycles_improved": 5,
+      "cycles_majority_seeds_improved": 5,
+      "worst_cycle_relative_degradation": 0.010483700214613017,
+      "bias": -13.650017960593539
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A4",
+      "model": "random_forest",
+      "representation": "log1p",
+      "n_target_cycles": 6,
+      "mae": 38.6331702853703,
+      "mae_seed_std": 1.298127664260785,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": 0.21938027789420805,
+      "cycles_improved": 5,
+      "cycles_majority_seeds_improved": 5,
+      "worst_cycle_relative_degradation": 0.47734664609900623,
+      "bias": -27.383491893693567
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A3",
+      "model": "ridge",
+      "representation": "ratio",
+      "n_target_cycles": 6,
+      "mae": 41.33101578389706,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": 0.16486775956376643,
+      "cycles_improved": 2,
+      "cycles_majority_seeds_improved": 2,
+      "worst_cycle_relative_degradation": 3.58053553857374,
+      "bias": 6.312478709894715
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A0",
+      "model": "median",
+      "representation": "physical",
+      "n_target_cycles": 6,
+      "mae": 49.49038461538461,
+      "mae_seed_std": 0.0,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": 0.0,
+      "cycles_improved": 0,
+      "cycles_majority_seeds_improved": 0,
+      "worst_cycle_relative_degradation": 0.0,
+      "bias": -12.266025641025626
+    },
+    {
+      "target_kind": "smooth",
+      "candidate_id": "A6",
+      "model": "random_forest",
+      "representation": "ratio",
+      "n_target_cycles": 6,
+      "mae": 50.48832300692772,
+      "mae_seed_std": 0.762414714896739,
+      "mae_reference_climatology": 49.49038461538461,
+      "improvement_vs_climatology": -0.020164288463276336,
+      "cycles_improved": 4,
+      "cycles_majority_seeds_improved": 4,
+      "worst_cycle_relative_degradation": 4.540813884220527,
+      "bias": 5.517661627890449
+    }
+  ]
+}

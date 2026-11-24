@@ -1,0 +1,115 @@
+{
+  "status": "blocked_pending_review",
+  "review_notice": "Automated checks identify pass/fail candidates. 景修 must review the evidence before a failure is treated as final.",
+  "baseline_reproduction": {
+    "raw_ridge": {
+      "expected": 40.98101811199377,
+      "observed": 40.98101811199377,
+      "difference": 0.0,
+      "seed_mae": [
+        40.98101811199377
+      ],
+      "reproduced": true
+    },
+    "raw_random_forest": {
+      "expected": 44.70270853129371,
+      "observed": 44.7027085312937,
+      "difference": -7.105427357601002e-15,
+      "seed_mae": [
+        46.02477031322482,
+        43.75409208442696,
+        46.65529921394873,
+        44.391940958916884,
+        42.687440085951124
+      ],
+      "reproduced": true
+    },
+    "smooth_ridge": {
+      "expected": 34.44934928522901,
+      "observed": 34.44934928522901,
+      "difference": 0.0,
+      "seed_mae": [
+        34.44934928522901
+      ],
+      "reproduced": true
+    },
+    "smooth_random_forest": {
+      "expected": 38.63317028537029,
+      "observed": 38.63317028537029,
+      "difference": 0.0,
+      "seed_mae": [
+        39.68355901806964,
+        38.18776760403813,
+        36.78355812714023,
+        38.04544926563242,
+        40.465517411971035
+      ],
+      "reproduced": true
+    }
+  },
+  "baseline_passed": true,
+  "audit_summary": [
+    {
+      "check": "future_poisoning",
+      "checks": 353,
+      "passes": 192,
+      "failures": 161,
+      "passed": false
+    },
+    {
+      "check": "target_blindness",
+      "checks": 322,
+      "passes": 322,
+      "failures": 0,
+      "passed": true
+    },
+    {
+      "check": "truncation",
+      "checks": 647,
+      "passes": 647,
+      "failures": 0,
+      "passed": true
+    }
+  ],
+  "audit_passed": false,
+  "manifest_summary": {
+    "checks": 173,
+    "passes": 173,
+    "failures": 0,
+    "not_applicable": 2
+  },
+  "manifest_passed": true,
+  "overall_passed": false,
+  "inputs": {
+    "data": "PatchTST_supervised/dataset/sunspot_with_cycle_monthly_2026-10.csv",
+    "data_sha256": "675f5ab2bc88ef7a92734b8d87d1fbc6f12be587f4f4f9652a6a7b58d4eff69c",
+    "context": "analysis/cycle_context/cycle_context_2026-10.csv",
+    "context_sha256": "de6c1f4b8ce356c8af40db59b32bfea8ae1d730166d7d0d522be4fcfd17019f0",
+    "builder_sha256": "5d217bb3e38b2a5b1a6bdc9721bf9a0e4d546e6241d70064e9cdd73052ebc9c0",
+    "evaluator_sha256": "12f9d1cbbed9648690c3d76785ab4bbfcf30c0673722c2383f28db3bfa8f707b",
+    "audit_sha256": "7d972ec3cb72e23ee4c2c1f59bc9cf8c097625960dcfb78388c92a1e5ca48b41",
+    "seeds": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "expanding_context_cycles": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "target_cycles": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ]
+  }
+}

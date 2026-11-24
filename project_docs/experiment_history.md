@@ -33,6 +33,7 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **R1B-NEXT** | 11.24 | Stage 10 | 防泄漏审计 + W0 Ridge/RF 对称对照 | raw/13m；SC19–24；log/raw/ratio；seeds2019–2023 | raw 最低 38.72；13m 最低 34.45 | — | — | 审计待定性；不设主口径；平均改善与单周期崩坏并存 | `EXPERIMENT_B26M-R1B-NEXT_2026-11-24.md` | 无训练 |
 | **R1B-MULTI** | 11.23 | Stage 10 | 周期级峰幅 raw/13m 双轨扩周期 | 24 周期 LOOCV；目标 19–24 顺序扩测；W0/W1/W1-AA-control/W2-AA | raw W0-RF 44.70；13m 38.63 | — | — | W0 优于中位数；W1/aa 无稳定增量；RF 保留候选 | `EXPERIMENT_B26M-R1B-MULTICYCLE_2026-11-23.md` | 无训练 |
 | **DOUBLE-PEAK-AUDIT** | 11.23 | Stage 10 | 双峰标签稳定性审计 | 24 周期；raw/13/17/21m × prominence 3/5/10 | — | — | — | 9 stable double、1 single、14 ambiguous；禁止硬分类 | `EXPERIMENT_B26M-DOUBLE-PEAK-AUDIT_2026-11-23.md` | 无训练 |
 | **R1B-RAW** | 11.23 | Stage 10 | 以 raw 月均峰值为目标做局部重构 | PR24+raw-peak Ridge/RF；SC20/21/24；五seed | Oracle 30.31/32.86/17.91；Ridge 32.38/27.39/27.16 | — | — | Oracle可命中raw峰但改变轮廓；Ridge/RF SC24严重高估 | `EXPERIMENT_B26M-R1B-RAW_2026-11-23.md` | 无训练 |
@@ -1346,7 +1347,7 @@ stable single、14 个 ambiguous；没有任何周期在全部配置中保持不
 
 同日完成峰区残差文献评审，形成“RF/R1A 锁定主峰 + 1–3 个紧支撑峰区基函数
  + forecast-origin residual + selective deployment”的待验证方案。该方案
-尚未运行，下一步只做零训练表示审计。
+尚未运行。这里的“下一步”已被 2026-11-24 的 R1B-NEXT 防泄漏审计取代。
 
 证据：
 
@@ -1355,3 +1356,27 @@ stable single、14 个 ambiguous；没有任何周期在全部配置中保持不
 - `project_docs/RESEARCH_2026-11-23_double_peak_modeling_options.md`
 - `project_docs/RESEARCH_2026-11-23_peak_residual_correction.md`
 - `project_docs/EVALUATION_2026-11-23_constrained_peak_residual.md`
+
+### R1B-NEXT 防泄漏审计（2026-11-24）
+
+四项 R1B-MULTI 基线精确复现：raw Ridge/RF `40.981/44.703`，13m
+Ridge/RF `34.449/38.633`。截断审计 647/647、目标盲区 322/322、
+13m 特征 manifest 173/173 通过；周期 1 无上一周期峰，两项标为不适用。
+
+未来污染审计标记 161/353 项。污染原起报点之后的 SSN 后，完整周期峰时改变，
+`origin = peak + 24m` 随之在 SC19–SC24 七个上下文中统一后移 31 月，
+并改变当前峰、`smooth_at_origin` 和 24 月下降量。该结果证明名义起报点选择
+依赖未来整周期信息；固定 `t0` 的截断测试本身通过。
+
+当前状态为 `blocked_pending_review`，不是已定性失败。景修需先判断
+retrospective 起报点设计是否可接受，审核前不运行目标表示、RF 结论或消融。
+
+按景修后续指示，W0 性能对照已对称补跑：
+
+- raw：Ridge-raw MAE 最低 `38.72`，但 SC23 恶化 `108.93%`；
+- 13m：Ridge-log1p MAE 最低 `34.45`，但 SC23 恶化 `147.05%`；
+- 13m RF-raw MAE `35.68`，5/6 周期改善，最差周期仅恶化 `1.05%`；
+- 不指定主口径，不自动给 RF 保留/淘汰结论。
+
+证据：`analysis/r1b_next/`、
+`EXPERIMENT_B26M-R1B-NEXT_2026-11-24.md`。
