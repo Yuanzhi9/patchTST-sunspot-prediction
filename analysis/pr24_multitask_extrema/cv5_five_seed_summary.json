@@ -7,5 +7,5 @@
   "multitask_block24_seed_std": 0.34609428851827245,
   "seeds_improved_full": 1,
   "seeds_improved_block24": 1,
-  "decision": "reject_full_multitask"
+  "decision": "no_stable_net_gain_keep_research_branch"
 }

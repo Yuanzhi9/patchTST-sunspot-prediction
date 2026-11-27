@@ -1,0 +1,3 @@
+track,origin_date,trough_date_median,trough_value_median,trough_value_min,trough_value_max,peak_date_median,raw_peak_value_median,smooth13_peak_value_median
+raw,2026-10,2030-07,0.0,0.0,10.55829620361328,2034-05,133.2666015625,133.78654069166916
+smooth13,2026-04,2029-05,1.2256851196289062,0.0,5.196456909179688,2034-07,,155.03406231219952

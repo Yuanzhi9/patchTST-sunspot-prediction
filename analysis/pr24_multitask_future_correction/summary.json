@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "raw_origin": "2026-10",
+  "smooth13_origin": "2026-04",
+  "r1b_targets": {
+    "raw": {
+      "R1B-Ridge": 205.84797732120055,
+      "R1B-RF": 190.03846165291333
+    },
+    "smooth13": {
+      "R1B-Ridge": 139.83702400729265,
+      "R1B-RF": 126.99576536771495
+    }
+  },
+  "r1a_widths_months": [
+    12,
+    24,
+    36
+  ],
+  "note": "R1A Oracle is not available for the future because SC26 truth is unknown."
+}

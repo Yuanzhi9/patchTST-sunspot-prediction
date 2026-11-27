@@ -66,7 +66,7 @@ def main() -> None:
         "multitask_block24_seed_std": float(cv["block24_MAE"].std(ddof=0)),
         "seeds_improved_full": int((comparison["full_delta_pct"] < 0).sum()),
         "seeds_improved_block24": int((comparison["block24_delta_pct"] < 0).sum()),
-        "decision": "reject_full_multitask",
+        "decision": "no_stable_net_gain_keep_research_branch",
     }
     (out / "cv5_five_seed_summary.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",

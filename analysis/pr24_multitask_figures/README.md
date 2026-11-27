@@ -22,3 +22,19 @@
 ## 固定权重 w=0.3
 
 `w030_v2/`
+
+## 真实未来预测与峰值修正
+
+目录：
+
+```text
+analysis/pr24_multitask_future_correction/
+```
+
+图：
+
+```text
+mt_real_forecast_raw_and_13m.png
+old_profiles_with_R1A_R1B.png
+mt_profiles_with_R1A_R1B.png
+```

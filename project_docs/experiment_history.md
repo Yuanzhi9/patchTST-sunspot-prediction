@@ -33,6 +33,7 @@
 
 | ID | 日期 | 阶段 | 一句话改动 | 数据/配置 | 物理 MAE 全步 | step0 | R² | 结论 | 行号 | 有config? |
 |----|------|------|-----------|----------|--------------|-------|-----|------|------|-----------|
+| **PR24-MT-FUTURE** | 11.27 | Stage 10 | raw/13m 独立全历史五 seed 真实预测 + R1A/R1B 峰值修正 | raw origin 2026-10；13m origin 2026-04；horizon168 | — | — | — | raw 峰值137.2@2035-01；13m 峰值153.9@2034-02；R1A H12/24/36 分离试验 | `EXPERIMENT_B26M-PR24-MULTITASK-FUTURE_2026-11-27.md` | ✅ |
 | **PR24-MULTITASK** | 11.27 | Stage 10 | PR24 曲线 + 峰幅/峰时/谷时辅助头，含单头、全量、权重和 chrono | CV5 五 seed；SC20/21/24 chrono 五 seed；V2 唯一 ID | CV5 26.988 / block 26.797 | — | — | 未稳定改善；峰时 3/3 改善，但曲线 2/3 和峰幅 2/3 恶化；不采纳 | `EXPERIMENT_B26M-PR24-MULTITASK_2026-11-27.md` | ✅ |
 | **R1B-NEXT** | 11.24 | Stage 10 | 防泄漏审计 + W0 Ridge/RF 对称对照 | raw/13m；SC19–24；log/raw/ratio；seeds2019–2023 | raw 最低 38.72；13m 最低 34.45 | — | — | 审计待定性；不设主口径；平均改善与单周期崩坏并存 | `EXPERIMENT_B26M-R1B-NEXT_2026-11-24.md` | 无训练 |
 | **R1B-MULTI** | 11.23 | Stage 10 | 周期级峰幅 raw/13m 双轨扩周期 | 24 周期 LOOCV；目标 19–24 顺序扩测；W0/W1/W1-AA-control/W2-AA | raw W0-RF 44.70；13m 38.63 | — | — | W0 优于中位数；W1/aa 无稳定增量；RF 保留候选 | `EXPERIMENT_B26M-R1B-MULTICYCLE_2026-11-23.md` | 无训练 |
