@@ -1,0 +1,159 @@
+Args in PR24 multitask experiment:
+Namespace(is_training=1, model_id='sunspot', model='PatchTSTMultiTask', root_path='./PatchTST_supervised/dataset/', data_path='sunspot_with_cycle_monthly_2026-10.csv', event_labels='analysis/pr24_multitask_extrema/chrono_labels/SC21/event_labels_all_windows.csv', features='MS', target='ssn', freq='m', target_transform='', cv_file='configs/chrono_cycle21_holdout_2026-11.json', cv_fold=1, seq_len=132, label_len=48, pred_len=24, enc_in=3, dec_in=5, c_out=1, d_model=128, n_heads=8, e_layers=2, d_layers=1, d_ff=2048, moving_avg=25, factor=1, distil=True, dropout=0.2, fc_dropout=0.2, head_dropout=0.0, patch_len=36, stride=18, padding_patch='end', revin=1, affine=0, subtract_last=0, decomposition=0, kernel_size=25, individual=0, embed_type=0, embed='timeF', activation='gelu', output_attention=False, do_predict=False, num_workers=0, itr=1, train_epochs=50, batch_size=32, train_window_limit=0, patience=100, learning_rate=0.0003, loss='mse', wmse_alpha=1.0, lradj='type3', pct_start=0.3, use_amp=False, random_seed=2021, des='B26M-MT-CHRONO-SC21-V2', checkpoints='./checkpoints/', results_root='./results', config_root='./configs', mt_mode='all', mt_aux_weight=0.1, mt_weighting='fixed', use_gpu=True, gpu=0, use_multi_gpu=False, devices='0')
+config: ./configs/B26M-MT-CHRONO-SC21-V2_mtall_F1_seed2021_20261127_120635.json
+setting: sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2021
+Use GPU: cuda:0
+start multitask training: fold=1 mode=all train_windows=2560 inner_val_windows=109
+Validation loss decreased (inf --> 0.773545).  Saving model ...
+Epoch: 1, Steps: 80 | Total: 1.3073274 Curve: 0.8821470 Aux: 4.2518031 ValCurve: 0.7735452 Best: 0.7735452 | 1.755s
+Updating learning rate to 0.0003
+Validation loss decreased (0.773545 --> 0.386540).  Saving model ...
+Epoch: 2, Steps: 80 | Total: 0.7374626 Curve: 0.4507906 Aux: 2.8667201 ValCurve: 0.3865402 Best: 0.3865402 | 1.142s
+Updating learning rate to 0.0003
+EarlyStopping counter: 1 out of 100
+Epoch: 3, Steps: 80 | Total: 0.5373410 Curve: 0.3398342 Aux: 1.9750679 ValCurve: 0.4569945 Best: 0.3865402 | 0.996s
+Updating learning rate to 0.0003
+EarlyStopping counter: 2 out of 100
+Epoch: 4, Steps: 80 | Total: 0.5281024 Curve: 0.3345428 Aux: 1.9355957 ValCurve: 0.4836277 Best: 0.3865402 | 0.971s
+Updating learning rate to 0.00027
+Validation loss decreased (0.386540 --> 0.351819).  Saving model ...
+Epoch: 5, Steps: 80 | Total: 0.5035538 Curve: 0.3144546 Aux: 1.8909914 ValCurve: 0.3518194 Best: 0.3518194 | 1.112s
+Updating learning rate to 0.000243
+Validation loss decreased (0.351819 --> 0.315996).  Saving model ...
+Epoch: 6, Steps: 80 | Total: 0.4840745 Curve: 0.3002738 Aux: 1.8380066 ValCurve: 0.3159964 Best: 0.3159964 | 0.993s
+Updating learning rate to 0.0002187
+EarlyStopping counter: 1 out of 100
+Epoch: 7, Steps: 80 | Total: 0.4713088 Curve: 0.2917183 Aux: 1.7959045 ValCurve: 0.3494124 Best: 0.3159964 | 1.191s
+Updating learning rate to 0.00019683
+Validation loss decreased (0.315996 --> 0.314413).  Saving model ...
+Epoch: 8, Steps: 80 | Total: 0.4630216 Curve: 0.2859662 Aux: 1.7705547 ValCurve: 0.3144132 Best: 0.3144132 | 1.120s
+Updating learning rate to 0.000177147
+EarlyStopping counter: 1 out of 100
+Epoch: 9, Steps: 80 | Total: 0.4544357 Curve: 0.2815586 Aux: 1.7287709 ValCurve: 0.3300401 Best: 0.3144132 | 0.984s
+Updating learning rate to 0.0001594323
+EarlyStopping counter: 2 out of 100
+Epoch: 10, Steps: 80 | Total: 0.4448351 Curve: 0.2743954 Aux: 1.7043971 ValCurve: 0.3299964 Best: 0.3144132 | 1.019s
+Updating learning rate to 0.00014348907
+EarlyStopping counter: 3 out of 100
+Epoch: 11, Steps: 80 | Total: 0.4376475 Curve: 0.2700530 Aux: 1.6759452 ValCurve: 0.3152605 Best: 0.3144132 | 0.973s
+Updating learning rate to 0.00012914016300000003
+Validation loss decreased (0.314413 --> 0.306781).  Saving model ...
+Epoch: 12, Steps: 80 | Total: 0.4409061 Curve: 0.2751553 Aux: 1.6575078 ValCurve: 0.3067807 Best: 0.3067807 | 0.981s
+Updating learning rate to 0.00011622614670000002
+EarlyStopping counter: 1 out of 100
+Epoch: 13, Steps: 80 | Total: 0.4293790 Curve: 0.2671677 Aux: 1.6221129 ValCurve: 0.3111348 Best: 0.3067807 | 1.021s
+Updating learning rate to 0.00010460353203000003
+EarlyStopping counter: 2 out of 100
+Epoch: 14, Steps: 80 | Total: 0.4197774 Curve: 0.2609941 Aux: 1.5878334 ValCurve: 0.3742170 Best: 0.3067807 | 1.125s
+Updating learning rate to 9.414317882700001e-05
+EarlyStopping counter: 3 out of 100
+Epoch: 15, Steps: 80 | Total: 0.4149139 Curve: 0.2570096 Aux: 1.5790428 ValCurve: 0.3540081 Best: 0.3067807 | 1.165s
+Updating learning rate to 8.472886094430003e-05
+EarlyStopping counter: 4 out of 100
+Epoch: 16, Steps: 80 | Total: 0.4083941 Curve: 0.2536037 Aux: 1.5479032 ValCurve: 0.3537752 Best: 0.3067807 | 1.145s
+Updating learning rate to 7.625597484987001e-05
+EarlyStopping counter: 5 out of 100
+Epoch: 17, Steps: 80 | Total: 0.4050330 Curve: 0.2514497 Aux: 1.5358333 ValCurve: 0.3573790 Best: 0.3067807 | 1.080s
+Updating learning rate to 6.863037736488302e-05
+EarlyStopping counter: 6 out of 100
+Epoch: 18, Steps: 80 | Total: 0.4023844 Curve: 0.2512614 Aux: 1.5112292 ValCurve: 0.3509447 Best: 0.3067807 | 1.136s
+Updating learning rate to 6.176733962839471e-05
+EarlyStopping counter: 7 out of 100
+Epoch: 19, Steps: 80 | Total: 0.4018611 Curve: 0.2510928 Aux: 1.5076828 ValCurve: 0.3321709 Best: 0.3067807 | 1.038s
+Updating learning rate to 5.559060566555524e-05
+EarlyStopping counter: 8 out of 100
+Epoch: 20, Steps: 80 | Total: 0.3959129 Curve: 0.2468661 Aux: 1.4904681 ValCurve: 0.3265203 Best: 0.3067807 | 0.984s
+Updating learning rate to 5.003154509899973e-05
+EarlyStopping counter: 9 out of 100
+Epoch: 21, Steps: 80 | Total: 0.3921352 Curve: 0.2440051 Aux: 1.4813005 ValCurve: 0.3276893 Best: 0.3067807 | 0.984s
+Updating learning rate to 4.502839058909975e-05
+EarlyStopping counter: 10 out of 100
+Epoch: 22, Steps: 80 | Total: 0.3911651 Curve: 0.2438341 Aux: 1.4733101 ValCurve: 0.3271361 Best: 0.3067807 | 1.016s
+Updating learning rate to 4.052555153018978e-05
+EarlyStopping counter: 11 out of 100
+Epoch: 23, Steps: 80 | Total: 0.3880055 Curve: 0.2414819 Aux: 1.4652361 ValCurve: 0.3111428 Best: 0.3067807 | 1.108s
+Updating learning rate to 3.64729963771708e-05
+EarlyStopping counter: 12 out of 100
+Epoch: 24, Steps: 80 | Total: 0.3815652 Curve: 0.2370227 Aux: 1.4454251 ValCurve: 0.3503147 Best: 0.3067807 | 1.157s
+Updating learning rate to 3.282569673945372e-05
+EarlyStopping counter: 13 out of 100
+Epoch: 25, Steps: 80 | Total: 0.3785987 Curve: 0.2340363 Aux: 1.4456244 ValCurve: 0.3465117 Best: 0.3067807 | 0.976s
+Updating learning rate to 2.954312706550835e-05
+EarlyStopping counter: 14 out of 100
+Epoch: 26, Steps: 80 | Total: 0.3791857 Curve: 0.2345738 Aux: 1.4461194 ValCurve: 0.3308329 Best: 0.3067807 | 0.961s
+Updating learning rate to 2.6588814358957517e-05
+EarlyStopping counter: 15 out of 100
+Epoch: 27, Steps: 80 | Total: 0.3817486 Curve: 0.2378791 Aux: 1.4386950 ValCurve: 0.3614508 Best: 0.3067807 | 0.967s
+Updating learning rate to 2.3929932923061764e-05
+EarlyStopping counter: 16 out of 100
+Epoch: 28, Steps: 80 | Total: 0.3786677 Curve: 0.2361524 Aux: 1.4251534 ValCurve: 0.3573367 Best: 0.3067807 | 0.958s
+Updating learning rate to 2.1536939630755587e-05
+EarlyStopping counter: 17 out of 100
+Epoch: 29, Steps: 80 | Total: 0.3747218 Curve: 0.2319144 Aux: 1.4280743 ValCurve: 0.3832349 Best: 0.3067807 | 0.971s
+Updating learning rate to 1.938324566768003e-05
+EarlyStopping counter: 18 out of 100
+Epoch: 30, Steps: 80 | Total: 0.3745070 Curve: 0.2323620 Aux: 1.4214503 ValCurve: 0.3511367 Best: 0.3067807 | 1.045s
+Updating learning rate to 1.7444921100912026e-05
+EarlyStopping counter: 19 out of 100
+Epoch: 31, Steps: 80 | Total: 0.3746296 Curve: 0.2324585 Aux: 1.4217106 ValCurve: 0.3431273 Best: 0.3067807 | 1.179s
+Updating learning rate to 1.5700428990820825e-05
+EarlyStopping counter: 20 out of 100
+Epoch: 32, Steps: 80 | Total: 0.3726633 Curve: 0.2308854 Aux: 1.4177791 ValCurve: 0.3562006 Best: 0.3067807 | 1.183s
+Updating learning rate to 1.4130386091738745e-05
+EarlyStopping counter: 21 out of 100
+Epoch: 33, Steps: 80 | Total: 0.3714920 Curve: 0.2306074 Aux: 1.4088464 ValCurve: 0.3303104 Best: 0.3067807 | 1.061s
+Updating learning rate to 1.271734748256487e-05
+EarlyStopping counter: 22 out of 100
+Epoch: 34, Steps: 80 | Total: 0.3695040 Curve: 0.2289809 Aux: 1.4052314 ValCurve: 0.3376794 Best: 0.3067807 | 0.969s
+Updating learning rate to 1.1445612734308383e-05
+EarlyStopping counter: 23 out of 100
+Epoch: 35, Steps: 80 | Total: 0.3740120 Curve: 0.2329966 Aux: 1.4101533 ValCurve: 0.3457400 Best: 0.3067807 | 1.056s
+Updating learning rate to 1.0301051460877545e-05
+EarlyStopping counter: 24 out of 100
+Epoch: 36, Steps: 80 | Total: 0.3694759 Curve: 0.2292915 Aux: 1.4018439 ValCurve: 0.3463564 Best: 0.3067807 | 1.173s
+Updating learning rate to 9.27094631478979e-06
+EarlyStopping counter: 25 out of 100
+Epoch: 37, Steps: 80 | Total: 0.3698519 Curve: 0.2297091 Aux: 1.4014281 ValCurve: 0.3436611 Best: 0.3067807 | 1.164s
+Updating learning rate to 8.343851683310812e-06
+EarlyStopping counter: 26 out of 100
+Epoch: 38, Steps: 80 | Total: 0.3707322 Curve: 0.2308399 Aux: 1.3989229 ValCurve: 0.3407406 Best: 0.3067807 | 1.167s
+Updating learning rate to 7.50946651497973e-06
+EarlyStopping counter: 27 out of 100
+Epoch: 39, Steps: 80 | Total: 0.3659429 Curve: 0.2254586 Aux: 1.4048434 ValCurve: 0.3552244 Best: 0.3067807 | 1.179s
+Updating learning rate to 6.758519863481758e-06
+EarlyStopping counter: 28 out of 100
+Epoch: 40, Steps: 80 | Total: 0.3684082 Curve: 0.2288452 Aux: 1.3956301 ValCurve: 0.3449195 Best: 0.3067807 | 1.043s
+Updating learning rate to 6.082667877133582e-06
+EarlyStopping counter: 29 out of 100
+Epoch: 41, Steps: 80 | Total: 0.3681861 Curve: 0.2283851 Aux: 1.3980107 ValCurve: 0.3407005 Best: 0.3067807 | 1.157s
+Updating learning rate to 5.4744010894202246e-06
+EarlyStopping counter: 30 out of 100
+Epoch: 42, Steps: 80 | Total: 0.3663271 Curve: 0.2274949 Aux: 1.3883216 ValCurve: 0.3381474 Best: 0.3067807 | 1.129s
+Updating learning rate to 4.926960980478202e-06
+EarlyStopping counter: 31 out of 100
+Epoch: 43, Steps: 80 | Total: 0.3675271 Curve: 0.2285916 Aux: 1.3893553 ValCurve: 0.3461454 Best: 0.3067807 | 1.109s
+Updating learning rate to 4.434264882430382e-06
+EarlyStopping counter: 32 out of 100
+Epoch: 44, Steps: 80 | Total: 0.3656757 Curve: 0.2267110 Aux: 1.3896469 ValCurve: 0.3367884 Best: 0.3067807 | 1.130s
+Updating learning rate to 3.9908383941873435e-06
+EarlyStopping counter: 33 out of 100
+Epoch: 45, Steps: 80 | Total: 0.3668441 Curve: 0.2263200 Aux: 1.4052411 ValCurve: 0.3445501 Best: 0.3067807 | 0.841s
+Updating learning rate to 3.5917545547686093e-06
+EarlyStopping counter: 34 out of 100
+Epoch: 46, Steps: 80 | Total: 0.3661220 Curve: 0.2269420 Aux: 1.3918009 ValCurve: 0.3376835 Best: 0.3067807 | 0.979s
+Updating learning rate to 3.2325790992917485e-06
+EarlyStopping counter: 35 out of 100
+Epoch: 47, Steps: 80 | Total: 0.3675922 Curve: 0.2278269 Aux: 1.3976524 ValCurve: 0.3385872 Best: 0.3067807 | 0.958s
+Updating learning rate to 2.9093211893625737e-06
+EarlyStopping counter: 36 out of 100
+Epoch: 48, Steps: 80 | Total: 0.3676225 Curve: 0.2291561 Aux: 1.3846648 ValCurve: 0.3433623 Best: 0.3067807 | 0.948s
+Updating learning rate to 2.6183890704263165e-06
+EarlyStopping counter: 37 out of 100
+Epoch: 49, Steps: 80 | Total: 0.3657322 Curve: 0.2268999 Aux: 1.3883231 ValCurve: 0.3463539 Best: 0.3067807 | 1.051s
+Updating learning rate to 2.356550163383685e-06
+EarlyStopping counter: 38 out of 100
+Epoch: 50, Steps: 80 | Total: 0.3666449 Curve: 0.2278011 Aux: 1.3884373 ValCurve: 0.3447153 Best: 0.3067807 | 1.071s
+Updating learning rate to 2.1208951470453164e-06
+>>>>>>>testing outer fold 1: sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2021<<<<<<<
+[AI 2026-10-10] checkpoint 含非张量对象（UnpicklingError），按项目自身产物处理，使用 weights_only=False 加载：full_checkpoint.pth
+saved outer fold: pred=(109, 24, 1) true=(109, 24, 1) target=./results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2021

@@ -1,0 +1,4 @@
+fold,flag,windows,peak_known,peak_coverage,trough_known,trough_coverage,cycle_length_known,cycle_length_coverage,next_peak_in_24m,next_trough_in_24m
+1,test,109,109,1.0,109,1.0,109,1.0,0.21100917431192662,0.009174311926605505
+1,train,2833,2833,1.0,2833,1.0,2833,1.0,0.17613836921990822,0.17649135192375573
+1,val,109,109,1.0,109,1.0,109,1.0,0.21100917431192662,0.01834862385321101

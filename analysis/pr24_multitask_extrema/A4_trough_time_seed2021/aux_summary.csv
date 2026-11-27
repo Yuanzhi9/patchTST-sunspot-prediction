@@ -1,0 +1,2 @@
+column,folds,valid_samples,mae_mean,mae_std,rmse_mean,bias_mean,median_abs_error_mean,within_6m_mean,within_12m_mean
+months_to_next_trough,4,2444,25.487731456756592,3.884894687991415,33.91017389297485,1.3862555027008057,19.44469690322876,0.1531444099378882,0.3319827251552795

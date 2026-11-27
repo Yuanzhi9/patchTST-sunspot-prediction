@@ -1,0 +1,11 @@
+{
+  "des": "B26M-MT-PTIME-A3",
+  "seed": 2021,
+  "folds_found": 4,
+  "full_MAE_mean": 27.856128366875094,
+  "full_MAE_std": 3.3966588206512514,
+  "full_MAE_worst": 33.38161810071518,
+  "block24_MAE_mean": 27.42421945427136,
+  "block24_MAE_std": 3.3600804980498853,
+  "block24_MAE_worst": 32.17073498205705
+}

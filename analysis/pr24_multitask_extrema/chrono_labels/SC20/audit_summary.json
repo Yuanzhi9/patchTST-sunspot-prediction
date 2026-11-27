@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "warnings": [
+    "cycle 1: peak_smooth differs from smoothed CSV by 1.4462",
+    "cycle 2: peak_smooth differs from smoothed CSV by 5.6077",
+    "cycle 3: peak_smooth differs from smoothed CSV by 1.3846",
+    "cycle 4: peak_smooth differs from smoothed CSV by 1.0846",
+    "cycle 6: peak_smooth differs from smoothed CSV by 4.9077",
+    "cycle 7: peak_smooth differs from smoothed CSV by 3.8231",
+    "cycle 8: peak_smooth differs from smoothed CSV by 2.0308",
+    "cycle 9: peak_smooth differs from smoothed CSV by 0.6308",
+    "cycle 10: peak_smooth differs from smoothed CSV by 0.7692",
+    "cycle 11: peak_smooth differs from smoothed CSV by 2.7769",
+    "cycle 12: peak_smooth differs from smoothed CSV by 1.3846",
+    "cycle 13: peak_smooth differs from smoothed CSV by 1.2462",
+    "cycle 14: peak_smooth differs from smoothed CSV by 3.2077",
+    "cycle 15: peak_smooth differs from smoothed CSV by 2.5385",
+    "cycle 16: peak_smooth differs from smoothed CSV by 0.2000",
+    "cycle 17: peak_smooth differs from smoothed CSV by 1.5308",
+    "cycle 18: peak_smooth differs from smoothed CSV by 1.8846",
+    "cycle 19: peak_smooth differs from smoothed CSV by 1.8923",
+    "cycle 20: peak_smooth differs from smoothed CSV by 1.4385",
+    "cycle 21: peak_smooth differs from smoothed CSV by 1.1923",
+    "cycle 22: peak_smooth differs from smoothed CSV by 0.6692",
+    "cycle 23: peak_smooth differs from smoothed CSV by 2.7154",
+    "cycle 24: peak_smooth differs from smoothed CSV by 1.0692",
+    "cycle 25: peak_smooth differs from smoothed CSV by 1.6769"
+  ],
+  "inputs": {
+    "raw": {
+      "path": "/output/PR24-MULTITASK-EXTREMA/PatchTST_supervised/dataset/sunspot_with_cycle_monthly_2026-10.csv",
+      "sha256": "675f5ab2bc88ef7a92734b8d87d1fbc6f12be587f4f4f9652a6a7b58d4eff69c"
+    },
+    "smooth": {
+      "path": "/output/PR24-MULTITASK-EXTREMA/PatchTST_supervised/dataset/sunspot_with_cycle_smoothed13_2026-04.csv",
+      "sha256": "97590679284b483b2a56df5e04d38a04f35b3f1412ce2d6be9be15afc7b63929"
+    },
+    "boundaries": {
+      "path": "/output/PR24-MULTITASK-EXTREMA/analysis/cycle_context/cycle_boundaries_2026-10.csv",
+      "sha256": "06b51e5647847f22365ac6326038743dc6fdc40fc5d33b46587ddc1847d2c709"
+    },
+    "cv_file": {
+      "path": "configs/chrono_cycle20_holdout_2026-11.json",
+      "sha256": "e2c41a12c989e8003cc634ecf75d0b5ed4c1168ce3d44f25f79b2b07fc85475a"
+    }
+  },
+  "outputs": {
+    "event_labels": {
+      "path": "analysis/pr24_multitask_extrema/chrono_labels/SC20/event_labels_all_windows.csv",
+      "sha256": "1bb35105fe23f66e1d18fa9ccc53e643bca4ee18b45d6e75e5e70ecffd2f37d6"
+    },
+    "coverage_by_fold": {
+      "path": "analysis/pr24_multitask_extrema/chrono_labels/SC20/coverage_by_fold.csv",
+      "sha256": "dfd70e752be90fa8420a0bdeb9e5a2161284b6d886ae64402afc949d1bedd47a"
+    }
+  },
+  "seq_len": 132,
+  "pred_len": 24,
+  "input_columns": [
+    "month_sin",
+    "month_cos",
+    "ssn"
+  ],
+  "label_columns": [
+    "cycle_length",
+    "months_to_next_peak",
+    "months_to_next_trough",
+    "next_peak_date",
+    "next_peak_raw",
+    "next_trough_date"
+  ],
+  "totals": {
+    "train": {
+      "windows": 2442,
+      "peak_coverage": 1.0,
+      "trough_coverage": 1.0,
+      "cycle_length_coverage": 1.0,
+      "next_peak_in_24m": 0.1760851760851761,
+      "next_trough_in_24m": 0.17280917280917282
+    },
+    "val": {
+      "windows": 109,
+      "peak_coverage": 1.0,
+      "trough_coverage": 1.0,
+      "cycle_length_coverage": 1.0,
+      "next_peak_in_24m": 0.21100917431192662,
+      "next_trough_in_24m": 0.0
+    },
+    "test": {
+      "windows": 109,
+      "peak_coverage": 1.0,
+      "trough_coverage": 1.0,
+      "cycle_length_coverage": 1.0,
+      "next_peak_in_24m": 0.21100917431192662,
+      "next_trough_in_24m": 0.13761467889908258
+    }
+  }
+}

@@ -1,0 +1,47 @@
+               column  folds  valid_samples  mae_mean  mae_std  rmse_mean  bias_mean  median_abs_error_mean  within_6m_mean  within_12m_mean
+  months_to_next_peak      1            109 11.928274      0.0  28.353802   4.459048               4.631205        0.596330         0.853211
+months_to_next_trough      1            109  7.589090      0.0   9.651440   7.333519               5.679535        0.522936         0.743119
+        next_peak_raw      1            109 19.650148      0.0  26.212442  18.810909              17.137665             NaN              NaN
+{
+  "des": "B26M-MT-CHRONO-UNC-SC24-V2",
+  "seed": 2021,
+  "folds_found": 1,
+  "summary": [
+    {
+      "column": "months_to_next_peak",
+      "folds": 1,
+      "valid_samples": 109,
+      "mae_mean": 11.928274154663086,
+      "mae_std": 0.0,
+      "rmse_mean": 28.353801727294922,
+      "bias_mean": 4.459047794342041,
+      "median_abs_error_mean": 4.631204605102539,
+      "within_6m_mean": 0.5963302752293578,
+      "within_12m_mean": 0.8532110091743119
+    },
+    {
+      "column": "months_to_next_trough",
+      "folds": 1,
+      "valid_samples": 109,
+      "mae_mean": 7.589089870452881,
+      "mae_std": 0.0,
+      "rmse_mean": 9.651439666748047,
+      "bias_mean": 7.333518981933594,
+      "median_abs_error_mean": 5.679534912109375,
+      "within_6m_mean": 0.5229357798165137,
+      "within_12m_mean": 0.7431192660550459
+    },
+    {
+      "column": "next_peak_raw",
+      "folds": 1,
+      "valid_samples": 109,
+      "mae_mean": 19.650148391723633,
+      "mae_std": 0.0,
+      "rmse_mean": 26.21244239807129,
+      "bias_mean": 18.810909271240234,
+      "median_abs_error_mean": 17.137664794921875,
+      "within_6m_mean": NaN,
+      "within_12m_mean": NaN
+    }
+  ]
+}

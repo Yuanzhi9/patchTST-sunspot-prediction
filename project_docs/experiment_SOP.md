@@ -51,6 +51,15 @@
 | 35 | **commit 漏掉未跟踪的原始训练日志**：EXP-27~30 的 `logs/EXP-*.log`（各 318 行，含逐 epoch train/val loss、学习率、EarlyStopping counter）未入库，远端只剩结论、没有过程，别人 clone 后复现不了训练动态 | commit 时只 `git add` 了自己这次改过的文件，**没有按"未跟踪文件全量"对账**。反例就在眼前：同批的 EXP-25/26 日志已入库，标准摆着却没比对 | §6 记录节新增门禁「提交前核对未跟踪文件」：`git status --porcelain --untracked-files=all`，逐条把未跟踪文件判为「证据→提交」或「残留→ignore」，**有未归类的就不许 commit** |
 | 36 | 运行残留混进版本库：`logs/EXP-25.pid` 被提交，而同类的 `EXP-26.pid`/`EXP-30.pid` 没有——同一类文件两种处理 | `.gitignore` 无 pid 规则，pid 进不进库取决于当时顺手不顺手 | `.gitignore` 加 `*.pid`（消融分支/GPU-exp26/主线三处同步）；已入库的 `EXP-25.pid` 属删文件，**待景修批准后** `git rm --cached` |
 
+### 并行实验坑（2026-11-27 景修要求固化）
+
+| # | 坑 | 根因 | 对策 |
+|---|----|------|------|
+| 37 | 同一批 SC20/SC21/SC24 并行任务使用了相同 `des`，后启动任务命中先完成任务的结果目录，造成复用、覆盖或错误拼接 | 结果目录只由 `des + fold + seed` 生成，`des` 不含周期/切分标识 | **并行任务的 `des` 必须包含所有区分维度**（至少 cycle/split）；评估前硬校验 `cv_window_meta.json` 的 `outer_val` 与对应 config 完全一致 |
+| 38 | 并发进程在同一秒启动时，配置文件因文件名不含 seed 而互相覆盖 | config 文件名只有 `des + mode + fold + timestamp`，没有 seed | **config 文件名必须包含 seed**，并保证 `(des, mode, fold, seed)` 全局唯一；并发收口时检查 config 数量 == 完成的 run 数量 |
+| 39 | 修改正在被 `xargs -P` 消费的 shell 脚本，新 worker 读到半写入文件，出现语法错误 | 编辑器写文件不是原子替换，运行中 worker 会重新读取脚本 | **脚本运行期间只读，禁止热修改**；修改后先等全部 worker 退出，再 `bash -n`，并用 1 epoch、2 worker 冒烟验证 |
+| 40 | 错误结果虽未进入最终汇总，但若留在 `results/` 仍可能被后续 `find/glob` 再拾取 | 只用“记得别用”管理错误产物，没有物理隔离 | 修正在 workspace 外 `mktemp -d` 隔离区整体移出；最终汇总前机器检查无效 ID 为 0、结果数 == 配置数、所有 meta 对齐 |
+
 ---
 
 ## 两档

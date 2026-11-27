@@ -1,0 +1,323 @@
+{
+  "status": "PASS",
+  "expected_runs": 45,
+  "checked_runs": 45,
+  "errors": [],
+  "checks": [
+    {
+      "variant": "fixed",
+      "cycle": "SC20",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC20-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC20-V2_mtall_F1_seed2019_20261127_120527.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC20",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC20-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC20-V2_mtall_F1_seed2020_20261127_120527.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC20",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC20-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC20-V2_mtall_F1_seed2021_20261127_120527.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC20",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC20-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC20-V2_mtall_F1_seed2022_20261127_120527.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC20",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC20-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC20-V2_mtall_F1_seed2023_20261127_120630.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC21",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC21-V2_mtall_F1_seed2019_20261127_120632.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC21",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC21-V2_mtall_F1_seed2020_20261127_120634.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC21",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC21-V2_mtall_F1_seed2021_20261127_120635.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC21",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC21-V2_mtall_F1_seed2022_20261127_120735.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC21",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC21-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC21-V2_mtall_F1_seed2023_20261127_120741.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC24",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC24-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC24-V2_mtall_F1_seed2019_20261127_120741.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC24",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC24-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC24-V2_mtall_F1_seed2020_20261127_120741.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC24",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC24-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC24-V2_mtall_F1_seed2021_20261127_120840.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC24",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC24-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC24-V2_mtall_F1_seed2022_20261127_120847.json"
+    },
+    {
+      "variant": "fixed",
+      "cycle": "SC24",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.1_fixed_B26M-MT-CHRONO-SC24-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-SC24-V2_mtall_F1_seed2023_20261127_120850.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC20",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC20-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC20-V2_mtall_F1_seed2019_20261127_121008.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC20",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC20-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC20-V2_mtall_F1_seed2020_20261127_121008.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC20",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC20-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC20-V2_mtall_F1_seed2021_20261127_121008.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC20",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC20-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC20-V2_mtall_F1_seed2022_20261127_121008.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC20",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC20-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC20-V2_mtall_F1_seed2023_20261127_121116.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC21",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC21-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC21-V2_mtall_F1_seed2019_20261127_121117.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC21",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC21-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC21-V2_mtall_F1_seed2020_20261127_121117.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC21",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC21-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC21-V2_mtall_F1_seed2021_20261127_121117.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC21",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC21-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC21-V2_mtall_F1_seed2022_20261127_121224.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC21",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC21-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC21-V2_mtall_F1_seed2023_20261127_121227.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC24",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC24-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC24-V2_mtall_F1_seed2019_20261127_121227.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC24",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC24-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC24-V2_mtall_F1_seed2020_20261127_121228.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC24",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC24-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC24-V2_mtall_F1_seed2021_20261127_121333.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC24",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC24-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC24-V2_mtall_F1_seed2022_20261127_121335.json"
+    },
+    {
+      "variant": "unc",
+      "cycle": "SC24",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw1_uncertainty_B26M-MT-CHRONO-UNC-SC24-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-UNC-SC24-V2_mtall_F1_seed2023_20261127_121340.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC20",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC20-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC20-V2_mtall_F1_seed2019_20261127_121343.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC20",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC20-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC20-V2_mtall_F1_seed2020_20261127_121447.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC20",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC20-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC20-V2_mtall_F1_seed2021_20261127_121448.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC20",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC20-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC20-V2_mtall_F1_seed2022_20261127_121448.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC20",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC20-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC20-V2_mtall_F1_seed2023_20261127_121453.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC21",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC21-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC21-V2_mtall_F1_seed2019_20261127_121552.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC21",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC21-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC21-V2_mtall_F1_seed2020_20261127_121552.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC21",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC21-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC21-V2_mtall_F1_seed2021_20261127_121554.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC21",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC21-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC21-V2_mtall_F1_seed2022_20261127_121556.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC21",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC21-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC21-V2_mtall_F1_seed2023_20261127_121658.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC24",
+      "seed": 2019,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC24-V2_F1_seed2019",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC24-V2_mtall_F1_seed2019_20261127_121701.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC24",
+      "seed": 2020,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC24-V2_F1_seed2020",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC24-V2_mtall_F1_seed2020_20261127_121702.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC24",
+      "seed": 2021,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC24-V2_F1_seed2021",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC24-V2_mtall_F1_seed2021_20261127_121702.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC24",
+      "seed": 2022,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC24-V2_F1_seed2022",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC24-V2_mtall_F1_seed2022_20261127_121803.json"
+    },
+    {
+      "variant": "w030",
+      "cycle": "SC24",
+      "seed": 2023,
+      "result_dir": "/output/PR24-MULTITASK-EXTREMA/results/sunspot_PatchTSTMultiTask_cv5_ftMS_sl132_ll48_pl24_dm128_nh8_el2_df2048_p36_s18_mtall_aw0.3_fixed_B26M-MT-CHRONO-W030-SC24-V2_F1_seed2023",
+      "config": "/output/PR24-MULTITASK-EXTREMA/configs/B26M-MT-CHRONO-W030-SC24-V2_mtall_F1_seed2023_20261127_121811.json"
+    }
+  ]
+}

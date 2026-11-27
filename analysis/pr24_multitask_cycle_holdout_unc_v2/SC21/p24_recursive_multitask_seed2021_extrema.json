@@ -1,0 +1,32 @@
+{
+  "curve": "analysis/pr24_multitask_cycle_holdout_unc_v2/SC21/p24_update_seed2021/p24_recursive_multitask_curve.csv",
+  "n_months": 132,
+  "raw_metrics": {
+    "mae": 31.198975007767014,
+    "rmse": 39.450854825603145,
+    "bias": 23.97307795483713,
+    "r2": 0.7540052753480628,
+    "negative_months": 0
+  },
+  "smoothed": {
+    "smooth_window_months": 13,
+    "order": "peak_then_trough",
+    "peak": {
+      "true_date": "1989-06",
+      "true_value": 212.76923076923077,
+      "pred_date": "1990-05",
+      "pred_value": 245.7005084377053,
+      "amplitude_error": 32.931277668474536,
+      "time_error_months": 11
+    },
+    "trough": {
+      "true_date": "1996-08",
+      "true_value": 11.053846153846154,
+      "pred_date": "1996-09",
+      "pred_value": 23.01845102252813,
+      "amplitude_error": 11.964604868681976,
+      "time_error_months": 1
+    },
+    "amplitude_ratio": 0.8932176156295499
+  }
+}

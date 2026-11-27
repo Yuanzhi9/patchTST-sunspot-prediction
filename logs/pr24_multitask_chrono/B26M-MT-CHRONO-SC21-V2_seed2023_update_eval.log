@@ -1,0 +1,13 @@
+ fold test_start test_end  n_windows  full_MAE  full_RMSE  full_bias  block24_MAE  block24_RMSE  block24_bias
+    1    1986-04  1997-03        109  26.46387  35.225234  11.407919    25.514324     32.727605     11.192078
+{
+  "des": "B26M-MT-CHRONO-SC21-V2",
+  "seed": 2023,
+  "folds_found": 1,
+  "full_MAE_mean": 26.463870399078466,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 26.463870399078466,
+  "block24_MAE_mean": 25.5143240292867,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 25.5143240292867
+}

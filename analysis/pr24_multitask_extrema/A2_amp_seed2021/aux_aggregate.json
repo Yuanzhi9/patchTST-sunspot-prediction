@@ -1,0 +1,17 @@
+{
+  "des": "B26M-MT-AMP-A2",
+  "seed": 2021,
+  "folds_found": 4,
+  "summary": [
+    {
+      "column": "next_peak_raw",
+      "folds": 4,
+      "valid_samples": 2444,
+      "mae_mean": 62.37214756011963,
+      "mae_std": 13.25352969808118,
+      "rmse_mean": 77.36356449127197,
+      "bias_mean": 3.447960376739502,
+      "median_abs_error_mean": 45.772884368896484
+    }
+  ]
+}

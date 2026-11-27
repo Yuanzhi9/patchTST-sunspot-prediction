@@ -1,0 +1,11 @@
+{
+  "des": "B26M-MT-TTIME-A4",
+  "seed": 2021,
+  "folds_found": 4,
+  "full_MAE_mean": 27.416288929091625,
+  "full_MAE_std": 3.2915133408316457,
+  "full_MAE_worst": 32.747351878819366,
+  "block24_MAE_mean": 27.08074162122778,
+  "block24_MAE_std": 3.1780816099463607,
+  "block24_MAE_worst": 31.6976604013732
+}

@@ -1,0 +1,11 @@
+{
+  "baseline_full_mean": 26.821179775167753,
+  "baseline_block24_mean": 26.461329267891436,
+  "multitask_full_mean": 26.988418958394487,
+  "multitask_block24_mean": 26.79672422754564,
+  "multitask_full_seed_std": 0.14461554729209228,
+  "multitask_block24_seed_std": 0.34609428851827245,
+  "seeds_improved_full": 1,
+  "seeds_improved_block24": 1,
+  "decision": "reject_full_multitask"
+}

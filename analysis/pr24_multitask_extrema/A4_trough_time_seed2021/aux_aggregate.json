@@ -1,0 +1,19 @@
+{
+  "des": "B26M-MT-TTIME-A4",
+  "seed": 2021,
+  "folds_found": 4,
+  "summary": [
+    {
+      "column": "months_to_next_trough",
+      "folds": 4,
+      "valid_samples": 2444,
+      "mae_mean": 25.487731456756592,
+      "mae_std": 3.884894687991415,
+      "rmse_mean": 33.91017389297485,
+      "bias_mean": 1.3862555027008057,
+      "median_abs_error_mean": 19.44469690322876,
+      "within_6m_mean": 0.1531444099378882,
+      "within_12m_mean": 0.3319827251552795
+    }
+  ]
+}

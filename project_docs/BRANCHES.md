@@ -14,6 +14,7 @@
 | `GPU-basemodel-search` | `/output/GPU-basemodel` | 历史工作线：GPU 基模早期探索 | 保留备查；当前不再作为主工作线 | ⚪ 历史工作线 |
 | `BASE-2026-11-M` | `/output/BASE-2026-11-M` | **独立工作线**：2026-10 月均数据 24 月基线；顺序块五折 | `STATE.md`、`EXPERIMENT_B26M-followup_validation_2026-11-19.md` | 🟢 已验证并推送；暂不合并 |
 | `BASE-2026-11-M-P132` | `/output/BASE-2026-11-M-P132` | **双基线 p132 工作线**：直接 132 月输出；独立 507/160 内层切分 | `EXPERIMENT_B26M-dual-baseline_2026-11-20.md`、`STATE.md` | 🟢 已推送；等待验收；不合并 |
+| `exp/pr24-multitask-extrema` | `/output/PR24-MULTITASK-EXTREMA` | **PR24 多任务极值支线**：24 月曲线 + 峰幅/峰时/谷时/周期长度辅助监督；先 PR24，后 PR132 | `EXPERIMENT_B26M-PR24-MULTITASK_2026-11-27.md` | 🟡 PR24 A0–A6 完成，全量头不采纳；PR132 未启动 |
 | `BASE-2026-11-M-P132-publish` | `/tmp/p132-publish` | PR132 完整结果的分批传输镜像；最终内容树与 `BASE-2026-11-M-P132` 一致 | Git tree `af2491f` 对拍 | 🟡 传输辅助分支；不并入研究主线 |
 | `P132-publish-core` | `/tmp/p132-publish-core` | PR132 GitHub API 上传失败后的最小核心证据传输尝试 | 仅用于传输审计 | ⚪ 临时辅助分支；不并入研究主线 |
 | `P132-publish-one` | `/tmp/p132-publish-one` | PR132 单文件传输诊断分支 | 仅用于定位 408 | ⚪ 临时辅助分支；不并入研究主线 |

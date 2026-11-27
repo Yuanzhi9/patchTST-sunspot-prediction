@@ -1,0 +1,3 @@
+[AI 2026-10-10] checkpoint 含非张量对象（UnpicklingError），按项目自身产物处理，使用 weights_only=False 加载：full_checkpoint.pth
+analysis/pr24_multitask_cycle_holdout_unc_v2/SC24/p24_update_seed2023/p24_recursive_multitask_curve.csv
+analysis/pr24_multitask_cycle_holdout_unc_v2/SC24/p24_update_seed2023/p24_recursive_multitask_blocks.csv

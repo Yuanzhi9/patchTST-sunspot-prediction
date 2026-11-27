@@ -1,0 +1,2 @@
+column,folds,valid_samples,mae_mean,mae_std,rmse_mean,bias_mean,median_abs_error_mean
+next_peak_raw,4,2444,62.37214756011963,13.25352969808118,77.36356449127197,3.447960376739502,45.772884368896484

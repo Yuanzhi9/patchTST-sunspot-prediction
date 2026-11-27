@@ -1,0 +1,11 @@
+{
+  "des": "B26M-MT-AMP-A2",
+  "seed": 2021,
+  "folds_found": 4,
+  "full_MAE_mean": 27.594010958512456,
+  "full_MAE_std": 3.2383298022526144,
+  "full_MAE_worst": 32.910593485087155,
+  "block24_MAE_mean": 27.058390611202764,
+  "block24_MAE_std": 3.2249988369754923,
+  "block24_MAE_worst": 31.630663694034922
+}

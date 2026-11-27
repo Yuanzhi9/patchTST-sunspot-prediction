@@ -1,0 +1,19 @@
+{
+  "des": "B26M-MT-PTIME-A3",
+  "seed": 2021,
+  "folds_found": 4,
+  "summary": [
+    {
+      "column": "months_to_next_peak",
+      "folds": 4,
+      "valid_samples": 2444,
+      "mae_mean": 30.348598957061768,
+      "mae_std": 5.240338142947157,
+      "rmse_mean": 39.00477933883667,
+      "bias_mean": -4.996579825878143,
+      "median_abs_error_mean": 24.497018337249756,
+      "within_6m_mean": 0.13687948854813664,
+      "within_12m_mean": 0.26144883055124224
+    }
+  ]
+}

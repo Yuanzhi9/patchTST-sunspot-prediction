@@ -1,0 +1,11 @@
+{
+  "des": "B26M-MT-A6-UNC",
+  "seed": 2021,
+  "folds_found": 4,
+  "full_MAE_mean": 27.44271085216108,
+  "full_MAE_std": 3.1789875037211845,
+  "full_MAE_worst": 32.54853537337233,
+  "block24_MAE_mean": 26.80774333699116,
+  "block24_MAE_std": 3.580957772628791,
+  "block24_MAE_worst": 32.499508091897674
+}

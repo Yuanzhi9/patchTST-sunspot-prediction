@@ -1,0 +1,11 @@
+{
+  "des": "B26M-MT-CHRONO-SC21-V2",
+  "seed": 2021,
+  "folds_found": 1,
+  "full_MAE_mean": 26.430488931440067,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 26.430488931440067,
+  "block24_MAE_mean": 24.29956996281942,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 24.29956996281942
+}

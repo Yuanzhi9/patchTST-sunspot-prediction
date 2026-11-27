@@ -1,0 +1,11 @@
+{
+  "des": "B26M-MT-CHRONO-UNC-SC24-V2",
+  "seed": 2019,
+  "folds_found": 1,
+  "full_MAE_mean": 14.785531764657488,
+  "full_MAE_std": 0.0,
+  "full_MAE_worst": 14.785531764657488,
+  "block24_MAE_mean": 16.460098686218263,
+  "block24_MAE_std": 0.0,
+  "block24_MAE_worst": 16.460098686218263
+}
