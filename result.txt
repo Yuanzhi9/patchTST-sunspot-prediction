@@ -726,3 +726,6 @@ B26M-PR24-MULTITASK-AUDIT  expected_runs=45  checked_runs=45  config_seed_unique
 B26M-PR24-MULTITASK-FUTURE-RAW  origin=2026-10  seed_files=5  median_peak_raw=137.216  median_peak_date=2035-01  seed_peak_range=123.029-156.690  evidence=analysis/pr24_multitask_future_forecast/raw_target/forecast_seed_band.csv
 B26M-PR24-MULTITASK-FUTURE-13M  origin=2026-04  seed_files=5  median_peak_smooth13=153.878  median_peak_date=2034-02  seed_peak_range=110.814-213.028  evidence=analysis/pr24_multitask_future_forecast/smooth13_target/forecast_seed_band.csv
 B26M-PR24-MULTITASK-PEAK-CORR  old_raw_R1B_range=190.038-205.848  old_13m_R1B_range=126.996-139.837  R1A_widths=12/24/36  mt_13m_H12=failed  decision=separate_tracks_conditional_scenarios  evidence=analysis/pr24_multitask_future_correction/future_peak_comparison.csv
+
+# [2026-11-27] 景修对峰值条件化结果的判断与下一轮优先级
+B26M-PR24-MULTITASK-REVIEW  multitask_heads=no_stable_net_gain  peak_conditioned_profiles=more_physically_normal  interpretation=conditioning_evidence_not_autonomous_skill  next_priority=R1B_amplitude_conditioned_normalized_shape  evidence=EXPERIMENT_B26M-PR24-MULTITASK-FUTURE_2026-11-27.md
